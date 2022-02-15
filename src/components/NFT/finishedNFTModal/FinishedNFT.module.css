@@ -1,0 +1,79 @@
+.container{
+    background-color: white;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; 
+    border-radius: 10px;
+
+
+    position: fixed;
+    align-self: center;
+    margin-top: 5px;
+
+    z-index: 20;
+
+
+}
+.container:hover{
+    box-shadow: 0 0 400px rgba(81, 101, 155, 0.329);
+}
+
+.info{
+
+}
+.txHash{
+
+    color: rgb(45, 15, 153);
+    cursor: pointer;
+}
+.txHash:hover{
+    text-decoration: underline;
+}
+
+.desriptionWrapper{
+    display: flex;
+    width: 294px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 1px 13px rgba(0, 0, 0, 0.2);
+    padding: 3px;
+}
+.textWrapper1{
+    font-size: 15px;
+    flex-grow: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.textWrapper2{
+    font-size: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.loaderGif{
+
+    width:25%;
+
+}
+
+
+
+@media(max-width: 700px){
+
+    .desriptionWrapper{
+
+        width: 194px;
+    }
+    .textWrapper1{
+        font-size: 9px;
+    }
+    .textWrapper2{
+        font-size: 9px;
+    }
+}

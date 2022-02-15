@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e5a334f3.chunk.css",
+    "main.js": "/static/js/main.a6bf20f7.chunk.js",
+    "main.js.map": "/static/js/main.a6bf20f7.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.3e33dec6.js",
+    "runtime-main.js.map": "/static/js/runtime-main.3e33dec6.js.map",
+    "static/js/2.784a6c74.chunk.js": "/static/js/2.784a6c74.chunk.js",
+    "static/js/2.784a6c74.chunk.js.map": "/static/js/2.784a6c74.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.e5a334f3.chunk.css.map": "/static/css/main.e5a334f3.chunk.css.map",
+    "static/js/2.784a6c74.chunk.js.LICENSE.txt": "/static/js/2.784a6c74.chunk.js.LICENSE.txt",
+    "static/media/art.7c76fa74.png": "/static/media/art.7c76fa74.png",
+    "static/media/eth-logo.623462b4.svg": "/static/media/eth-logo.623462b4.svg",
+    "static/media/friend.a702d2ac.png": "/static/media/friend.a702d2ac.png",
+    "static/media/invalid.110ff041.png": "/static/media/invalid.110ff041.png",
+    "static/media/nft_exampe.0652c7e5.jpeg": "/static/media/nft_exampe.0652c7e5.jpeg",
+    "static/media/profil.ae3a914b.png": "/static/media/profil.ae3a914b.png",
+    "static/media/profilColor.f5d20255.png": "/static/media/profilColor.f5d20255.png",
+    "static/media/setting.e13b8b8c.png": "/static/media/setting.e13b8b8c.png",
+    "static/media/settings2.168bd09a.png": "/static/media/settings2.168bd09a.png",
+    "static/media/valid.b3233269.png": "/static/media/valid.b3233269.png",
+    "static/media/wallet.cf00d6f9.png": "/static/media/wallet.cf00d6f9.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3e33dec6.js",
+    "static/js/2.784a6c74.chunk.js",
+    "static/css/main.e5a334f3.chunk.css",
+    "static/js/main.a6bf20f7.chunk.js"
+  ]
+}

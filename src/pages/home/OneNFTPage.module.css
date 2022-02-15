@@ -1,0 +1,103 @@
+.container{
+
+    width: 100% -padding;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(247, 245, 245);
+
+
+}
+
+
+.left{
+    height: 100%;
+    width: 40%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+
+
+
+}
+
+.right{
+    height: 100%;
+    width: 60%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items:flex-start;
+    padding: 30px;
+    padding-left:20px;
+
+
+}
+
+.NFTWrapper{
+    margin: 30px;
+    margin-right: 5px;
+    height: 470px;
+    width: 400px;
+}
+
+
+
+
+
+
+
+
+
+
+.name{
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+.ownerWrapper{
+    display: flex;
+    gap: 15px;
+}
+.text{
+    font-size: 15px;
+}
+.owner{
+    font-size:15px;
+    color:blue;
+    cursor: pointer;
+}
+.owner:hover{
+    color: rgb(46, 46, 129);
+
+}
+.herz{
+    height: 15px;
+}
+
+.likesWrapper{
+    display: flex;
+    gap:8px;
+    align-items: center;
+    cursor: pointer;
+    opacity: 50%;
+}
+.likesWrapper:hover{
+    opacity: 100%;
+    
+}
+
+.metadataWrapper{
+    margin-top: 15px;
+    display: flex;
+    gap: 15px;
+}
+
+.buttonWrapper{
+    margin-top: 200px;
+    display: flex;
+    gap: 30px;
+}

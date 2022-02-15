@@ -1,0 +1,16 @@
+.addressWrapper{
+    display: flex;
+    border: 3px solid rgb(211, 211, 211);
+    border-radius: 8px;
+    align-items: center;
+    gap:3px;
+    height: 22px;
+}
+.cryptoSign{
+    height: 20px;
+}
+
+.address{
+    font-size: 12px;
+
+}

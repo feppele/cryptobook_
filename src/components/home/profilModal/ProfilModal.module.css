@@ -1,0 +1,75 @@
+
+.invisibleWrapper{
+    display: flex;
+    flex-direction: column;
+    top: 65px;
+    right: 82px;
+    position: fixed;
+    z-index: 100;
+
+}
+.invisibleBox{
+    z-index: 100;
+    width: 100%;
+    height: 20px;
+}
+
+
+
+.modal{
+
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    background-color: white;
+    text-align: center;
+    width: 180px;
+    z-index: 10;
+
+
+
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+.buttonWrapper{
+    margin-left: 5px;
+    margin-bottom: 3px;
+    height: 35px;
+    width: 80%;
+
+    display: flex;
+}
+
+.profilPic{
+    height:100%;
+}
+.settingPic{
+    height:100%;
+}
+
+.button{
+    width: 100%;
+    background-color: white;
+    color: rgb(6, 29, 42);;
+    font-size: 20px;
+    border-style:hidden;
+}
+.button:active {
+    border-style: hidden;
+}
+.button:hover{
+    color: rgb(0,124,255);
+}
+
+
+@media(max-width:660px){
+
+    .invisibleWrapper{
+    right: 80px;
+
+    }
+
+}

@@ -1,0 +1,14 @@
+.container{
+
+    width: 100% -padding;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+
+}
+
+
+.unvalid{
+    font-size: 40px;
+
+}

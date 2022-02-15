@@ -1,0 +1,94 @@
+.container{
+    width: 100%;
+    min-height: 100vh;
+    background-color: white;
+    display:flex;
+    justify-content: center;
+}
+
+.container2{
+
+    width: 55%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 25px;
+
+
+}
+
+.h1{
+    margin-top:40px;
+    font-size: 44px;
+
+}
+.h2{
+    margin-top: 20px;
+    font-size:22px;
+
+}
+
+.textInput{
+
+    padding-left: 10px;
+    width: 99%;
+    height: 40px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 2px solid rgb(209, 209, 209);
+}
+.textInput:focus{
+    box-shadow: 0 0 10px grey ;
+}
+
+.fehlermeldung{
+    font-size: 15px;
+    color: red;
+    margin-bottom:0px;
+}
+
+
+
+.imageUploadWrapper{
+
+    height: 250px;
+    width:250px;
+    position: relative;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imageInput{
+
+    height: 0.1px;
+    width: 0.1px;
+    visibility: hidden;
+}
+
+.hiddenFileButton{
+
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    cursor:pointer;
+    border: 3px dashed grey ;
+    border-radius: 5px;
+}
+.hiddenFileButton:hover{
+    background-color: rgb(201, 201, 201);
+    opacity: 30%;
+}
+.image{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+   
+}
+.coverImage{
+    height: 30%;
+    width: 30%;
+    opacity: 30%;
+    position: absolute;
+}

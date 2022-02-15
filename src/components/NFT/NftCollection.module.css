@@ -1,0 +1,28 @@
+.container{
+    width: 70%;
+    margin-top: 120px;
+    align-items: center;
+    justify-content: center;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 10px;
+
+
+    margin-bottom: 30px;
+
+
+}
+
+@media(max-width:1100px){
+    .container{
+        width: 88%;
+    }
+}
+
+@media(max-width:800px){
+    .container{
+        width: 99%;
+    }
+}

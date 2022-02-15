@@ -1,0 +1,123 @@
+.container{
+
+  z-index:200;
+  width: 100% -padding;
+  height: 90px;
+  position: sticky;
+  top:0;
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+
+  background-color: rgb(6, 29, 42);
+}
+
+
+
+.logo{
+  margin-left: 100px;
+  background-color: rgb(6, 29, 42);
+  font-size: 33px;
+  color: white;
+  border-style:hidden;
+}
+.logo:active {
+  border-style: hidden;
+}
+.logo:hover{
+  color: rgb(0,124,255);
+  cursor: pointer;
+}
+
+
+
+
+.menuWrapper{
+  margin-right: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.profilColor{
+  margin-right: 30px;
+  height: 45px;
+  border-radius: 100px;
+  border: 4px solid rgb(43, 43, 43);
+
+  z-index: 20;
+  cursor: pointer;
+}
+
+
+
+
+.wrap4Modal{
+  height: 60px;
+  display: flex;
+  align-items: center;
+
+  z-index: 2;
+}
+
+.menu{
+  margin-right: 20px;
+  width: 30px;
+  height: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3 px;
+  cursor: pointer;
+}
+
+.stripe{
+
+  width: 100%;
+  height: 5px;
+  border-radius: 10px;
+
+  background-color: rgb(255, 255, 255);
+}
+
+.stripe:hover{
+
+  background-color: rgb(0,124,255);
+}
+
+
+
+
+@media (max-width:800px){
+
+  .logo{
+    margin-left: 50px;
+    font-size: 28px;
+
+  }
+  .menuWrapper{
+    margin-right: 20px;
+
+  }
+  .loginButton{
+    margin-right: 20px;
+    font-size: 16px;
+
+  }
+}
+@media (max-width:500px){
+
+  .logo{
+    margin-left: 0px;
+    font-size: 21px;
+
+  }
+  .menuWrapper{
+    margin-right: 0px;
+
+  }
+  .loginButton{
+    margin-right: 10px;
+    font-size: 16px;
+
+  }
+}

@@ -1,0 +1,41 @@
+.imageUploadWrapper{
+
+    height: 250px;
+    width:250px;
+    position: relative;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imageInput{
+
+    height: 0.1px;
+    width: 0.1px;
+    visibility: hidden;
+}
+
+.hiddenFileButton{
+
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    cursor:pointer;
+    border: 3px dashed grey ;
+    border-radius: 5px;
+}
+.hiddenFileButton:hover{
+    background-color: rgb(201, 201, 201);
+    opacity: 30%;
+}
+.image{
+    height: 300px;
+    width: 300px;
+    position: absolute;
+}
+.coverImage{
+    height: 30%;
+    width: 30%;
+    opacity: 30%;
+    position: absolute;
+}

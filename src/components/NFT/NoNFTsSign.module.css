@@ -1,0 +1,39 @@
+.noFriendsWrapper{
+
+    margin-top: 200px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    position: absolute;
+    width: 500px;
+    top:0px;
+    left: 24vw;
+}
+
+
+
+
+.noFriends{
+
+    font-size: 40px;
+    opacity: 30%;
+}
+
+.sad{
+    width: 100%;
+    opacity: 20%;
+    height: 30%;
+}
+
+@media(max-width: 700px){
+    .noFriendsWrapper{
+        margin-top: 150px;
+        width: 300px;
+    }
+    .noFriends{
+        font-size: 20px;
+    }
+
+}

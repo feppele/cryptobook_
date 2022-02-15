@@ -1,0 +1,68 @@
+.container{
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+
+    gap:0px;
+}
+
+.greyBox{
+    z-index: 1;
+    background-color: rgb(211, 211, 211);
+    height: 100px;
+    width: 100%;
+    position: absolute;
+
+}
+
+.profilePicture{
+    z-index: 2;
+    margin-top: 40px;
+    border-radius: 100%;
+    border: 2px solid rgb(236, 236, 236);
+    height: 100px;
+    width: 100px;
+    margin-bottom: 0px;
+}
+
+.name{
+    margin:5px;
+    font-size: 30px;
+    font-weight:bold;
+
+}
+
+.addressWrapper{
+    display: flex;
+    border: 3px solid rgb(211, 211, 211);
+    border-radius: 8px;
+    align-items: center;
+    gap:3px;
+    height: 22px;
+}
+.cryptoSign{
+    height: 20px;
+}
+
+.address{
+    font-size: 15px;
+
+}
+
+.friend_symbol{
+    height: 25px;
+    z-index: 200;
+    opacity: 50%;
+}
+.friend_symbol:hover{
+    opacity: 100%;
+}
+
+.nameWrapper{
+    gap:10px;
+    display: flex;
+    align-items: center;
+}

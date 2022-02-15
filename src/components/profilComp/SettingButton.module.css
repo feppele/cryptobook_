@@ -1,0 +1,15 @@
+.settingButton{
+    z-index: 2;
+    position:absolute;
+    top: 110px;
+    right: 10px;
+
+    display: flex;
+
+}
+
+.settingButton img{
+    height: 20px;
+    width: 20px;
+    opacity: 70%;
+}

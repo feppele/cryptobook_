@@ -1,0 +1,53 @@
+.left{
+    height: 100%;
+    width: 50%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin-left: 70px;
+    margin-top: 50px;
+
+}
+.friends{
+    color:rgb(6, 29, 42);
+    font-size: 44px;
+    font-weight: bold;
+
+}
+
+.text{
+    margin:0;
+    width: 60%;
+    font-size: 22px;
+}
+
+.buttonWrapper{
+    margin-top:  20px;
+    display: flex;
+    gap: 66px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media(max-width:  1000px){
+
+
+
+
+}
+
+
+

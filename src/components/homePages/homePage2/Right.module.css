@@ -1,0 +1,47 @@
+.right{
+    background-color:white;
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+
+
+.imageWrapper{
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
+}
+.imageWrapper:hover{
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+.image{
+
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.box{
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    height: 30px;
+}
+
+
+
+@media(max-width: 1000px){
+
+
+
+
+}
+
+
+

@@ -1,0 +1,128 @@
+.container{
+
+  z-index:200;
+  width: 100% -padding;
+  height: 100px;
+  position: sticky;
+  top:0;
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+
+  background-color: rgb(6, 29, 42);
+
+}
+
+
+
+.logo{
+  margin-left: 100px;
+  background-color: rgb(6, 29, 42);
+  font-size: 33px;
+  color: white;
+  border-style:hidden;
+  cursor: pointer;
+}
+.logo:active {
+  border-style: hidden;
+}
+.logo:hover{
+  color: rgb(0,124,255);
+}
+
+
+
+
+.menuWrapper{
+  
+  margin-right: 50px;
+  display: flex;
+  align-items: center;
+
+}
+
+.loginButton{
+  cursor: pointer;
+  z-index: 20;
+  margin-right: 30px;
+  background-color: rgb(6, 29, 42);
+  height: 80px;
+  font-size: 20px;
+  color: white;
+  border-style:hidden;
+}
+.loginButton:active {
+  background-color: rgba(0, 0, 0, 0.685);
+  border-style: hidden;
+}
+.loginButton:hover{
+  background-color: rgba(0, 0, 0, 0.685);
+  color: rgb(0,124,255);
+}
+
+
+
+.menu{
+  cursor: pointer;
+  margin-right: 20px;
+  width: 30px;
+  height: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3 px;
+
+}
+
+.stripe{
+
+  width: 100%;
+  height: 5px;
+  border-radius: 10px;
+
+  background-color: rgb(255, 255, 255);
+}
+
+.stripe:hover{
+
+  background-color: rgb(0,124,255);
+}
+
+
+
+
+@media (max-width:800px){
+
+  .logo{
+    margin-left: 50px;
+    font-size: 28px;
+
+  }
+  .menuWrapper{
+    margin-right: 20px;
+
+  }
+  .loginButton{
+    margin-right: 20px;
+    font-size: 16px;
+
+  }
+}
+@media (max-width:500px){
+
+  .logo{
+    margin-left: 0px;
+    font-size: 21px;
+
+  }
+  .menuWrapper{
+    margin-right: 0px;
+
+  }
+  .loginButton{
+    margin-right: 10px;
+    font-size: 16px;
+
+  }
+}
+

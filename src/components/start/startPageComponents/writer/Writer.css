@@ -1,0 +1,52 @@
+@keyframes blink {
+    from{
+        opacity: 0%;
+     }
+     to{
+         opacity: 100%;
+      }
+ }
+ .type-writer::after{
+
+
+
+     content: "|";
+ animation: blink 1s infinite;
+ }
+ .type-writer > span{
+ }
+
+
+
+ .type-writer{
+     position: absolute;
+     top:28vh;
+    font-family: monospace;
+    font-size: 40px;
+    color: white;
+ }
+ .type-writer:hover{
+    color: rgb(0,124,255);
+ }
+
+ @media(max-width:1000px){
+    .type-writer{
+        font-size: 35px;
+    }
+}
+@media(max-width:800px){
+    .type-writer{
+        font-size: 30px;
+    }
+}
+@media(max-width:650px){
+    .type-writer{
+        font-size: 25px;
+    }
+}
+@media(max-width:500px){
+    .type-writer{
+        font-size: 18px;
+    }
+}
+

@@ -1,0 +1,28 @@
+.buttonWrapper{
+    margin-left: 5px;
+    margin-bottom: 3px;
+    height: 37px;
+    width: 80%;
+    padding: 1px;
+
+    display: flex;
+}
+
+.picture{
+    height:100%;
+}
+
+.button{
+    cursor: pointer;
+    width: 100%;
+    background-color: white;
+    color: rgb(6, 29, 42);;
+    font-size: 20px;
+    border-style:hidden;
+}
+.button:active {
+    border-style: hidden;
+}
+.button:hover{
+    color: rgb(0,124,255);
+}

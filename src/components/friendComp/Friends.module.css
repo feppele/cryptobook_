@@ -1,0 +1,83 @@
+.container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.stripe{
+    position:absolute;
+    height: 1px;
+    width: 100%;
+    top:99px;
+    background-color: rgb(155, 155, 155);
+}
+
+.friendList{
+    z-index: 5;
+    margin-top: 20px;
+    align-self: flex-end;
+    overflow: scroll;
+    height: 500px;
+    width: 100%;
+
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttonHaederWrapper{
+    margin-top: 40px;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.buttonWrapper{
+    display: flex;
+    gap: 22px;
+}
+.header{
+    font-size: 40px;
+    color: rgb(6, 29, 42);
+}
+
+.addButton{
+    z-index:2;
+    color: rgb(0,124,255);
+    font-size: 20px;
+    border: 1px solid rgb(0,124,255);
+    background-color: white;
+    width: 110px;
+    height:50px;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgb(0, 0, 0);
+
+}
+.addButton:active {
+    border-style: hidden;
+}
+.addButton:hover{
+    box-shadow: none;
+}
+
+
+.deleteButton{
+    color: white;
+    font-size: 20px;
+    background-color: blue;
+    width: 110px;
+    height:50px;
+    border-radius: 10px;
+    border-style: hidden;
+    box-shadow: 0 1px 4px rgb(0, 0, 0);
+}
+.deleteButton:active {
+    border-style: hidden;
+}
+.deleteButton:hover{
+    box-shadow: none;
+}
+
