@@ -11,13 +11,14 @@ function NftCollection(props){
 
     const[loading,setLoading]= useState(true);
     const[noNFTs,setNoNFTs] = useState(true);
-    const [metadataArray,setMetadataArray]=useState([]);
-    console.log("start");
 
+    const [metadataArray,setMetadataArray]=useState([]);
     async function loadNFT(){
-        console.log("LoadNFT");
-        await setMetadataArray( await getAllTokensMetadataArray(props.from))
+        await setMetadataArray( await getAllTokensMetadataArray(props.from));
+
+        console.log(metadataArray.length);
         setLoading(false);
+
     }
 
 
@@ -46,7 +47,7 @@ function NftCollection(props){
            {!noNFTs && <NoNFT text ="no NFTs yet"/> }
 
 
-           <NFTFormatCreator metadataArray={metadataArray}/>
+          <NFTFormatCreator metadataArray={metadataArray}/> 
 
         </div>
 

@@ -5,6 +5,7 @@
     align-items: center;
     gap:3px;
     height: 22px;
+    margin-right: 25px;
 }
 .cryptoSign{
     height: 20px;

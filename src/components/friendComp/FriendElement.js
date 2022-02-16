@@ -3,6 +3,12 @@ import etherSign from '../../images/Crypto-Icons/eth-logo.svg';
 import CryptoAddress from '../standart/CryptoAddress';
 import {web3} from '../../web3/Web3';
 import { useHistory } from "react-router-dom";
+import Button6 from '../standart/Button6';
+import deleteImg from '../../images/delete.png';
+import sendImg from '../../images/send.png';
+import profilePic from '../../images/profilepic.png';
+
+import { UserContract } from '../../web3/UserContract';
 
 function FriendElement(props){
     
@@ -23,6 +29,13 @@ function FriendElement(props){
             }
         });
 
+
+    }
+
+
+    function deleteFriend(){
+
+        UserContract.methods.deleteFriend(props.longAddr).send({from: window.web3.currentProvider.selectedAddress}).then(console.log).catch(console.log);
 
     }
 
@@ -48,7 +61,10 @@ function FriendElement(props){
 
                 <div className={classes.wrapper}>
                     <CryptoAddress id="sendToAddr" cryptoSign={etherSign} addr={props.addr}/>
-                    <button onClick={send} addr={props.addr} className={classes.sendButton}> send </button>
+
+                    <Button6 onButtonClicked={openFriendProfile} img={profilePic} popupText={"profile"}/>
+                    <Button6 onButtonClicked={send} img={sendImg} popupText={"send"}/>
+                    <Button6 onButtonClicked={deleteFriend} img={deleteImg} popupText={"delete"}/>
                 </div>
             </div>
 

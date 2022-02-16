@@ -7,6 +7,7 @@ import FriendProfilData from '../../components/friendProfil/FriendProfilData';
 import FriendsNFTs from '../../components/friendProfil/FriendsNFTs';
 import {onLoad,loadFriendsEasy} from '../../web3/LoadingFunctions';
 import {web3} from '../../web3/Web3';
+import {getOptions} from '../../node/databank';
 
 function Profil(){
 
@@ -22,7 +23,7 @@ function Profil(){
 
 
 
-
+    // first check friend on blockchain. if not fund search name in DB
     async function checkIfFriend(){
 
         // get all friends Addresse
@@ -53,6 +54,55 @@ function Profil(){
     useEffect(()=>{
         checkIfFriend();
     },[])
+
+
+
+
+    // load Name from DataBank
+    const [userNameIsLoad,setUserNameIsLoad] =useState(false);
+
+
+    // on Load get name from databank
+    function loadNameFromDB(){
+
+            const options=getOptions("find",{address: person.friend_addr });
+            fetch("/databank",options).then(res => { return res.json()}).then(res=>{
+                if(res==="error"){
+                    setPerson({friend_name:"unnamed",friend_addr: person.friend_addr});
+                    setPersonSet(true);
+                }else{
+                    setPerson({friend_name: res.name ,friend_addr: person.friend_addr});
+                    setPersonSet(true);
+                }
+                setUserNameIsLoad(true);
+            });
+    }
+
+    useEffect(() => {
+
+        if(personSet && !isFriend){
+            loadNameFromDB();
+            console.log("in smart contract nach namen gesucht und NICH freund");
+        }else if (personSet&&isFriend){
+            console.log("in smart contract gesucht und ist freund");
+        }else if (!personSet){
+            console.log("person not set ");
+        }
+
+
+    },[personSet])
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

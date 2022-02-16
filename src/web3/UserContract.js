@@ -3,7 +3,7 @@ const Web3 =require('web3');
 const web3 = new Web3(window.ethereum);
 
 
-const userContractAddress ='0xf6B962810b20E84D468aa3D131F79cc4F601Af54';
+const userContractAddress ='0xF47B5A7AA54B72779861bb15F6906Fa8a4ed8fA3';
 const userContractABI=[
 	{
 		"inputs": [],
@@ -13,20 +13,14 @@ const userContractABI=[
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "_user",
-		"outputs": [
-			{
 				"internalType": "address",
-				"name": "",
+				"name": "friend_addr",
 				"type": "address"
 			}
 		],
-		"stateMutability": "view",
+		"name": "deleteFriend",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -52,7 +46,7 @@ const userContractABI=[
 						"type": "string"
 					}
 				],
-				"internalType": "struct Person.Friend[]",
+				"internalType": "struct User.Friend[]",
 				"name": "",
 				"type": "tuple[]"
 			}
@@ -77,38 +71,9 @@ const userContractABI=[
 						"type": "string"
 					}
 				],
-				"internalType": "struct Person.Friend[]",
+				"internalType": "struct User.Friend[]",
 				"name": "",
 				"type": "tuple[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "myFriends",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "friend_addr",
-				"type": "address"
-			},
-			{
-				"internalType": "string",
-				"name": "friend_name",
-				"type": "string"
 			}
 		],
 		"stateMutability": "view",

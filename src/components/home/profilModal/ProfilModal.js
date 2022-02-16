@@ -13,9 +13,6 @@ import ModalButton from './ModalButton';
 
 function ProfilModal(props){
 
-    console.log(profilPic);
-
-
     return(
 
 

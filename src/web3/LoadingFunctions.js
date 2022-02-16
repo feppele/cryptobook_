@@ -22,6 +22,7 @@ async function loadFriends(){
     var user = accounts[0];
 
     await UserContract.methods.getFriendsFrom(user).call().then(result =>{
+        console.log(result)
 
         var friends =[];
         for(var i=0;i<result.length;i++){

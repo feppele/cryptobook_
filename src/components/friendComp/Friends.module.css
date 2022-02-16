@@ -16,10 +16,10 @@
 }
 
 .friendList{
-    z-index: 5;
     margin-top: 20px;
     align-self: flex-end;
-    overflow: scroll;
+
+    
     height: 500px;
     width: 100%;
 

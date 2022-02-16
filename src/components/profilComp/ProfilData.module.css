@@ -15,7 +15,6 @@
     height: 100px;
     width: 100%;
     position: absolute;
-
 }
 
 .profilePicture{
@@ -50,4 +49,91 @@
 .address{
     font-size: 15px;
 
+}
+
+
+.buttonPosition{
+
+    z-index: 2;
+    position:absolute;
+    top: 110px;
+    right: 50px;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+.textInput{
+
+    padding-left: 10px;
+    height: 35px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 2px solid rgb(209, 209, 209);
+}
+
+.editNameWrapper{
+    margin:5px;
+    margin-top: 25px;
+    display:flex;
+    width: 20%;
+    gap: 10px;
+}
+
+
+
+
+
+
+
+
+.imageUploadWrapper{
+
+    height: 150px;
+    width:150px;
+    position: relative;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imageInput{
+
+    height: 0.1px;
+    width: 0.1px;
+    visibility: hidden;
+}
+
+.hiddenFileButton{
+
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    cursor:pointer;
+    border: 3px dashed grey ;
+    border-radius: 5px;
+}
+.hiddenFileButton:hover{
+    background-color: rgb(201, 201, 201);
+    opacity: 30%;
+}
+.image{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+
+}
+.coverImage{
+    height: 30%;
+    width: 30%;
+    opacity: 30%;
+    position: absolute;
 }

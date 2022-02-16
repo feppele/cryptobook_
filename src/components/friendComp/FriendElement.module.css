@@ -1,16 +1,14 @@
 .element{
     width: 90%;
-    height: 40px;
-    margin-bottom: 3px;
+    height: 55px;
     font-size: 30px;
-    border-radius: 15px;
+    border-radius: 4px;
     border: 1px solid grey;
-    box-shadow: 0 1px 4px rgb(0, 0, 0);
+    box-shadow: 0 0px 2px rgb(0, 0, 0);
 
     display: flex;
     align-items: center;
     justify-content: space-between;
-
 
 }
 .element:hover{
@@ -19,7 +17,7 @@
 
 .name{
     margin-left: 15px;
-    font-size:15px;
+    font-size:20px;
 }
 
 .wrapper{

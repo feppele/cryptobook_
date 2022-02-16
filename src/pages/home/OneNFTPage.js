@@ -5,11 +5,20 @@ import {getMetadataFromURI,getTokenUri} from '../../web3/NFTContractHelper';
 import {getOwnerOfTokenId,sendNFT} from '../../web3/NFTContractHelper'
 import {shortAddr} from '../../web3/LoadingFunctions'
 import NFTFormat from '../../components/NFT/NFTFormat';
-import black_herz from '../../images/black_herz.png';
-import BasicButton2 from '../../components/standart/BasicButton2';
+import Button3 from '../../components/standart/Button3';
 import BasicButton from '../../components/standart/BasicButton';
 
+//img
+import black_herz from '../../images/black_herz.png';
+import shareImg from '../../images/share.png';
+import sendImg from '../../images/send.png';
+import profilePic from '../../images/profilepic.png';
+
+
 function OneNFTPage(){
+
+    useEffect(() => {window.scrollTo(0,0)},[])
+
     const history = useHistory();
     const {tokenId} = useParams();
 
@@ -48,17 +57,30 @@ function OneNFTPage(){
     }
 
     function send(){
-        sendNFT("0x15Db0F018209098e5e96FF68CB88F7080b65A841",tokenId);
+        sendNFT();
     }
 
 
     function goToProfile(){
-        history.push({
-            pathname:"/friendProfile/"+owner
 
+        window.ethereum.request({method: 'eth_accounts'}).then(accounts=>{
 
+            if(accounts[0].localeCompare(owner)){
+                console.log("SOllte zu my PRofil gehenowner");
+                history.push({
+                    pathname:"/profil/"
+                })
+            }else{
+                history.push({
+                    pathname:"/friendProfile/"+owner
+                })
+            }
         })
+
+
     }
+
+
 
     return (
 
@@ -76,7 +98,15 @@ function OneNFTPage(){
             {/*right */}
             <div className={classes.right}>
 
-                <div className={classes.name}>{metaData[1] +" " + "#" +metaData[2]}</div> 
+                <div className={classes.nameAndButton}>
+                    <div className={classes.name}>{metaData[1] +" " + "#" +metaData[2]}</div>
+                    <div className={classes.buttonWrapper}>
+                        <Button3 img={profilePic} popupText={"set profile pic"}/>
+                        <Button3 img={shareImg} popupText={"share link"}/>
+                        <Button3 onButtonClicked={send} img={sendImg} popupText={"send NFT"}/>
+                    </div>
+                </div>
+                
 
                 <div className={classes.ownerWrapper}>
 
@@ -97,11 +127,7 @@ function OneNFTPage(){
                 </div>
 
 
-                <div className={classes.buttonWrapper}>
-                    <BasicButton text="profile pic"/>
-                    <BasicButton2 onButtonClicked={send} text="send"/>
 
-                </div>
 
 
 

@@ -33,10 +33,16 @@ async function getAllTokensMetadataArray(owner){
 
         const ownersTokenIds = await NFTContract.methods.ownersTokenIds(owner).call();
         var array =[];
-        // token ID ==> TokenURI ==> token Metadata ==> Token Metadata Lisa_____ hiten nochmal Id übergeben um mit in Metadata machen
-        for(var i=0;i<ownersTokenIds.length;i++){
-            array.push(await getMetadataFromURI(await getTokenUri(ownersTokenIds[i]),ownersTokenIds[i] ) );
-        }
+
+        // wenn versendet wird und man 0 hat zeit er 0 an?? komisch :(
+        if(ownersTokenIds[0] !== '0'){}
+
+            // token ID ==> TokenURI ==> token Metadata ==> Token Metadata Lisa_____ hiten nochmal Id übergeben um mit in Metadata machen
+            for(var i=0;i<ownersTokenIds.length;i++){
+                array.push(await getMetadataFromURI(await getTokenUri(ownersTokenIds[i]),ownersTokenIds[i] ) );
+            }
+        
+        console.log("in console.log(array); LÄNGE ARRAY::    "+ array.length );
         console.log(array);
         return array;
 
@@ -54,9 +60,12 @@ async function getOwnerOfTokenId(tokenId){
 
 async function sendNFT(to,tokenId){
 
-const from = await window.web3.currentProvider.selectedAddress;
-console.log(from);
-NFTContract.methods.transferFrom(from,to,tokenId).send().then(console.log);
+    const _from = await window.web3.currentProvider.selectedAddress;
+    const _to =to;
+    const _tokenId =tokenId;
+
+
+NFTContract.methods.transferFrom(_from,_to,_tokenId).send({from:_from}).then(console.log).catch(console.log);
 
 
 
