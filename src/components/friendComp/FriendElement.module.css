@@ -6,6 +6,8 @@
     border: 1px solid grey;
     box-shadow: 0 0px 2px rgb(0, 0, 0);
 
+    background-color:rgb(227, 227, 238);
+
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -43,4 +45,21 @@
 }
 .sendButton:hover{
     box-shadow: none;
+}
+
+.nameWrapper{
+    display: flex;
+    gap:15px;
+}
+
+
+
+@media(max-width:800px){
+    
+    .name{
+        font-size:15px;
+
+    }
+
+
 }

@@ -15,8 +15,6 @@ function NftCollection(props){
     const [metadataArray,setMetadataArray]=useState([]);
     async function loadNFT(){
         await setMetadataArray( await getAllTokensMetadataArray(props.from));
-
-        console.log(metadataArray.length);
         setLoading(false);
 
     }
@@ -47,7 +45,7 @@ function NftCollection(props){
            {!noNFTs && <NoNFT text ="no NFTs yet"/> }
 
 
-          <NFTFormatCreator metadataArray={metadataArray}/> 
+          <NFTFormatCreator metadataArray={metadataArray}/>
 
         </div>
 

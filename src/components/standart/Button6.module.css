@@ -43,7 +43,7 @@ opacity: 100%;
 .popuptext {
 
   font-size: 12px;
-  width: 70px;
+  width: 100px;
   background-color: rgb(6, 29, 42);
   color: #fff;
   text-align: center;
@@ -53,7 +53,7 @@ opacity: 100%;
   z-index: 1;
   bottom: 120%;
   left: 50%;
-  margin-left: -35px;
+  margin-left: -50px;
 }
 
 /* Popup arrow */

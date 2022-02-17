@@ -32,7 +32,16 @@ contract MyCryptoBookNFT is ERC721 {
    
         require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721: transfer caller is not owner nor approved");
 
-        _ownersTokenIds[from].remove(tokenId);
+
+        //_ownersTokenIds[from].remove(tokenId);
+        for(uint256 i=0; i< _ownersTokenIds[from].length; i++){
+            if(_ownersTokenIds[from][i] == tokenId ){
+
+                _ownersTokenIds[from][i] = _ownersTokenIds[from][_ownersTokenIds[from].length - 1];
+                _ownersTokenIds[from].pop();
+                break;
+            }
+        }
 
         _ownersTokenIds[to].push(tokenId);
 

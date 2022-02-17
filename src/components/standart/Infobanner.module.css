@@ -1,0 +1,32 @@
+.container{
+
+
+    height: 35px;
+    width: 300px;
+    background-color:rgb(6, 29, 42);
+    position:absolute;
+    right: -480px;
+    bottom:20px;
+
+    border-radius: 8px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 50px;
+    font-size: 20px;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 50);
+
+
+    animation: fadeIn 1s;
+    animation-direction: alternate;
+}
+
+
+
+
+
+  @keyframes fadeIn {
+    from {right: -300px;}
+    to {right: 15px ;}
+  }

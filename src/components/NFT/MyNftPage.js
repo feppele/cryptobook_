@@ -11,6 +11,10 @@ import {NFTContract,NFTContractAddress} from '../../web3/NFTContract';
 
 import {getAllTokensMetadataArray} from '../../web3/NFTContractHelper';
 
+import Button7Breit from '../standart/Button7Breit';
+import explorePic from '../../images/adventurer.png';
+import createPic from '../../images/paint.png'
+
 
 function MyNftPage(){
 
@@ -31,8 +35,10 @@ function MyNftPage(){
                     <div className={classes.headerText}>my NFTs</div>
 
                     <div className={classes.buttonWrapper}>
-                        <button className={classes.button1}>Explore</button>
-                        <button onClick={openCreatePage} className={classes.button2}>Create</button>
+
+                        <Button7Breit img={explorePic} popupText={"explore"}/>
+                        <Button7Breit onButtonClicked={openCreatePage} img={createPic} popupText={"create"}/>
+
                     </div>
 
                 </div>

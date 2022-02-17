@@ -21,11 +21,6 @@ function query(_methode,_ele){
 }
 
 
-
-
-
-
-
 function getOptions(_methode,_ele){
 
   const params = {
@@ -43,9 +38,29 @@ return options;
 async function queryFetch(options){
 
 fetch("databank",options)
-.then(res => {return res.json()})
+.then(res => {return res.json()}).catch(console.log)
 
 }
+
+
+
+function getNFTLikesOptions(tokenId){
+  return getOptions("getNFTLikes",{tokenId: tokenId})
+
+}
+
+function likeNFTOptions(tokenId){
+
+  return getOptions("likeNFT",{tokenId: tokenId})
+
+}
+function dislikeNFTOptions(tokenId){
+
+  return getOptions("dislikeNFT",{tokenId: tokenId})
+  
+
+}
+
 
 
 

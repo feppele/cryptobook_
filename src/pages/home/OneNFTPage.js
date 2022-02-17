@@ -14,6 +14,10 @@ import shareImg from '../../images/share.png';
 import sendImg from '../../images/send.png';
 import profilePic from '../../images/profilepic.png';
 
+import Infobanner from './../../components/standart/Infobanner';
+import LikesList from './../../components/standart2/LikesList';
+import Backdrop from './../../components/standart2/Backdrop';
+import {getOptions} from '../../node/databank';
 
 function OneNFTPage(){
 
@@ -22,8 +26,6 @@ function OneNFTPage(){
     const history = useHistory();
     const {tokenId} = useParams();
 
-    var number_likes =0;
-
     // const location = useLocation();
     // const data = location.state;
 
@@ -31,6 +33,11 @@ function OneNFTPage(){
     const [shortOwner,setShortOwner]=useState();
     const [tokenURI,setTokenURI]=useState("");
     const [metaData,setMetadata]=useState("");
+    const [shareLink,setShareLink]=useState(false);
+    const [NFTLikes,setNFTLikes]=useState(0);
+    const [likesList,setLikesList]=useState(false);
+    const [NFTLikesArrayForList,setNFTLikesArrayForList] = useState([]);
+
 
     async function load(){
         getTokenUri(tokenId).then((uri)=>{
@@ -60,11 +67,8 @@ function OneNFTPage(){
         sendNFT();
     }
 
-
     function goToProfile(){
-
         window.ethereum.request({method: 'eth_accounts'}).then(accounts=>{
-
             if(accounts[0].localeCompare(owner)){
                 console.log("SOllte zu my PRofil gehenowner");
                 history.push({
@@ -76,10 +80,52 @@ function OneNFTPage(){
                 })
             }
         })
+    }
 
+    function getNFTLikes(){
+        fetch("/databank",getOptions("getNFTLikes",{tokenId: tokenId}))
+        .then(res => {return res.json()}).then(res=>{
+            console.log(res);
+            console.log(res[0][0]);
+            if(res==="error"){
+                setNFTLikes(0);
+            }
+            setNFTLikes(res[0][0].count);
+        })
+    }
+    useEffect(() => {getNFTLikes()},[]);
+
+
+    function copyURL(){
+        navigator.clipboard.writeText(window.location.href);
+        setShareLink(true);
 
     }
 
+
+
+    function openLikesList(){
+        setLikesList(true);
+    }
+    function closeLikesList(){
+        setLikesList(false);
+    }
+
+    function getLikesList(){
+        fetch("/databank",getOptions("getLikesList",{tokenId: tokenId}))
+        .then(res => {return res.json()}).then(res=>{
+
+            console.log(res);
+            if(res==="error"){
+                setNFTLikesArrayForList([]);
+            }
+            setNFTLikesArrayForList(res);
+        })
+    }
+    useEffect(() => {getLikesList()},[]);
+    
+
+    console.log(NFTLikes);
 
 
     return (
@@ -98,15 +144,17 @@ function OneNFTPage(){
             {/*right */}
             <div className={classes.right}>
 
+                {likesList && <Backdrop onBackDropClicked={closeLikesList}/> }
+                {likesList && <LikesList likesList={NFTLikesArrayForList}/>  }
+
                 <div className={classes.nameAndButton}>
                     <div className={classes.name}>{metaData[1] +" " + "#" +metaData[2]}</div>
                     <div className={classes.buttonWrapper}>
-                        <Button3 img={profilePic} popupText={"set profile pic"}/>
-                        <Button3 img={shareImg} popupText={"share link"}/>
+                        <Button3 img={profilePic} popupText={"profile pic"}/>
+                        <Button3 onButtonClicked={copyURL} img={shareImg} popupText={"share link"}/>
                         <Button3 onButtonClicked={send} img={sendImg} popupText={"send NFT"}/>
                     </div>
                 </div>
-                
 
                 <div className={classes.ownerWrapper}>
 
@@ -116,7 +164,7 @@ function OneNFTPage(){
                     {/* liked */}
                     <div className={classes.likesWrapper}>
                         <img src={black_herz} className={classes.herz}></img>
-                        <div className={classes.text}> {number_likes + " favorites"} </div>
+                        <div onClick={openLikesList} className={classes.text}> {NFTLikes + " favorites"} </div>
                     </div>
 
                 </div>
@@ -128,7 +176,7 @@ function OneNFTPage(){
 
 
 
-
+                { shareLink && <Infobanner /> }
 
 
 

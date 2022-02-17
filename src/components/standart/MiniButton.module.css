@@ -1,27 +1,33 @@
 .wrapper{
-
-    z-index: 10;
+    z-index: 100;
     transform-style: preserve-3d;
+    margin-right: 10px;
+    height: 25px;
+    width: 25px;
+
+    display:flex;
+    justify-content: center;
+
 }
 
 
 
 .img{
-    height: 70%;
-
-    display: block;
-    margin: auto;
-
+    height: 100%;
 }
 
 
 .popupButton {
-    width: 40px;
-    height:40px;
-    display:flex;
-    border-radius: 10px;
-    background-color: white;
-    border: 1px solid black;
+    width: 16px;
+    height:16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-style: hidden;
+    opacity: 50%;
+
     position: relative;
     cursor: pointer;
     -webkit-user-select: none;
@@ -31,26 +37,26 @@
 }
 
 .popupButton:active {
-   
+    border-style: hidden;
 }
 .popupButton:hover{
-    box-shadow: 0 1px 4px rgb(0, 0, 0);
+  opacity: 100%;
 }
 
   /* The actual popup */
 .popuptext {
 
-    width: 110px;
+    width: 66px;
     background-color: rgb(6, 29, 42);
     color: #fff;
     text-align: center;
     border-radius: 6px;
     padding: 8px 0;
     position: absolute;
-    z-index: 1000;
-    bottom: 110%;
+    z-index: 1;
+    bottom: 150%;
     left: 50%;
-    margin-left: -55px;
+    margin-left: -33px;
   }
 
   /* Popup arrow */

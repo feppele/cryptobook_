@@ -60,7 +60,7 @@ function ProfilData(){
             fetch("/databank/",options).then(res => { return res.json()}).then(res=>{
                 console.log(res);
                 if(res==="error"){
-                    setUsernameDB("unnamede");
+                    setUsernameDB("unnamed");
                 }else{
                     setUsernameDB(res.name);
                 }
@@ -71,6 +71,10 @@ function ProfilData(){
     }
 
     useEffect(() => {loadNameFromDB();},[])
+
+
+
+
 
 console.log(usernameDB)
 
@@ -98,7 +102,6 @@ console.log(usernameDB)
                 <p className={classes.address} id="address">{shortAddr(localStorage.getItem("myAddress"))}</p>
 
             </div>
-
 
             <div className={classes.buttonPosition}>
                 <Button3 onButtonClickded={activateSetting} img={settingsPic} popupText="settings"/>

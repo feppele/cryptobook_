@@ -20,7 +20,7 @@ app.get("/api", (req, res) => {
 
     getAnfrage(req.body.methode,req.body.ele).then(anfrage =>{
 
-            db.one(anfrage , 123)
+            db.multi(anfrage , 123)
             .then(function (sql_answer) {
                 // SEND FETCH ANSWER
                 console.log(sql_answer);
@@ -65,7 +65,49 @@ async function getAnfrage(methode,ele){
         anfrage= `select * from Person where address ='${ele.address}';  `;
     }
 
+
+
+    if(methode === "getNFTLikes"){
+      anfrage= ` select count(*) from Likes where tokenId ='${ele.tokenId}';  `;
+    }
+
+    if(methode === "doILike"){
+      anfrage= ` select count(*) from Likes where tokenId ='${ele.tokenId}' and address='${ele.address}';  `;
+    }
+
+
+    if(methode === "likeNFT"){
+      anfrage= `
+
+      insert into Likes
+      Select '${ele.tokenId}','${ele.address}'
+      Where not exists (select * from Likes where tokenid='${ele.tokenId}'and address= '${ele.address}');
+
+      `;
+    }
+    if(methode === "dislikeNFT"){
+      anfrage= `
+
+      delete from Likes where tokenId ='${ele.tokenId}' and address='${ele.address}';
+
+      `;
+    }
+
+
+    if(methode === "getLikesList"){
+      anfrage= `
+
+      select Likes.address,name from Likes left outer join Person on Likes.address = Person.address where tokenid='${ele.tokenId}';
+
+      `;
+    }
+
+
+
     
+
+
+
     return anfrage; /// <-- return
 }
 

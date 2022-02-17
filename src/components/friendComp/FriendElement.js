@@ -7,7 +7,7 @@ import Button6 from '../standart/Button6';
 import deleteImg from '../../images/delete.png';
 import sendImg from '../../images/send.png';
 import profilePic from '../../images/profilepic.png';
-
+import saveFriend from '../../images/saveFriend2.png';
 import { UserContract } from '../../web3/UserContract';
 
 function FriendElement(props){
@@ -56,8 +56,12 @@ function FriendElement(props){
 
     return (
 
-            <div onClick={openFriendProfile} className={classes.element}>
-                <div id="friendName" className={classes.name}> {props.friendName} </div>
+            <div className={classes.element}>
+                <div className={classes.nameWrapper}>
+                    <div id="friendName" className={classes.name}> {props.friendName} </div>
+                    <Button6  img={saveFriend} popupText={"on chain"}/>
+                </div>
+
 
                 <div className={classes.wrapper}>
                     <CryptoAddress id="sendToAddr" cryptoSign={etherSign} addr={props.addr}/>

@@ -1,24 +1,26 @@
 
 import classes from './AddFriendModal.module.css';
-import React from 'react';
+import React,{useState} from 'react';
 import {web3} from '../../../web3/Web3'
 import {UserContract,userContractAddress} from '../../../web3/UserContract'
 import validImage from '../../../images/valid.png';
 import inValidImage from '../../../images/invalid.png';
-
-
+import Button6 from '../../standart/Button6';
+import Button7Breit from '../../standart/Button7Breit';
+import plusImg from '../../../images/plus.png';
 
 function AddFriendModal(props){
 
+    const [imgSource,setImgSource] = useState();
     function isValidAddress(){
         return web3.utils.isAddress(document.getElementById("addressInput").value);
     }
     function check(){
         const addressInput = document.getElementById("validImage");
         if(isValidAddress()){
-            addressInput.src=validImage;
+            setImgSource(validImage);
         }else{
-            addressInput.src=inValidImage;
+            setImgSource(inValidImage);
         }
     }
 
@@ -27,11 +29,15 @@ function AddFriendModal(props){
         const name= document.getElementById("inputName").value;
         const addr= document.getElementById("addressInput").value;
 
-        UserContract.methods.updateFriends(name,addr).send({
-            from: window.web3.currentProvider.selectedAddress,
-            to: userContractAddress
+        if(name!=="" && addr!==""){
 
-        });
+            UserContract.methods.updateFriends(name,addr).send({
+                from: window.web3.currentProvider.selectedAddress,
+                to: userContractAddress
+
+            });
+        }
+
 
     }
 
@@ -48,19 +54,20 @@ function AddFriendModal(props){
             <div className={classes.realModal}>
 
                 <div className={classes.wrapper}>
-                    <p className={classes.text}>Name:</p>
-                    <input id="inputName" type="text" className={classes.input}></input>
+                    <input id="inputName" type="text" placeholder="friend name" className={classes.input}></input>
+
+                    <Button7Breit onButtonClicked={addFriend} img={plusImg} popupText={"add"}/>
+                    
+
                 </div>
                 <div className={classes.wrapper}>
-                    <p className={classes.text}>Address:</p>
-                    <input onChange={check} id="addressInput" type="text" className={classes.input}></input>
+                    <input onChange={check} id="addressInput" type="text" placeholder="friend address" className={classes.input}></input>
+                    <Button6 id="validImage" img={imgSource} popupText={"not valid"}/>
+
                 </div>
 
             </div>
 
-        <button onClick={addFriend} className={classes.addButton}> Add </button>
-
-        <img id="validImage"  className={classes.validImage}></img>
 
 
         </div>
