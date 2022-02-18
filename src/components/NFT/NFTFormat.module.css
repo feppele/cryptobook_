@@ -34,15 +34,14 @@
 
 .bottom{
     width: 100%;
-    height: 12%;
     background-color: rgb(255, 255, 255);
-
+    flex-grow: 5;
 
 }
 
 .bottom2{
     width: 100%;
-    height: 8%;
+    flex-grow: 3;
     background-color: rgb(240, 240, 240);
 
     border-bottom-left-radius: 10px;
@@ -58,14 +57,14 @@
 .nameAndFrom{
     margin-top: 3px;
     margin-left: 10px;
-    font-size: 12px;
+    font-size: 13px;
 
 }
 
 .nameAndNumber{
     margin-top: 1px;
     margin-left: 10px;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: bold;
 
 }
@@ -76,13 +75,10 @@
 .likesWrapper{
     display: flex;
     margin-right: 10px;
+    align-items: center;
+
 }
 
-.herzImg{
-    height: 16px;
-    width: 16px;
-    margin-right: 10px;
-}
 
 .numberlikes{
 
@@ -97,3 +93,18 @@
     width: 17px;
 }
 
+
+
+
+
+
+@media(max-width: 700px){
+
+    .nameAndFrom{
+        font-size: 9px;
+    }
+    
+    .nameAndNumber{
+        font-size: 9px;
+    }
+}

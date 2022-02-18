@@ -3,7 +3,7 @@ import etherSign from '../../images/Crypto-Icons/eth-logo.svg';
 import CryptoAddress from '../standart/CryptoAddress';
 import {web3} from '../../web3/Web3';
 import { useHistory } from "react-router-dom";
-import Button6 from '../standart/Button6';
+import Button6scaleable from '../standart/Button6scaleable';
 import deleteImg from '../../images/delete.png';
 import sendImg from '../../images/send.png';
 import profilePic from '../../images/profilepic.png';
@@ -68,16 +68,16 @@ function FriendElement(props){
 
                 <div className={classes.nameWrapper}>
                     <div id="friendName" className={classes.name}> {props.friendName} </div>
-                     { props.saveFriend && <Button6  img={saveFriend} popupText={"on chain"}/>}
+                     { props.saveFriend &&  <div className={classes.buttonScaler}>    <Button6scaleable  img={saveFriend} popupText={"on chain"}/>             </div>     }
                 </div>
 
 
                 <div className={classes.wrapper}>
                     <CryptoAddress id="sendToAddr" cryptoSign={etherSign} addr={props.addr}/>
 
-                    <Button6 onButtonClicked={openFriendProfile} img={profilePic} popupText={"profile"}/>
-                    <Button6 onButtonClicked={openSend} img={sendImg} popupText={"send"}/>
-                    <Button6 onButtonClicked={deleteFriend} img={deleteImg} popupText={"delete"}/>
+                 <div className={classes.buttonScaler}>  <Button6scaleable onButtonClicked={openFriendProfile} img={profilePic} popupText={"profile"}/>      </div>
+                 <div className={classes.buttonScaler}>  <Button6scaleable onButtonClicked={openSend} img={sendImg} popupText={"send"}/>                    </div>
+                 <div className={classes.buttonScaler}>  <Button6scaleable onButtonClicked={deleteFriend} img={deleteImg} popupText={"delete"}/>             </div>
                 </div>
             </div>
 

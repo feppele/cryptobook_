@@ -43,7 +43,7 @@
     align-items: center;
     height: 100%;
     width: 40%;
-    background-color: rgb(223, 223, 223);
+    background-color: rgb(240, 240, 240);
 }
 
 
@@ -129,7 +129,11 @@
 }
 
 
-@media(max-width:600px){
+@media(max-width:800px){
+
+    .header{
+        font-size: 30px;
+    }
 
 
 

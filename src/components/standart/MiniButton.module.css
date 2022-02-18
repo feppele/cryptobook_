@@ -2,11 +2,11 @@
     z-index: 100;
     transform-style: preserve-3d;
     margin-right: 10px;
-    height: 25px;
-    width: 25px;
+
 
     display:flex;
     justify-content: center;
+    align-items: center;
 
 }
 

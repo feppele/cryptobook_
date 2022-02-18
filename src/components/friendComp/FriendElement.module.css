@@ -53,6 +53,17 @@
 }
 
 
+.buttonScaler{
+
+    height: 30px;
+    width: 30px;
+    margin-left: 3px;
+    margin-right: 3px;
+
+
+}
+
+
 
 @media(max-width:800px){
     
@@ -60,6 +71,8 @@
         font-size:15px;
 
     }
+
+
 
 
 }
