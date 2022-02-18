@@ -1,12 +1,9 @@
 .container{
     width: 100%;
-    height: 70vh;
+    height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
-
-    gap:0px;
 }
 
 .greyBox{
@@ -65,4 +62,28 @@
     gap:10px;
     display: flex;
     align-items: center;
+}
+
+
+
+.buttonPositon{
+    position:absolute;
+    top: 200px;
+    right: 40px;
+    z-index: 20;
+}
+
+.followWrapper{
+    margin-top: 40px;
+    display: flex;
+    gap:8px;
+    align-items: center;
+    cursor: pointer;
+    opacity: 50%;
+}
+.followWrapper:hover{
+    opacity: 100%;
+}
+.herz{
+    height: 15px;
 }

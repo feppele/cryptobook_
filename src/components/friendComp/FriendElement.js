@@ -9,10 +9,17 @@ import sendImg from '../../images/send.png';
 import profilePic from '../../images/profilepic.png';
 import saveFriend from '../../images/saveFriend2.png';
 import { UserContract } from '../../web3/UserContract';
+import {useState} from 'react'
+
+import SendPopup from '../standart2/SendPopup';
+import Backdrop from '../standart2/Backdrop';
+import {unfollowUser} from '../../node/databank';
 
 function FriendElement(props){
     
     const history = useHistory();
+
+    const [sendButton,setSendButton] = useState(false);
 
 
     function openFriendProfile(){
@@ -32,34 +39,36 @@ function FriendElement(props){
 
     }
 
-
+    // check if blockchain or databas
     function deleteFriend(){
-
-        UserContract.methods.deleteFriend(props.longAddr).send({from: window.web3.currentProvider.selectedAddress}).then(console.log).catch(console.log);
-
+        if(props.saveFriend ){
+            UserContract.methods.deleteFriend(props.longAddr).send({from: window.web3.currentProvider.selectedAddress}).then(console.log).catch(console.log);
+        }else{
+            unfollowUser(props.longAddr);
+        }
     }
 
     // Value is HardCoded right now
-    async function send(){
-
-        const transactionParameters = {
-            to: props.longAddr,
-            from: window.web3.currentProvider.selectedAddress,
-            value: "0x001"
-          };
-
-          const txHash = await window.ethereum.request({
-            method: 'eth_sendTransaction',
-            params: [transactionParameters],
-          });
+    function openSend(){
+        setSendButton(true)
     }
+    function closeSend(){
+        setSendButton(false)
+    }
+
 
     return (
 
             <div className={classes.element}>
+
+
+                { sendButton  && <SendPopup onCloseClicked={closeSend} longAddr={props.longAddr} addr={props.addr} friendName={props.friendName}/>}
+                {sendButton  && <Backdrop onBackDropClicked={closeSend}/>}
+
+
                 <div className={classes.nameWrapper}>
                     <div id="friendName" className={classes.name}> {props.friendName} </div>
-                    <Button6  img={saveFriend} popupText={"on chain"}/>
+                     { props.saveFriend && <Button6  img={saveFriend} popupText={"on chain"}/>}
                 </div>
 
 
@@ -67,7 +76,7 @@ function FriendElement(props){
                     <CryptoAddress id="sendToAddr" cryptoSign={etherSign} addr={props.addr}/>
 
                     <Button6 onButtonClicked={openFriendProfile} img={profilePic} popupText={"profile"}/>
-                    <Button6 onButtonClicked={send} img={sendImg} popupText={"send"}/>
+                    <Button6 onButtonClicked={openSend} img={sendImg} popupText={"send"}/>
                     <Button6 onButtonClicked={deleteFriend} img={deleteImg} popupText={"delete"}/>
                 </div>
             </div>

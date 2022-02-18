@@ -1,11 +1,10 @@
 import classes from './FriendsNFTs.module.css';
-
+import {useEffect} from 'react';
 
 import NftCollection from '../NFT/NftCollection';
 
 
 function FriendsNFTs(props){
-
 
 
     return (

@@ -6,13 +6,20 @@
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-
+    grid-template-rows: 1fr;
     gap: 10px;
 
 
     margin-bottom: 30px;
 
+}
 
+
+.loading{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    top: 5vh;
 }
 
 @media(max-width:1100px){

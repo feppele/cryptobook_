@@ -12,6 +12,9 @@ import {getAddress} from '../../web3/LoadingFunctions'
 import {onLoad} from '../../web3/LoadingFunctions'
 import {shortAddr} from '../../web3/LoadingFunctions'
 
+import Infobanner from '../standart/Infobanner';
+
+
 import ImageSetting from './ImageSetting';
 import React, {useState,useEffect,useHistory} from 'react';
 
@@ -29,6 +32,7 @@ function ProfilData(){
 
     const [usernameDB,setUsernameDB] =useState("noch net da");
     const [userNameIsLoad,setUserNameIsLoad] =useState(false);
+    const [saved,setSaved] =useState(false);
 
     function activateSetting(){
         setSettingMode(true);
@@ -40,10 +44,16 @@ function ProfilData(){
 
         window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
 
-            const ans = query("add",{ address: currentUsers[0], username: username} );
-            console.log(ans);
+            const res = query("add",{ address: currentUsers[0], username: username});
+
+            console.log("onsaveclick");
+            console.log(res);
+  
+
         })
         setSettingMode(false);
+        // just for infobanner
+        setSaved(true);
 
         window.location.reload();
     }
@@ -58,11 +68,12 @@ function ProfilData(){
             console.log(options);
 
             fetch("/databank/",options).then(res => { return res.json()}).then(res=>{
-                console.log(res);
-                if(res==="error"){
+                console.log("res[0]");
+                console.log(res[0]);
+                if(res[0].length===0){
                     setUsernameDB("unnamed");
                 }else{
-                    setUsernameDB(res.name);
+                    setUsernameDB(res[0][0].name);
                 }
                 setUserNameIsLoad(true);
             });
@@ -75,6 +86,8 @@ function ProfilData(){
 
 
 
+
+    console.log("usernameDB")
 
 console.log(usernameDB)
 
@@ -108,7 +121,8 @@ console.log(usernameDB)
             </div>
 
 
-
+            {saved  && <Infobanner text ={"Saved !"} />  }
+            <Infobanner text ={"Saved !"} />
         </div>
 
 

@@ -24,6 +24,7 @@ function NftCollection(props){
     useEffect(() => {loadNFT()},[]);
 
 
+    
     useEffect(() => {
 
         if(!loading){
@@ -41,7 +42,7 @@ function NftCollection(props){
         <div className={classes.container}>
 
 
-           {loading && <img src={loadImage}></img> }
+           {loading && <img src={loadImage} className={classes.loading}></img> }
            {!noNFTs && <NoNFT text ="no NFTs yet"/> }
 
 

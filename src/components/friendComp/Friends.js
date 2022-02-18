@@ -16,10 +16,13 @@ import NoFriendsSign from './NoFriendsSign';
 import addImg from '../../images/add-user.png'
 import saveFriend from '../../images/saveFriend2.png';
 import searchPeople from '../../images/searchPeople.png';
+import {getOptions} from '../../node/databank';
 
 
 import Button3 from '../standart/Button3';
 import Button7Breit from '../standart/Button7Breit';
+
+
 
 
  function Friends(){
@@ -30,6 +33,8 @@ import Button7Breit from '../standart/Button7Breit';
     const [addFriendIsOpen, setAddFriendIsOpen ] = useState(false);
     const [friends,setFriends] = useState([]);
     const [searchResult,setSearchResult] = useState([]);
+    const [folloFriends,setFollowFriends]= useState([]);
+
     function openAddFriend(){
         setAddFriendIsOpen(true);
     }
@@ -38,40 +43,103 @@ import Button7Breit from '../standart/Button7Breit';
     }
 
 
-    useEffect(() => {loadFriendsEasy().then(friends=>{
-            console.log(friends);
-            if( !(friends.length > 0 )){
+    // Load Friends Stuff _______________________________________
+
+
+    // Load Blockchain friends
+    useEffect(() => {loadFriendsEasy().then(friendsLoad=>{
+            console.log(friendsLoad);
+            if( !(friendsLoad.length > 0 )){
                 console.log("friend === null");
                 setShowSad(true);
             }
-            setFriends(friends);
-            setSearchResult(friends);
+            var newFormat = [];
+            // Set a new Dataformat with blockchain= true :  Array- Item:  {friend_name   ,   friend_addr  ,    blockchain:true    }
+            for(var j=0;j<friendsLoad.length; j++){
+                newFormat.push( {friend_name: friendsLoad[j].friend_name, friend_addr: friendsLoad[j].friend_addr, blockchain:true} );
+            }
+            setFriends(newFormat);
+            setSearchResult(newFormat);
         })
-
     },[]);
 
-
-    function filter(){
-
-    }
-    function search(){
-
-        const searchName = document.getElementById("searchInput").value;
-        var results =[];
-
-        for(var i=0;i<friends.length;i++){
-
-            if((friends[i].friend_name.search(searchName) !== -1) || (friends[i].friend_addr.search(searchName) !== -1) ){
-                console.log(friends[i].friend_name);
-                results.push(friends[i]);
-            }
+        // Load Follow Friends
+        function WHOdoIFollow(){
+            window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
+                fetch("/databank",getOptions("WHOdoIFollow",{me: currentUsers[0].toLowerCase()}))
+                .then(res => {return res.json()}).then(res=>{
+                    var followFriends= res[0];
+                    var newFormat =[];
+                    for(var i=0;i<followFriends.length; i++){
+                        var username;
+                        if(followFriends[i].name === null){
+                            username="unnamed";
+                        }else{
+                            username=followFriends[i].name;
+                        }
+                        newFormat.push( {friend_name: username,friend_addr: followFriends[i].person ,blockchain : false} );
+                    }
+                    setFollowFriends(newFormat);
+                    setSearchResult(newFormat);
+                })
+            })
         }
-        setSearchResult(results);
-    }
+        useEffect(() => {WHOdoIFollow()},[]);
+
+
+        //Combine follow and blockchain an  update searchResult
+        useEffect(() => {
+            if(folloFriends.length >0 &&  friends.length >0 ){
+                setSearchResult([].concat(friends,folloFriends));
+            }
+
+        },[folloFriends,friends])
+
+
+
+        // Load Friends Stuff ______________^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+        // SEARCHING STUFF ____________________________________________
+        function filter(){
+
+            var bouth = [].concat(friends,folloFriends);
+            var results =[];
+            for(var i=0;i<bouth.length;i++){
+
+               if(bouth[i].blockchain === true ){
+                    results.push(bouth[i]);
+                }
+            }
+            setSearchResult(results);
+
+
+        }
+        function search(){
+            const searchName = document.getElementById("searchInput").value;
+            var bouth = [].concat(friends,folloFriends)
+            var results =[];
+            for(var i=0;i<bouth.length;i++){
+
+               if((bouth[i].friend_name.search(searchName) !== -1) || (bouth[i].friend_addr.search(searchName) !== -1) ){
+                    results.push(bouth[i]);
+                }
+            }
+            setSearchResult(results);
+        }
+        // SEARCHING STUFF ____________________________________________^^
+
+
+
+
+
+
 
 
     return (
         <div className={classes.container}>
+
+
 
             <div className={classes.stripe}></div>
 
@@ -113,7 +181,7 @@ import Button7Breit from '../standart/Button7Breit';
                 {showSad && <NoFriendsSign text= "no friends yet"/>}
 
                 <div id="friendList" className={classes.friendList}>
-                    <FriendElementCreator friends ={searchResult}/>
+                    <FriendElementCreator friends ={searchResult} />
                 </div>
 
 

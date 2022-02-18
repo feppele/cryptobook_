@@ -6,6 +6,13 @@ import {useHistory} from 'react-router-dom';
 
 function ListElement(props){
 
+    var address;
+    if(props.likesItem.address === undefined){
+        address = props.likesItem.follower;
+    }else{
+        address = props.likesItem.address;
+    }
+
     var username =props.likesItem.name;
     if( username=== null ){
         username = "unnamed";
@@ -14,14 +21,14 @@ function ListElement(props){
     const history = useHistory();
     function goToProfile(){
         window.ethereum.request({method: 'eth_accounts'}).then(accounts=>{
-            if(accounts[0] ===props.likesItem.address){
+            if(accounts[0] ===address){
 
                 history.push({
                     pathname:"/profil/"
                 });
             }else{
                 history.push({
-                    pathname:"/friendProfile/"+props.likesItem.address
+                    pathname:"/friendProfile/"+address
                 });
             }
         })
@@ -34,7 +41,7 @@ function ListElement(props){
 
             <div className={classes.name}>{username}</div>
 
-            <div className={classes.addresse}>{shortAddr(props.likesItem.address)}</div>
+            <div className={classes.addresse}>{shortAddr(address)}</div>
         </div>
 
 

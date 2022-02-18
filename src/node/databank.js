@@ -16,7 +16,7 @@ function query(_methode,_ele){
       headers:{'content-type': 'application/json'},
       body: JSON.stringify( params )
   };
-  fetch("databank",options)
+  fetch("/databank",options)
   .then(res => {return res.json()})
 }
 
@@ -37,7 +37,7 @@ return options;
 
 async function queryFetch(options){
 
-fetch("databank",options)
+fetch("/databank",options)
 .then(res => {return res.json()}).catch(console.log)
 
 }
@@ -65,7 +65,25 @@ function dislikeNFTOptions(tokenId){
 
 
 
+function followUser(useraddress){
+  window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
+      fetch("/databank",getOptions("follow",{person: useraddress.toLowerCase(),follower: currentUsers[0].toLowerCase()} )).catch(console.log);
+  })
+  window.location.reload(false);
+}
+function unfollowUser(useraddress){
+  window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
+      fetch("/databank",getOptions("unfollow",{person: useraddress.toLowerCase(),follower: currentUsers[0].toLowerCase()} )).catch(console.log);
+  })
+  window.location.reload(false);
+}
 
+
+
+
+
+export{unfollowUser};
+export{followUser};
 export{getOptions};
 export{queryFetch};
 export{query};

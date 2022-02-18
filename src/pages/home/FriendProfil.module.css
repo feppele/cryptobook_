@@ -1,10 +1,12 @@
 .container{
 
-    width: 100% -padding;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     background-color: white;
 
+
+    
 }
 
 

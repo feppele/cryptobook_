@@ -102,9 +102,59 @@ async function getAnfrage(methode,ele){
       `;
     }
 
+  
 
 
-    
+
+
+
+    if(methode === "follow"){
+      anfrage= `
+
+      insert into Follow values ('${ele.person}','${ele.follower}');
+      `;
+    }
+    if(methode === "unfollow"){
+      anfrage= `
+
+      delete from Follow where person= '${ele.person}' and follower= '${ele.follower}';
+      `;
+    }
+
+    if(methode === "followCount"){
+      anfrage= `
+
+      select count (*) from Follow where person ='${ele.person}';
+      `;
+    }
+
+    if(methode === "getFollowList"){
+      anfrage= `
+
+      select follower,name from Follow left outer join Person on Follow.follower = Person.address where person='${ele.person}';;
+
+      `;
+    }
+
+    if(methode === "doIFollow"){
+      anfrage= `
+
+      select count (*) from Follow where person ='${ele.person}' and follower='${ele.follower}';
+      `;
+    }
+
+    if(methode === "WHOdoIFollow"){
+      anfrage= `
+
+      select person,name from Follow left outer join Person on Follow.person = Person.address where follower='${ele.me}';
+
+      `;
+    }
+
+
+
+
+
 
 
 

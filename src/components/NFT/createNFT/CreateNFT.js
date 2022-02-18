@@ -9,7 +9,7 @@ import BasicButton2 from '../../standart/BasicButton2';
 import FinishedNFT from '../finishedNFTModal/FinishedNFT';
 import FinishedNFTBackdrop from '../finishedNFTModal/FinishedNFTBackdrop';
 
-
+import Square from './Square';
 // Image Upload
 import image from '../../../images/image.png';
 
@@ -92,9 +92,18 @@ function CreateNFT(){
         setCreationFinish(false);
     }
 
+    function test(){
+        if(isSelected){
+            console.log(URL.createObjectURL(selectedFile));
+        }
+    }test();
+    
+
+
     return (
 
         <div className={classes.container}>
+
             <div className={classes.container2}>
 
             {creationFinish && <FinishedNFT tokenId={tokenId} txHash={txHash} />}
@@ -104,12 +113,12 @@ function CreateNFT(){
                 <div className={classes.h2}>Upload your Image: </div>
 
                 {/* Image Upload */}
-                <div className={classes.imageUploadWrapper}>
+                <div id="imageWrap"className={classes.imageUploadWrapper}>
                     <input ref={hiddenFileInput} id ="imageInput" type="file" name="file" onChange={changeHandler}  className={classes.imageInput}/>
                     <div onClick={handleClick} className={classes.hiddenFileButton}></div>
 
                     { !isSelected && <img src ={image} className={classes.coverImage}></img>}
-                    { isSelected &&   <img src={URL.createObjectURL(selectedFile)} className={classes.image}></img>  }
+                    { isSelected &&   <img id="image" src={URL.createObjectURL(selectedFile)} className={classes.image}></img>  }
 		        </div>
                 {/* Image Upload */}
 
@@ -123,6 +132,8 @@ function CreateNFT(){
 
                 <BasicButton2 onButtonClicked={onCreateButtonClicked} text ="Create"/>
 
+
+                { isSelected &&<Square img={URL.createObjectURL(selectedFile)}/> }
 
             </div>
         </div>

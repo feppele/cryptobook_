@@ -1,12 +1,13 @@
 .container{
 
+  z-index: 200;
 
     height: 35px;
     width: 300px;
     background-color:rgb(6, 29, 42);
     position:absolute;
     right: -480px;
-    bottom:20px;
+    top: 25vh;
 
     border-radius: 8px;
     display: flex;

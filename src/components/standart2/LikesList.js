@@ -13,11 +13,11 @@ function LikesList(props){
 
         <div className={classes.container}>
 
-            <img src={closePic} className={classes.close}></img>
+            <img onClick={props.onCloseClick} src={closePic} className={classes.close}></img>
 
 
             <div className={classes.top}>
-                Favorited by
+                {props.text}
             </div>
 
             <div className={classes.list}>

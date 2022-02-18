@@ -29,7 +29,15 @@ function Profil(){
         // get all friends Addresse
         const friends = await loadFriendsEasy();
 
-        console.log(friends);
+
+        if(friends.length ===0 ){
+            setPerson({friend_name:"unnamed", friend_addr: address});
+            setPersonSet(true);
+            setIsFriend(false);
+            console.log("NICHT FREUND")
+            return;
+
+        }
 
         for(var i=0;i<friends.length;i++){
 
@@ -45,9 +53,10 @@ function Profil(){
             if(i === friends.length-1){
                 setPerson({friend_name:"unnamed", friend_addr: address});
                 setPersonSet(true);
+                setIsFriend(false);
+                console.log("NICHT FREUND")
                 return;
             }
-
         }
     }
 
@@ -67,7 +76,11 @@ function Profil(){
 
             const options=getOptions("find",{address: person.friend_addr });
             fetch("/databank",options).then(res => { return res.json()}).then(res=>{
-                if(res==="error"){
+                console.log("res");
+                console.log(res[0]);
+                if(res[0].length===0){
+                    console.log("error")
+
                     setPerson({friend_name:"unnamed",friend_addr: person.friend_addr});
                     setPersonSet(true);
                 }else{
@@ -80,9 +93,11 @@ function Profil(){
 
     useEffect(() => {
 
+        console.log("to loop")
+
         if(personSet && !isFriend){
             loadNameFromDB();
-            console.log("in smart contract nach namen gesucht und NICH freund");
+            console.log("in smart contract nach namen gesucht und NICH freund --> load DB");
         }else if (personSet&&isFriend){
             console.log("in smart contract gesucht und ist freund");
         }else if (!personSet){
@@ -90,18 +105,7 @@ function Profil(){
         }
 
 
-    },[personSet])
-
-
-
-
-
-
-
-
-
-
-
+    },[personSet]);
 
 
 

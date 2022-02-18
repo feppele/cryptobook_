@@ -7,7 +7,7 @@ function Infobanner(props){
     return (
 
             <div className={classes.container}>
-                Link  copied !
+                {props.text}
             </div>
 
     );

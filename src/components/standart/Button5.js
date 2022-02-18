@@ -16,7 +16,7 @@ function Button5(props){
 
     return (
 
-        <div  onClicked={props.onButtonClicked} onMouseOut={closePopup} onMouseOver={openPopup} className={classes.wrapper}>
+        <div  onClick={props.onButtonClicked} onMouseOut={closePopup} onMouseOver={openPopup} className={classes.wrapper}>
 
                 { popup && <span className={classes.popuptext} id="myPopup">{props.popupText}</span> }
 

@@ -69,7 +69,10 @@ function OneNFTPage(){
 
     function goToProfile(){
         window.ethereum.request({method: 'eth_accounts'}).then(accounts=>{
-            if(accounts[0].localeCompare(owner)){
+           console.log("LOCAL COMPAREEE")
+            console.log(accounts[0]);
+            console.log(owner);
+            if(accounts[0].localeCompare(owner) === -1){
                 console.log("SOllte zu my PRofil gehenowner");
                 history.push({
                     pathname:"/profil/"
@@ -145,7 +148,7 @@ function OneNFTPage(){
             <div className={classes.right}>
 
                 {likesList && <Backdrop onBackDropClicked={closeLikesList}/> }
-                {likesList && <LikesList likesList={NFTLikesArrayForList}/>  }
+                {likesList && <LikesList text={"Favorited by"} onCloseClick={closeLikesList} likesList={NFTLikesArrayForList}/>  }
 
                 <div className={classes.nameAndButton}>
                     <div className={classes.name}>{metaData[1] +" " + "#" +metaData[2]}</div>
@@ -176,7 +179,7 @@ function OneNFTPage(){
 
 
 
-                { shareLink && <Infobanner /> }
+                { shareLink && <Infobanner text ={"Link copied !"}/> }
 
 
 
