@@ -10,6 +10,7 @@ import FriendElementCreator from './FriendElementCreator';
 import {loadFriends,loadFriendsEasy,shortAddr,onLoad} from '../../web3/LoadingFunctions';
 
 //modals
+import AddPopupFenster from './addFriendModal/AddPopupFenster';
 import AddFriendModal from './addFriendModal/AddFriendModal';
 import AddFriendBackdrop from './addFriendModal/AddFriendBackdrop';
 import NoFriendsSign from './NoFriendsSign';
@@ -59,7 +60,6 @@ import Button7Breit from '../standart/Button7Breit';
                 newFormat.push( {friend_name: friendsLoad[j].friend_name, friend_addr: friendsLoad[j].friend_addr, blockchain:true} );
             }
             setFriends(newFormat);
-            setSearchResult(newFormat);
         })
     },[]);
 
@@ -80,7 +80,6 @@ import Button7Breit from '../standart/Button7Breit';
                         newFormat.push( {friend_name: username,friend_addr: followFriends[i].person ,blockchain : false} );
                     }
                     setFollowFriends(newFormat);
-                    setSearchResult(newFormat);
                 })
             })
         }
@@ -91,6 +90,10 @@ import Button7Breit from '../standart/Button7Breit';
         useEffect(() => {
             if(folloFriends.length >0 &&  friends.length >0 ){
                 setSearchResult([].concat(friends,folloFriends));
+            }else if( !folloFriends.length >0){
+                setSearchResult(friends);
+            }else if(!friends.length >0){
+                setSearchResult(folloFriends);
             }
 
         },[folloFriends,friends])
@@ -154,7 +157,7 @@ import Button7Breit from '../standart/Button7Breit';
 
                 <div className={classes.box}>
 
-                    {  addFriendIsOpen && <AddFriendModal />}
+                    {  addFriendIsOpen && <AddPopupFenster />}
                     {  addFriendIsOpen && <AddFriendBackdrop  onBackDropClicked={closeAddFriend} />  }
 
 

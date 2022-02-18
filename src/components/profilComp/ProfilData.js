@@ -122,7 +122,6 @@ console.log(usernameDB)
 
 
             {saved  && <Infobanner text ={"Saved !"} />  }
-            <Infobanner text ={"Saved !"} />
         </div>
 
 

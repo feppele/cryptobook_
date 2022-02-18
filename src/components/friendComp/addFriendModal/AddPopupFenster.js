@@ -1,15 +1,16 @@
+import classes from './AddPopupFenster.module.css';
+import Button6 from '../../standart/Button6';
+import closePic from '../../../images/close.png';
 
-import classes from './AddFriendModal.module.css';
 import React,{useState} from 'react';
 import {web3} from '../../../web3/Web3'
 import {UserContract,userContractAddress} from '../../../web3/UserContract'
 import validImage from '../../../images/valid.png';
 import inValidImage from '../../../images/invalid.png';
-import Button6 from '../../standart/Button6';
 import Button7Breit from '../../standart/Button7Breit';
 import plusImg from '../../../images/plus.png';
 
-function AddFriendModal(props){
+function LikesList(props){
 
     const [imgSource,setImgSource] = useState();
     function isValidAddress(){
@@ -40,13 +41,17 @@ function AddFriendModal(props){
 
 
 
-    return(
+    return (
 
-        <div className={classes.modal}>
+        <div className={classes.container}>
 
-            <div className={classes.unvisible}>
+            <img src={closePic} className={classes.close}></img>
 
+
+            <div className={classes.top}>
+                Add Friend
             </div>
+
 
             <div className={classes.realModal}>
 
@@ -54,7 +59,7 @@ function AddFriendModal(props){
                     <input id="inputName" type="text" placeholder="friend name" className={classes.input}></input>
 
                     <Button7Breit onButtonClicked={addFriend} img={plusImg} popupText={"add"}/>
-                    
+
 
                 </div>
                 <div className={classes.wrapper}>
@@ -65,16 +70,11 @@ function AddFriendModal(props){
 
             </div>
 
-
-
         </div>
 
     );
 
 
-
-
 }
 
-
-export default AddFriendModal;
+export default LikesList;

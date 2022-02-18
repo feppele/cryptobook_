@@ -18,6 +18,7 @@ import Infobanner from './../../components/standart/Infobanner';
 import LikesList from './../../components/standart2/LikesList';
 import Backdrop from './../../components/standart2/Backdrop';
 import {getOptions} from '../../node/databank';
+import SendOneNFT from '../../components/standart2/sendOneNFT/SendOneNFT';
 
 function OneNFTPage(){
 
@@ -38,6 +39,9 @@ function OneNFTPage(){
     const [likesList,setLikesList]=useState(false);
     const [NFTLikesArrayForList,setNFTLikesArrayForList] = useState([]);
 
+    const [sendOneNFTModal,setSendOneNFTModal]=useState(false);
+
+    const [amIOwner,setAmIOwner]=useState(false);
 
     async function load(){
         getTokenUri(tokenId).then((uri)=>{
@@ -53,6 +57,10 @@ function OneNFTPage(){
 
         setOwner(response);
         setShortOwner(shortAddr(response));
+
+        if(response.toLowerCase() === window.web3.currentProvider.selectedAddress.toLowerCase()){
+            setAmIOwner(true);
+        }
     });
 
     function shortURI(uri){
@@ -63,17 +71,12 @@ function OneNFTPage(){
         window.open(tokenURI);
     }
 
-    function send(){
-        sendNFT();
-    }
+
 
     function goToProfile(){
         window.ethereum.request({method: 'eth_accounts'}).then(accounts=>{
-           console.log("LOCAL COMPAREEE")
-            console.log(accounts[0]);
-            console.log(owner);
+
             if(accounts[0].localeCompare(owner) === -1){
-                console.log("SOllte zu my PRofil gehenowner");
                 history.push({
                     pathname:"/profil/"
                 })
@@ -88,8 +91,6 @@ function OneNFTPage(){
     function getNFTLikes(){
         fetch("/databank",getOptions("getNFTLikes",{tokenId: tokenId}))
         .then(res => {return res.json()}).then(res=>{
-            console.log(res);
-            console.log(res[0][0]);
             if(res==="error"){
                 setNFTLikes(0);
             }
@@ -128,6 +129,17 @@ function OneNFTPage(){
     useEffect(() => {getLikesList()},[]);
     
 
+
+    function openSend(){
+        setSendOneNFTModal(true)
+        //sendNFT();
+    }
+    function closeSend(){
+        setSendOneNFTModal(false)
+        //sendNFT();
+    }
+
+
     console.log(NFTLikes);
 
 
@@ -144,8 +156,14 @@ function OneNFTPage(){
 
             </div>
 
+
             {/*right */}
             <div className={classes.right}>
+
+
+                {sendOneNFTModal && <SendOneNFT imageName={metaData[1]} tokenId={metaData[2]}  onCloseClick={closeSend}/>}
+                {sendOneNFTModal && <Backdrop onBackDropClicked={closeSend}/>}
+
 
                 {likesList && <Backdrop onBackDropClicked={closeLikesList}/> }
                 {likesList && <LikesList text={"Favorited by"} onCloseClick={closeLikesList} likesList={NFTLikesArrayForList}/>  }
@@ -153,9 +171,9 @@ function OneNFTPage(){
                 <div className={classes.nameAndButton}>
                     <div className={classes.name}>{metaData[1] +" " + "#" +metaData[2]}</div>
                     <div className={classes.buttonWrapper}>
-                        <Button3 img={profilePic} popupText={"profile pic"}/>
                         <Button3 onButtonClicked={copyURL} img={shareImg} popupText={"share link"}/>
-                        <Button3 onButtonClicked={send} img={sendImg} popupText={"send NFT"}/>
+                        {amIOwner && <Button3 img={profilePic} popupText={"profile pic"}/>  }
+                        {amIOwner && <Button3 onButtonClicked={openSend} img={sendImg} popupText={"send NFT"}/> }
                     </div>
                 </div>
 

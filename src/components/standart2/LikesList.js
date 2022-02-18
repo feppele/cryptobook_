@@ -22,9 +22,7 @@ function LikesList(props){
 
             <div className={classes.list}>
 
-            {props.likesList[0].map(item => <ListElement likesItem={item} />
-
-            )}
+            {props.likesList[0].map(item => <ListElement likesItem={item} />   )}
 
             </div>
 

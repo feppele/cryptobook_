@@ -20,6 +20,9 @@ app.get("/api", (req, res) => {
 
     getAnfrage(req.body.methode,req.body.ele).then(anfrage =>{
 
+      console.log("Die Anfrage:  " + anfrage);
+      console.log("Die Antwort:  ");
+
             db.multi(anfrage , 123)
             .then(function (sql_answer) {
                 // SEND FETCH ANSWER
@@ -54,6 +57,8 @@ app.get("/api", (req, res) => {
 
 
 async function getAnfrage(methode,ele){
+
+  console.log("Die Methode: " + methode);
 
     var anfrage;
 
@@ -102,10 +107,6 @@ async function getAnfrage(methode,ele){
       `;
     }
 
-  
-
-
-
 
 
     if(methode === "follow"){
@@ -131,7 +132,7 @@ async function getAnfrage(methode,ele){
     if(methode === "getFollowList"){
       anfrage= `
 
-      select follower,name from Follow left outer join Person on Follow.follower = Person.address where person='${ele.person}';;
+      select follower,name from Follow left outer join Person on Follow.follower = Person.address where person='${ele.person}';
 
       `;
     }

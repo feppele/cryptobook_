@@ -65,9 +65,7 @@ async function sendNFT(to,tokenId){
     const _tokenId =tokenId;
 
 
-NFTContract.methods.transferFrom(_from,_to,_tokenId).send({from:_from}).then(console.log).catch(console.log);
-
-
+    NFTContract.methods.transferFrom(_from,_to,_tokenId).send({from:_from}).then(console.log).catch(console.log);
 
 }
 

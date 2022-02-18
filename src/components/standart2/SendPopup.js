@@ -18,24 +18,27 @@ function SendPopup(props){
 
     const[sendEther,setSendEther] = useState(0);
 
-    async function send(){
-        const transactionParameters = {
-            to: props.longAddr,
-            from: window.web3.currentProvider.selectedAddress,
-            value: sendEther.toString()
-          };
 
-          const txHash = await window.ethereum.request({
-            method: 'eth_sendTransaction',
-            params: [transactionParameters],
-          });
+
+    function send(){
+        web3.eth.sendTransaction({
+            from:window.web3.currentProvider.selectedAddress,
+            to:props.longAddr,
+            value: web3.utils.toWei(sendEther.toString())});
     }
 
 
+    // calc the USD price
     function calc(){
 
         var inputValue = document.getElementById("inputValue");
         var usdValue = document.getElementById("usdValue");
+
+        var ethValue =inputValue.value;
+        if(inputValue.value === ""){
+            inputValue.value="0";
+            ethValue=0;
+        }
 
         setSendEther(inputValue.value);
 
@@ -43,9 +46,9 @@ function SendPopup(props){
 
             const ethPrice=parseFloat(res.toString().split(":").pop())
             console.log(ethPrice)
-            const calc =(ethPrice*parseFloat(inputValue.value)).toFixed(2);
+            const calc =(ethPrice*parseFloat(ethValue)).toFixed(2);
             usdValue.value=calc;
-            setEtherPrice(calc);
+            setEtherPrice(calc); // in usd
         })
     }
 
@@ -57,11 +60,17 @@ function SendPopup(props){
         var inputValue = document.getElementById("inputValue");
         var usdValue = document.getElementById("usdValue");
 
+        var usdValue2 =usdValue.value;
+        if(usdValue.value === ""){
+            usdValue.value="0";
+            usdValue2=0;
+        }
+
         ethPrice("usd").then(res=>{
 
             const ethPrice=parseFloat(res.toString().split(":").pop())
             console.log(ethPrice)
-            const calc =(parseFloat(usdValue.value)/ethPrice).toFixed(10);
+            const calc =(parseFloat(usdValue2)/ethPrice).toFixed(10);
             inputValue.value=calc;
 
             setSendEther(calc);
@@ -109,8 +118,6 @@ function SendPopup(props){
                     </div>
                     <div className={classes.button}>    <Button6 onButtonClicked={ send} popupText={"send"} img={sendImg}/>    </div>
             </div>
-
-
 
             </div>
 

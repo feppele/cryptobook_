@@ -52,16 +52,12 @@ function NFTFormat(props){
         })
 
         setILike(true);
-        console.log(typeof(NFTLikes));
         setNFTLikes(parseInt(NFTLikes)+1);
 
     }
     function dislikeNFT(){
-        console.log(user);
-        console.log("disloke");
         fetch("/databank",getOptions("dislikeNFT",{tokenId: props.tokenId,address: user}))
         .then(res => {return res.json()})
-
         setILike(false);
         setNFTLikes(parseInt(NFTLikes)-1);
     }
@@ -71,8 +67,6 @@ function NFTFormat(props){
         window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
             fetch("/databank",getOptions("doILike",{tokenId: props.tokenId, address: currentUsers[0] }))
             .then(res => {return res.json()}).then(res=>{
-
-                console.log(res)
                 if(res==="error" || res[0][0].count==="0"){
                     setILike(false);
                 }else{
@@ -85,10 +79,8 @@ function NFTFormat(props){
 
     useEffect(()=>{
         if(props.tokenId !== undefined){
-            console.log(props.tokenId);
             getNFTLikes();
             doILike();
-            console.log("load NFT LIKES NEW")
         }
 
         window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{setUser(currentUsers[0])});
