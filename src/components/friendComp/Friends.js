@@ -1,14 +1,11 @@
 import classes from './Friends.module.css';
 import React, { Component } from 'react';
 import {useState,useEffect} from 'react';
-
 import FriendElement from './FriendElement';
 import BasicButton from '../standart/BasicButton';
 import BasicButton2 from '../standart/BasicButton2';
 import FriendElementCreator from './FriendElementCreator';
-
 import {loadFriends,loadFriendsEasy,shortAddr,onLoad} from '../../web3/LoadingFunctions';
-
 //modals
 import AddPopupFenster from './addFriendModal/AddPopupFenster';
 import AddFriendModal from './addFriendModal/AddFriendModal';
@@ -18,13 +15,9 @@ import addImg from '../../images/add-user.png'
 import saveFriend from '../../images/saveFriend2.png';
 import searchPeople from '../../images/searchPeople.png';
 import {getOptions} from '../../node/databank';
-
-
 import Button3 from '../standart/Button3';
 import Button7Breit from '../standart/Button7Breit';
-
-
-
+import {getAllFriendsPromise} from  '../../web3/GetAllFriends';
 
  function Friends(){
 
@@ -32,9 +25,8 @@ import Button7Breit from '../standart/Button7Breit';
 
     const [showSad, setShowSad] = useState(false);
     const [addFriendIsOpen, setAddFriendIsOpen ] = useState(false);
-    const [friends,setFriends] = useState([]);
     const [searchResult,setSearchResult] = useState([]);
-    const [folloFriends,setFollowFriends]= useState([]);
+    const [allFriends,setAllFriends] = useState([]);
 
     function openAddFriend(){
         setAddFriendIsOpen(true);
@@ -44,112 +36,50 @@ import Button7Breit from '../standart/Button7Breit';
     }
 
 
-    // Load Friends Stuff _______________________________________
-
-
-    // Load Blockchain friends
-    useEffect(() => {loadFriendsEasy().then(friendsLoad=>{
-            console.log(friendsLoad);
-            if( !(friendsLoad.length > 0 )){
-                console.log("friend === null");
+    // Load Friends Stuff
+    useEffect(() => {
+        getAllFriendsPromise().then(res => {
+            setSearchResult(res);
+            setAllFriends(res);
+            if(res.length <1 ){
                 setShowSad(true);
             }
-            var newFormat = [];
-            // Set a new Dataformat with blockchain= true :  Array- Item:  {friend_name   ,   friend_addr  ,    blockchain:true    }
-            for(var j=0;j<friendsLoad.length; j++){
-                newFormat.push( {friend_name: friendsLoad[j].friend_name, friend_addr: friendsLoad[j].friend_addr, blockchain:true} );
-            }
-            setFriends(newFormat);
         })
-    },[]);
-
-        // Load Follow Friends
-        function WHOdoIFollow(){
-            window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-                fetch("/databank",getOptions("WHOdoIFollow",{me: currentUsers[0].toLowerCase()}))
-                .then(res => {return res.json()}).then(res=>{
-                    var followFriends= res[0];
-                    var newFormat =[];
-                    for(var i=0;i<followFriends.length; i++){
-                        var username;
-                        if(followFriends[i].name === null){
-                            username="unnamed";
-                        }else{
-                            username=followFriends[i].name;
-                        }
-                        newFormat.push( {friend_name: username,friend_addr: followFriends[i].person ,blockchain : false} );
-                    }
-                    setFollowFriends(newFormat);
-                })
-            })
-        }
-        useEffect(() => {WHOdoIFollow()},[]);
+    },[])
 
 
-        //Combine follow and blockchain an  update searchResult
-        useEffect(() => {
-            if(folloFriends.length >0 &&  friends.length >0 ){
-                setSearchResult([].concat(friends,folloFriends));
-            }else if( !folloFriends.length >0){
-                setSearchResult(friends);
-            }else if(!friends.length >0){
-                setSearchResult(folloFriends);
+    // Search stuff
+    function filter(){
+        var results =[];
+        for(var i=0;i<allFriends.length;i++){
+
+            if(allFriends[i].blockchain === true ){
+                results.push(allFriends[i]);
             }
-
-        },[folloFriends,friends])
-
-
-
-        // Load Friends Stuff ______________^^^^^^^^^^^^^^^^^^^^^^^^^
-
-
-        // SEARCHING STUFF ____________________________________________
-        function filter(){
-
-            var bouth = [].concat(friends,folloFriends);
-            var results =[];
-            for(var i=0;i<bouth.length;i++){
-
-               if(bouth[i].blockchain === true ){
-                    results.push(bouth[i]);
-                }
-            }
-            setSearchResult(results);
-
-
         }
-        function search(){
-            const searchName = document.getElementById("searchInput").value;
-            var bouth = [].concat(friends,folloFriends)
-            var results =[];
-            for(var i=0;i<bouth.length;i++){
+        setSearchResult(results);
+    }
 
-               if((bouth[i].friend_name.search(searchName) !== -1) || (bouth[i].friend_addr.search(searchName) !== -1) ){
-                    results.push(bouth[i]);
-                }
+    function search(){
+        const searchName = document.getElementById("searchInput").value;
+        var results =[];
+        for(var i=0;i<allFriends.length;i++){
+            if((allFriends[i].friend_name.search(searchName) !== -1) || (allFriends[i].friend_addr.search(searchName) !== -1) ){
+                results.push(allFriends[i]);
             }
-            setSearchResult(results);
         }
-        // SEARCHING STUFF ____________________________________________^^
-
-
-
-
-
+        setSearchResult(results);
+    }
 
 
 
     return (
         <div className={classes.container}>
 
-
-
             <div className={classes.stripe}></div>
 
             {/* LEFT SIDE */}
             <div className={classes.menu}>
-
-
 
                 <div className={classes.haederWrapper}>
                     <h className={classes.header}> friends </h>
@@ -159,7 +89,6 @@ import Button7Breit from '../standart/Button7Breit';
 
                     {  addFriendIsOpen && <AddPopupFenster />}
                     {  addFriendIsOpen && <AddFriendBackdrop  onBackDropClicked={closeAddFriend} />  }
-
 
                     <div className={classes.buttonWrapper}>
                         <Button3 onButtonClicked={openAddFriend} img={addImg} popupText={"new friend"}/>
@@ -173,9 +102,6 @@ import Button7Breit from '../standart/Button7Breit';
 
                 </div>
 
-
-
-
             </div>{/* LEFT SIDE */}
 
             {/* LRIGHT SIDE */}
@@ -187,15 +113,9 @@ import Button7Breit from '../standart/Button7Breit';
                     <FriendElementCreator friends ={searchResult} />
                 </div>
 
-
             </div>{/* LRIGHT SIDE */}
-
-
-    </div>
-
+        </div>
     );
-
-
 }
 
 export default Friends;

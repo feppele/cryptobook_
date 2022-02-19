@@ -10,6 +10,9 @@ var pgp = require("pg-promise")(/*options*/);
 var db = pgp("postgres://fritz:admin@localhost:5432/databank1");
 
 
+
+
+
 app.get("/api", (req, res) => {
     res.json({ message: "Hello from server!" });
   });
@@ -42,6 +45,91 @@ app.get("/api", (req, res) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+  // download Images
+  app.use(express.static('public')); 
+  app.use('/images', express.static('images'));
+
+
+
+  // upload Images
+  const multer = require('multer');
+  var fs = require('fs');
+
+  var storage = multer.diskStorage({
+    destination: './images/profile',
+    filename: function (req, file, cb) {
+
+        cb(null, file.originalname);
+    }
+});
+
+var upload = multer({storage: storage});
+
+
+
+
+app.post("/deleteProfilPic", (req) => {
+
+  console.log(req.body.userAddress);
+
+
+  fs.unlinkSync("./images/profile/q.png");
+
+
+})
+
+
+// 'image' must be name of <input>'
+app.use(upload.single('image'))
+
+app.post('/uploadUserImage', (req, res) => {
+
+  console.log("IN UPLOAD")
+  console.log(req.body)
+//   console.log(req)
+//   console.log("req")
+
+// console.log(JSON.stringify(req.body.photo)) // form fields
+// console.log(req.photo) // form files
+// console.log(req.file) // form files
+// res.send(req.body.photo);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
   });
@@ -50,8 +138,6 @@ app.get("/api", (req, res) => {
 
 
 
-
-// ` delete from Person where address = '${address}';  `
 
 
 
@@ -62,6 +148,7 @@ async function getAnfrage(methode,ele){
 
     var anfrage;
 
+    // Person
     // erst delete. sorgt dafür dass eine person nur einam in liste ist
     if(methode === "add"){
         anfrage= ` delete from Person where address = '${ele.address}';   insert into Person values ('${ele.address}', '${ele.username}'); `;
@@ -71,7 +158,7 @@ async function getAnfrage(methode,ele){
     }
 
 
-
+    //NFT
     if(methode === "getNFTLikes"){
       anfrage= ` select count(*) from Likes where tokenId ='${ele.tokenId}';  `;
     }
@@ -79,7 +166,6 @@ async function getAnfrage(methode,ele){
     if(methode === "doILike"){
       anfrage= ` select count(*) from Likes where tokenId ='${ele.tokenId}' and address='${ele.address}';  `;
     }
-
 
     if(methode === "likeNFT"){
       anfrage= `
@@ -98,7 +184,6 @@ async function getAnfrage(methode,ele){
       `;
     }
 
-
     if(methode === "getLikesList"){
       anfrage= `
 
@@ -108,7 +193,7 @@ async function getAnfrage(methode,ele){
     }
 
 
-
+    // Follower
     if(methode === "follow"){
       anfrage= `
 

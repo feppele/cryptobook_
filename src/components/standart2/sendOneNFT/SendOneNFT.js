@@ -2,7 +2,7 @@ import classes from './SendOneNFT.module.css';
 import closePic from '../../../images/close.png'
 import FriendListElement from './FriendListElement';
 import {useState} from 'react';
-import {getAllFriends,blockchainFriends,followFriends} from '../../../web3/GetAllFriends';
+import {getAllFriends,getAllFriendsPromise} from '../../../web3/GetAllFriends';
 
 
 function SendOneNFT(props){
@@ -10,8 +10,7 @@ function SendOneNFT(props){
     const [allFriends,setAllFriends]= useState([])
 
 
-    getAllFriends().then(res => {setAllFriends(res)});
-
+    getAllFriendsPromise().then(res => {setAllFriends(res)});
 
 
     return (

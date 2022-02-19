@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 
 import coverImage from '../../images/image.png';
 
-function ImageSetting(){
+function ImageSetting(props){
 
 
     const [selectedFile, setSelectedFile] = useState();
@@ -27,7 +27,10 @@ function ImageSetting(){
     return (
 
             <div className={classes.imageUploadWrapper}>
-                <input ref={hiddenFileInput} id ="imageInput" type="file" name="file" onChange={changeHandler}  className={classes.imageInput}/>
+                <div id="text">test</div>
+                <form id="imageupload" >
+                    <input ref={hiddenFileInput} id ="imageInput" type="file" name="image" onChange={changeHandler}  className={classes.imageInput}/>
+                </form>
                 <div onClick={handleClick} className={classes.hiddenFileButton}></div>
 
                 { !isSelected && <img src ={coverImage} className={classes.coverImage}></img>}

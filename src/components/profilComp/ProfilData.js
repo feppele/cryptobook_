@@ -5,20 +5,23 @@ import Button5 from '../standart/Button5';
 import Button4 from '../standart/Button4';
 import settingsPic from '../../images/settings2.png';
 import savePic from '../../images/save.png';
-import ProfilPic from '../../images/profilColor.png';
+import StandartProfilPic from '../../images/profilColor.png';
 import etherSign from '../../images/Crypto-Icons/eth-logo.svg';
 import {web3} from '../../web3/Web3';
 import {getAddress} from '../../web3/LoadingFunctions'
 import {onLoad} from '../../web3/LoadingFunctions'
 import {shortAddr} from '../../web3/LoadingFunctions'
 
+import coverImage from '../../images/image.png';
 import Infobanner from '../standart/Infobanner';
-
+import {getCurrentUser} from '../../web3/HelperFunctions'
 
 import ImageSetting from './ImageSetting';
 import React, {useState,useEffect,useHistory} from 'react';
 
 import {query,getOptions,queryFetch} from '../../node/databank';
+
+
 
 function ProfilData(){
 
@@ -43,17 +46,14 @@ function ProfilData(){
         const username =  document.getElementById("userName").value;
 
         window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-
             const res = query("add",{ address: currentUsers[0], username: username});
-
-            console.log("onsaveclick");
-            console.log(res);
-  
 
         })
         setSettingMode(false);
         // just for infobanner
         setSaved(true);
+
+        uploadImage();
 
         window.location.reload();
     }
@@ -65,11 +65,8 @@ function ProfilData(){
         window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
 
             const options=getOptions("find",{address: currentUsers[0] });
-            console.log(options);
 
             fetch("/databank/",options).then(res => { return res.json()}).then(res=>{
-                console.log("res[0]");
-                console.log(res[0]);
                 if(res[0].length===0){
                     setUsernameDB("unnamed");
                 }else{
@@ -85,11 +82,99 @@ function ProfilData(){
 
 
 
+    // IMAGE SETTINGS___________________________________________________
+    function uploadImage () {
+
+        // this returns a File().
+        var image= document.getElementById("imageInput").files[0];
+
+        var type = image.type;
+
+        var imgType = type.substring(type.lastIndexOf("/")+1,1000);
+
+        console.log(imgType);
+
+        getCurrentUser().then(userAddress =>{
+            // cannot change name of file so copy file and create new one with other name
+            // set Name to address from person
+            var blob = image.slice(0, image.size);
+            var newFile = new File([blob], userAddress +"." + imgType);
+
+            // FromData is a list from keys and values. set key=image and value = File. 'image is important because same name is used in server'
+            var formData = new FormData();
+            formData.set('image',newFile);
 
 
-    console.log("usernameDB")
 
-console.log(usernameDB)
+
+
+                const params = {
+                    userAddress: userAddress,
+                };
+                const options = {
+                    method: 'POST',
+                    headers:{'content-type': 'application/json'},
+                    body: JSON.stringify( params )
+                };
+                fetch('/deleteProfilPic',options);
+
+
+
+
+            fetch('/uploadUserImage', {
+              method: 'POST',
+              body: formData
+            }).then(console.log);
+        })
+    }
+
+
+    const [profilePicSource,setProfilePicSource] = useState(StandartProfilPic)
+    const [profilePic,setProfilePic] = useState(false);
+
+    function getProfilePic(){
+
+        getCurrentUser().then(userAddress =>{
+
+
+            const types = [".png",".jpeg",".jpg"]
+
+
+
+            for ( const type of types ){
+                fetch("/images/profile/" + userAddress + type ).then(res =>{
+                    if(res.status === 200){
+                        setProfilePic(true)
+                        setProfilePicSource("/images/profile/"+ userAddress + type)
+                        
+                    }
+                })
+            }
+
+        })
+
+    }
+    useEffect(() => {getProfilePic()},[])
+
+    console.log(profilePicSource)
+    
+
+    const [selectedFile, setSelectedFile] = useState();
+    const [isSelected, setIsSelected] = useState(false);
+
+    const changeHandler = (event) => {
+		setSelectedFile(event.target.files[0]);
+		setIsSelected(true);
+	};
+
+    // input Tag has ugly Button. So make input invisible in css. Create new button and ref!! on click to input tag
+    const hiddenFileInput = React.useRef(null);
+    const handleClick = event => {
+        hiddenFileInput.current.click();
+    };
+// IMAGE SETTINGS___________________________________________________^^^^^
+
+
 
     return (
 
@@ -97,10 +182,24 @@ console.log(usernameDB)
 
             <div className={classes.greyBox}></div>
 
-            { !settingMode && <img src={ProfilPic} className={classes.profilePicture}></img>    }
+            { !settingMode && <img src={profilePicSource} className={classes.profilePicture}></img>    }
+
 
             {/* SETTINGS MODE    PICTURE*/}
-            { settingMode && <ImageSetting />}
+            { settingMode &&
+
+            <div className={classes.imageUploadWrapper}>
+            <form id="imageupload" >
+                <input ref={hiddenFileInput} id ="imageInput" type="file" name="image" accept="image/jpg image/png" onChange={changeHandler}  className={classes.imageInput}/>
+            </form>
+            <div onClick={handleClick} className={classes.hiddenFileButton}></div>
+
+            { !isSelected && <img src ={coverImage} className={classes.coverImage}></img>}
+            { isSelected &&   <img src={URL.createObjectURL(selectedFile)} className={classes.image}></img>  }
+            </div>
+
+           }{/* SETTINGS MODE    PICTURE*/}
+
 
             { !settingMode && userNameIsLoad && <p id="name" className={classes.name}> {usernameDB}</p>    }
 
@@ -119,6 +218,7 @@ console.log(usernameDB)
             <div className={classes.buttonPosition}>
                 <Button3 onButtonClickded={activateSetting} img={settingsPic} popupText="settings"/>
             </div>
+
 
 
             {saved  && <Infobanner text ={"Saved !"} />  }

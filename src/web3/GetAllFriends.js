@@ -3,28 +3,30 @@
 import {loadFriendsEasy} from './LoadingFunctions';
 import {getOptions} from '../node/databank'
 
-async function getAllFriends(){
 
-    const ans = await blockchainFriends().then(res => {return res}).then(blockchainFriends=>{
 
-        const concatFriends = followFriends().then(res => {return res}).then(followfriends=>{
+async function getAllFriendsPromise(){
 
-            return [].concat(blockchainFriends,followfriends);
-        });
-
-        return concatFriends;
-    });
-
-    return ans;
+    const res = await Promise.all([
+        blockchainFriends(),
+        followFriends()
+    ]).then(messages => {
+        return [].concat(messages[0],messages[1]);
+    })
+    return res;
 }
-
 
 
 async function followFriends(){
 
 
+
+
+    const ans = await window.ethereum.request({method: 'eth_accounts'}).then(accounts => {
+
+
         // load Follow Friends
-        const ans = await fetch("/databank",getOptions("WHOdoIFollow",{me: window.web3.currentProvider.selectedAddress.toLowerCase()}))
+        const answer = fetch("/databank",getOptions("WHOdoIFollow",{me:  accounts[0].toLowerCase()}))
         .then(res => {return res.json()})
         .then(res=>{
             var followFriends= res[0];
@@ -40,6 +42,9 @@ async function followFriends(){
             }
             return(newFormatFollow);
         }).then(newFormatFollow=>{return newFormatFollow})
+
+    return answer;
+    })
 
 return ans;
 }// followFriends
@@ -64,5 +69,5 @@ async function blockchainFriends(){
 }
 
 export{followFriends}
-export {getAllFriends}
 export{blockchainFriends}
+export{getAllFriendsPromise}

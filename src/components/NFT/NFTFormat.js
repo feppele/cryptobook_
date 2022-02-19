@@ -11,6 +11,9 @@ import redHerz from '../../images/redherz.png';
 import blackHerz from '../../images/backherz.png';
 import MiniButton from '../standart/MiniButton';
 
+import {getNFTLikes,likeNFT,dislikeNFT,doILike} from '../../node/NFTLikes';
+
+
 
 function NFTFormat(props){
 
@@ -22,69 +25,44 @@ function NFTFormat(props){
 
 
     function openThisNFTPage(){
-        const data ={_imageURL: props.imageURL,
-                    _imageName: props.imageName,
-                    _tokenId: props.tokenId}
-
         history.push({
             pathname:"/thisNFT/"+props.tokenId,
-            state:data
         });
-
-    }
-
-    function getNFTLikes(){
-
-        fetch("/databank",getOptions("getNFTLikes",{tokenId: props.tokenId}))
-        .then(res => {return res.json()}).then(res=>{
-            if(res==="error"){
-                setNFTLikes(0);
-            }
-            setNFTLikes(res[0][0].count);
-        })
     }
 
 
-    function likeNFT(){
-
-        window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-            fetch("/databank",getOptions("likeNFT",{tokenId: props.tokenId,address: currentUsers[0]} )).catch(console.log);
-        })
-
+    // like, dislike
+    function likeNFTFunc(){
+        likeNFT(props.tokenId);
         setILike(true);
         setNFTLikes(parseInt(NFTLikes)+1);
 
     }
-    function dislikeNFT(){
-        fetch("/databank",getOptions("dislikeNFT",{tokenId: props.tokenId,address: user}))
-        .then(res => {return res.json()})
+    function dislikeNFTFunc(){
+            dislikeNFT(props.tokenId);
         setILike(false);
         setNFTLikes(parseInt(NFTLikes)-1);
     }
 
-    function doILike(){
 
-        window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-            fetch("/databank",getOptions("doILike",{tokenId: props.tokenId, address: currentUsers[0] }))
-            .then(res => {return res.json()}).then(res=>{
-                if(res==="error" || res[0][0].count==="0"){
+    // getNFTLikes  doILike?   setUser
+    useEffect(()=>{
+        if(props.tokenId !== undefined){
+
+            getNFTLikes(props.tokenId).then(res => {
+                console.log(res)
+                setNFTLikes(res);
+            });
+
+            doILike(props.tokenId).then(res =>{
+                if(!res){
                     setILike(false);
                 }else{
                     setILike(true);
-                }
-            })
-        })
-    }
-
-
-    useEffect(()=>{
-        if(props.tokenId !== undefined){
-            getNFTLikes();
-            doILike();
+               }
+            });
         }
-
         window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{setUser(currentUsers[0])});
-
 
     },[props])
 
@@ -111,9 +89,8 @@ function NFTFormat(props){
 
                 <div className={classes.likesWrapper}>
 
-                { !iLike &&  <MiniButton onButtonClicked={likeNFT} img={blackHerz} popupText={"like"}/>  }
-                { iLike  &&   <MiniButton onButtonClicked={dislikeNFT} img={redHerz} popupText={"dislike"}/>  }
-
+                { !iLike &&  <MiniButton onButtonClicked={likeNFTFunc} img={blackHerz} popupText={"like"}/>  }
+                { iLike  &&   <MiniButton onButtonClicked={dislikeNFTFunc} img={redHerz} popupText={"dislike"}/>  }
 
                     <div className={classes.numberlikes}> {NFTLikes} </div>
                 </div>

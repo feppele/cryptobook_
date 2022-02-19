@@ -11,22 +11,19 @@ function NftCollection(props){
 
     const[loading,setLoading]= useState(true);
     const[noNFTs,setNoNFTs] = useState(true);
-
     const [metadataArray,setMetadataArray]=useState([]);
+
+
     async function loadNFT(){
         await setMetadataArray( await getAllTokensMetadataArray(props.from));
         setLoading(false);
 
     }
-
-
     // just load at mount
     useEffect(() => {loadNFT()},[]);
 
 
-    
     useEffect(() => {
-
         if(!loading){
             if(metadataArray.length === 0){
                 setNoNFTs(false);
@@ -34,17 +31,15 @@ function NftCollection(props){
                 setNoNFTs(true);
             }
         }
-    })
+    },[loading])
 
 
     return (
 
         <div className={classes.container}>
 
-
            {loading && <img src={loadImage} className={classes.loading}></img> }
            {!noNFTs && <NoNFT text ="no NFTs yet"/> }
-
 
           <NFTFormatCreator metadataArray={metadataArray}/>
 

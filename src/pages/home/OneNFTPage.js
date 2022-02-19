@@ -119,7 +119,6 @@ function OneNFTPage(){
         fetch("/databank",getOptions("getLikesList",{tokenId: tokenId}))
         .then(res => {return res.json()}).then(res=>{
 
-            console.log(res);
             if(res==="error"){
                 setNFTLikesArrayForList([]);
             }
@@ -139,8 +138,6 @@ function OneNFTPage(){
         //sendNFT();
     }
 
-
-    console.log(NFTLikes);
 
 
     return (
