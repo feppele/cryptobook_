@@ -3,23 +3,34 @@
     height: 100%;
     width: 50%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
     flex-direction: column;
+
+
    
 
 }
+
+.box{
+    margin-top: 92px;
+
+
+}
+
+
 .nftText{
     margin-left: 100px;
     font-family:Poppins, sans-serif;
     width: 60%;
-    font-size: 44px;
+    font-size: 35px;
     font-weight: bold;
     color: rgb(6, 29, 42);
     margin-bottom: 20px;
     margin-top:0px;
 }
 .text{
+
     margin:0;
     margin-left: 100px;
     width: 60%;

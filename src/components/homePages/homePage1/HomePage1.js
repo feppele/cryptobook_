@@ -17,16 +17,27 @@ function HomePage1(){
 
         <div className={classes.container}>
 
-            <Left />
+
 
             <div className={classes.right}>
 
-            <p className={classes.money}> Send money without using public keys</p>
+
+                <div className={classes.box}>
+
+                    <div className={classes.headerText}>Join the first connected Blockchain Plattform</div>
+
+
+
+                </div>
+
 
 
 
 
             </div>
+
+
+            <Left />
         </div>
     );
 }

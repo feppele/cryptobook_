@@ -11,7 +11,7 @@ function NFTFormatCreator(props){
 
     return  props.metadataArray.map(
 
-        element =>  <NFTFormat key={key++}imageURL={element[0]} imageName={element[1]} tokenId={element[2]}/> 
+        element =>  <NFTFormat key={key++} imageURL={element[0]} imageName={element[1]} tokenId={element[2]}/> 
 
     )
 

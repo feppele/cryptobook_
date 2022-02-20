@@ -45,11 +45,11 @@ function LikesList(props){
 
         <div className={classes.container}>
 
-            <img src={closePic} className={classes.close}></img>
+            <img onClick={props.onCloseClicked} src={closePic} className={classes.close}></img>
 
 
             <div className={classes.top}>
-                Add Friend
+                Add Blockchain Friend 
             </div>
 
 

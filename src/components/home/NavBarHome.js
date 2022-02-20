@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState,useEffect} from 'react'
 import {Link} from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 
@@ -11,9 +11,13 @@ import classes from './NavBarHome.module.css';
 
 import {web3} from '../../web3/Web3.js';
 
-import profilColor from '../../images/profilColor.png';
+import profilColor from '../../images/background.jpeg';
 
 import {onLoad} from '../../web3/LoadingFunctions'
+
+import {getProfilePicURL} from '../../node/images'
+
+import {getCurrentUser} from '../../web3/HelperFunctions'
 
 
 function NavBar(){
@@ -22,6 +26,8 @@ function NavBar(){
 
     const [ menu2IsOpen, setMenu2IsOpen ] = useState(false);
     const [ profilModalIsOpen, setProfilIsOpen ] = useState(false);
+
+    const [profilePic,setProfilePic] = useState(profilColor);
 
     function reload(){
         history.push("/home");
@@ -70,6 +76,20 @@ function NavBar(){
 
     }
 
+
+    useEffect(() => {
+        getCurrentUser().then(address=>{
+            getProfilePicURL(address).then(url => {
+                if(url.length >0){
+                    setProfilePic(url);
+                }
+            })
+        })
+
+    },[])
+
+
+
     return (
 
         <div className={classes.container}>
@@ -86,7 +106,7 @@ function NavBar(){
 
             <div className={classes.menuWrapper}>
 
-                <img id="profilButton" className={classes.profilColor} src={profilColor} onClick={openProfil} onMouseMove={openProfilModal}></img>
+                <img id="profilButton" className={classes.profilColor} src={profilePic} onClick={openProfil} onMouseMove={openProfilModal}></img>
 
                 <div className={classes.wrap4Modal}>
                     <div className={classes.menu} onClick={openMenu} onMouseMove={openMenu}>

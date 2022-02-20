@@ -2,7 +2,7 @@
 import classes from './ProfilModal.module.css';
 
 import React from 'react';
-import profilPic from '../../../images/profil.png';
+import profilPic from '../../../images/profilepic.png';
 import settingPic from '../../../images/setting.png';
 import logPic from '../../../images/log-out.png';
 import walletPic from '../../../images/wallet.png';

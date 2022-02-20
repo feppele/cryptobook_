@@ -3,6 +3,9 @@ import closePic from '../../../images/close.png'
 import FriendListElement from './FriendListElement';
 import {useState} from 'react';
 import {getAllFriends,getAllFriendsPromise} from '../../../web3/GetAllFriends';
+import {useEffect} from 'react'
+
+
 
 
 function SendOneNFT(props){
@@ -10,7 +13,11 @@ function SendOneNFT(props){
     const [allFriends,setAllFriends]= useState([])
 
 
+
     getAllFriendsPromise().then(res => {setAllFriends(res)});
+
+
+
 
 
     return (

@@ -1,5 +1,5 @@
 import classes from './FriendProfilData.module.css';
-import ProfilPic from '../../images/profilColor.png';
+import ProfilPic from '../../images/background.jpeg';
 import etherSign from '../../images/Crypto-Icons/eth-logo.svg';
 import friend_symbol from '../../images/friend_symbol.png';
 import {useState,useEffect} from 'react';
@@ -23,17 +23,20 @@ import {getOptions} from '../../node/databank';
 import LikesList from '../standart2/LikesList';
 import Backdrop from '../standart2/Backdrop';
 
+import {getProfilePicURL} from '../../node/images'
+import {getCurrentUser} from '../../web3/HelperFunctions'
+
 function ProfilData(props){
 
-
+    
     const [modalOpen,setModalOpen] = useState(false);
     const[followList,setFollowList] = useState(false);
     const[followArrayList,setFollowArrayForList] = useState([]);
     const[followCount,setFollowCount] = useState(0);
     const[userFollowed,setUserFollowed] = useState(false);
-
+    const [profilePicURL,setProfilePicURL] =useState(ProfilPic);
     const[update,setUpdate]= useState(false);
-    
+
     function openMiniModal(){
 
         setModalOpen(true);
@@ -108,6 +111,19 @@ function ProfilData(props){
         setFollowList(false);
     }
 
+
+
+    // load ProfilPic
+    useEffect(() => {
+
+        getProfilePicURL(props.personData.friend_addr).then(url => {
+            if(url.length >0){
+                setProfilePicURL(url);
+            }
+        })
+
+    },[])
+
     return (
 
         <div id="cont" className={classes.container}>
@@ -124,9 +140,12 @@ function ProfilData(props){
                 {userFollowed && <Button3 onButtonClicked={unfollowUser} img={unfollowImg} popupText={"unfollow"}/> }
             </div>
 
-            <div className={classes.greyBox}></div>
+            <div className={classes.greyBox}>
+                <img className={classes.backgroundPic} src={profilePicURL}></img>
 
-            <img src={ProfilPic} className={classes.profilePicture}></img>
+            </div>
+
+            <img src={profilePicURL} className={classes.profilePicture}></img>
 
             <div className={classes.nameWrapper}>
                  <p id="name" className={classes.name}>{props.personData.friend_name}</p>

@@ -35,8 +35,9 @@
 }
 
 .list{
-    display: flex;
-    flex-direction: column;
+    display: inline;
+    overflow: scroll;
+
     height: 100%;
     width: 100%;
     border-bottom-right-radius: 10px;
@@ -60,5 +61,8 @@
 @media(max-width: 650px){
     .container{
         width:95%;
+
+        top:50%;
+        transform: translate(-50%, 0);
     }
 }

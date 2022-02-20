@@ -1,6 +1,6 @@
 .container{
     width: 100%;
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -13,6 +13,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     height: 100%;
     width: 60%;
 }
@@ -27,11 +28,11 @@
 
 .friendList{
     margin-top: 120px;
-    align-self: flex-end;
-    height: 500px;
+    height: 100%;
     width: 100%;
 
-    display:flex;
+    display: flex;
+
     flex-direction: column;
     align-items: center;
 }
@@ -85,7 +86,7 @@
 .searchInput{
 
     padding-left: 10px;
-    width: 360px;
+    width: 440px;
     height: 44px;
     font-size: 14px;
     border-radius: 10px;
@@ -110,7 +111,7 @@
         display: flex;
         flex-direction: column;
         align-items: flex-end;
-        width: 90%;
+        width: 98%;
         padding-right: 10px;
     }
     .friendsListSite{
@@ -123,9 +124,14 @@
         width: 100%;
     }
     .friendList{
+      
         margin-top: 15px;
-        height: 500px;
+
+        display: flex;
+        overflow-y: none;
     }
+
+    
 }
 
 

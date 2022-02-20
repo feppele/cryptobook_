@@ -5,7 +5,7 @@ import Button5 from '../standart/Button5';
 import Button4 from '../standart/Button4';
 import settingsPic from '../../images/settings2.png';
 import savePic from '../../images/save.png';
-import StandartProfilPic from '../../images/profilColor.png';
+import StandartProfilPic from '../../images/background.jpeg';
 import etherSign from '../../images/Crypto-Icons/eth-logo.svg';
 import {web3} from '../../web3/Web3';
 import {getAddress} from '../../web3/LoadingFunctions'
@@ -22,17 +22,16 @@ import React, {useState,useEffect,useHistory} from 'react';
 import {query,getOptions,queryFetch} from '../../node/databank';
 
 
+import {getProfilePicURL} from '../../node/images'
 
 function ProfilData(){
 
-  
+    getProfilePicURL().then(console.log)
 
     onLoad();
 
 
     const [settingMode,setSettingMode] =useState(false);
-
-
     const [usernameDB,setUsernameDB] =useState("noch net da");
     const [userNameIsLoad,setUserNameIsLoad] =useState(false);
     const [saved,setSaved] =useState(false);
@@ -45,17 +44,26 @@ function ProfilData(){
     function onSaveClick(){
         const username =  document.getElementById("userName").value;
 
-        window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-            const res = query("add",{ address: currentUsers[0], username: username});
+        if(username !== ""){
+            window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
+                const res = query("add",{ address: currentUsers[0], username: username});
 
-        })
+            })
+        }
+
+
         setSettingMode(false);
         // just for infobanner
         setSaved(true);
 
-        uploadImage();
+        var image= document.getElementById("imageInput").files[0];
+        if(image !== undefined){
+            uploadImage();
+        }else{
+            window.location.reload()
+        }
+        
 
-        window.location.reload();
     }
 
 
@@ -81,17 +89,13 @@ function ProfilData(){
     useEffect(() => {loadNameFromDB();},[])
 
 
-
     // IMAGE SETTINGS___________________________________________________
     function uploadImage () {
 
         // this returns a File().
         var image= document.getElementById("imageInput").files[0];
-
         var type = image.type;
-
         var imgType = type.substring(type.lastIndexOf("/")+1,1000);
-
         console.log(imgType);
 
         getCurrentUser().then(userAddress =>{
@@ -104,61 +108,47 @@ function ProfilData(){
             var formData = new FormData();
             formData.set('image',newFile);
 
+            // delete old picture
+            const params = { userAddress: userAddress};
+            const options = { method: 'POST',headers:{'content-type': 'application/json'},body: JSON.stringify( params ) };
+            fetch('/deleteProfilPic',options).then(res => { return res.json()}).then(res=>{
 
+            }).then(()=>{
+                // upload new picture
 
-
-
-                const params = {
-                    userAddress: userAddress,
-                };
-                const options = {
+                console.log(formData)
+                fetch('/uploadUserImage', {
                     method: 'POST',
-                    headers:{'content-type': 'application/json'},
-                    body: JSON.stringify( params )
-                };
-                fetch('/deleteProfilPic',options);
+                    body: formData
+                }).then(console.log).then(window.location.reload())
 
+            })
 
-
-
-            fetch('/uploadUserImage', {
-              method: 'POST',
-              body: formData
-            }).then(console.log);
         })
+
     }
 
 
+    // GET Profile Picture
     const [profilePicSource,setProfilePicSource] = useState(StandartProfilPic)
     const [profilePic,setProfilePic] = useState(false);
 
     function getProfilePic(){
 
-        getCurrentUser().then(userAddress =>{
-
-
-            const types = [".png",".jpeg",".jpg"]
-
-
-
-            for ( const type of types ){
-                fetch("/images/profile/" + userAddress + type ).then(res =>{
-                    if(res.status === 200){
-                        setProfilePic(true)
-                        setProfilePicSource("/images/profile/"+ userAddress + type)
-                        
-                    }
-                })
+        getProfilePicURL("me").then(url =>{
+            if(url.length !==0){
+                setProfilePic(true);
+                setProfilePicSource(url[0])
             }
-
         })
 
     }
     useEffect(() => {getProfilePic()},[])
 
-    console.log(profilePicSource)
-    
 
+
+
+    // Image Settings__________________________________
     const [selectedFile, setSelectedFile] = useState();
     const [isSelected, setIsSelected] = useState(false);
 
@@ -180,7 +170,11 @@ function ProfilData(){
 
         <div id="cont" className={classes.container}>
 
-            <div className={classes.greyBox}></div>
+            <div className={classes.greyBox}>
+
+            <img className={classes.backgroundPic} src={profilePicSource}></img>
+
+            </div>
 
             { !settingMode && <img src={profilePicSource} className={classes.profilePicture}></img>    }
 
@@ -190,7 +184,7 @@ function ProfilData(){
 
             <div className={classes.imageUploadWrapper}>
             <form id="imageupload" >
-                <input ref={hiddenFileInput} id ="imageInput" type="file" name="image" accept="image/jpg image/png" onChange={changeHandler}  className={classes.imageInput}/>
+                <input ref={hiddenFileInput} id ="imageInput" type="file" name="image" accept="image/jpg image/png " onChange={changeHandler}  className={classes.imageInput}/>
             </form>
             <div onClick={handleClick} className={classes.hiddenFileButton}></div>
 

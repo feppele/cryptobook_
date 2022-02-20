@@ -54,7 +54,6 @@ app.get("/api", (req, res) => {
 
 
 
-
   // download Images
   app.use(express.static('public')); 
   app.use('/images', express.static('images'));
@@ -78,15 +77,21 @@ var upload = multer({storage: storage});
 
 
 
-app.post("/deleteProfilPic", (req) => {
+  // delete old picture
+  app.post("/deleteProfilPic", (req, res) => {
 
-  console.log(req.body.userAddress);
+    console.log(req.body.userAddress);
 
+    const userAdd = req.body.userAddress.toString();
 
-  fs.unlinkSync("./images/profile/q.png");
+    fs.unlink("./images/profile/" + userAdd + ".jpeg" , (err)=>{ console.log(err)});
+    fs.unlink("./images/profile/" + userAdd + ".png", (err)=>{ console.log(err)});
+    fs.unlink("./images/profile/" + userAdd + ".jpg", (err)=>{ console.log(err)});
 
+    res.json({ message: "Files Deleted" });
 
-})
+  });
+
 
 
 // 'image' must be name of <input>'
@@ -94,45 +99,16 @@ app.use(upload.single('image'))
 
 app.post('/uploadUserImage', (req, res) => {
 
-  console.log("IN UPLOAD")
-  console.log(req.body)
-//   console.log(req)
-//   console.log("req")
 
-// console.log(JSON.stringify(req.body.photo)) // form fields
-// console.log(req.photo) // form files
-// console.log(req.file) // form files
-// res.send(req.body.photo);
 });
 
 
 
+app.listen(PORT, () => {
+  console.log(`Server listening on ${PORT}`);
+});
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  app.listen(PORT, () => {
-    console.log(`Server listening on ${PORT}`);
-  });
 
 
 
@@ -151,7 +127,11 @@ async function getAnfrage(methode,ele){
     // Person
     // erst delete. sorgt dafür dass eine person nur einam in liste ist
     if(methode === "add"){
-        anfrage= ` delete from Person where address = '${ele.address}';   insert into Person values ('${ele.address}', '${ele.username}'); `;
+        anfrage= ` delete from Person where address = '${ele.address}';
+                  delete from Person where address = '${ele.address}';
+                  insert into Person values ('${ele.address}', '${ele.username}');
+                  
+                  `;
     }
     if(methode === "find"){
         anfrage= `select * from Person where address ='${ele.address}';  `;
@@ -196,7 +176,7 @@ async function getAnfrage(methode,ele){
     // Follower
     if(methode === "follow"){
       anfrage= `
-
+      delete from Follow where person= '${ele.person}' and follower= '${ele.follower}';
       insert into Follow values ('${ele.person}','${ele.follower}');
       `;
     }

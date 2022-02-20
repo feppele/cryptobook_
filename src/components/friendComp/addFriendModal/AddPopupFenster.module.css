@@ -95,11 +95,18 @@
     .input{
         width: 250px;
     }
+
 }
 
 @media(max-width:900px){
     .input{
         width: 180px;
+    }
+    .top{
+        font-size: 22px
+    }
+    .container{
+        width: 70%;
     }
 }
 
@@ -107,11 +114,10 @@
     .input{
         width: 150px;
     }
+    .top{
+        font-size: 20px
+    }
 }
-
-
-
-
 
 
 

@@ -16,6 +16,7 @@
 }
 
 .profilePicture{
+    object-fit: cover;
     z-index: 2;
     margin-top: 40px;
     border-radius: 100%;
@@ -23,6 +24,13 @@
     height: 100px;
     width: 100px;
     margin-bottom: 0px;
+}
+
+.backgroundPic{
+    height:100%;
+    width: 100%;
+    object-fit: cover;
+
 }
 
 .name{
@@ -86,4 +94,17 @@
 }
 .herz{
     height: 15px;
+}
+
+
+
+
+@media(max-width: 600px){
+
+    .buttonPositon{
+        position:absolute;
+        top: 200px;
+        right: 5px;
+
+    }
 }

@@ -101,3 +101,16 @@
 .button2:hover{
     box-shadow: none;
 }
+
+
+
+
+
+@media(max-width: 700px){
+
+    .headerText{
+        font-size: 22px;
+    }
+
+
+}

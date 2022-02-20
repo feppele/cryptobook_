@@ -6,6 +6,10 @@
     padding: 1px;
 
     display: flex;
+    opacity: 70%;
+}
+.buttonWrapper:hover{
+   opacity: 100%;
 }
 
 .picture{

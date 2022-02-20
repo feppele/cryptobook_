@@ -87,7 +87,7 @@ import {getAllFriendsPromise} from  '../../web3/GetAllFriends';
 
                 <div className={classes.box}>
 
-                    {  addFriendIsOpen && <AddPopupFenster />}
+                    {  addFriendIsOpen && <AddPopupFenster onCloseClicked={closeAddFriend}/>}
                     {  addFriendIsOpen && <AddFriendBackdrop  onBackDropClicked={closeAddFriend} />  }
 
                     <div className={classes.buttonWrapper}>

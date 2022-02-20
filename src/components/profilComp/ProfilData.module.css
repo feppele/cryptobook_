@@ -15,6 +15,10 @@
     height: 100px;
     width: 100%;
     position: absolute;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .profilePicture{
@@ -25,6 +29,14 @@
     height: 100px;
     width: 100px;
     margin-bottom: 0px;
+    object-fit: cover;
+}
+
+.backgroundPic{
+    height:100%;
+    width: 100%;
+    object-fit: cover;
+
 }
 
 .name{
@@ -64,6 +76,17 @@
 
 
 
+
+.editNameWrapper{
+    margin:5px;
+    margin-top: 25px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    gap: 10px;
+}
+
 .textInput{
 
     padding-left: 10px;
@@ -72,15 +95,6 @@
     border-radius: 10px;
     border: 2px solid rgb(209, 209, 209);
 }
-
-.editNameWrapper{
-    margin:5px;
-    margin-top: 25px;
-    display:flex;
-    width: 20%;
-    gap: 10px;
-}
-
 
 
 
@@ -118,6 +132,7 @@
     height: 100%;
     width: 100%;
     position: absolute;
+    object-fit: cover;
 
 }
 .coverImage{
@@ -180,3 +195,13 @@
     position: absolute;
 }
 
+
+
+
+
+@media(max-width: 700px){
+    .buttonPosition{
+
+        right: 5px;
+    }
+}

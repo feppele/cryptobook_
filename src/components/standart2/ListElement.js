@@ -3,8 +3,17 @@ import Button6 from '../standart/Button6';
 import closePic from '../../images/close.png';
 import {shortAddr} from '../../web3/LoadingFunctions';
 import {useHistory} from 'react-router-dom';
+import {useEffect,useState} from 'react'
+
+import {getProfilePicURL} from '../../node/images'
+
+
+import StandartProfilPic from '../../images/background.jpeg';
 
 function ListElement(props){
+
+
+    const [profilePic,setProfilePic] =useState(StandartProfilPic);
 
     var address;
     if(props.likesItem.address === undefined){
@@ -35,13 +44,28 @@ function ListElement(props){
     }
 
 
+    useEffect(() => {
+        getProfilePicURL(address).then(url => {
+            if(url.length >0){
+                setProfilePic(url);
+            }
+        })
+
+    },[])
+
+
     return (
 
         <div onClick={goToProfile} className={classes.container}>
 
-            <div className={classes.name}>{username}</div>
+            <img src={profilePic} className={classes.profilePicture}></img>
 
-            <div className={classes.addresse}>{shortAddr(address)}</div>
+            <div className={classes.container2}>
+                <div className={classes.name}>{username}</div>
+                <div className={classes.addresse}>{shortAddr(address)}</div>
+            </div>
+
+
         </div>
 
 

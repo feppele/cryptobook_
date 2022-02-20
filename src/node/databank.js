@@ -82,6 +82,22 @@ function unfollowUser(useraddress){
 
 
 
+    // on Load get name from databank
+    async function loadNameFromDB2(address){
+
+      const options=getOptions("find",{address: address });
+      return await fetch("/databank",options).then(res => { return res.json()}).then(res=>{
+
+          if(res[0].length > 0){
+            return {friend_name: res[0][0].name, friend_addr: address, blockchain: false};
+          }else{
+            return {friend_name: "unnamed", friend_addr: address, blockchain: false};
+          }
+      })
+    }
+
+
+export{loadNameFromDB2}
 export{unfollowUser};
 export{followUser};
 export{getOptions};
