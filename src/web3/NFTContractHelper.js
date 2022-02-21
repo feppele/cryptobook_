@@ -7,6 +7,22 @@ async function getTokenUri(tokenId){
     return await NFTContract.methods.tokenURI(tokenId).call();
 }
 
+async function getAllMetadataFromURI(uri,tokenId) {
+
+    try{
+        const response = await fetch(uri);
+        var edit = await response.json();
+        edit.tokenId = tokenId
+        edit.tokenUri = uri
+        
+        return await edit;
+
+    }catch(error){
+        console.log('Error getMetadataFromURI in NFTContractHelper.js: ', error)
+
+    }
+}
+
 async function getMetadataFromURI(uri,tokenId) {
 
     try{
@@ -76,5 +92,9 @@ async function sendNFT(to,tokenId){
 export{getTokenUri};
 export{getMetadataFromURI};
 export{getAllTokensMetadataArray};
+
 export{getOwnerOfTokenId};
 export{sendNFT};
+
+
+export{getAllMetadataFromURI};

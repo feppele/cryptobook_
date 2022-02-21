@@ -9,7 +9,9 @@
     position: absolute;
     width: 500px;
     top:0px;
-    left: 24vw;
+
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 
 

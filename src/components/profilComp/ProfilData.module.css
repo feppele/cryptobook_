@@ -12,7 +12,7 @@
 .greyBox{
     z-index: 1;
     background-color: rgb(211, 211, 211);
-    height: 100px;
+    height: 150px;
     width: 100%;
     position: absolute;
 
@@ -23,7 +23,7 @@
 
 .profilePicture{
     z-index: 2;
-    margin-top: 40px;
+    margin-top: 90px;
     border-radius: 100%;
     border: 2px solid rgb(236, 236, 236);
     height: 100px;
@@ -68,7 +68,7 @@
 
     z-index: 2;
     position:absolute;
-    top: 110px;
+    top: 160px;
     right: 50px;
 
 

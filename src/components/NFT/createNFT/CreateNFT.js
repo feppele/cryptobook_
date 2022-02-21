@@ -1,13 +1,13 @@
 import classes from './CreateNFT.module.css';
 import React, {useState} from 'react';
 import { useHistory } from "react-router-dom";
-
-
 import ImageUpload from './ImageUpload';
 import TextInput from '../../standart/TextInput';
 import BasicButton2 from '../../standart/BasicButton2';
 import FinishedNFT from '../finishedNFTModal/FinishedNFT';
 import FinishedNFTBackdrop from '../finishedNFTModal/FinishedNFTBackdrop';
+
+import{uploadNFTImageToServer} from '../../../node/images'
 
 import Square from './Square';
 // Image Upload
@@ -50,6 +50,8 @@ function CreateNFT(){
         const itemName = await document.getElementById("itemName").value;
         const imageFile = await selectedFile;
 
+        console.log(selectedFile);
+ 
         if(itemName==="" || !selectedFile){
             if(itemName===""){console.log("leerer Name")}
             if(!selectedFile){console.log("leeres Bild")}
@@ -70,10 +72,13 @@ function CreateNFT(){
         console.log("URL RETURN :" +metaDataURL);
 
         // create NFT with metadata return from IPFS upload
-        const response = await createNFT(metaDataURL);
+        const response = await createNFT(metaDataURL); // returns tokenId when success
 
         await setTxHash(response[0]);
         await setTokenId(response[1]);
+
+        // Upload image to Server with tokenID
+        uploadNFTImageToServer(selectedFile,response[1]);
 
         console.log("returnd Token id: " + tokenId);
         console.log("txhash " + txHash);

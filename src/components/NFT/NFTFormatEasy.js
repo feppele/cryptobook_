@@ -1,8 +1,6 @@
-import classes from './NFTFormat.module.css';
-
+import classes from './NFTFormatEasy.module.css';
 import herz from '../../images/herz.png';
 import ethereum from '../../images/ethereum.png';
-
 import {NFTContract,NFTContractAddress} from '../../web3/NFTContract';
 import {useHistory} from 'react-router-dom';
 import {getOptions} from '../../node/databank';
@@ -10,18 +8,54 @@ import {useState,useEffect} from 'react';
 import redHerz from '../../images/redherz.png';
 import blackHerz from '../../images/backherz.png';
 import MiniButton from '../standart/MiniButton';
-
 import {getNFTLikes,likeNFT,dislikeNFT,doILike} from '../../node/NFTLikes';
+import {getTokenUri,getAllMetadataFromURI} from '../../web3/NFTContractHelper'
+import {getNFTImageServerURL} from '../../node/images'
 
 
 
-function NFTFormat(props){
+// input just token ID as props: props.tokenId
+function NFTFormatEasy(props){
 
     const history =useHistory();
 
     const [NFTLikes,setNFTLikes]= useState(0);
     const [iLike,setILike]= useState(false);
-    const [user,setUser]= useState();
+    const [metaData,setMetadata] = useState({});
+    const [imageURL,setImageURL] = useState(false);
+    const [imageLoad,setImageLoad] = useState(false);
+
+    // Metadaten aus TokenId bekommen:
+    async function loadMetadata(tokenId){
+
+        const tokenURI = await getTokenUri(tokenId);
+        setMetadata( await getAllMetadataFromURI(tokenURI,tokenId) );
+        return await getAllMetadataFromURI(tokenURI,tokenId);
+    }
+    useEffect(() => {
+        loadMetadata(props.tokenId).then((ipfsRes)=>{
+
+            console.log(ipfsRes);
+
+            // New Feature: load Image from server. if no image on server load from ipfs 
+            getNFTImageServerURL(props.tokenId).then(res=>{
+                console.log(res[0])
+
+                if(res.length >0 ){
+                    setImageURL(res[0]);
+                }else{
+                    setImageURL(ipfsRes.image)
+                }
+                setImageLoad(true)
+            })
+
+        })
+
+
+    },[])
+
+
+
 
 
     function openThisNFTPage(){
@@ -39,7 +73,7 @@ function NFTFormat(props){
 
     }
     function dislikeNFTFunc(){
-            dislikeNFT(props.tokenId);
+        dislikeNFT(props.tokenId);
         setILike(false);
         setNFTLikes(parseInt(NFTLikes)-1);
     }
@@ -50,7 +84,6 @@ function NFTFormat(props){
         if(props.tokenId !== undefined){
 
             getNFTLikes(props.tokenId).then(res => {
-                console.log(res)
                 setNFTLikes(res);
             });
 
@@ -62,9 +95,9 @@ function NFTFormat(props){
                }
             });
         }
-        window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{setUser(currentUsers[0])});
-
     },[props])
+
+
 
 
 
@@ -73,12 +106,12 @@ function NFTFormat(props){
         <div className={classes.container} >
 
             {/*NFT IMAGE */}
-            <img src={props.imageURL} className={classes.NFTimage} onClick={openThisNFTPage}></img>
+           {imageLoad && <img src={imageURL} className={classes.NFTimage} onClick={openThisNFTPage}></img>   }
             {/*NFT IMAGE */}
             <div className={classes.bottom}>
 
-                <div className={classes.nameAndFrom}> {props.imageName}</div>
-                <div className={classes.nameAndNumber}>{"#"+props.tokenId}</div>
+                <div className={classes.nameAndFrom}> {metaData.name}</div>
+                <div className={classes.nameAndNumber}>{"#"+metaData.tokenId}</div>
 
 
             </div>
@@ -111,4 +144,4 @@ function NFTFormat(props){
 
 }
 
-export default NFTFormat;
+export default NFTFormatEasy;

@@ -11,18 +11,15 @@ import {web3} from '../../web3/Web3';
 import {getAddress} from '../../web3/LoadingFunctions'
 import {onLoad} from '../../web3/LoadingFunctions'
 import {shortAddr} from '../../web3/LoadingFunctions'
-
 import coverImage from '../../images/image.png';
 import Infobanner from '../standart/Infobanner';
 import {getCurrentUser} from '../../web3/HelperFunctions'
-
 import ImageSetting from './ImageSetting';
 import React, {useState,useEffect,useHistory} from 'react';
-
 import {query,getOptions,queryFetch} from '../../node/databank';
-
-
 import {getProfilePicURL} from '../../node/images'
+
+
 
 function ProfilData(){
 
@@ -121,11 +118,8 @@ function ProfilData(){
                     method: 'POST',
                     body: formData
                 }).then(console.log).then(window.location.reload())
-
             })
-
         })
-
     }
 
 

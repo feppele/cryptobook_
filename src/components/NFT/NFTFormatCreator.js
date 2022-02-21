@@ -1,17 +1,14 @@
-import classes from './NFTFormatCreator.module.css';
-import NFTFormat from './NFTFormat';
-import {NFTContract,NFTContractAddress} from '../../web3/NFTContract';
-import {getTokenUri,getMetadataFromURI} from '../../web3/NFTContractHelper';
-import {useState,useEffect} from 'react';
-import {getAllTokensMetadataArray} from '../../web3/NFTContractHelper';
+import NFTFormatEasy from './NFTFormatEasy';
+
 
 function NFTFormatCreator(props){
     var key =1;
 
 
+    // es muss nurnoch die TokenId übergeben werden, da NFTFormatEasy selber alle daten lädt
     return  props.metadataArray.map(
 
-        element =>  <NFTFormat key={key++} imageURL={element[0]} imageName={element[1]} tokenId={element[2]}/> 
+        element =>  <NFTFormatEasy key={key++} imageURL={element[0]} imageName={element[1]} tokenId={element[2]}/> 
 
     )
 

@@ -14,7 +14,6 @@ import MiniButton from '../standart/MiniButton';
 import {getNFTLikes,likeNFT,dislikeNFT,doILike} from '../../node/NFTLikes';
 
 
-
 function NFTFormat(props){
 
     const history =useHistory();

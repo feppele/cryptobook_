@@ -32,9 +32,53 @@ async function getProfilePicURL(user){
 
 }
 
+// name in server is tokenId. jpg .png
+function uploadNFTImageToServer (image,tokenId) {
+
+    var imgType = image.type.substring(image.type.lastIndexOf("/")+1,1000);
+
+
+    var blob = image.slice(0, image.size);
+    var newImage = new File([blob], tokenId +"." + imgType);
+
+    var formData = new FormData()
+
+    formData.set('image',newImage)
+
+    console.log(formData)
+
+    fetch('/uploadUserImage', {
+                method: 'POST',
+                body: formData
+            }).then(console.log)
+
+
+}
+
+
+async function getNFTImageServerURL(tokenId){
 
 
 
+    const types = [".png",".jpeg",".jpg"]
+    const result = Promise.all([
+        fetch("/images/profile/" + tokenId + types[0] ).then(res =>{ if(res.status === 200){return ("/images/profile/"+ tokenId + types[0])}   }),
+        fetch("/images/profile/" + tokenId + types[1] ).then(res =>{ if(res.status === 200){return ("/images/profile/"+ tokenId + types[1])}   }),
+        fetch("/images/profile/" + tokenId + types[2] ).then(res =>{ if(res.status === 200){return ("/images/profile/"+ tokenId + types[2])}   })
+    ]).then(result=>{
 
+        var resultArray =[]
+        for ( var a of result){
+            if( a !== undefined ){ resultArray.push(a)}
+        }
+        return resultArray;
+    })
+    return result;
+
+}
+
+
+export {getNFTImageServerURL}
+export {uploadNFTImageToServer}
 
 export {getProfilePicURL}
