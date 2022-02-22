@@ -1,14 +1,13 @@
 
 import { create } from 'ipfs-http-client'
 import { useHistory } from "react-router-dom";
-import FinishedNFT from '../finishedNFTModal/FinishedNFT'
 import {NFTContract,NFTContractAddress} from '../../../web3/NFTContract';
 
 
 
 
 //ipfs upload
-async function ipfsUpload(fileName,file){
+async function ipfsUpload(metaData,file){ //  MetaData json: {itemName, collection, description, extLink}
     const client = create('https://ipfs.infura.io:5001/api/v0')
 
     //first upload image
@@ -17,7 +16,10 @@ async function ipfsUpload(fileName,file){
         const url = `https://ipfs.infura.io/ipfs/${added.path}`
         console.log(url);
 
-        const JSONMetadata=JSON.stringify({ name: fileName, image: url });
+        //{itemName, collection, description, extLink} + image: url
+        metaData.image = url;
+
+        const JSONMetadata=JSON.stringify(metaData);
 
         // and then JSON STRING with Image and Metadata
         try {

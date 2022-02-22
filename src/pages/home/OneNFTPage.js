@@ -1,10 +1,10 @@
 import classes from './OneNFTPage.module.css';
 import {useLocation,useHistory,useParams} from 'react-router-dom';
 import {useState,useEffect} from 'react';
-import {getMetadataFromURI,getTokenUri} from '../../web3/NFTContractHelper';
+import {getAllMetadataFromURI,getTokenUri} from '../../web3/NFTContractHelper';
 import {getOwnerOfTokenId,sendNFT} from '../../web3/NFTContractHelper'
 import {shortAddr} from '../../web3/LoadingFunctions'
-import NFTFormat from '../../components/NFT/NFTFormat';
+import NFTFormatEasy from '../../components/NFT/NFTFormatEasy';
 import Button3 from '../../components/standart/Button3';
 import BasicButton from '../../components/standart/BasicButton';
 
@@ -14,6 +14,12 @@ import shareImg from '../../images/share.png';
 import sendImg from '../../images/send.png';
 import profilePic from '../../images/profilepic.png';
 
+import linkImg from '../../images/link.png';
+import detailImg from '../../images/info.png';
+
+import desImg from '../../images/description.png';
+
+
 import Infobanner from './../../components/standart/Infobanner';
 import LikesList from './../../components/standart2/LikesList';
 import Backdrop from './../../components/standart2/Backdrop';
@@ -21,6 +27,8 @@ import {getOptions} from '../../node/databank';
 import SendOneNFT from '../../components/standart2/sendOneNFT/SendOneNFT';
 
 function OneNFTPage(){
+
+    const contractAddress ="0x7D66B92831bc5A7ae77541719526d4693FD9DC35"
 
     useEffect(() => {window.scrollTo(0,0)},[])
 
@@ -32,26 +40,42 @@ function OneNFTPage(){
 
     const [owner,setOwner]=useState();
     const [shortOwner,setShortOwner]=useState();
-    const [tokenURI,setTokenURI]=useState("");
-    const [metaData,setMetadata]=useState("");
+
+    const [metaData,setMetadata]=useState([]);
     const [shareLink,setShareLink]=useState(false);
     const [NFTLikes,setNFTLikes]=useState(0);
     const [likesList,setLikesList]=useState(false);
     const [NFTLikesArrayForList,setNFTLikesArrayForList] = useState([]);
+    const [tokenURI,setTokenURI] = useState("")
 
     const [sendOneNFTModal,setSendOneNFTModal]=useState(false);
 
     const [amIOwner,setAmIOwner]=useState(false);
 
-    async function load(){
-        getTokenUri(tokenId).then((uri)=>{
-            setTokenURI(uri);
-            getMetadataFromURI(uri,tokenId).then((metadata)=>{
-                setMetadata(metadata,tokenId);
-            })
-        })
+    // async function load(){
+    //     getTokenUri(tokenId).then((uri)=>{
+    //         setTokenURI(uri);
+    //         getMetadataFromURI(uri,tokenId).then((metadata)=>{
+    //             setMetadata(metadata,tokenId);
+    //         })
+    //     })
+    // }
+    // useEffect(() => {load()},[])
+
+
+    async function loadMetadata(tokenId){
+
+
+        const tokenURI = await getTokenUri(tokenId);
+
+        setTokenURI(tokenURI);
+        setMetadata( await getAllMetadataFromURI(tokenURI,tokenId) );
+        return await getAllMetadataFromURI(tokenURI,tokenId);
     }
-    useEffect(() => {load()},[])
+    useEffect(() => {loadMetadata(tokenId)},[])
+
+    console.log(metaData)
+
 
     getOwnerOfTokenId(tokenId).then(response =>{
 
@@ -68,24 +92,30 @@ function OneNFTPage(){
     }
 
     function openURI(){
-        window.open(tokenURI);
+        window.open(metaData.tokenUri);
     }
 
 
 
-    function goToProfile(){
+    function goToProfile(e){
+        const person = e.target.id;
+        console.log(person);
         window.ethereum.request({method: 'eth_accounts'}).then(accounts=>{
 
-            if(accounts[0].localeCompare(owner) === -1){
+            if(accounts[0].localeCompare(person) === -1){
                 history.push({
-                    pathname:"/profil/"
+                    pathname:"/me/"
                 })
             }else{
                 history.push({
-                    pathname:"/friendProfile/"+owner
+                    pathname:"/profile/"+person
                 })
             }
         })
+    }
+
+    function openErc721(){
+        window.open("https://ethereum.org/en/developers/docs/standards/tokens/erc-721/")
     }
 
     function getNFTLikes(){
@@ -139,6 +169,15 @@ function OneNFTPage(){
     }
 
 
+    function openEtherContract(){
+        window.open("https://etherscan.io/address/" + contractAddress );
+    }
+
+
+    function openCollection(){
+
+        history.push("/collection/"+metaData.collection)
+    }
 
     return (
 
@@ -148,7 +187,7 @@ function OneNFTPage(){
             <div className={classes.left}>
 
                 <div className={classes.NFTWrapper}>
-                     <NFTFormat imageURL={metaData[0]} imageName={metaData[1]} tokenId={metaData[2]}/>
+                     <NFTFormatEasy tokenId={tokenId}/>
                 </div>
 
             </div>
@@ -157,40 +196,119 @@ function OneNFTPage(){
             {/*right */}
             <div className={classes.right}>
 
+            
 
-                {sendOneNFTModal && <SendOneNFT imageName={metaData[1]} tokenId={metaData[2]}  onCloseClick={closeSend}/>}
+            
+
+                {sendOneNFTModal && <SendOneNFT imageName={metaData.name} tokenId={tokenId}  onCloseClick={closeSend}/>}
                 {sendOneNFTModal && <Backdrop onBackDropClicked={closeSend}/>}
-
 
                 {likesList && <Backdrop onBackDropClicked={closeLikesList}/> }
                 {likesList && <LikesList text={"Favorited by"} onCloseClick={closeLikesList} likesList={NFTLikesArrayForList}/>  }
 
-                <div className={classes.nameAndButton}>
-                    <div className={classes.name}>{metaData[1] +" " + "#" +metaData[2]}</div>
+
+                <div className={classes.box}>
+
                     <div className={classes.buttonWrapper}>
                         <Button3 onButtonClicked={copyURL} img={shareImg} popupText={"share link"}/>
                         {amIOwner && <Button3 img={profilePic} popupText={"profile pic"}/>  }
                         {amIOwner && <Button3 onButtonClicked={openSend} img={sendImg} popupText={"send NFT"}/> }
                     </div>
-                </div>
 
-                <div className={classes.ownerWrapper}>
+                    {/* name + collection */}
+                    <div className={classes.h2}>{metaData.name + " #" +metaData.tokenId}</div>
+                    <div onClick={openCollection} className={classes.h1}>{metaData.collection  }</div>
 
-                    <div className={classes.text}>Owned by</div>
-                    <div className={classes.owner} onClick={goToProfile}>    {shortOwner}   </div>
 
                     {/* liked */}
-                    <div className={classes.likesWrapper}>
+                        <div className={classes.likesWrapper}>
                         <img src={black_herz} className={classes.herz}></img>
                         <div onClick={openLikesList} className={classes.text}> {NFTLikes + " favorites"} </div>
                     </div>
 
+
+                {/* Description Box*/}
+                <div className={classes.niceBoxes}>
+
+                    <div className={classes.topBox}>
+                        <img src={desImg} className={classes.descriptImg}></img>
+                        <div className={classes.h3}>Description:</div>
+                    </div>
+
+                    <div className={classes.h4}> {metaData.description}</div>
                 </div>
 
-                <div className={classes.metadataWrapper}>
-                    <div  className={classes.text}> Metadata: </div>
-                    <div onClick={openURI} className={classes.owner}>{shortURI(tokenURI)}</div>
+
+
+
+                {/* Detail Box*/}
+                <div className={classes.niceBoxes}>
+
+                    <div className={classes.topBox}>
+                        <img src={detailImg} className={classes.descriptImg}></img>
+                        <div className={classes.h3}>Details:</div>
+                    </div>
+
+                    
+
+                    {/* owner*/}
+                    <div className={classes.ownerWrapper}>
+                        <div className={classes.text}>Owned by</div>
+                        <div className={classes.owner}  onClick={goToProfile} id={owner}>    {shortOwner}   </div>
+                    </div>
+
+                    <div className={classes.ownerWrapper}>
+                        <div className={classes.text}>Created by</div>
+                        <div className={classes.owner} onClick={goToProfile} id={metaData.creator}>    {shortAddr(metaData.creator +"")}   </div>
+                    </div>
+
+                    <div className={classes.ownerWrapper}>
+                        <div className={classes.text}>Contract Address</div>
+                        <div className={classes.owner} onClick={openEtherContract}>    {shortAddr(contractAddress)}   </div>
+                    </div>
+
+                    <div className={classes.ownerWrapper}>
+                        <div className={classes.text}>Token Type</div>
+                        <div className={classes.owner} onClick={openErc721}>    {"ERC721"}   </div>
+                    </div>
+
+
+                    {/* metadata*/}
+                    <div className={classes.ownerWrapper}>
+                        <div  className={classes.text}> Metadata: </div>
+                        <div onClick={openURI} className={classes.owner}>{shortURI(tokenURI)}</div>
+                    </div>
+
+                    <div className={classes.place}></div>
+
                 </div>
+
+
+                {/* EXT Link*/}
+                <div className={classes.niceBoxes}>
+                    <div className={classes.topBox}>
+                    <img src={linkImg} className={classes.descriptImg}></img>
+                        <div className={classes.h3}>Link from Creator:</div>
+                    </div>
+                    <div className={classes.link}> {metaData.extLink}</div>
+                </div>
+
+
+
+
+
+             
+
+
+
+
+
+                </div>
+
+
+
+
+
 
 
 

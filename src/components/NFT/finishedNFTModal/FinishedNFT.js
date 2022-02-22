@@ -1,7 +1,7 @@
 import classes from './FinishedNFT.module.css';
 import React, {useState,useEffect} from 'react';
 import {NFTContract,NFTContractAddress} from '../../../web3/NFTContract';
-import NFTFormat2 from '../NFTFormat2';
+import NFTFormatEasy from '../NFTFormatEasy';
 
 import loaderGif from '../../../images/Loader.gif'
 
@@ -21,20 +21,20 @@ function FinishedNFT(props){
         return await NFTContract.methods.tokenURI(tokenId).call();
     }
 
-    async function getMetadataFromURI(uri) {
+    // async function getMetadataFromURI(uri) {
 
-        const response = await fetch(uri);
-        const json = await response.json();
+    //     const response = await fetch(uri);
+    //     const json = await response.json();
 
-        setImageURL(json.image);
-        setImageName(json.name);
+    //     setImageURL(json.image);
+    //     setImageName(json.name);
 
-    }
+    // }
 
-    async function go(){
-        getMetadataFromURI( await getTokenUri(props.tokenId));
-    }
-    useEffect(()=>{go()});
+    // async function go(){
+    //     getMetadataFromURI( await getTokenUri(props.tokenId));
+    // }
+    // useEffect(()=>{go()});
 
 
 
@@ -42,9 +42,9 @@ function FinishedNFT(props){
 
         <div className={classes.container}>
 
-            {!imageName && <img src={loaderGif} className={classes.loaderGif}></img>}
+            
 
-            { imageName && <NFTFormat2 imageURL={imageURL} imageName={imageName}  />}
+            <NFTFormatEasy tokenId={props.tokenId}  />
 
 
 

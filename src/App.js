@@ -18,9 +18,14 @@ import FriendProfil from './pages/home/FriendProfil';
 import MyNftPage from './components/NFT/MyNftPage'
 import CreateNFT from './components/NFT/createNFT/CreateNFT';
 import FinishedNFT from './components/NFT/finishedNFTModal/FinishedNFT';
+import CollectionPage from './pages/home/CollectionPage';
+import Marketplace from './pages/home/Marketplace'
 
 
 function App() {
+
+
+
 
 
   return(
@@ -36,7 +41,7 @@ function App() {
           <NavBarHome />
           <Home />
         </Route>
-        <Route path='/profil'>
+        <Route path='/me'>
           <NavBarHome />
           <Profil />
         </Route>
@@ -46,7 +51,7 @@ function App() {
           <FriendsPage />
         </Route>
 
-        <Route path='/friendProfile/:address'>
+        <Route path='/profile/:address'>
           <NavBarHome />
           <FriendProfil/>
         </Route>
@@ -71,7 +76,18 @@ function App() {
           <OneNFTPage />
         </Route>
 
-        
+
+        <Route path='/collection/:collectionName'>
+          <NavBarHome />
+          <CollectionPage />
+        </Route>
+
+        <Route path='/marketplace/'>
+          <NavBarHome />
+          <Marketplace />
+        </Route>
+
+
 
 
 

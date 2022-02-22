@@ -7,7 +7,7 @@ import {onLoad} from '../../web3/LoadingFunctions';
 
 function FriendsPage(){
 
-    onLoad();
+    //onLoad();
 
 
     return (

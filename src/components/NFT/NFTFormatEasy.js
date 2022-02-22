@@ -28,6 +28,8 @@ function NFTFormatEasy(props){
     // Metadaten aus TokenId bekommen:
     async function loadMetadata(tokenId){
 
+        console.log(typeof(tokenId))
+
         const tokenURI = await getTokenUri(tokenId);
         setMetadata( await getAllMetadataFromURI(tokenURI,tokenId) );
         return await getAllMetadataFromURI(tokenURI,tokenId);
@@ -35,11 +37,8 @@ function NFTFormatEasy(props){
     useEffect(() => {
         loadMetadata(props.tokenId).then((ipfsRes)=>{
 
-            console.log(ipfsRes);
-
             // New Feature: load Image from server. if no image on server load from ipfs 
             getNFTImageServerURL(props.tokenId).then(res=>{
-                console.log(res[0])
 
                 if(res.length >0 ){
                     setImageURL(res[0]);
@@ -111,7 +110,7 @@ function NFTFormatEasy(props){
             <div className={classes.bottom}>
 
                 <div className={classes.nameAndFrom}> {metaData.name}</div>
-                <div className={classes.nameAndNumber}>{"#"+metaData.tokenId}</div>
+                <div className={classes.nameAndNumber}>{metaData.collection + "#"+metaData.tokenId}</div>
 
 
             </div>

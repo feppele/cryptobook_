@@ -1,5 +1,5 @@
 // server/index.js
-
+//const lib = require("../src/web3/globalrun.js");
 const express = require("express");
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -42,7 +42,6 @@ app.get("/api", (req, res) => {
     });
 
   });
-
 
 
 
@@ -122,6 +121,9 @@ async function getAnfrage(methode,ele){
 
   console.log("Die Methode: " + methode);
 
+  console.log("Die Elemente: ");
+  console.log(ele);
+
     var anfrage;
 
     // Person
@@ -133,6 +135,8 @@ async function getAnfrage(methode,ele){
                   
                   `;
     }
+
+
     if(methode === "find"){
         anfrage= `select * from Person where address ='${ele.address}';  `;
     }
@@ -219,6 +223,94 @@ async function getAnfrage(methode,ele){
 
 
 
+
+
+
+
+        //collecion
+
+        if(methode === "createCollection"){
+          anfrage= `
+    
+          delete from collection where collection = '${ele.collection}';
+          insert into collection values ('${ele.collection}','${ele.creator}');
+    
+          `;
+        }
+
+        if(methode === "getMyCollections"){
+          anfrage= `
+    
+          select collection from collection where creator ='${ele.creator}';
+    
+          `;
+        }
+
+        if(methode === "doesCollectionExist"){
+          anfrage= `
+    
+          select collection from collection where collection ='${ele.collection}';
+    
+          `;
+        }
+
+        if(methode === "getCretorFromCollection"){
+          anfrage= `
+    
+          select creator from collection where collection ='${ele.collection}';
+    
+          `;
+        }
+
+
+
+        
+
+
+
+
+        //nftInfo
+
+        if(methode === "createNFTInfo"){
+          anfrage= `
+    
+          delete from nftInfo where tokenId = '${ele.tokenId}';
+          insert into nftInfo values ('${ele.tokenId}','${ele.find}','${ele.collection}','${ele.creator}','${ele.name}');
+    
+          `;
+        }
+
+        if(methode === "getAllTokenIdFromCollection"){
+          anfrage= `
+    
+          select tokenid from nftInfo where collection ='${ele.collection}';
+    
+          `;
+        }
+
+        if(methode === "getNFTInfoFromTokenId"){
+          anfrage= `
+    
+          select * from nftInfo where tokenid ='${ele.tokenId}';
+    
+          `;
+        }
+
+        if(methode === "highestTokenId"){
+          anfrage= `
+    
+          select max(tokenid) from nftInfo;
+    
+          `;
+        }
+
+        if(methode === "getTokenIdFromSearch"){
+          anfrage= `
+
+          select tokenid from nftinfo where find like  '%${ele.find}%';
+
+          `;
+        }
 
 
 

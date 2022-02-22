@@ -33,11 +33,11 @@ function ListElement(props){
             if(accounts[0] ===address){
 
                 history.push({
-                    pathname:"/profil/"
+                    pathname:"/me/"
                 });
             }else{
                 history.push({
-                    pathname:"/friendProfile/"+address
+                    pathname:"/profile/"+address
                 });
             }
         })

@@ -54,20 +54,20 @@ function NavBar(){
     // for change Path
     function openProfil(){
         onLoad();
-        history.push("/profil");
-        window.location.reload();
+        history.push("/me");
+        //window.location.reload();
     }
 
     function openFriends(){
         onLoad();
         history.push("/friends");
-        window.location.reload();
+        //window.location.reload();
 
     }
     function openMyNftPage(){
         onLoad();
         history.push("/mynft");
-        window.location.reload();
+        //window.location.reload();
     }
 
     function logOut(){

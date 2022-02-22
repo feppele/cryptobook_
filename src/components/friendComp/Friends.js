@@ -21,7 +21,7 @@ import {getAllFriendsPromise} from  '../../web3/GetAllFriends';
 
  function Friends(){
 
-    useEffect(() => {onLoad()},[]);
+    //useEffect(() => {onLoad()},[]);
 
     const [showSad, setShowSad] = useState(false);
     const [addFriendIsOpen, setAddFriendIsOpen ] = useState(false);

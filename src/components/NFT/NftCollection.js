@@ -7,6 +7,7 @@ import loadImage from '../../images/Loader.gif'
 import NoNFT from './NoNFTsSign';
 
 
+// input User Address
 function NftCollection(props){
 
     const[loading,setLoading]= useState(true);

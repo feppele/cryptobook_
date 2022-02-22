@@ -70,7 +70,8 @@ async function getAllTokensMetadataArray(owner){
 
 async function getOwnerOfTokenId(tokenId){
 
-    return await NFTContract.methods.ownerOf(tokenId).call();
+    var owner = await NFTContract.methods.ownerOf(tokenId).call();
+    return owner.toLowerCase();
 }
 
 

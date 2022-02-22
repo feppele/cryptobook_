@@ -7,11 +7,18 @@
     border-radius: 10px;
 
 
-    position: fixed;
-    align-self: center;
+
+
+    position: absolute;
     margin-top: 5px;
 
+    left: 50%;
+    transform: translate(-50%, 0);
     z-index: 20;
+
+    height: 400px;
+    width: 300px;
+    padding: 50px;
 
 
 }
@@ -32,10 +39,9 @@
 }
 
 .desriptionWrapper{
+    width:100%;
     display: flex;
-    width: 294px;
     margin-top: 15px;
-    margin-bottom: 15px;
     border-radius: 10px;
     box-shadow: 0 1px 13px rgba(0, 0, 0, 0.2);
     padding: 3px;
@@ -66,14 +72,28 @@
 
 @media(max-width: 700px){
 
-    .desriptionWrapper{
 
-        width: 194px;
-    }
     .textWrapper1{
         font-size: 9px;
     }
     .textWrapper2{
         font-size: 9px;
     }
+
+    .container{
+        height: 300px;
+        width: 250px;
+        padding: 30px;
+    }
+
+}
+
+@media(max-width: 600px){
+
+    .container{
+        height: 270px;
+        width: 225px;
+        padding: 30px;
+    }
+
 }

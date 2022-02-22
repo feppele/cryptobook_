@@ -33,7 +33,7 @@ function FriendElement(props){
         localStorage.setItem("friendAddr",props.longAddr);
 
         history.push({
-            pathname:"friendProfile/"+props.longAddr,
+            pathname:"/profile/"+props.longAddr,
             data: {
                 friendName: props.friendName,
                 friendAddr: props.longAddr
