@@ -17,6 +17,9 @@ import {getNFTImageServerURL} from '../../node/images'
 // input just token ID as props: props.tokenId
 function NFTFormatEasy(props){
 
+    useEffect(() => {console.log(props)},[])
+    
+
     const history =useHistory();
 
     const [NFTLikes,setNFTLikes]= useState(0);
@@ -28,7 +31,6 @@ function NFTFormatEasy(props){
     // Metadaten aus TokenId bekommen:
     async function loadMetadata(tokenId){
 
-        console.log(typeof(tokenId))
 
         const tokenURI = await getTokenUri(tokenId);
         setMetadata( await getAllMetadataFromURI(tokenURI,tokenId) );

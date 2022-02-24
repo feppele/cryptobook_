@@ -4,9 +4,9 @@ import Writer from './writer/Writer';
 
 function Page1(){
 
-const text1 = `Join the first Blockchain
-Identity Plattform`;
-const text2 = `Store your Identity
+const text1 = `Make the first step into the 
+connected Blockchain World`;
+const text2 = `Store your friends Identity
 on Blockchain`;
 const text3 = `Send cryptos to friends
 like PayPal`;

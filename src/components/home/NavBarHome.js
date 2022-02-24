@@ -70,6 +70,12 @@ function NavBar(){
         //window.location.reload();
     }
 
+    function openMarketplace(){
+    
+        history.push("/marketplace");
+        //window.location.reload();
+    }
+
     function logOut(){
 
         history.push("/");
@@ -94,7 +100,7 @@ function NavBar(){
 
         <div className={classes.container}>
 
-            {  menu2IsOpen && <MenuModal />}
+            {  menu2IsOpen && <MenuModal openMarketplace={openMarketplace}/>}
             {  menu2IsOpen && <MenuBackdrop  onBackDropClicked={closeMenu} />  }
 
             {  profilModalIsOpen && <ProfilModal openProfilFromModal={openProfil} openFriendsFromModal={openFriends} openMyNftModal={openMyNftPage} onLogOutClicked={logOut}/>}

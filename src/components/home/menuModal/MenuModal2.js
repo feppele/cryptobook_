@@ -13,14 +13,25 @@ function MenuModal2(props){
 
     return(
 
-        <div className={classes.modal}>
+        <div className={classes.invisibleWrapper}>
 
-            <ModalButton imgSource ={nftPic} text="Marketplace"/>
-            <ModalButton />
+            <div className={classes.invisible}></div>
 
+            <div className={classes.modal}>
+
+
+
+                <ModalButton onModalButtonClick={props.openMarketplace} imgSource ={nftPic} text="Marketplace"/>
+                <ModalButton />
+
+
+
+            </div>
 
 
         </div>
+
+
 
     );
 

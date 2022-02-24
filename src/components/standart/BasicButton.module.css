@@ -1,9 +1,8 @@
 .button{
     color: white;
     font-size: 20px;
-    background-color: blue;
-    width: 150px;
-    height:60px;
+    background-color: rgb(6, 29, 42);
+    aspect-ratio: 4/1  !important;
     border-radius: 10px;
     border-style: hidden;
 }

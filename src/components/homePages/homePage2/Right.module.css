@@ -3,30 +3,20 @@
     height: 100%;
     width: 50%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
 
 }
 
 
+.wrapper{
 
-.imageWrapper{
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
-}
-.imageWrapper:hover{
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    margin-top: 100px;
+
+    width: 50%;
 }
 
-
-.image{
-
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
 
 .box{
     border-bottom-left-radius: 10px;

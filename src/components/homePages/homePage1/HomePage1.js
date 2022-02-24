@@ -24,7 +24,7 @@ function HomePage1(){
 
                 <div className={classes.box}>
 
-                    <div className={classes.headerText}>Join the first connected Blockchain Plattform</div>
+                    <div className={classes.headerText}></div>
 
 
 

@@ -1,70 +1,49 @@
 import classes from './Marketplace.module.css';
 import NFTFormatEasy from '../../components/NFT/NFTFormatEasy'
+import NFTFormatCreatorNew from '../../components/NFT/NFTFormatCreatorNew'
+
+import NFTCollectionFormat from '../../components/NFT/NFTCollectionFormat';
 import {useState,useEffect} from 'react'
 import {highestTokenId,getTokenIdFromSearch} from '../../node/NFTData'
 
+import Single from './Marketplace/Single';
+import Collections from './Marketplace/Collections';
+
 function Marketplace(){
 
+    const [singleMode,setSingleMode] = useState(true);
+    const [collectionMode,setCollectionMode] = useState(false);
 
-    const [buttonStyle,setButtonStyle] = useState(classes.button)
-
-    const [singeElements,setSingeElements] = useState([])
-    const [searchResult,setSearchResult] = useState([])
-
+    
+    // Button Style
     const buttons = document.getElementsByName('button')
-
     function changeButtonStyle(e){
         buttons.forEach(button => {return ( button.className = classes.button)  })
-
         e.target.className = classes.clickedButton
 
+        if(e.target.innerHTML === "Collections"){
+            setCollectionMode(true)
+            setSingleMode(false)
+        }else if(e.target.innerHTML === "Single"){
+            setCollectionMode(false)
+            setSingleMode(true)
+        }
     }
 
 
-    // Single
-
-    function shuffleArray(inputArray){
-        inputArray.sort(()=> Math.random() - 0.5);
-    }
-    async function selectIds(){
-
-        const highId = await highestTokenId();
-        var array= Array.from({length: highId}, (_, i) => i + 1)
-        shuffleArray(array);
-        console.log(array)
-        console.log(highId)
-
-        //array =["30","31","32","33","34","36","37"]
-
-        setSingeElements(array)
-        setSearchResult(array);
-
-    }
-    //useEffect(()=>{  selectIds() },[])
+    const [searchValue,setSearchValue] = useState("");
 
 
-
-
-    async function search(e){
+    function search(e){
 
         if(e.key!== "Enter"){
             return;
         }
-
-        const results = await getTokenIdFromSearch(e.target.value);
-
-        console.log(results)
-        setSearchResult(results);
-
-
+        const search = e.target.value;
+        setSearchValue(e.target.value)
+        console.log(search);
 
     }
-
-    console.log(searchResult)
-
-    const eles =[1,2,3]
-
-
 
 
 
@@ -74,24 +53,33 @@ function Marketplace(){
 
             <div className={classes.topBox}>
 
+                <div className={classes.header}>Marketplace</div>
+
+                <div className={classes.searchBox}>
+
+                    <div className={classes.button} name="button" onClick={changeButtonStyle} >Collections</div>
+
+                    <div className={classes.button} name="button" onClick={changeButtonStyle} >Single</div>
+
+                    <input id="searchInput" className={classes.textInput} placeholder="search items" onKeyDown={search} ></input>
+
+                </div>
+
             </div>
 
 
-            <div className={classes.searchBox}>
 
-                <div className={buttonStyle} name="button" onClick={changeButtonStyle} >Collections</div>
-
-                <div className={buttonStyle} name="button" onClick={changeButtonStyle} >Single</div>
-
-                <input id="searchInput" className={classes.textInput} placeholder="search items" onKeyDown={search}></input>
-
-
-            </div>
 
 
             <div className={classes.grid}>
 
-                {searchResult.map( element =>  <NFTFormatEasy tokenId={element}/> )}
+                { singleMode && < Single searchValue={searchValue}/>   }
+
+                { collectionMode && <Collections searchValue={searchValue}/> }
+
+
+    
+
 
             </div>
 

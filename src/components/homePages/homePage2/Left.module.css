@@ -12,10 +12,12 @@
 
 }
 
+
+
 .box{
-    margin-top: 92px;
+    z-index: 100;
 
-
+    background-color: grey;
 }
 
 
@@ -43,47 +45,5 @@
     display: flex;
     gap: 60px;
 
-}
-
-.button{
-    color: white;
-    font-size: 20px;
-    background-color: blue;
-    width: 150px;
-    height:60px;
-    border-radius: 10px;
-    border-style: hidden;
-}
-.button:active {
-    border-style: hidden;
-}
-.button:hover{
-    box-shadow: 0 1px 4px rgb(0, 0, 0);
-}
-.button1{
-    color: rgb(0,124,255);
-    font-size: 20px;
-    border: 1px solid rgb(0,124,255);
-    background-color: white;
-    width: 150px;
-    height:60px;
-    border-radius: 10px;
-    
-}
-.button1:active {
-    border-style: hidden;
-}
-.button1:hover{
-    box-shadow: 0 1px 4px rgb(0, 0, 0);
-}
-
-.imageWrapper{
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
-}
-.imageWrapper:hover{
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 

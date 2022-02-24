@@ -23,6 +23,9 @@ function MyNftPage(){
     function openCreatePage(){
         history.push("/createNFT");
     }
+    function openExplore(){
+        history.push("/marketplace");
+    }
 
 
     return (
@@ -36,7 +39,7 @@ function MyNftPage(){
 
                     <div className={classes.buttonWrapper}>
 
-                        <Button7Breit img={explorePic} popupText={"explore"}/>
+                        <Button7Breit onButtonClicked={openExplore} img={explorePic} popupText={"explore"}/>
                         <Button7Breit onButtonClicked={openCreatePage} img={createPic} popupText={"create"}/>
 
                     </div>

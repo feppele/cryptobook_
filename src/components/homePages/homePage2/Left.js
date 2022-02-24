@@ -14,8 +14,11 @@ function Left(){
     function openCreatePage(){
         history.push("/createNFT");
     }
+    function openExplore(){
+        history.push("/marketplace");
+    }
 
-
+    
 
     return (
             <div className={classes.left}>
@@ -35,7 +38,7 @@ function Left(){
                     <div className={classes.buttonWrapper}>
 
 
-                        <button  className={classes.button}>Explore</button>
+                        <button  onClick={openExplore}className={classes.button}>Explore</button>
                         <button onClick={openCreatePage}className={classes.button1} >Create</button>
                         <button onClick={openCreatePage}className={classes.button1} >Learn more</button>
 

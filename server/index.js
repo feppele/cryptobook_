@@ -54,7 +54,7 @@ app.get("/api", (req, res) => {
 
 
   // download Images
-  app.use(express.static('public')); 
+  app.use(express.static('public'));
   app.use('/images', express.static('images'));
 
 
@@ -262,9 +262,22 @@ async function getAnfrage(methode,ele){
           `;
         }
 
+        if(methode === "getAllCollections"){
+          anfrage= `
+    
+          select collection from collection;
+    
+          `;
+        }
 
 
-        
+        if(methode === "searchCollections"){
+          anfrage= `
+
+          select DISTINCT collection from nftInfo where find like '%${ele.find}%' and collection != '';
+
+          `;
+        }
 
 
 

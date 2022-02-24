@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 
 //Modals
+import MenuModal2 from '../home/menuModal/MenuModal2'
 import MenuModal from './menuModal/MenuModal.js';
 import Backdrop from './menuModal/Backdrop.js';
 import LoginModal from './loginModal/LoginModal.js';
@@ -93,7 +94,7 @@ function NavBar(){
 
         <div className={classes.container}>
 
-            {  menuIsOpen && <MenuModal onModalCancelClicked={closeMenu} />}
+            {  menuIsOpen && <MenuModal2 onModalCancelClicked={closeMenu} />}
             {  menuIsOpen && <Backdrop  onBackDropClicked={closeMenu} />  }
 
             {  loginPageIsOpen && <LoginModal onModalCancelClicked={closeLogin} onModalMetamaskClicked={loginMetamask}/>}

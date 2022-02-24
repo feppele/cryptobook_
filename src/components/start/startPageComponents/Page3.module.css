@@ -1,15 +1,73 @@
 .container{
 
 
-    width: 100% -padding;
-    height: 100vh;
+    width: 100%;
     opacity: 100%;
     border-bottom: 1px solid grey;
 
     background-color: rgb(6, 29, 42);
 
+
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.container2{
+    margin-top: 100px;
+    width: 80%;
+    height:300px;
+    display:flex;
+
+
+    gap: 50px;
 }
 
 
+.box{
+
+    height: 100%;
+    width: 240px;
+}
+
+.header{
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    color: rgb(201, 201, 201);
+}
+.text{
+    font-size: 15px;
+    color: rgb(201, 201, 201);
+}
+.h2{
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    color: rgb(201, 201, 201);
+}
+.h3{
+    font-size: 13px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    color: rgb(201, 201, 201);
+}
+.h3:hover{
+    font-weight: bold;
+}
+
+.h4{
+    font-size: 13px;
+    color: rgb(201, 201, 201);
+}
 
 
+.bottom{
+    border-top: 1px solid rgb(201, 201, 201);
+    width: 80%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

@@ -121,7 +121,21 @@ async function getTokenIdFromSearch(find){
 }
 
 
+async function getAllCollections(){
 
+    const ele = {};
+    const options = getOptions("getAllCollections",ele);
+
+    return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
+}
+
+async function searchCollections(find){
+
+    const ele = {find:find};
+    const options = getOptions("searchCollections",ele);
+
+    return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
+}
 
 
 
@@ -137,3 +151,6 @@ export{doesCollectionExist}
 export{getCretorFromCollection}
 export{highestTokenId}
 export{getTokenIdFromSearch}
+export{getAllCollections}
+export{searchCollections}
+

@@ -116,7 +116,9 @@ function CreateNFT(props){
 
 
         // upload to collection database
-        await createCollection(collection);
+        if(collection !== ""){
+            await createCollection(collection);
+        }
         // upload to NFT Info
         await createNFTInfo(tokenId,itemName,searchTearms,collection);
 
