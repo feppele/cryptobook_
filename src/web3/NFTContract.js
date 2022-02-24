@@ -3,7 +3,7 @@ const Web3 =require('web3');
 const web3 = new Web3(window.ethereum);
 
 
-const NFTContractAddress ='0x77AF4Fdcc8478BF2ed0578403638fA2227A5204c';
+const NFTContractAddress ='0xd6598ca334021613c887f5ceBce973CAF99254b4';
 const NFTContractABI=[
 	{
 		"inputs": [
@@ -100,6 +100,11 @@ const NFTContractABI=[
 				"internalType": "string",
 				"name": "metadataURI",
 				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
 			}
 		],
 		"name": "mintToken",

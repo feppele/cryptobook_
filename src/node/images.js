@@ -58,8 +58,6 @@ function uploadNFTImageToServer (image,tokenId) {
 
 async function getNFTImageServerURL(tokenId){
 
-
-
     const types = [".png",".jpeg",".jpg"]
     const result = Promise.all([
         fetch("/images/profile/" + tokenId + types[0] ).then(res =>{ if(res.status === 200){return ("/images/profile/"+ tokenId + types[0])}   }),

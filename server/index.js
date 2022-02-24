@@ -233,6 +233,7 @@ async function getAnfrage(methode,ele){
           anfrage= `
     
           delete from collection where collection = '${ele.collection}';
+          delete from collection where collection = '${ele.collection}';
           insert into collection values ('${ele.collection}','${ele.creator}');
     
           `;
@@ -288,7 +289,7 @@ async function getAnfrage(methode,ele){
           anfrage= `
     
           delete from nftInfo where tokenId = '${ele.tokenId}';
-          insert into nftInfo values ('${ele.tokenId}','${ele.find}','${ele.collection}','${ele.creator}','${ele.name}');
+          insert into nftInfo values ('${ele.tokenId}','${ele.find}','${ele.collection}','${ele.creator}','${ele.name}','${ele.metaDataURL}');
     
           `;
         }
@@ -317,6 +318,14 @@ async function getAnfrage(methode,ele){
           `;
         }
 
+        if(methode === "getAllSingles"){
+          anfrage= `
+    
+          select tokenid from nftInfo;
+    
+          `;
+        }
+
         if(methode === "getTokenIdFromSearch"){
           anfrage= `
 
@@ -325,6 +334,13 @@ async function getAnfrage(methode,ele){
           `;
         }
 
+        if(methode === "getTokenURI"){
+          anfrage= `
+
+          select metaurl from nftinfo where tokenid = '${ele.tokenId}';
+
+          `;
+        }
 
 
 

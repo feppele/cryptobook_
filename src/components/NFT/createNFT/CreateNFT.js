@@ -3,7 +3,7 @@ import React, {useState,useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import ImageUpload from './ImageUpload';
 import TextInput from '../../standart/TextInput';
-import BasicButton2 from '../../standart/BasicButton2';
+import BasicButton2Big from '../../standart/BasicButton2Big';
 import FinishedNFT from '../finishedNFTModal/FinishedNFT';
 import FinishedNFTBackdrop from '../finishedNFTModal/FinishedNFTBackdrop';
 
@@ -19,6 +19,7 @@ import {ipfsUpload,createNFT} from './IPFSandNFTFunctions';
 
 import {createCollection,getMyCollections,doesCollectionExist,getNFTInfoFromTokenId,createNFTInfo,getAllTokenIdFromCollection} from '../../../node/NFTData'
 
+import {createNFTOnAndOff} from './OffChainCreate'
 
 import {getCurrentUser} from '../../../web3/HelperFunctions'
 
@@ -26,6 +27,8 @@ import {getCurrentUser} from '../../../web3/HelperFunctions'
 
 
 function CreateNFT(props){
+
+
 
     const history =useHistory();
 
@@ -52,11 +55,14 @@ function CreateNFT(props){
 
 
     console.log(selectedFile);
+    console.log(notMyCollection)
 
     // einfach erweiterbar: einfach in metaData weitere elemente hinzufügen
     async function onCreateButtonClicked(){
 
         const creator = await getCurrentUser();
+
+        console.log(notMyCollection)
 
         if(notMyCollection){ return;}
 
@@ -67,6 +73,7 @@ function CreateNFT(props){
         const description = await document.getElementById("description").value;
         const extLink = await document.getElementById("externalLink").value;
         const searchTearms = await document.getElementById("searchTearms").value;
+        const offchain = await document.getElementById("offchain").value;
 
         const metaData = {name:itemName,collection:collection,description:description,extLink:extLink,creator:creator}
 
@@ -87,40 +94,47 @@ function CreateNFT(props){
         //just if name and image is selected
 
         // reset values
+
         setIsSelected(false);
+        setSelectedFile();
         document.getElementById("itemName").value ="";
         document.getElementById("collection").value ="";
         document.getElementById("description").value ="";
         document.getElementById("searchTearms").value ="";
         document.getElementById("externalLink").value ="";
 
-        //IPFS upload
-        const metaDataURL = await ipfsUpload(metaData,imageFile);
 
-        console.log("URL RETURN :" +metaDataURL);
-
-
-        //create NFT with metadata return from IPFS upload
-        const response = await createNFT(metaDataURL); // returns tokenId when success
-
-        await setTxHash(response[0]);
-        await setTokenId(response[1]);
-        const tokenId =response[1];
-
-        console.log("returnd Token id: " + tokenId);
-        console.log("txhash " + response[0]);
-
-        // Upload image to Server with tokenID
-        uploadNFTImageToServer(selectedFile,tokenId);
+        // //IPFS upload
+        // const metaDataURL = await ipfsUpload(metaData,imageFile);
+        // console.log("URL RETURN :" +metaDataURL);
 
 
+        // //create NFT with metadata return from IPFS upload
+        // const response = await createNFT(metaDataURL); // returns tokenId when success
 
-        // upload to collection database
-        if(collection !== ""){
-            await createCollection(collection);
-        }
-        // upload to NFT Info
-        await createNFTInfo(tokenId,itemName,searchTearms,collection);
+        // await setTxHash(response[0]);
+        // await setTokenId(response[1]);
+        // const tokenId =response[1];
+
+        // console.log("returnd Token id: " + tokenId);
+        // console.log("txhash " + response[0]);
+
+        // // Upload image to Server with tokenID
+        // uploadNFTImageToServer(selectedFile,tokenId);
+
+        // // upload to collection database
+        // if(collection !== ""){
+        //     await createCollection(collection);
+        // }
+        // // upload to NFT Info
+        // await createNFTInfo(tokenId,itemName,searchTearms,collection);
+
+
+
+        var response = await createNFTOnAndOff(metaData,imageFile,itemName,searchTearms,collection,offchain)
+
+        //await setTxHash(response.txhash);
+        //await setTokenId(response.tokenId);
 
 
         //open finsihed NFT in Modal
@@ -160,10 +174,6 @@ function CreateNFT(props){
     }
 
 
-    function searchterm(e){
-        const searchTearms =  document.getElementById("searchTearms").value;
-        console.log(searchTearms)
-    }
 
 
     return (
@@ -194,7 +204,7 @@ function CreateNFT(props){
                 <input id="itemName"type="text" placeholder="Item name" className={classes.textInput}></input>
 
                 <div className={classes.h2}> Search Tearms: </div>
-                <input id="searchTearms" type="text" placeholder="space, football, painting " onChange ={searchterm} className={classes.textInput}></input>
+                <input id="searchTearms" type="text" placeholder="space, football, painting "  className={classes.textInput}></input>
                 <div className={classes.h3}> choose up to 5 words seperated with comma </div>
 
                 <div className={classes.h2}> Collection: </div>
@@ -213,10 +223,13 @@ function CreateNFT(props){
 
 
                 { dataMissing && <div className={classes.fehlermeldung}>fill all required forms</div>}
-                <BasicButton2 onButtonClicked={onCreateButtonClicked} text ="Create"/>
 
+                <div className={classes.h2}> offchain: </div>
+                <input id="offchain" type="text" placeholder="yes" className={classes.textInput}></input>
 
-              
+                <BasicButton2Big onButtonClicked={onCreateButtonClicked} text ="Create"/>
+
+                <div className={classes.place}></div>
 
             </div>
         </div>

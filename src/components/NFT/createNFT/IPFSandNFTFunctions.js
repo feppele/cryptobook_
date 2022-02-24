@@ -40,16 +40,16 @@ async function ipfsUpload(metaData,file){ //  MetaData json: {itemName, collecti
 
 
 
-async function createNFT(metaDataURL){
+async function createNFT(metaDataURL,id){
 
     const owner = await window.web3.currentProvider.selectedAddress;
-    const response = await NFTContract.methods.mintToken(owner,metaDataURL).send({
+    const response = await NFTContract.methods.mintToken(owner,metaDataURL,id).send({
         from: owner,
         to: NFTContractAddress
     })
 
 
- 
+
     const tokenId = response.events.Transfer.returnValues.tokenId;
     const txHash = response.events.Transfer.transactionHash;
 

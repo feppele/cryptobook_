@@ -1,8 +1,9 @@
-import classes from './Page3.module.css';
+import classes from './Impressum.module.css';
 
 import {useHistory} from 'react-router-dom';
+import logo from '../../../images/logo.png';
 
-function Page3(){
+function Impressum(){
 
     const history = useHistory()
 
@@ -27,7 +28,10 @@ function Page3(){
 
 
                 <div className={classes.box}>
-                    <div className={classes.header}> My Cryptobook </div>
+                    <div className={classes.logoWrapper}>
+                        <img src={logo} className={classes.logo}></img>
+                        <div className={classes.header}> My Cryptobook </div>
+                    </div>
                     <div className={classes.text}>make the first step into the connected Blockchain World</div>
                 </div>
 
@@ -65,4 +69,4 @@ function Page3(){
 
 }
 
-export default Page3;
+export default Impressum;

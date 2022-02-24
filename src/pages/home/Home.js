@@ -1,8 +1,7 @@
 import classes from './Home.module.css';
 
-import HomePage1 from '../../components/homePages/homePage1/HomePage1';
-import HomePage2 from '../../components/homePages/homePage2/HomePage2';
-import HomePage3 from '../../components/homePages/HomePage3';
+
+import HomePage from '../../components/homePages/HomePage';
 
 
 function Home(){
@@ -11,7 +10,7 @@ function Home(){
     return (
         <div>
 
-            <HomePage3 />
+            <HomePage />
         </div>
 
     );

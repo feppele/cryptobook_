@@ -70,6 +70,7 @@ function NavBar(){
 
     async function loginMetamask(){
 
+        console.log("login")
 
         if(!isMetaMaskInstalled()){
             window.open("https://metamask.io");

@@ -19,6 +19,8 @@ import {getProfilePicURL} from '../../node/images'
 
 import {getCurrentUser} from '../../web3/HelperFunctions'
 
+import logo from '../../images/logo.png'
+
 
 function NavBar(){
 
@@ -107,7 +109,8 @@ function NavBar(){
             {  profilModalIsOpen && <Backdrop2 onBackDropClicked={closeProfilModal} />  }
 
             <button className={classes.logo} onClick={reload}>
-                my cryptobook
+                <img src={logo} className={classes.logoPic}></img>
+                My Cryptobook
             </button>
 
             <div className={classes.menuWrapper}>

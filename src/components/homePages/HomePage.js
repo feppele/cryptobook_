@@ -1,16 +1,18 @@
-import classes from './HomePage3.module.css';
+import classes from './HomePage.module.css';
 import { useHistory } from "react-router-dom";
 import{useState,useEffect} from 'react';
-
 import FriendsInfo from './FriendsInfo';
 import NFTFormatEasy from '../NFT/NFTFormatEasy';
 
 import BasicButton from '../standart/BasicButton';
 import BasicButton2 from '../standart/BasicButton2';
 
-import Page3 from '../start/startPageComponents/Page3'
+import Impressum from '../start/startPageComponents/Impressum'
 
-function HomePage3(){
+
+
+
+function HomePage(){
 
     const history = useHistory();
 
@@ -20,7 +22,6 @@ function HomePage3(){
     function openExplore(){
         history.push("/marketplace");
     }
-
 
 
     return (
@@ -67,10 +68,10 @@ function HomePage3(){
 
             </div>
 
-        <Page3/>
+        <Impressum/>
 
         </div>
     );
 }
 
-export default HomePage3;
+export default HomePage;

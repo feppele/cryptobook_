@@ -71,3 +71,13 @@
     align-items: center;
     justify-content: space-between;
 }
+
+
+.logo{
+    height:30px;
+}
+.logoWrapper{
+    display: flex;
+    flex-direction: row;
+    gap: 3px;
+}

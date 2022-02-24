@@ -71,10 +71,10 @@ async function getCretorFromCollection(collection){
 
 
 // 3 NFT INFO Functions
-async function createNFTInfo(tokenId,name,searchTearms,collection){
+async function createNFTInfo(tokenId,name,searchTearms,collection,metaDataURL){
 
     const creator = await getCurrentUser();
-    const ele = {tokenId:tokenId, name:name, find:searchTearms, collection:collection, creator:creator};
+    const ele = {tokenId:tokenId, name:name, find:searchTearms, collection:collection, creator:creator,metaDataURL:metaDataURL};
     const options = getOptions("createNFTInfo",ele);
 
     return await fetch("/databank",options).then(res => {return res.json()});
@@ -107,6 +107,16 @@ async function highestTokenId(){
     return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res[0][0].max});;
 }
 
+async function getAllSingles(){
+
+    const ele = {};
+    const options = getOptions("getAllSingles",ele);
+
+    return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
+}
+
+
+
 async function getTokenIdFromSearch(find){
 
     const ele = {find:find};
@@ -137,12 +147,26 @@ async function searchCollections(find){
     return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
 }
 
+async function getTokenURIDB(metaDataURL){
+
+    console.log(metaDataURL)
+
+    const ele = {metaDataURL:metaDataURL};
+    const options = getOptions("getTokenURI",ele);
+
+    return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res});;
+}
+
+
+
+
 
 
 
 export{getNFTInfoFromTokenId}
 export{createNFTInfo}
 export{getAllTokenIdFromCollection}
+export{getAllSingles}
 
 
 export{createCollection}
@@ -153,4 +177,5 @@ export{highestTokenId}
 export{getTokenIdFromSearch}
 export{getAllCollections}
 export{searchCollections}
+export{getTokenURIDB}
 

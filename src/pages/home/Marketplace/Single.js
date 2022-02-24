@@ -6,7 +6,7 @@ import NFTFormatCreatorNew from '../../../components/NFT/NFTFormatCreatorNew'
 
 import NFTCollectionFormat from '../../../components/NFT/NFTCollectionFormat';
 import {useState,useEffect} from 'react'
-import {highestTokenId,getTokenIdFromSearch} from '../../../node/NFTData';
+import {highestTokenId,getTokenIdFromSearch,getAllSingles} from '../../../node/NFTData';
 
 
 
@@ -20,15 +20,14 @@ function Single(props){
     // Show All NFTs __ and mix the array random
     async function showAllNFTs(){
 
-        const highId = await highestTokenId();
-        var array= Array.from({length: highId}, (_, i) => i + 1)
-        array = array.sort((a, b) => 0.5 - Math.random()); // shuffle
+        // const highId = await highestTokenId();
+        // var array= Array.from({length: highId}, (_, i) => i + 1)
 
-        console.log(array)
-        console.log(highId)
+        var singles = await getAllSingles();
+        singles.sort((a, b) => 0.5 - Math.random()); // shuffle
 
         setSearchResult([]);
-        setSearchResult(array)
+        setSearchResult(singles)
 
     }
 
@@ -61,7 +60,7 @@ function Single(props){
 
 
 
-    return (  searchResult.map(  element =>  <NFTFormatEasy  tokenId={element}/> )    );
+    return (  searchResult.map(  element =>  <NFTFormatEasy  tokenId={element.tokenid}/> )    );
 
 
 }

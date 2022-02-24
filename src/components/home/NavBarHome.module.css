@@ -27,13 +27,19 @@
   font-size: 33px;
   color: white;
   border-style:hidden;
+  display: flex;
 }
 .logo:active {
   border-style: hidden;
 }
 .logo:hover{
   color: rgb(0,124,255);
+  color: rgb(107, 62, 158);
   cursor: pointer;
+}
+
+.logoPic{
+  height: 40px;
 }
 
 

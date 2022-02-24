@@ -12,9 +12,12 @@ import {getNFTLikes,likeNFT,dislikeNFT,doILike} from '../../node/NFTLikes';
 import {getTokenUri,getAllMetadataFromURI} from '../../web3/NFTContractHelper'
 import {getNFTImageServerURL} from '../../node/images'
 
+import {getTokenURIDB} from '../../node/NFTData'
 
 
 // input just token ID as props: props.tokenId
+// loads Metadata(name, description..) from ipfs. 
+// loads image from server if not available from ipfs
 function NFTFormatEasy(props){
 
     useEffect(() => {console.log(props)},[])
@@ -32,7 +35,17 @@ function NFTFormatEasy(props){
     async function loadMetadata(tokenId){
 
 
-        const tokenURI = await getTokenUri(tokenId);
+        var tokenURI;
+
+        if(tokenId === false){
+            console.log("offchain")
+            tokenURI = await getTokenURIDB(tokenId);
+            console.log(tokenURI)
+        }else{
+            console.log("onchain")
+            tokenURI = await getTokenUri(tokenId);
+        }
+
         setMetadata( await getAllMetadataFromURI(tokenURI,tokenId) );
         return await getAllMetadataFromURI(tokenURI,tokenId);
     }
