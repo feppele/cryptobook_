@@ -147,15 +147,31 @@ async function searchCollections(find){
     return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
 }
 
-async function getTokenURIDB(metaDataURL){
+async function getTokenURIDB(tokenId){
 
-    console.log(metaDataURL)
 
-    const ele = {metaDataURL:metaDataURL};
+    const ele = {tokenId:tokenId};
     const options = getOptions("getTokenURI",ele);
 
-    return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res});;
+    return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res[0][0].metaurl});;
 }
+
+
+async function getOffchainMetaData(creator){
+
+    if(creator ==="me"){
+        creator = await window.ethereum.request({method: 'eth_accounts'});
+        creator = creator[0];
+    }
+
+
+    const ele = {creator:creator};
+    const options = getOptions("getOffchainMetaData",ele);
+
+    return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
+}
+
+
 
 
 
@@ -178,4 +194,4 @@ export{getTokenIdFromSearch}
 export{getAllCollections}
 export{searchCollections}
 export{getTokenURIDB}
-
+export{getOffchainMetaData}

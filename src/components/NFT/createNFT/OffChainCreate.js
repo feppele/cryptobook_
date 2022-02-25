@@ -21,7 +21,7 @@ async function createNFTOnAndOff(metaData,imageFile,itemName,searchTearms,collec
 
             //IPFS upload
             const metaDataURL = await ipfsUpload(metaData,imageFile);
-            console.log("URL RETURN :" +metaDataURL);
+            //console.log("URL RETURN :" +metaDataURL);
 
             // New Feature: create TokenId from metaDataURL
             const meta = metaDataURL.substring(metaDataURL.lastIndexOf("/")+1,300);
@@ -31,7 +31,7 @@ async function createNFTOnAndOff(metaData,imageFile,itemName,searchTearms,collec
             var bignumber = new BigNumber(tokenIdMeta, 16);
             tokenIdMeta= bignumber.toString(10)
 
-            console.log(tokenIdMeta)
+            //console.log(tokenIdMeta)
 
             // Upload image to Server with tokenID
             uploadNFTImageToServer(imageFile,tokenIdMeta);
@@ -44,15 +44,15 @@ async function createNFTOnAndOff(metaData,imageFile,itemName,searchTearms,collec
             await createNFTInfo(tokenIdMeta,itemName,searchTearms,collection,metaDataURL);
 
 
-            if(offchain==="yes"){
-                console.log("offchain")
+            if(offchain==="Create offchain"){
+                console.log("create offchain")
             }else{
                 console.log("onchain")
                 //create NFT with metadata return from IPFS upload
                 const response = await createNFT(metaDataURL,tokenIdMeta); // returns tokenId when success
             }
 
-
+        return tokenIdMeta;
     //return {txhash:response[0],tokenId:tokenIdMeta}
 }
 

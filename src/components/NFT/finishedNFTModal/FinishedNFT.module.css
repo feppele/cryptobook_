@@ -6,10 +6,12 @@
     flex-direction: column; 
     border-radius: 10px;
 
+    top:20%;
+    transform: translate(-50%, 0);
 
 
 
-    position: absolute;
+    position: fixed;
     margin-top: 5px;
 
     left: 50%;

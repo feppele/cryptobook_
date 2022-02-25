@@ -43,6 +43,8 @@
     margin: 40px;
     width: calc(100% - 80px);
     height: calc(100% - 80px);
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -128,7 +130,7 @@
 .buttonWrapper{
     position:absolute;
     top: 0px;
-    right: -40px;
+    right: -48px;
     display: flex;
     border-radius: 10px;
     margin-right: 50px;
@@ -166,6 +168,13 @@
 .place{
     height: 15px;
     width: 100%;
+}
+
+.buyButtonWrapper{
+    position:absolute;
+    top: 100px;
+    right: 0px;
+    width: 150px;
 }
 
 

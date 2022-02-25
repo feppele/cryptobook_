@@ -6,6 +6,8 @@ import loadImage from '../../images/Loader.gif'
 
 import NoNFT from './NoNFTsSign';
 
+import {getOffchainMetaData} from '../../node/NFTData'
+
 
 // input User Address
 function NftCollection(props){
@@ -15,8 +17,22 @@ function NftCollection(props){
     const [metadataArray,setMetadataArray]=useState([]);
 
 
+    //console.log(metadataArray)
     async function loadNFT(){
-        await setMetadataArray( await getAllTokensMetadataArray(props.from));
+
+        //var onChainMetaArray = await getAllTokensMetadataArray(props.from)
+        var onChainMetaArray =[]
+
+        // just load from DB because the are on and offChains
+        //load also offChain NFT from DB
+        const offChainMetaArray = await getOffchainMetaData(props.from);
+        offChainMetaArray.forEach(ele =>{onChainMetaArray.push([ele.metaurl,ele.name,ele.tokenid])})
+
+        console.log(onChainMetaArray)
+
+
+        await setMetadataArray( onChainMetaArray);
+
         setLoading(false);
 
     }

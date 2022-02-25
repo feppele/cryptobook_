@@ -8,6 +8,8 @@ import NFTFormatEasy from '../../components/NFT/NFTFormatEasy';
 import Button3 from '../../components/standart/Button3';
 import BasicButton from '../../components/standart/BasicButton';
 
+import Button7BUY from '../../components/standart/Button7BUY'
+
 //img
 import black_herz from '../../images/black_herz.png';
 import shareImg from '../../images/share.png';
@@ -25,6 +27,7 @@ import LikesList from './../../components/standart2/LikesList';
 import Backdrop from './../../components/standart2/Backdrop';
 import {getOptions} from '../../node/databank';
 import SendOneNFT from '../../components/standart2/sendOneNFT/SendOneNFT';
+import {getTokenURIDB} from '../../node/NFTData'
 
 function OneNFTPage(){
 
@@ -40,6 +43,7 @@ function OneNFTPage(){
 
     const [owner,setOwner]=useState();
     const [shortOwner,setShortOwner]=useState();
+    const [isOffchain,setIsOffchain] = useState(false);
 
     const [metaData,setMetadata]=useState([]);
     const [shareLink,setShareLink]=useState(false);
@@ -65,27 +69,59 @@ function OneNFTPage(){
 
     async function loadMetadata(tokenId){
 
+        // try get from blockchain, if error is offchain--> db
+        var tokenURI;
+        try{
+            tokenURI = await getTokenUri(tokenId);
 
-        const tokenURI = await getTokenUri(tokenId);
+
+        }catch(err){
+            setIsOffchain(true);
+            tokenURI = await getTokenURIDB(tokenId);
+
+        }
+
 
         setTokenURI(tokenURI);
         setMetadata( await getAllMetadataFromURI(tokenURI,tokenId) );
         return await getAllMetadataFromURI(tokenURI,tokenId);
+
     }
     useEffect(() => {loadMetadata(tokenId)},[])
 
     console.log(metaData)
 
+    useEffect(() => {
 
-    getOwnerOfTokenId(tokenId).then(response =>{
+    // get Owner
+    try{
+        const res = getOwnerOfTokenId(tokenId).then(response =>{
 
-        setOwner(response);
-        setShortOwner(shortAddr(response));
+            console.log(response)
+            setOwner(response);
+            setShortOwner(shortAddr(response));
+    
+            if(response.toLowerCase() === window.web3.currentProvider.selectedAddress.toLowerCase()){
+                setAmIOwner(true);
+            }
+        });
 
-        if(response.toLowerCase() === window.web3.currentProvider.selectedAddress.toLowerCase()){
+        console.log(" NOOOOO ERRORRRR")
+
+    }catch(err){
+        console.log("ERRORRRR")
+        setOwner(metaData.creator)
+        setShortOwner(shortAddr(metaData.creator));
+        if(metaData.creator.toLowerCase() === window.web3.currentProvider.selectedAddress.toLowerCase()){
             setAmIOwner(true);
         }
-    });
+    }
+
+
+
+    },[metaData])
+
+
 
     function shortURI(uri){
         return uri.toString().slice(0,12) +"..."
@@ -196,9 +232,7 @@ function OneNFTPage(){
             {/*right */}
             <div className={classes.right}>
 
-            
 
-            
 
                 {sendOneNFTModal && <SendOneNFT imageName={metaData.name} tokenId={tokenId}  onCloseClick={closeSend}/>}
                 {sendOneNFTModal && <Backdrop onBackDropClicked={closeSend}/>}
@@ -216,7 +250,7 @@ function OneNFTPage(){
                     </div>
 
                     {/* name + collection */}
-                    <div className={classes.h2}>{metaData.name + " #" +metaData.tokenId}</div>
+                    <div className={classes.h2}>{metaData.name }</div>
                     <div onClick={openCollection} className={classes.h1}>{metaData.collection  }</div>
 
 
@@ -225,6 +259,11 @@ function OneNFTPage(){
                         <img src={black_herz} className={classes.herz}></img>
                         <div onClick={openLikesList} className={classes.text}> {NFTLikes + " favorites"} </div>
                     </div>
+
+                    <div className={classes.buyButtonWrapper}>
+                     { amIOwner &&  <Button7BUY />  }
+                    </div>
+
 
 
                 {/* Description Box*/}
@@ -254,7 +293,8 @@ function OneNFTPage(){
                     {/* owner*/}
                     <div className={classes.ownerWrapper}>
                         <div className={classes.text}>Owned by</div>
-                        <div className={classes.owner}  onClick={goToProfile} id={owner}>    {shortOwner}   </div>
+                        <div className={classes.owner}  onClick={goToProfile} id={owner}>    {shortOwner}   </div> 
+
                     </div>
 
                     <div className={classes.ownerWrapper}>
@@ -277,6 +317,12 @@ function OneNFTPage(){
                     <div className={classes.ownerWrapper}>
                         <div  className={classes.text}> Metadata: </div>
                         <div onClick={openURI} className={classes.owner}>{shortURI(tokenURI)}</div>
+                    </div>
+
+                    {/* tokenId*/}
+                    <div className={classes.ownerWrapper}>
+                        <div  className={classes.text}> TokenId: </div>
+                        <div className={classes.owner}>{metaData.tokenId}</div>
                     </div>
 
                     <div className={classes.place}></div>

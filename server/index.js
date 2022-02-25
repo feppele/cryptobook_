@@ -342,6 +342,13 @@ async function getAnfrage(methode,ele){
           `;
         }
 
+        if(methode === "getOffchainMetaData"){
+          anfrage= `
+
+          select metaurl,name,tokenid from nftinfo where creator ='${ele.creator}';
+
+          `;
+        }
 
 
 

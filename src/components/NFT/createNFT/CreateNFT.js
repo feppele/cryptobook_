@@ -54,11 +54,9 @@ function CreateNFT(props){
     };
 
 
-    console.log(selectedFile);
-    console.log(notMyCollection)
 
     // einfach erweiterbar: einfach in metaData weitere elemente hinzufügen
-    async function onCreateButtonClicked(){
+    async function onCreateButtonClicked(e){
 
         const creator = await getCurrentUser();
 
@@ -104,38 +102,12 @@ function CreateNFT(props){
         document.getElementById("externalLink").value ="";
 
 
-        // //IPFS upload
-        // const metaDataURL = await ipfsUpload(metaData,imageFile);
-        // console.log("URL RETURN :" +metaDataURL);
+            console.log(e.target.innerHTML);
 
-
-        // //create NFT with metadata return from IPFS upload
-        // const response = await createNFT(metaDataURL); // returns tokenId when success
-
-        // await setTxHash(response[0]);
-        // await setTokenId(response[1]);
-        // const tokenId =response[1];
-
-        // console.log("returnd Token id: " + tokenId);
-        // console.log("txhash " + response[0]);
-
-        // // Upload image to Server with tokenID
-        // uploadNFTImageToServer(selectedFile,tokenId);
-
-        // // upload to collection database
-        // if(collection !== ""){
-        //     await createCollection(collection);
-        // }
-        // // upload to NFT Info
-        // await createNFTInfo(tokenId,itemName,searchTearms,collection);
-
-
-
-        var response = await createNFTOnAndOff(metaData,imageFile,itemName,searchTearms,collection,offchain)
+        var response = await createNFTOnAndOff(metaData,imageFile,itemName,searchTearms,collection,e.target.innerHTML)
 
         //await setTxHash(response.txhash);
-        //await setTokenId(response.tokenId);
-
+        await setTokenId(response);
 
         //open finsihed NFT in Modal
         setCreationFinish(true);
@@ -224,11 +196,13 @@ function CreateNFT(props){
 
                 { dataMissing && <div className={classes.fehlermeldung}>fill all required forms</div>}
 
-                <div className={classes.h2}> offchain: </div>
-                <input id="offchain" type="text" placeholder="yes" className={classes.textInput}></input>
+                <div className={classes.h2}> Want to sell this NFT? Set a Price in Ether: </div>
+                <input id="offchain" type="text" placeholder="0.1 ether" className={classes.textInput}></input>
 
-                <BasicButton2Big onButtonClicked={onCreateButtonClicked} text ="Create"/>
-
+                <div className={classes.createButton}>
+                    <BasicButton2Big onButtonClicked={onCreateButtonClicked}  text ="Create"/>
+                    <BasicButton2Big onButtonClicked={onCreateButtonClicked} text ="Create offchain"/>
+                </div>
                 <div className={classes.place}></div>
 
             </div>

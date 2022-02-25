@@ -124,3 +124,7 @@
     height: 50px;
 }
 
+.createButton{
+    display:flex;
+    gap: 20px;
+}

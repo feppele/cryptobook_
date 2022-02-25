@@ -21,7 +21,7 @@ import {getTokenURIDB} from '../../node/NFTData'
 function NFTFormatEasy(props){
 
     useEffect(() => {console.log(props)},[])
-    
+
 
     const history =useHistory();
 
@@ -31,23 +31,29 @@ function NFTFormatEasy(props){
     const [imageURL,setImageURL] = useState(false);
     const [imageLoad,setImageLoad] = useState(false);
 
+    const [offchain,setOffchain] = useState(false);
+
     // Metadaten aus TokenId bekommen:
     async function loadMetadata(tokenId){
 
-
         var tokenURI;
 
-        if(tokenId === false){
-            console.log("offchain")
-            tokenURI = await getTokenURIDB(tokenId);
-            console.log(tokenURI)
-        }else{
-            console.log("onchain")
+        // get get metadata from blockchain, if not is offchain and get from DB
+        try{
             tokenURI = await getTokenUri(tokenId);
+
+
+        }catch(err){
+            setOffchain(true);
+            tokenURI = await getTokenURIDB(tokenId);
+
+
         }
 
         setMetadata( await getAllMetadataFromURI(tokenURI,tokenId) );
         return await getAllMetadataFromURI(tokenURI,tokenId);
+
+
     }
     useEffect(() => {
         loadMetadata(props.tokenId).then((ipfsRes)=>{
@@ -125,7 +131,7 @@ function NFTFormatEasy(props){
             <div className={classes.bottom}>
 
                 <div className={classes.nameAndFrom}> {metaData.name}</div>
-                <div className={classes.nameAndNumber}>{metaData.collection + "#"+metaData.tokenId}</div>
+                <div className={classes.nameAndNumber}>{metaData.collection }</div>
 
 
             </div>
@@ -133,6 +139,8 @@ function NFTFormatEasy(props){
             <div className={classes.bottom2}>
 
             <img src={ethereum} className={classes.ethereum}></img>
+
+            {offchain && <div>offchain</div> }
 
                 <div className={classes.likesWrapper}>
 
