@@ -71,7 +71,7 @@ function CreateNFT(props){
         const description = await document.getElementById("description").value;
         const extLink = await document.getElementById("externalLink").value;
         const searchTearms = await document.getElementById("searchTearms").value;
-        const offchain = await document.getElementById("offchain").value;
+        const preis = await document.getElementById("preis").value;
 
         const metaData = {name:itemName,collection:collection,description:description,extLink:extLink,creator:creator}
 
@@ -100,11 +100,9 @@ function CreateNFT(props){
         document.getElementById("description").value ="";
         document.getElementById("searchTearms").value ="";
         document.getElementById("externalLink").value ="";
+        document.getElementById("preis").value ="";
 
-
-            console.log(e.target.innerHTML);
-
-        var response = await createNFTOnAndOff(metaData,imageFile,itemName,searchTearms,collection,e.target.innerHTML)
+        var response = await createNFTOnAndOff(metaData,imageFile,itemName,searchTearms,collection,e.target.innerHTML,preis) //e.target.innerHTML = button offchain or onchain
 
         //await setTxHash(response.txhash);
         await setTokenId(response);
@@ -197,7 +195,7 @@ function CreateNFT(props){
                 { dataMissing && <div className={classes.fehlermeldung}>fill all required forms</div>}
 
                 <div className={classes.h2}> Want to sell this NFT? Set a Price in Ether: </div>
-                <input id="offchain" type="text" placeholder="0.1 ether" className={classes.textInput}></input>
+                <input id="preis" type="text" placeholder="0.1 ether" className={classes.textInput}></input>
 
                 <div className={classes.createButton}>
                     <BasicButton2Big onButtonClicked={onCreateButtonClicked}  text ="Create"/>

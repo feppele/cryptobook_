@@ -23,7 +23,7 @@ function Button7BUY(props){
                 { popup && <span className={classes.popuptext} id="myPopup">{"Buy"}</span> }
 
                 <div onClick={props.onButtonClicked} className={classes.popupButton}>
-                    <div className={classes.amount}>{"0.0001"}</div> <img src={etherSign} className={classes.img}></img>
+                    <div className={classes.amount}>{props.preis}</div> <img src={etherSign} className={classes.img}></img>
                 </div>
 
 

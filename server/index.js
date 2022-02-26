@@ -351,9 +351,34 @@ async function getAnfrage(methode,ele){
         }
 
 
+        // Preis
+
+        if(methode === "setPreisOfNFT"){
+          anfrage= `
+
+          delete from preis where tokenid = '${ele.tokenId}';
+          delete from preis where tokenid = '${ele.tokenId}';
+          insert into preis values ('${ele.tokenId}','${ele.preis}');
+
+          `;
+        }
+
+        if(methode === "getPreisOfNFT"){
+          anfrage= `
+
+          select preis from preis where tokenid = '${ele.tokenId}';
+
+          `;
+        }
+
+
+
+
+
 
     return anfrage; /// <-- return
 }
+
 
 
 

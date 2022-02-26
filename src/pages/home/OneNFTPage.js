@@ -27,7 +27,7 @@ import LikesList from './../../components/standart2/LikesList';
 import Backdrop from './../../components/standart2/Backdrop';
 import {getOptions} from '../../node/databank';
 import SendOneNFT from '../../components/standart2/sendOneNFT/SendOneNFT';
-import {getTokenURIDB} from '../../node/NFTData'
+import {getTokenURIDB,getPreisOfNFT} from '../../node/NFTData'
 
 function OneNFTPage(){
 
@@ -44,7 +44,7 @@ function OneNFTPage(){
     const [owner,setOwner]=useState();
     const [shortOwner,setShortOwner]=useState();
     const [isOffchain,setIsOffchain] = useState(false);
-
+    const [preis,setPreis] = useState("");
     const [metaData,setMetadata]=useState([]);
     const [shareLink,setShareLink]=useState(false);
     const [NFTLikes,setNFTLikes]=useState(0);
@@ -87,39 +87,42 @@ function OneNFTPage(){
         return await getAllMetadataFromURI(tokenURI,tokenId);
 
     }
-    useEffect(() => {loadMetadata(tokenId)},[])
+    useEffect(() => {loadMetadata(tokenId).then((res)=>{ // returns metaData
 
-    console.log(metaData)
+        getOwner(res)
 
-    useEffect(() => {
+        getPreisOfNFT(tokenId).then(p =>{setPreis(p)});
 
-    // get Owner
-    try{
-        const res = getOwnerOfTokenId(tokenId).then(response =>{
+        })},[])
 
-            console.log(response)
+
+
+
+    function getOwner(meta){
+        // get Owner
+        getOwnerOfTokenId(tokenId).then(response =>{
+
+            // if not on blockchain owner == creator. 
+            if(response === "error"){
+                console.log(meta)
+                setOwner(meta.creator)
+                setShortOwner(shortAddr(meta.creator));
+                if(meta.creator.toLowerCase() === window.web3.currentProvider.selectedAddress.toLowerCase()){
+                    setAmIOwner(true);
+                }
+                return;
+            }
+            //else
             setOwner(response);
             setShortOwner(shortAddr(response));
-    
             if(response.toLowerCase() === window.web3.currentProvider.selectedAddress.toLowerCase()){
                 setAmIOwner(true);
             }
         });
-
-        console.log(" NOOOOO ERRORRRR")
-
-    }catch(err){
-        console.log("ERRORRRR")
-        setOwner(metaData.creator)
-        setShortOwner(shortAddr(metaData.creator));
-        if(metaData.creator.toLowerCase() === window.web3.currentProvider.selectedAddress.toLowerCase()){
-            setAmIOwner(true);
-        }
     }
 
 
 
-    },[metaData])
 
 
 
@@ -215,6 +218,20 @@ function OneNFTPage(){
         history.push("/collection/"+metaData.collection)
     }
 
+
+    function buyButtonClicked(){
+
+        if(amIOwner){
+            return
+        }
+
+
+        
+
+
+
+    }
+
     return (
 
         <div className={classes.container}>
@@ -246,7 +263,7 @@ function OneNFTPage(){
                     <div className={classes.buttonWrapper}>
                         <Button3 onButtonClicked={copyURL} img={shareImg} popupText={"share link"}/>
                         {amIOwner && <Button3 img={profilePic} popupText={"profile pic"}/>  }
-                        {amIOwner && <Button3 onButtonClicked={openSend} img={sendImg} popupText={"send NFT"}/> }
+                        { !isOffchain && amIOwner && <Button3 onButtonClicked={openSend} img={sendImg} popupText={"send NFT"}/> }
                     </div>
 
                     {/* name + collection */}
@@ -261,7 +278,7 @@ function OneNFTPage(){
                     </div>
 
                     <div className={classes.buyButtonWrapper}>
-                     { amIOwner &&  <Button7BUY />  }
+                     { amIOwner &&  <Button7BUY preis={preis} onButtonClickded={buyButtonClicked} />  }
                     </div>
 
 

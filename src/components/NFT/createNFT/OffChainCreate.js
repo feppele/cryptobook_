@@ -4,9 +4,10 @@ import React, {useState,useEffect} from 'react';
 import{uploadNFTImageToServer} from '../../../node/images'
 //IPFS and Blockchain Functions
 import {ipfsUpload,createNFT} from './IPFSandNFTFunctions';
-import {createCollection,getMyCollections,doesCollectionExist,getNFTInfoFromTokenId,createNFTInfo,getAllTokenIdFromCollection} from '../../../node/NFTData'
+import {createCollection,getMyCollections,doesCollectionExist,getNFTInfoFromTokenId,createNFTInfo,getAllTokenIdFromCollection,setPreisOfNFT} from '../../../node/NFTData'
 
 import { BigNumber } from "bignumber.js";
+
 
 
 
@@ -17,7 +18,7 @@ function getTokenIdFromMeta(meta){
 
 
 
-async function createNFTOnAndOff(metaData,imageFile,itemName,searchTearms,collection,offchain){
+async function createNFTOnAndOff(metaData,imageFile,itemName,searchTearms,collection,offchain,preis){
 
             //IPFS upload
             const metaDataURL = await ipfsUpload(metaData,imageFile);
@@ -43,6 +44,7 @@ async function createNFTOnAndOff(metaData,imageFile,itemName,searchTearms,collec
             // upload to NFT Info
             await createNFTInfo(tokenIdMeta,itemName,searchTearms,collection,metaDataURL);
 
+            setPreisOfNFT(tokenIdMeta,preis)
 
             if(offchain==="Create offchain"){
                 console.log("create offchain")

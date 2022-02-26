@@ -70,7 +70,7 @@ async function getCretorFromCollection(collection){
 
 
 
-// 3 NFT INFO Functions
+//  NFT INFO Functions
 async function createNFTInfo(tokenId,name,searchTearms,collection,metaDataURL){
 
     const creator = await getCurrentUser();
@@ -175,14 +175,43 @@ async function getOffchainMetaData(creator){
 
 
 
+// PREis______________________________
+
+async function setPreisOfNFT(tokenId,preis){
 
 
 
+    const ele = {tokenId:tokenId,preis:preis};
+    const options = getOptions("setPreisOfNFT",ele);
+
+    return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
+}
+
+
+async function getPreisOfNFT(tokenId){
+
+    const ele = {tokenId:tokenId};
+    const options = getOptions("getPreisOfNFT",ele);
+
+    try{
+        return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res[0][0].preis});;
+    }catch(err){
+        return "-";
+    }
+    
+}
+
+
+
+
+export{setPreisOfNFT}
+export{getPreisOfNFT}
 
 export{getNFTInfoFromTokenId}
 export{createNFTInfo}
 export{getAllTokenIdFromCollection}
 export{getAllSingles}
+
 
 
 export{createCollection}
