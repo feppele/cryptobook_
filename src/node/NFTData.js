@@ -164,6 +164,9 @@ async function getOffchainMetaData(creator){
         creator = creator[0];
     }
 
+    creator = creator.toLowerCase();
+
+    console.log(creator);
 
     const ele = {creator:creator};
     const options = getOptions("getOffchainMetaData",ele);
@@ -172,6 +175,14 @@ async function getOffchainMetaData(creator){
 }
 
 
+async function buyOffChainNFT_deleteCreator(tokenId){
+
+    const ele = {tokenId:tokenId};
+    const options = getOptions("buyOffChainNFT_deleteCreator",ele);
+
+    return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
+}
+
 
 
 
@@ -179,12 +190,11 @@ async function getOffchainMetaData(creator){
 
 async function setPreisOfNFT(tokenId,preis){
 
-
-
     const ele = {tokenId:tokenId,preis:preis};
     const options = getOptions("setPreisOfNFT",ele);
 
     return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
+
 }
 
 
@@ -224,3 +234,4 @@ export{getAllCollections}
 export{searchCollections}
 export{getTokenURIDB}
 export{getOffchainMetaData}
+export{buyOffChainNFT_deleteCreator}

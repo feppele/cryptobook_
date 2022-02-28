@@ -16,7 +16,8 @@
 }
 
 .popupButton {
-    height:47px;
+    height:40px;
+    min-width: 120px;
     display:flex;
     align-items: center;
     justify-content: flex-end;

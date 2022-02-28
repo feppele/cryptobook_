@@ -350,6 +350,17 @@ async function getAnfrage(methode,ele){
           `;
         }
 
+        if(methode === "buyOffChainNFT_deleteCreator"){
+          anfrage= `
+
+          update nftinfo set creator = '' where tokenid = '${ele.tokenId}';
+
+          `;
+        }
+
+
+
+
 
         // Preis
 

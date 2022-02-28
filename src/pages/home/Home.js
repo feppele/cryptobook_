@@ -7,6 +7,7 @@ import HomePage from '../../components/homePages/HomePage';
 function Home(){
     //test
 
+
     return (
         <div>
 

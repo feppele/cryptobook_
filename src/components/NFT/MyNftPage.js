@@ -18,6 +18,9 @@ import createPic from '../../images/paint.png'
 
 function MyNftPage(){
 
+    const [myAddress,setMyAddress] = useState("")
+    const [address,setAddress] =useState(false)
+
     const history = useHistory();
 
     function openCreatePage(){
@@ -28,6 +31,18 @@ function MyNftPage(){
     }
 
 
+    useEffect(() => {
+
+        window.ethereum.request({method: 'eth_accounts'}).then(acc =>{
+            setMyAddress(acc[0].toString());
+            setAddress(true)
+        })
+
+
+    },[])
+
+
+    console.log(myAddress)
     return (
 
         <div className={classes.container}>
@@ -49,7 +64,7 @@ function MyNftPage(){
                 <div className={classes.stripe}></div>
 
 
-                { <NftCollection from={"me"}/>}
+                { address && <NftCollection from={myAddress}/>}
 
 
 

@@ -20,7 +20,6 @@ import {getTokenURIDB} from '../../node/NFTData'
 // loads image from server if not available from ipfs
 function NFTFormatEasy(props){
 
-    useEffect(() => {console.log(props)},[])
 
 
     const history =useHistory();

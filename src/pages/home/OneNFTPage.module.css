@@ -128,12 +128,21 @@
 
 
 .buttonWrapper{
+
+    display: flex;
+    gap:1px;
+}
+
+.buyButtonWrapper{
     position:absolute;
     top: 0px;
     right: -48px;
-    display: flex;
+
+    gap:1px;
     border-radius: 10px;
     margin-right: 50px;
+    display: flex;
+    flex-direction: column;
 }
 
 .niceBoxes{
@@ -170,12 +179,7 @@
     width: 100%;
 }
 
-.buyButtonWrapper{
-    position:absolute;
-    top: 100px;
-    right: 0px;
-    width: 150px;
-}
+
 
 
 @media(max-width: 1200px){

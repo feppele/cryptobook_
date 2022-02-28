@@ -29,6 +29,11 @@ import {getOptions} from '../../node/databank';
 import SendOneNFT from '../../components/standart2/sendOneNFT/SendOneNFT';
 import {getTokenURIDB,getPreisOfNFT} from '../../node/NFTData'
 
+import {buyNFT} from '../../web3/BuyNFTContractHelper'
+import SetNFTPriceModal from '../../components/standart2/SetNFTPriceModal'
+
+
+
 function OneNFTPage(){
 
     const contractAddress ="0x7D66B92831bc5A7ae77541719526d4693FD9DC35"
@@ -55,6 +60,7 @@ function OneNFTPage(){
     const [sendOneNFTModal,setSendOneNFTModal]=useState(false);
 
     const [amIOwner,setAmIOwner]=useState(false);
+    const [NFTPriceModel,setNFTPriceModal] =useState(false);
 
     // async function load(){
     //     getTokenUri(tokenId).then((uri)=>{
@@ -222,14 +228,20 @@ function OneNFTPage(){
     function buyButtonClicked(){
 
         if(amIOwner){
+
+            changeNFTPrice();
             return
         }
 
-
         
+        buyNFT(tokenURI,tokenId,owner);
+    }
 
-
-
+    function changeNFTPrice(){
+        setNFTPriceModal(true);
+    }
+    function closeSetPrice(){
+        setNFTPriceModal(false);
     }
 
     return (
@@ -250,6 +262,8 @@ function OneNFTPage(){
             <div className={classes.right}>
 
 
+                { NFTPriceModel && <SetNFTPriceModal text={"Set NFT price"} onCloseClick={closeSetPrice} tokenId={tokenId} />  }
+                { NFTPriceModel && <Backdrop onBackDropClicked={closeSetPrice} />    }
 
                 {sendOneNFTModal && <SendOneNFT imageName={metaData.name} tokenId={tokenId}  onCloseClick={closeSend}/>}
                 {sendOneNFTModal && <Backdrop onBackDropClicked={closeSend}/>}
@@ -260,11 +274,14 @@ function OneNFTPage(){
 
                 <div className={classes.box}>
 
+                <div className={classes.buyButtonWrapper}>
                     <div className={classes.buttonWrapper}>
                         <Button3 onButtonClicked={copyURL} img={shareImg} popupText={"share link"}/>
                         {amIOwner && <Button3 img={profilePic} popupText={"profile pic"}/>  }
                         { !isOffchain && amIOwner && <Button3 onButtonClicked={openSend} img={sendImg} popupText={"send NFT"}/> }
                     </div>
+                    <Button7BUY preis={preis} onButtonClickded={buyButtonClicked} />  
+                </div>
 
                     {/* name + collection */}
                     <div className={classes.h2}>{metaData.name }</div>
@@ -277,9 +294,8 @@ function OneNFTPage(){
                         <div onClick={openLikesList} className={classes.text}> {NFTLikes + " favorites"} </div>
                     </div>
 
-                    <div className={classes.buyButtonWrapper}>
-                     { amIOwner &&  <Button7BUY preis={preis} onButtonClickded={buyButtonClicked} />  }
-                    </div>
+                    
+
 
 
 

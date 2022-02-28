@@ -1,6 +1,6 @@
 import classes from './NftCollection.module.css';
 import {useState,useEffect} from 'react';
-import {getAllTokensMetadataArray} from '../../web3/NFTContractHelper';
+import {getAllTokensMetadataArray,getOwnerOfTokenId} from '../../web3/NFTContractHelper';
 import NFTFormatCreator from './NFTFormatCreator';
 import loadImage from '../../images/Loader.gif'
 
@@ -17,21 +17,59 @@ function NftCollection(props){
     const [metadataArray,setMetadataArray]=useState([]);
 
 
+    console.log(props)
     //console.log(metadataArray)
     async function loadNFT(){
 
-        //var onChainMetaArray = await getAllTokensMetadataArray(props.from)
-        var onChainMetaArray =[]
+
+
+
+        //onchainarray: [metaurl,name,tokenid]
+        var onChainMetaArray = await getAllTokensMetadataArray(props.from)
 
         // just load from DB because the are on and offChains
         //load also offChain NFT from DB
         const offChainMetaArray = await getOffchainMetaData(props.from);
-        offChainMetaArray.forEach(ele =>{onChainMetaArray.push([ele.metaurl,ele.name,ele.tokenid])})
+
+
+        // add off an on to one array
+        //offchainmetaarray: {metaurl:,name:,tokenid:}
+
+
+        for(var i=0;i<offChainMetaArray.length;i++){
+
+            const add = offChainMetaArray[i]
+
+            //offchains werden in nftinfo anhand von 'creator' erkannt. nach verkauf gehört offchaini nicht mehr mir also wird erst gecheckt ob die gleiche tokenId ein onchani ist
+            //wenn onchani wird er nicht hinzugefügt
+            // getOwnerOfTokenId() returns error if no owner == not exists in
+
+            const owner =  await getOwnerOfTokenId(add.tokenid)
+
+            if(owner ==="error" ){
+
+                if(onChainMetaArray.every(e => e[2] !==add.tokenid)){ // ist nicht enhalten return true
+
+                    onChainMetaArray.push([add.metaurl,add.name,add.tokenid])
+                }
+            }
+
+
+        }
+
+
+
+
+
+
+
+
+
 
         console.log(onChainMetaArray)
 
 
-        await setMetadataArray( onChainMetaArray);
+        setMetadataArray( onChainMetaArray);
 
         setLoading(false);
 
