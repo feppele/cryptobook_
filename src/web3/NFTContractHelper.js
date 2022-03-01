@@ -1,6 +1,7 @@
 
 import {NFTContract} from './NFTContract';
 
+import {NFTContractAddress} from './NFTContract';
 
 async function getTokenUri(tokenId){
 
@@ -91,6 +92,9 @@ async function sendNFT(to,tokenId){
     NFTContract.methods.transferFrom(_from,_to,_tokenId).send({from:_from}).then(console.log).catch(console.log);
 
 }
+
+
+
 
 
 

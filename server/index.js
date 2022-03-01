@@ -13,8 +13,29 @@ var db = pgp("postgres://fritz:admin@localhost:5432/databank1");
 
 
 
-app.get("/api", (req, res) => {
-    res.json({ message: "Hello from server!" });
+app.get("/price", (req, res) => {
+
+    console.log(req.query.tokenid)
+
+    const ele = {tokenId:req.query.tokenid}
+
+    getAnfrage("getPreisOfNFT",ele).then(anfrage =>{
+
+      console.log("Die Anfrage:  " + anfrage);
+      console.log("Die Antwort:  ");
+
+            db.multi(anfrage , 123)
+            .then(function (sql_answer) {
+                // SEND FETCH ANSWER
+                console.log(sql_answer);
+                res.json(sql_answer[0][0]);
+            })
+            .catch(function (error) {
+                console.log("ERROR:", error);
+                res.json("error");
+            });
+    });
+
   });
 
 
@@ -36,9 +57,6 @@ app.get("/api", (req, res) => {
                 console.log("ERROR:", error);
                 res.json("error");
             });
-
-
-
     });
 
   });

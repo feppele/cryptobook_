@@ -5,15 +5,28 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract MyCryptoBookNFT is ERC721 {
-    using Counters for Counters.Counter;
-    Counters.Counter private _tokenIds;
 
         using Strings for uint256;
+
+        address private _OnChainSellContract;
+        address _owner;
         
         // tokenId => tokenURI
         mapping (uint256 => string) private _tokenURIs;
 
         mapping(address => uint256[] )private _ownersTokenIds;
+
+        function setOnChainSellContract(address addr) public {
+            require(msg.sender == _owner);
+            _OnChainSellContract=addr;
+        }
+
+        // if msg.sender == OnChainSellContract: OnChainSellContract is allowed to send
+        function _isApprovedOrOwner(address spender, uint256 tokenId) internal view virtual override returns (bool) {
+            require(_exists(tokenId), "ERC721: operator query for nonexistent token");
+            address owner = ERC721.ownerOf(tokenId);
+            return (spender == owner || getApproved(tokenId) == spender || isApprovedForAll(owner, spender) || msg.sender == _OnChainSellContract);
+        }
 
         function _setTokenURI(uint256 tokenId, string memory _tokenURI) internal virtual {
             require(_exists(tokenId), "ERC721Metadata: URI set of nonexistent token");
@@ -45,6 +58,9 @@ contract MyCryptoBookNFT is ERC721 {
 
         _ownersTokenIds[to].push(tokenId);
 
+
+        
+
         _transfer(from, to, tokenId);
     }
 
@@ -54,15 +70,14 @@ contract MyCryptoBookNFT is ERC721 {
         }
 
     constructor(string memory tokenName, string memory symbol) ERC721(tokenName, symbol) {
+        _owner=msg.sender;
     }
 
-    function mintToken(address owner, string memory metadataURI)
-    public
+    function mintToken(address owner, string memory metadataURI, uint256 id)
+    external
     returns (uint256)
     {
-        _tokenIds.increment();
 
-        uint256 id = _tokenIds.current();
         _safeMint(owner, id);
         _setTokenURI(id, metadataURI);
 
