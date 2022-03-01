@@ -20,7 +20,7 @@ contract APIConsumer is ChainlinkClient {
 
 
     address private _owner;
-    string API_URL ="http://62b4-2003-e8-4705-a644-b034-eb87-885f-463b.ngrok.io/price?tokenid=";
+    string public API_URL ="http://62b4-2003-e8-4705-a644-b034-eb87-885f-463b.ngrok.io/price?tokenid=";
     /**
      * Network: Kovan
      * Oracle: 0xc57B33452b4F7BB189bB5AfaE9cc4aBa1f7a4FD8 (Chainlink Devrel   

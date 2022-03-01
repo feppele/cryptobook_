@@ -33,7 +33,7 @@ function SendOneNFT(props){
             <div className={classes.list}>
 
 
-                {allFriends.map(item => <FriendListElement friendItem={item}  tokenId={props.tokenId}  />   )}
+                {allFriends.map(item => <FriendListElement closeSendModal={props.onCloseClick} friendItem={item}  tokenId={props.tokenId}  />   )}
 
             </div>
         </div>

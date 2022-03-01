@@ -23,6 +23,7 @@ import {createNFTOnAndOff} from './OffChainCreate'
 
 import {getCurrentUser} from '../../../web3/HelperFunctions'
 
+import InfoBox from '../../standart2/InfoBox'
 
 
 
@@ -40,7 +41,7 @@ function CreateNFT(props){
     const [txHash, setTxHash] = useState(false);
     const [collectionList,setConnectionList]=useState([]);
     const [notMyCollection,setNotMyCollection] = useState(false);
-
+    const [InfoBoxOpen,setInfoBoxOpen] = useState(true);
 
     // HIDDEN BUTTON STUFF
 	const changeHandler = (event) => {
@@ -145,12 +146,19 @@ function CreateNFT(props){
 
 
 
+    function closeInfoBox(){
+        setInfoBoxOpen(false)
+    }
+
+
 
     return (
 
         <div className={classes.container}>
 
             <div className={classes.container2}>
+
+            {InfoBoxOpen && <InfoBox onCloseClick={closeInfoBox}/> }
 
             {creationFinish && <FinishedNFT tokenId={tokenId} txHash={txHash} />}
             {creationFinish && <FinishedNFTBackdrop onBackDropClicked={onBackDropClicked}/>}

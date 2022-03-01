@@ -3,7 +3,7 @@ const Web3 =require('web3');
 const web3 = new Web3(window.ethereum);
 
 
-const NFTContractAddress ='0x169D1B930c425b971Ef51bdBd84bfFde77Aa87fD';
+const NFTContractAddress ='0xd02EAb066d439D935055DaC5ACB515b8c7bB4Bd7';
 const NFTContractABI=[
 	{
 		"inputs": [

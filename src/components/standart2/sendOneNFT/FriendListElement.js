@@ -20,6 +20,7 @@ function FriendListElement(props){
 
         sendNFT(props.friendItem.friend_addr,props.tokenId)
 
+        props.closeSendModal();
     }
 
 

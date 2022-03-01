@@ -29,7 +29,7 @@ import {getOptions} from '../../node/databank';
 import SendOneNFT from '../../components/standart2/sendOneNFT/SendOneNFT';
 import {getTokenURIDB,getPreisOfNFT} from '../../node/NFTData'
 
-import {buyNFT} from '../../web3/BuyNFTContractHelper'
+import {buyNFTOff,buyNFTOn} from '../../web3/BuyNFTContractHelper'
 import SetNFTPriceModal from '../../components/standart2/SetNFTPriceModal'
 
 
@@ -145,18 +145,12 @@ function OneNFTPage(){
     function goToProfile(e){
         const person = e.target.id;
         console.log(person);
-        window.ethereum.request({method: 'eth_accounts'}).then(accounts=>{
 
-            if(accounts[0].localeCompare(person) === -1){
-                history.push({
-                    pathname:"/me/"
-                })
-            }else{
-                history.push({
-                    pathname:"/profile/"+person
-                })
-            }
+
+        history.push({
+            pathname:"/profile/"+person
         })
+
     }
 
     function openErc721(){
@@ -233,8 +227,21 @@ function OneNFTPage(){
             return
         }
 
-        
-        buyNFT(tokenURI,tokenId,owner);
+        // check if on or offchain sell
+        getOwnerOfTokenId(tokenId).then(response =>{
+
+            if(response === "error"){
+                // buy offchain
+                buyNFTOff(tokenURI,tokenId,owner);
+            }else{
+                //buy onchain
+                buyNFTOn(tokenId,owner,metaData.creator)
+            }
+
+        })
+
+
+
     }
 
     function changeNFTPrice(){
@@ -294,7 +301,7 @@ function OneNFTPage(){
                         <div onClick={openLikesList} className={classes.text}> {NFTLikes + " favorites"} </div>
                     </div>
 
-                    
+
 
 
 

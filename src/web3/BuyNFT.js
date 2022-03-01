@@ -3,7 +3,7 @@ const Web3 =require('web3');
 const web3 = new Web3(window.ethereum);
 
 
-const BuyNFTContractAddress ='0x2E4a58688c8f11098C01B8692f799A388342C369';
+const BuyNFTContractAddress ='0x73bdD3Cf775D77BfD060f676AA95C640E591B1A1';
 const BuyNFTContractABI=[
 	{
 		"inputs": [],
@@ -36,7 +36,7 @@ const BuyNFTContractABI=[
 				"type": "address"
 			}
 		],
-		"name": "buyToken",
+		"name": "buyTokenOff",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -44,6 +44,29 @@ const BuyNFTContractABI=[
 				"type": "uint256"
 			}
 		],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "creator",
+				"type": "address"
+			}
+		],
+		"name": "buyTokenOn",
+		"outputs": [],
 		"stateMutability": "payable",
 		"type": "function"
 	}
