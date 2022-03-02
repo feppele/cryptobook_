@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import ImageUpload from './ImageUpload';
 import TextInput from '../../standart/TextInput';
 import BasicButton2Big from '../../standart/BasicButton2Big';
+import BasicButtonBig from '../../standart/BasicButtonBig';
 import FinishedNFT from '../finishedNFTModal/FinishedNFT';
 import FinishedNFTBackdrop from '../finishedNFTModal/FinishedNFTBackdrop';
 
@@ -206,8 +207,9 @@ function CreateNFT(props){
                 <input id="preis" type="text" placeholder="0.1 ether" className={classes.textInput}></input>
 
                 <div className={classes.createButton}>
-                    <BasicButton2Big onButtonClicked={onCreateButtonClicked}  text ="Create"/>
-                    <BasicButton2Big onButtonClicked={onCreateButtonClicked} text ="Create offchain"/>
+                    <BasicButtonBig onButtonClicked={onCreateButtonClicked} text ="Create offchain"/>
+                    <BasicButton2Big onButtonClicked={onCreateButtonClicked}  text ="Create onchain"/>
+
                 </div>
                 <div className={classes.place}></div>
 

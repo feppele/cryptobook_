@@ -1,10 +1,13 @@
 .button{
     color: white;
+    padding: 5px;
     font-size: 20px;
     background-color: rgb(6, 29, 42);
-    aspect-ratio: 4/1  !important;
     border-radius: 10px;
     border-style: hidden;
+    display: flex;  
+    justify-content: center;
+    align-items: center;
 }
 .button:active {
     border-style: hidden;

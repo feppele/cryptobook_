@@ -7,7 +7,7 @@ function BasicButton(props){
     return (
 
             <button onClick={props.onButtonClicked} className={classes.button}>
-                {props.text}
+                <div> {props.text}  </div>
             </button>
 
     );

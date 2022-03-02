@@ -38,7 +38,11 @@ function OneNFTPage(){
 
     const contractAddress ="0x7D66B92831bc5A7ae77541719526d4693FD9DC35"
 
-    useEffect(() => {window.scrollTo(0,0)},[])
+    useEffect(() => {
+        window.scrollTo(0,0)
+        if(!window.ethereum){return;}
+        window.ethereum.request({method: 'eth_requestAccounts'});
+    },[])
 
     const history = useHistory();
     const {tokenId} = useParams();
@@ -108,6 +112,7 @@ function OneNFTPage(){
         // get Owner
         getOwnerOfTokenId(tokenId).then(response =>{
 
+            if(!window.ethereum){return}
             // if not on blockchain owner == creator. 
             if(response === "error"){
                 console.log(meta)
@@ -133,6 +138,7 @@ function OneNFTPage(){
 
 
     function shortURI(uri){
+        if( uri === undefined){return }
         return uri.toString().slice(0,12) +"..."
     }
 
@@ -158,6 +164,7 @@ function OneNFTPage(){
     }
 
     function getNFTLikes(){
+        if(!window.ethereum){return}
         fetch("/databank",getOptions("getNFTLikes",{tokenId: tokenId}))
         .then(res => {return res.json()}).then(res=>{
             if(res==="error"){
@@ -185,6 +192,7 @@ function OneNFTPage(){
     }
 
     function getLikesList(){
+        if(!window.ethereum){return}
         fetch("/databank",getOptions("getLikesList",{tokenId: tokenId}))
         .then(res => {return res.json()}).then(res=>{
 
@@ -220,7 +228,7 @@ function OneNFTPage(){
 
 
     function buyButtonClicked(){
-
+        if(!window.ethereum){return}
         if(amIOwner){
 
             changeNFTPrice();
@@ -362,7 +370,7 @@ function OneNFTPage(){
                     {/* tokenId*/}
                     <div className={classes.ownerWrapper}>
                         <div  className={classes.text}> TokenId: </div>
-                        <div className={classes.owner}>{metaData.tokenId}</div>
+                        <div className={classes.owner}>{shortURI(metaData.tokenId)}</div>
                     </div>
 
                     <div className={classes.place}></div>

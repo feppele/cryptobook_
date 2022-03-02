@@ -14,9 +14,15 @@ import image from '../../images/23.jpeg'
 
 
 function CollectionPage(){
+
+
     var key=1;
     const {collectionName} = useParams();
     const history =useHistory();
+
+    if(!window.ethereum){
+        //history.push("/noMetaMask")
+    }
 
     const[allTokenIds,setAllTokenIds] =useState([])
     const [backgroundURL,setBackgroundURL] = useState("")

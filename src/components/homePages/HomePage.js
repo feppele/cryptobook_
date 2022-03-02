@@ -16,12 +16,25 @@ function HomePage(){
 
     const history = useHistory();
 
-    function openCreatePage(){
-        history.push("/createNFT");
+    async function openCreatePage(){
+        if(!window.ethereum){
+            window.open("https://metamask.io");
+            return
+        }else{
+            const accounts = await  window.ethereum.request({method: 'eth_requestAccounts'});
+            history.push("/createNFT");
+        }
+        
     }
-    function openExplore(){
+    async function openExplore(){
+        if(window.ethereum){const accounts = await  window.ethereum.request({method: 'eth_requestAccounts'});}
         history.push("/marketplace");
     }
+
+    function openMCBNFTDocs(){
+        window.open("https://github.com/feppele/MyCryptoBookDocs/wiki/MyCryptoBook-NFTs-(MCBNFT)")
+    }
+    
 
 
     return (
@@ -48,7 +61,7 @@ function HomePage(){
 
                         <BasicButton onButtonClicked={openExplore} text ="Explore"/>
                         <BasicButton2 onButtonClicked={openCreatePage} text ="Create"/>
-                        <BasicButton2 onButtonClicked={openCreatePage} text ="Learn more"/>
+                        <BasicButton2 onButtonClicked={openMCBNFTDocs} text ="Learn more"/>
 
                     </div>
 

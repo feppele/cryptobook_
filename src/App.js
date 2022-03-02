@@ -20,6 +20,9 @@ import CreateNFT from './components/NFT/createNFT/CreateNFT';
 import FinishedNFT from './components/NFT/finishedNFTModal/FinishedNFT';
 import CollectionPage from './pages/home/CollectionPage';
 import Marketplace from './pages/home/Marketplace'
+import NoMetaMaskPage from './pages/home/NoMetaMaskPage'
+
+
 
 
 function App() {
@@ -87,7 +90,13 @@ function App() {
           <Marketplace />
         </Route>
 
+        <Route path='/noMetaMask'>
+          <NavBarHome />
+          <NoMetaMaskPage />
+        </Route>
 
+
+        
 
 
 

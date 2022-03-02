@@ -240,8 +240,8 @@
         margin: auto;
         height: 370px;
         width: 300px;
-        margin-top:5px;
-        margin-bottom:5px;
+        margin-top:20px;
+        margin-bottom:20px;
     }
 
 
@@ -251,9 +251,5 @@
 @media(max-width: 500px){
 
 
-    .NFTWrapper{
-        margin: none;
-        height: 370px;
-        width: 300px;
-    }
+
 }

@@ -18,7 +18,7 @@ async function getAllFriendsPromise(){
 
 
 async function followFriends(){
-
+    if(!window.ethereum){return}
 
 
 
@@ -53,6 +53,7 @@ return ans;
 
 
 async function blockchainFriends(){
+    if(!window.ethereum){return}
 
     const ans = await loadFriendsEasy().then(friendsLoad=>{
 

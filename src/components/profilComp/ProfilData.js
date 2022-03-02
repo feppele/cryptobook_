@@ -9,7 +9,7 @@ import StandartProfilPic from '../../images/background.jpeg';
 import etherSign from '../../images/Crypto-Icons/eth-logo.svg';
 import {web3} from '../../web3/Web3';
 import {getAddress} from '../../web3/LoadingFunctions'
-import {onLoad} from '../../web3/LoadingFunctions'
+//import {onLoad} from '../../web3/LoadingFunctions'
 import {shortAddr} from '../../web3/LoadingFunctions'
 import coverImage from '../../images/image.png';
 import Infobanner from '../standart/Infobanner';
@@ -25,7 +25,7 @@ function ProfilData(){
 
     getProfilePicURL().then(console.log)
 
-    onLoad();
+    //onLoad();
 
 
     const [settingMode,setSettingMode] =useState(false);

@@ -9,9 +9,22 @@ function FriendsInfo(){
 
     const history = useHistory();
 
-    function goToFriends(){
-        history.push('/friends')
+    async function goToFriends(){
+        if(!window.ethereum){
+            window.open("https://metamask.io");
+            return
+        }else{
+            const accounts = await  window.ethereum.request({method: 'eth_requestAccounts'});
+            history.push('/friends')
+        }
+        
     }
+
+    function openFriendsDocs(){
+        window.open("https://github.com/feppele/MyCryptoBookDocs/wiki/Friends")
+    }
+
+
 
     return (
 
@@ -22,8 +35,8 @@ function FriendsInfo(){
             <div className={classes.text}> instead - send crypto by using names. Your friends name and address is interconnected in Smart Contracts on the Blockchain, so no one can can change it maliciously</div>
 
             <div className={classes.buttonWrapper}>
-                <BasicButton2 onButtonClicked={goToFriends} text ="add friends"/>
-                <BasicButton   text ="learn more"/>
+                <BasicButton onButtonClicked={goToFriends} text ="add friends"/>
+                <BasicButton2 onButtonClicked={openFriendsDocs}  text ="learn more"/>
             </div>
 
         </div>

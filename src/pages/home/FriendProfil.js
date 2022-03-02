@@ -8,11 +8,16 @@ import {web3} from '../../web3/Web3';
 import {getOptions} from '../../node/databank';
 import {loadNameFromDB2} from '../../node/databank'
 import {checkIfBlockchainFriend} from '../../web3/UserContractHelper'
-
+import { useHistory } from "react-router-dom";
 
 
 function Profil(){
-
+    const history = new useHistory();
+    useEffect(() => {
+        if(!window.ethereum){
+            history.push("/");
+        }
+    },[])
     //onLoad();
 
     // get Address from visiting profile from URL

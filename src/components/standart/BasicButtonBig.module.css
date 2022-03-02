@@ -1,0 +1,21 @@
+.button{
+
+    font-size: 20px;
+    height: 60px;
+    width: 150px;
+
+    border: 1px solid rgb(6, 29, 42);
+
+    background-color: rgb(8, 40, 58);
+    color: white;
+
+
+    border-radius: 10px;
+
+}
+.button:active {
+    border-style: hidden;
+}
+.button:hover{
+    box-shadow: 0 1px 4px rgb(0, 0, 0);
+}

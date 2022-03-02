@@ -8,8 +8,11 @@ import {highestTokenId,getTokenIdFromSearch} from '../../node/NFTData'
 
 import Single from './Marketplace/Single';
 import Collections from './Marketplace/Collections';
-
+import { useHistory } from "react-router-dom";
 function Marketplace(){
+
+    const history = new useHistory();
+
 
     const [singleMode,setSingleMode] = useState(true);
     const [collectionMode,setCollectionMode] = useState(false);

@@ -46,6 +46,7 @@ function ProfilData(props){
     }
 
     function followUser(){
+        if(!window.ethereum){return}
         window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
             fetch("/databank",getOptions("follow",{person: props.personData.friend_addr.toLowerCase(),follower: currentUsers[0].toLowerCase()} )).catch(console.log);
         })
@@ -53,7 +54,7 @@ function ProfilData(props){
     }
 
     function unfollowUser(){
-
+        if(!window.ethereum){return}
         window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
             fetch("/databank",getOptions("unfollow",{person: props.personData.friend_addr.toLowerCase(),follower: currentUsers[0].toLowerCase()} )).catch(console.log);
         })
@@ -62,6 +63,7 @@ function ProfilData(props){
 
     // DO I FOLLOW?
     function doIFollow(){
+        if(!window.ethereum){return}
         window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
             fetch("/databank",getOptions("doIFollow",{person: props.personData.friend_addr.toLowerCase(),follower: currentUsers[0].toLowerCase()} ))
             .then(res => {return res.json()}).then(res=>{

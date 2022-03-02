@@ -33,8 +33,9 @@
   border-style: hidden;
 }
 .logo:hover{
-  color: rgb(0,124,255);
   color: rgb(107, 62, 158);
+  color: rgb(0,124,255);
+  
   cursor: pointer;
 }
 

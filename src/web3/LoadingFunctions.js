@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 
 // load Frieds
 async function loadFriendsEasy(){
-
+    if(!window.ethereum){return}
     const address = await window.ethereum.request({method: 'eth_accounts'});
 
     const friends = await UserContract.methods.getFriendsFrom(address[0]).call();
@@ -18,6 +18,7 @@ async function loadFriendsEasy(){
 
 // load Frieds
 async function loadFriends(){
+    if(!window.ethereum){return}
     const accounts =  await window.ethereum.request({method: 'eth_accounts'});
     var user = accounts[0];
 
@@ -53,6 +54,7 @@ function shortAddr(address){
 
 // getShortAddress
 async function getAddress2(){
+    if(!window.ethereum){return}
     const accounts =  await window.ethereum.request({method: 'eth_accounts'});
     var address = accounts[0];
     var addrShort = shortAddr(address);
@@ -60,64 +62,65 @@ async function getAddress2(){
 }
 
 
-async function getAddress(){
+// async function getAddress(){
 
-    window.localStorage.setItem("myAddress",window.web3.currentProvider.selectedAddress);
-}
+//     window.localStorage.setItem("myAddress",window.web3.currentProvider.selectedAddress);
+// }
 
 
 
 
 async function isMetaMaskConnected() {
+    if(!window.ethereum){return}
     const accounts = await window.ethereum.request({method: 'eth_accounts'});
     return accounts.length;
 
 }
 
 
-async function onLoad(){
-    console.log("onLoad");
+// async function onLoad(){
+//     console.log("onLoad");
 
-    if(! await isMetaMaskConnected()){
-        localStorage.clear();
-        window.open("/","_self")
-        return;
-    }else{
-        await loadFriends();
-        await getAddress();
-        return;
-    }
+//     if(! await isMetaMaskConnected()){
+//         localStorage.clear();
+//         window.open("/","_self")
+//         return;
+//     }else{
+//         await loadFriends();
+//         await getAddress();
+//         return;
+//     }
 
+// }
+
+if(window.ethereum){
+
+
+    window.ethereum.on('accountsChanged',  async ()=>{
+
+            // Bei Einlogg und bei komplett ausloggen wird auch aufgerufen. (jeder Acc Wechsel)!!
+
+            if(! await isMetaMaskConnected()){
+                // Beim ausloggen auf startseite zurück
+                window.open("/","_self");
+                return;
+            }else{
+
+                window.open("/home","_self")
+                //await window.location.reload();
+                return;
+
+            }
+
+
+
+    });
 }
 
-window.ethereum.on('accountsChanged',  async ()=>{
 
-        // Bei Einlogg und bei komplett ausloggen wird auch aufgerufen. (jeder Acc Wechsel)!!
-
-        if(! await isMetaMaskConnected()){
-            // Beim ausloggen auf startseite zurück
-            localStorage.clear();
-            window.open("/","_self");
-            return;
-        }else{
-            await localStorage.clear();
-            await loadFriends();
-            await getAddress();
-            window.open("/home","_self")
-            //await window.location.reload();
-            return;
-
-        }
-
-
-
-});
-
-
-
-export{onLoad};
+//export{onLoad};
 export {loadFriends};
 export {shortAddr};
-export {getAddress};
+//export {getAddress};
 
 export{loadFriendsEasy};

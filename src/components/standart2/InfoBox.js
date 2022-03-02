@@ -38,6 +38,9 @@ function InfoBox(props){
                     On the bottom of this page you can two buttons to decide between on and off chain.
                 </div>
 
+                <div className={classes.text}>
+                    If you choose On-Chain Create and dont pay the fees, it will be automatically created as an Off-Chain NFT.
+                </div>
 
             </div>
 

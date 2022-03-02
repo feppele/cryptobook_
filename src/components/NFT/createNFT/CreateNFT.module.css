@@ -128,3 +128,13 @@
     display:flex;
     gap: 20px;
 }
+
+
+
+
+@media (max-width: 900px){
+    .container2{
+
+        width: 95%;
+    }
+}

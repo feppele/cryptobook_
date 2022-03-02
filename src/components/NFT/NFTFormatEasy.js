@@ -1,6 +1,7 @@
 import classes from './NFTFormatEasy.module.css';
 import herz from '../../images/herz.png';
 import ethereum from '../../images/ethereum.png';
+import offchainPic from '../../images/fokus.png';
 import {NFTContract,NFTContractAddress} from '../../web3/NFTContract';
 import {useHistory} from 'react-router-dom';
 import {getOptions} from '../../node/databank';
@@ -8,6 +9,7 @@ import {useState,useEffect} from 'react';
 import redHerz from '../../images/redherz.png';
 import blackHerz from '../../images/backherz.png';
 import MiniButton from '../standart/MiniButton';
+import MiniButtonNoOpacity from '../standart/MiniButtonNoOpacity';
 import {getNFTLikes,likeNFT,dislikeNFT,doILike} from '../../node/NFTLikes';
 import {getTokenUri,getAllMetadataFromURI} from '../../web3/NFTContractHelper'
 import {getNFTImageServerURL} from '../../node/images'
@@ -78,6 +80,7 @@ function NFTFormatEasy(props){
 
 
     function openThisNFTPage(){
+        
         history.push({
             pathname:"/thisNFT/"+props.tokenId,
         });
@@ -86,12 +89,14 @@ function NFTFormatEasy(props){
 
     // like, dislike
     function likeNFTFunc(){
+        if(!window.ethereum){ return }
         likeNFT(props.tokenId);
         setILike(true);
         setNFTLikes(parseInt(NFTLikes)+1);
 
     }
     function dislikeNFTFunc(){
+        if(!window.ethereum){ return }
         dislikeNFT(props.tokenId);
         setILike(false);
         setNFTLikes(parseInt(NFTLikes)-1);
@@ -137,9 +142,10 @@ function NFTFormatEasy(props){
 
             <div className={classes.bottom2}>
 
-            <img src={ethereum} className={classes.ethereum}></img>
-
-            {offchain && <div>offchain</div> }
+                <div className={classes.ethereum}>
+                    {!offchain && <MiniButtonNoOpacity  img={ethereum} popupText={"Ethereum"}/>   }
+                    {offchain && <MiniButtonNoOpacity  img={offchainPic} popupText={"Off-Chain"}/> }
+                </div>
 
                 <div className={classes.likesWrapper}>
 
@@ -148,8 +154,6 @@ function NFTFormatEasy(props){
 
                     <div className={classes.numberlikes}> {NFTLikes} </div>
                 </div>
-
-
 
             </div>
 

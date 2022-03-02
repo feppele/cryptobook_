@@ -18,6 +18,7 @@ async function getNFTLikes(tokenId){
 
 async function likeNFT(tokenId){
 
+    if(!window.ethereum){return}
     window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
         fetch("/databank",getOptions("likeNFT",{tokenId: tokenId, address: currentUsers[0]} )).catch(console.log);
     })
@@ -25,6 +26,7 @@ async function likeNFT(tokenId){
 
 async function dislikeNFT(tokenId){
 
+    if(!window.ethereum){return}
     window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
         fetch("/databank",getOptions("dislikeNFT",{tokenId: tokenId,address: currentUsers[0]})).catch(console.log);
     })
@@ -34,6 +36,7 @@ async function dislikeNFT(tokenId){
 
 async function doILike(tokenId){
 
+    if(!window.ethereum){return}
     const res = await window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
         const res2 =  fetch("/databank",getOptions("doILike",{tokenId: tokenId, address: currentUsers[0] }))
         .then(res => {return res.json()}).then(res=>{

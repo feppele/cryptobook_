@@ -3,9 +3,7 @@ import {Link} from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 
 //Modals
-import MenuModal2 from '../home/menuModal/MenuModal2'
-import MenuModal from './menuModal/MenuModal.js';
-import Backdrop from './menuModal/Backdrop.js';
+
 import LoginModal from './loginModal/LoginModal.js';
 import Backdrop2 from './loginModal/Backdrop.js';
 //css
@@ -15,7 +13,7 @@ import {web3} from '../../web3/Web3.js';
 import {UserContract} from '../../web3/UserContract.js';
 
 
-import {onLoad} from '../../web3/LoadingFunctions'
+//import {onLoad} from '../../web3/LoadingFunctions'
 
 import logomy from '../../images/logo_my.png';
 
@@ -31,6 +29,7 @@ function NavBar(){
     function reload(){
         window.location.reload(true);
     }
+
     function openMenu(){
 
         setMenuIsOpen(true);
@@ -80,7 +79,7 @@ function NavBar(){
             const accounts =  await window.ethereum.request({method: 'eth_requestAccounts'});
             var user = accounts[0];
 
-            await onLoad();
+            //await onLoad();
             // direkt to new Site
             await history.push("/home");
             return;
@@ -95,30 +94,19 @@ function NavBar(){
 
         <div className={classes.container}>
 
-            {  menuIsOpen && <MenuModal2 onModalCancelClicked={closeMenu} />}
-            {  menuIsOpen && <Backdrop  onBackDropClicked={closeMenu} />  }
+
 
             {  loginPageIsOpen && <LoginModal onModalCancelClicked={closeLogin} onModalMetamaskClicked={loginMetamask}/>}
             {  loginPageIsOpen && <Backdrop2 onBackDropClicked={closeLogin} />  }
 
             <button className={classes.logo} onClick={reload}>
-                my cryptobook.io
+                MyCryptobook
             </button>
 
 
             <div className={classes.menuWrapper}>
 
-            
-
                 <button id="loginButton" className={classes.loginButton} onMouseOver={login} onClick={login}> login </button>
-
-
-                <div className={classes.menu} onClick={openMenu}>
-                    <div className={classes.stripe}></div>
-                    <div className={classes.stripe}></div>
-                    <div className={classes.stripe}></div>
-                </div>
-
 
             </div>
 

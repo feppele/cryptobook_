@@ -13,7 +13,7 @@ import {web3} from '../../web3/Web3.js';
 
 import profilColor from '../../images/background.jpeg';
 
-import {onLoad} from '../../web3/LoadingFunctions'
+//import {onLoad} from '../../web3/LoadingFunctions'
 
 import {getProfilePicURL} from '../../node/images'
 
@@ -55,25 +55,33 @@ function NavBar(){
 
     // for change Path
     function openProfil(){
-        onLoad();
-        history.push("/me");
-        //window.location.reload();
+
+        if(!window.ethereum){ history.push("/")}else{
+
+            history.push("/me");
+        }
+
+
+
     }
 
     function openFriends(){
-        onLoad();
-        history.push("/friends");
-        //window.location.reload();
+        if(!window.ethereum){ history.push("/")}else{
+
+            history.push("/friends");
+        }
+
 
     }
     function openMyNftPage(){
-        onLoad();
-        history.push("/mynft");
-        //window.location.reload();
+        if(!window.ethereum){ history.push("/")}else{
+
+            history.push("/mynft");
+        }
     }
 
     function openMarketplace(){
-    
+
         history.push("/marketplace");
         //window.location.reload();
     }
@@ -109,7 +117,7 @@ function NavBar(){
             {  profilModalIsOpen && <Backdrop2 onBackDropClicked={closeProfilModal} />  }
 
             <button className={classes.logo} onClick={reload}>
-                <img src={logo} className={classes.logoPic}></img>
+                { /* <img src={logo} className={classes.logoPic}></img> */ }
                 My Cryptobook
             </button>
 

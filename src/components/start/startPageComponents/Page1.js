@@ -9,7 +9,7 @@ connected Blockchain World`;
 const text2 = `Store your friends Identity
 on Blockchain`;
 const text3 = `Send cryptos to friends
-like PayPal`;
+like Paypal`;
 const text4 = `Share your own NFT-Art
 on your profile`;
 
