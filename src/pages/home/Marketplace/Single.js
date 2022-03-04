@@ -2,6 +2,7 @@
 import classes from './Single.module.css';
 
 import NFTFormatEasy from '../../../components/NFT/NFTFormatEasy'
+import NFTFormatEasyWrapper from '../../../components/NFT/NFTFormatEasyWrapper'
 import NFTFormatCreatorNew from '../../../components/NFT/NFTFormatCreatorNew'
 
 import NFTCollectionFormat from '../../../components/NFT/NFTCollectionFormat';

@@ -2,7 +2,6 @@
 
     width: 100% -padding;
     height: 90vh;
-    opacity: 100%;
     border-bottom: 1px solid grey;
     background-color: rgb(6, 29, 42);
 
@@ -11,6 +10,8 @@
     align-items: center;
 
     position: relative;
+
+    z-index: 10;
 
 }
 

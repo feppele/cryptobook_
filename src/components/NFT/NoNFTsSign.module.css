@@ -20,12 +20,12 @@
 .noFriends{
 
     font-size: 40px;
-    opacity: 30%;
+    opacity: 0.3;
 }
 
 .sad{
     width: 100%;
-    opacity: 20%;
+    opacity: 0.2;
     height: 30%;
 }
 

@@ -4,7 +4,7 @@ import {useState,useEffect} from 'react';
 import {getAllMetadataFromURI,getTokenUri} from '../../web3/NFTContractHelper';
 import {getOwnerOfTokenId,sendNFT} from '../../web3/NFTContractHelper'
 import {shortAddr} from '../../web3/LoadingFunctions'
-import NFTFormatEasy from '../../components/NFT/NFTFormatEasy';
+import NFTFormatEasyOnePage from '../../components/NFT/NFTFormatEasyOnePage';
 import Button3 from '../../components/standart/Button3';
 import BasicButton from '../../components/standart/BasicButton';
 
@@ -125,7 +125,7 @@ function OneNFTPage(){
             }
             //else
             setOwner(response);
-            setShortOwner(shortAddr(response));
+             setShortOwner(shortAddr(response));
             if(response.toLowerCase() === window.web3.currentProvider.selectedAddress.toLowerCase()){
                 setAmIOwner(true);
             }
@@ -267,7 +267,7 @@ function OneNFTPage(){
             <div className={classes.left}>
 
                 <div className={classes.NFTWrapper}>
-                     <NFTFormatEasy tokenId={tokenId}/>
+                     <NFTFormatEasyOnePage tokenId={tokenId}/>
                 </div>
 
             </div>

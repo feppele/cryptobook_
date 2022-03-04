@@ -166,6 +166,7 @@ function CreateNFT(props){
 
                 <div className={classes.h1}>Create new Item</div>
                 <div className={classes.h2}>Upload your Image: </div>
+                <div className={classes.h3}> accepted: png, jpeg, jpg</div>
 
                 {/* Image Upload */}
                 <div id="imageWrap"className={classes.imageUploadWrapper}>

@@ -2,7 +2,7 @@ import classes from './HomePage.module.css';
 import { useHistory } from "react-router-dom";
 import{useState,useEffect} from 'react';
 import FriendsInfo from './FriendsInfo';
-import NFTFormatEasy from '../NFT/NFTFormatEasy';
+import NFTFormatEasyOnePage from '../NFT/NFTFormatEasyOnePage';
 
 import BasicButton from '../standart/BasicButton';
 import BasicButton2 from '../standart/BasicButton2';
@@ -46,7 +46,7 @@ function HomePage(){
             <div className={classes.top}>
 
                 <div className={classes.NFTwrapper}>
-                    <NFTFormatEasy  tokenId={"968858945991183260877874278742530316"}/>
+                    <NFTFormatEasyOnePage  tokenId={"863480768853540373348553374276531659"}/>
                 </div>
 
 

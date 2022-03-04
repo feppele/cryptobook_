@@ -110,6 +110,7 @@ function NavBar(){
 
         <div className={classes.container}>
 
+
             {  menu2IsOpen && <MenuModal openMarketplace={openMarketplace}/>}
             {  menu2IsOpen && <MenuBackdrop  onBackDropClicked={closeMenu} />  }
 

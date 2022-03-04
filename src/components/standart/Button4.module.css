@@ -20,7 +20,7 @@
     justify-content: center;
     overflow: hidden;
     border-style: hidden;
-    opacity: 50%;
+    opacity: 0.5;
 
     position: relative;
     cursor: pointer;
@@ -34,7 +34,7 @@
     border-style: hidden;
 }
 .popupButton:hover{
-  opacity: 100%;
+  opacity: 1;
 }
 
   /* The actual popup */

@@ -1,6 +1,7 @@
 // server/index.js
 //const lib = require("../src/web3/globalrun.js");
 const express = require("express");
+const path = require('path');
 const PORT = process.env.PORT || 3001;
 const app = express();
 app.use(express.json());
@@ -13,6 +14,8 @@ var db = pgp("postgres://fritz:admin@localhost:5432/databank1");
 
 
 
+
+// this is for Chainlink Smart Contracts to ask for price
 app.get("/price", (req, res) => {
 
     console.log(req.query.tokenid)
@@ -64,16 +67,20 @@ app.get("/price", (req, res) => {
 
 
 
+  //app.use(express.static('public')); // image
+  app.get('/images', (req,res,next)=>{
+
+    express.static('images');
+
+  
+  });
 
 
+  app.use(express.static(path.join(__dirname, '../build'))); // app
+  // app.get('/*', function (req, res) {
+  //     res.sendFile(path.join(__dirname, '../build', 'index.html'));
+  // })
 
-
-
-
-
-  // download Images
-  app.use(express.static('public'));
-  app.use('/images', express.static('images'));
 
 
 

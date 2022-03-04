@@ -32,6 +32,14 @@ function ProfilData(){
     const [usernameDB,setUsernameDB] =useState("noch net da");
     const [userNameIsLoad,setUserNameIsLoad] =useState(false);
     const [saved,setSaved] =useState(false);
+    const [address,setAddress] =useState("");
+
+
+    useEffect(() => {
+
+        getCurrentUser().then(res=>{setAddress(res);})
+
+    },[])
 
     function activateSetting(){
         setSettingMode(true);
@@ -66,6 +74,7 @@ function ProfilData(){
 
     // on Load get name from databank
     function loadNameFromDB(){
+        if(!window.ethereum){return}
 
         window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
 
@@ -199,7 +208,7 @@ function ProfilData(){
 
             <div className={classes.addressWrapper}>
                 <img id="cryptoSign" src={etherSign} className={classes.cryptoSign}></img>
-                <p className={classes.address} id="address">{shortAddr(localStorage.getItem("myAddress"))}</p>
+                <p className={classes.address} id="address">{shortAddr(address)}</p>
 
             </div>
 

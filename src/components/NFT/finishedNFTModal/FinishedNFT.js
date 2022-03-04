@@ -1,7 +1,7 @@
 import classes from './FinishedNFT.module.css';
 import React, {useState,useEffect} from 'react';
 import {NFTContract,NFTContractAddress} from '../../../web3/NFTContract';
-import NFTFormatEasy from '../NFTFormatEasy';
+import NFTFormatEasyOnePage from '../NFTFormatEasyOnePage';
 
 import loaderGif from '../../../images/Loader.gif'
 
@@ -43,7 +43,7 @@ function FinishedNFT(props){
         <div className={classes.container}>
 
 
-            <NFTFormatEasy tokenId={props.tokenId}  />
+            <NFTFormatEasyOnePage tokenId={props.tokenId}  />
 
 
         </div>

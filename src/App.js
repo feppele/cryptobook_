@@ -1,6 +1,6 @@
 
 import classes from './App.module.css';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch,HashRouter } from 'react-router-dom';
 
 
 // Start
@@ -44,6 +44,7 @@ function App() {
           <NavBarHome />
           <Home />
         </Route>
+
         <Route path='/me'>
           <NavBarHome />
           <Profil />

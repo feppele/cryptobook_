@@ -127,7 +127,7 @@
 }
 .hiddenFileButton:hover{
     background-color: rgb(201, 201, 201);
-    opacity: 30%;
+    opacity: 0.3;
 }
 .image{
     height: 100%;
@@ -139,7 +139,7 @@
 .coverImage{
     height: 30%;
     width: 30%;
-    opacity: 30%;
+    opacity: 0.3;
     position: absolute;
 }
 
@@ -181,7 +181,7 @@
 }
 .hiddenFileButton:hover{
     background-color: rgb(201, 201, 201);
-    opacity: 30%;
+    opacity: 0.3;
 }
 .image{
     height: 100%;
@@ -192,7 +192,7 @@
 .coverImage{
     height: 30%;
     width: 30%;
-    opacity: 30%;
+    opacity: 0.3;
     position: absolute;
 }
 

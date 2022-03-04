@@ -43,20 +43,20 @@
 .button{
     font-size: 20px;
     font-weight: bold;
-    opacity: 50%;
+    opacity: 0.5;
     cursor: pointer;
     margin: 20px;
 
 }
 .button:hover{
-    opacity: 100%;
+    opacity: 1;
 }
 
 
 .clickedButton{
     font-size: 20px;
     font-weight: bold;
-    opacity: 100%;
+    opacity: 1;
     cursor: pointer;
     margin: 20px;
 
@@ -83,40 +83,31 @@
 
 .grid{
     margin-top:10px;
-    padding: 0px;
-    width: 70%;
+    max-width: 95%;
     align-items: center;
     justify-content: center;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr;
+    padding:0px;
 
     gap: 10px;
 
     margin-bottom: 30px;
     background-color: white;
+    position: relative;
 }
 
 
-.grid > [style^='--aspect-ratio']::before {
-    content: "";
-    display: inline-block;
-    width: 1px;
-    height: 0;
-    padding-bottom: calc(100% / (var(--aspect-ratio)));
-  }
 
 
-@media(max-width:1100px){
-    .grid{
-        width: 88%;
-    }
+
+@media(max-width:1200px){
+
 }
 
 @media(max-width:800px){
-    .grid{
-        width: 99%;
-    }
+
 
     .header{
         font-size: 28px;
@@ -141,9 +132,9 @@
         padding-left: 10px;
         width: 99%;
         height: 40px;
-        font-size: 20px;
+        font-size: 15px;
         border-radius: 10px;
         border: 2px solid rgb(209, 209, 209);
-        width: 400px;
+        
     }
 }
