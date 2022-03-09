@@ -29,7 +29,6 @@ import PropTypes from "prop-types";
 function NFTFormatEasy(props){
 
 
-
     const history =useHistory();
 
     const [NFTLikes,setNFTLikes]= useState(0);
@@ -40,6 +39,8 @@ function NFTFormatEasy(props){
 
     const [offchain,setOffchain] = useState(false);
 
+
+    console.log(imageURL)
     // Metadaten aus TokenId bekommen:
     async function loadMetadata(tokenId){
 

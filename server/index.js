@@ -11,8 +11,8 @@ var pgp = require("pg-promise")(/*options*/);
 var db = pgp("postgres://fritz:admin@localhost:5432/databank1");
 
 
-
-
+// call react app
+app.use(express.static(path.join(__dirname, '../build')));
 
 
 // this is for Chainlink Smart Contracts to ask for price
@@ -42,7 +42,6 @@ app.get("/price", (req, res) => {
   });
 
 
-
   app.post("/databank", (req, res) => {
 
     getAnfrage(req.body.methode,req.body.ele).then(anfrage =>{
@@ -65,21 +64,15 @@ app.get("/price", (req, res) => {
   });
 
 
+app.use(express.static('images'));
 
 
-  //app.use(express.static('public')); // image
-  app.get('/images', (req,res,next)=>{
-
-    express.static('images');
-
-  
-  });
 
 
-  app.use(express.static(path.join(__dirname, '../build'))); // app
-  // app.get('/*', function (req, res) {
-  //     res.sendFile(path.join(__dirname, '../build', 'index.html'));
-  // })
+
+  // const appRouter = require('./server_to_app.js')
+  // app.use('/app',appRouter)
+
 
 
 
@@ -120,11 +113,15 @@ var upload = multer({storage: storage});
 
 // 'image' must be name of <input>'
 app.use(upload.single('image'))
+app.post('/uploadUserImage', (req, res) => { });
 
-app.post('/uploadUserImage', (req, res) => {
 
 
-});
+
+
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, '../build', 'index.html'));
+})
 
 
 

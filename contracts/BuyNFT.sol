@@ -13,10 +13,14 @@ contract BuyNFT {
 
     address public MCBNFTAddress = 0xd02EAb066d439D935055DaC5ACB515b8c7bB4Bd7;
 
-    // onchain
-    function buyTokenOn(address from, uint256 tokenId) public payable{
+    address owner =0x2Bc17547AaF80Ad457633Bd55B8827269a72EEcf;
 
-        (bool success, ) = from.call{value: msg.value}("");
+    // onchain
+    function buyTokenOn(address from, uint256 tokenId,address creator) public payable{
+
+        (bool success, ) = from.call{value: (msg.value /100)*98 }("");
+        require(success, "Transfer failed.");
+        (success, ) = creator.call{value: (msg.value /100)*1 }("");
         require(success, "Transfer failed.");
 
         IMCBNFT(MCBNFTAddress).transferFrom(from,msg.sender,tokenId);
@@ -26,12 +30,24 @@ contract BuyNFT {
     //offchain
     function buyTokenOff( string memory metadataURI, uint256 id,address payable seller) public payable returns (uint256){
 
-        (bool success, ) = seller.call{value: msg.value}("");
+        (bool success, ) = seller.call{value: (msg.value /100)*98 }("");
         require(success, "Transfer failed.");
 
         IMCBNFT(MCBNFTAddress).mintToken(msg.sender,metadataURI,id);
 
         return id;
+    }
+
+
+    function withdraw() public{
+        require(msg.sender == owner);
+        
+        (bool success, ) = owner.call{value: address(this).balance }("");
+        require(success, "Transfer failed.");
+    }
+
+    function balance() public view returns(uint256){
+        return address(this).balance;
     }
 
 

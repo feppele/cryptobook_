@@ -24,7 +24,7 @@ async function getProfilePicURL(user){
 
             var resultArray =[]
             for ( var a of result){
-                if( a !== undefined ){ resultArray.push(a)}
+                if( a !== undefined ){ resultArray.push(a) }
             }
             return resultArray;
         })
@@ -60,9 +60,9 @@ async function getNFTImageServerURL(tokenId){
 
     const types = [".png",".jpeg",".jpg"]
     const result = Promise.all([
-        fetch("/images/profile/" + tokenId + types[0] ).then(res =>{ if(res.status === 200){return ("/images/profile/"+ tokenId + types[0])}   }),
-        fetch("/images/profile/" + tokenId + types[1] ).then(res =>{ if(res.status === 200){return ("/images/profile/"+ tokenId + types[1])}   }),
-        fetch("/images/profile/" + tokenId + types[2] ).then(res =>{ if(res.status === 200){return ("/images/profile/"+ tokenId + types[2])}   })
+        fetch("/static/images/profile/" + tokenId + types[0] ).then(res =>{ if(res.status === 200){return ("/images/profile/"+ tokenId + types[0])}   }),
+        fetch("/static/images/profile/" + tokenId + types[1] ).then(res =>{ if(res.status === 200){return ("/images/profile/"+ tokenId + types[1])}   }),
+        fetch("/static/images/profile/" + tokenId + types[2] ).then(res =>{ if(res.status === 200){return ("/images/profile/"+ tokenId + types[2])}   })
     ]).then(result=>{
 
         var resultArray =[]

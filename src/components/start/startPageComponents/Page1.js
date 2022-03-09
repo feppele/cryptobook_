@@ -4,6 +4,10 @@ import Writer from './writer/Writer';
 
 function Page1(){
 
+
+
+    fetch("test").then(console.log)
+
 const text1 = `Make the first step into the 
 connected Blockchain World`;
 const text2 = `Store your friends Identity
