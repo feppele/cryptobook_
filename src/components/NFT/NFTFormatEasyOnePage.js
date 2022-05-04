@@ -149,15 +149,13 @@ const Placeholder = styled.div`
   animation: ${loadingAnimation} 1s infinite;
 `;
 
-const refPlaceholder = React.useRef();
 
+const refPlaceholder = React.useRef();
 
 
     return (
 
         <div className={classes.container} >
-
-
 
             {/*NFT IMAGE */}
            {imageLoad && <img   src={imageURL} className={classes.NFTimage} onClick={openThisNFTPage}></img>   }

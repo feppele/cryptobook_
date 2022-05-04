@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 
 
-fetch("https://backendserverreact.azurewebsites.net/price?tokenid=111").then(res => {return res.json()}).then(console.log);
+//fetch("https://backendserverreact.azurewebsites.net/price?tokenid=111").then(res => {return res.json()}).then(console.log);
 
 
 // build dir is in same folder -->  ./build

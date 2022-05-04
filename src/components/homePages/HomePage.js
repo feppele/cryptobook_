@@ -46,7 +46,7 @@ function HomePage(){
             <div className={classes.top}>
 
                 <div className={classes.NFTwrapper}>
-                    <NFTFormatEasyOnePage  tokenId={"863480768853540373348553374276531659"}/>
+                    <NFTFormatEasyOnePage  tokenId={"1080670587487461719420429993284072544"}/>
                 </div>
 
 

@@ -19,7 +19,7 @@ function query(_methode,_ele){
       body: JSON.stringify( params )
   };
   fetch(fetchi+ "/databank",options)
-  .then(res => {return res.json()})
+  .then(res => {return res.json()}).then(console.log)
 }
 
 

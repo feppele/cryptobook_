@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 
 const cors = require('cors');
-// 3002 is node server which runs react app
+
 app.use(cors({ origin: '*'}))
 
 // databank psql
@@ -41,8 +41,8 @@ var db = pgp("postgres://fritz@psqlserver100:Admin123!@psqlserver100.postgres.da
 
 }
 
-  // donwload images
-  app.use("/images", express.static(__dirname + '/images'));
+// donwload images
+app.use("/images", express.static(__dirname + '/images'));
 
 // this is for Chainlink Smart Contracts to ask for price
 app.get("/price", (req, res) => {
@@ -81,7 +81,6 @@ app.get("/price", (req, res) => {
         // mysql
 
         // connection.query(anfrage, function(err, rows, fields) {
-
         //   if (err){
         //     console.log("err")
         //     res.json("error");
@@ -89,7 +88,6 @@ app.get("/price", (req, res) => {
         //   };
         //     console.log('The solution is: ', rows[0].solution);
         //   res.json(rows);
-
         //   });
 
         //psql
@@ -104,9 +102,6 @@ app.get("/price", (req, res) => {
                 console.log("ERROR:", error);
                 res.json("error");
             });
-
-
-
 
     });
 
@@ -206,8 +201,8 @@ async function getAnfrage(methode,ele){
     if(methode === "add"){
         anfrage= ` delete from Person where address = '${ele.address}';
                   delete from Person where address = '${ele.address}';
-                  insert into Person values ('${ele.address}', '${ele.username}');
-                  
+                  insert into Person values ('${ele.username}', '${ele.address}');
+
                   `;
     }
 

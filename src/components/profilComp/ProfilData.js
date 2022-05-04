@@ -26,10 +26,6 @@ function ProfilData(){
 
     const fetchi ="https://backendserverreact.azurewebsites.net"
 
-
-    //onLoad();
-
-
     const [settingMode,setSettingMode] =useState(false);
     const [usernameDB,setUsernameDB] =useState("noch net da");
     const [userNameIsLoad,setUserNameIsLoad] =useState(false);
@@ -51,10 +47,13 @@ function ProfilData(){
     function onSaveClick(){
         const username =  document.getElementById("userName").value;
 
-        if(username !== ""){
-            window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-                const res = query("add",{ address: currentUsers[0], username: username});
+        console.log(username)
 
+        if(username !== ""){
+
+            window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
+                console.log(currentUsers)
+                const res = query("add",{ address: currentUsers[0], username: username});
             })
         }
 
@@ -69,7 +68,7 @@ function ProfilData(){
         }else{
             window.location.reload()
         }
-        
+
 
     }
 

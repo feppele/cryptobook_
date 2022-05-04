@@ -91,7 +91,7 @@ function NFTFormatEasy(props){
 
 
     function openThisNFTPage(){
-        
+
         history.push({
             pathname:"/thisNFT/"+props.tokenId,
         });
