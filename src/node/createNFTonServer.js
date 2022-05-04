@@ -1,4 +1,8 @@
 
+
+const fetchi ="https://backendserverreact.azurewebsites.net"
+
+
 function getOptions(_methode,_ele){
 
     const params = {
@@ -20,7 +24,7 @@ async function createNFTonServer(metaDataURL,selectedFile,collection,itemName,se
 
     const options = getOptions("",{metaDataURL:metaDataURL,selectedFile:selectedFile,collection:collection,itemName:itemName,searchTearms:searchTearms})
 
-    return await fetch("/createNFTandDBupload",options).then(res => { return res.json()}).then(res=>{})
+    return await fetch( fetchi + "/createNFTandDBupload",options).then(res => { return res.json()}).then(res=>{})
 }
 
 

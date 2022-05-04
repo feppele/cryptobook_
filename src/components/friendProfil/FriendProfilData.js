@@ -28,6 +28,9 @@ import {getCurrentUser} from '../../web3/HelperFunctions'
 
 function ProfilData(props){
 
+
+    const fetchi ="https://backendserverreact.azurewebsites.net"
+
     
     const [modalOpen,setModalOpen] = useState(false);
     const[followList,setFollowList] = useState(false);
@@ -48,7 +51,7 @@ function ProfilData(props){
     function followUser(){
         if(!window.ethereum){return}
         window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-            fetch("/databank",getOptions("follow",{person: props.personData.friend_addr.toLowerCase(),follower: currentUsers[0].toLowerCase()} )).catch(console.log);
+            fetch( fetchi + "/databank",getOptions("follow",{person: props.personData.friend_addr.toLowerCase(),follower: currentUsers[0].toLowerCase()} )).catch(console.log);
         })
         window.location.reload(false);
     }
@@ -56,7 +59,7 @@ function ProfilData(props){
     function unfollowUser(){
         if(!window.ethereum){return}
         window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-            fetch("/databank",getOptions("unfollow",{person: props.personData.friend_addr.toLowerCase(),follower: currentUsers[0].toLowerCase()} )).catch(console.log);
+            fetch(fetchi + "/databank",getOptions("unfollow",{person: props.personData.friend_addr.toLowerCase(),follower: currentUsers[0].toLowerCase()} )).catch(console.log);
         })
         window.location.reload(false);
     }
@@ -65,7 +68,7 @@ function ProfilData(props){
     function doIFollow(){
         if(!window.ethereum){return}
         window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-            fetch("/databank",getOptions("doIFollow",{person: props.personData.friend_addr.toLowerCase(),follower: currentUsers[0].toLowerCase()} ))
+            fetch(fetchi + "/databank",getOptions("doIFollow",{person: props.personData.friend_addr.toLowerCase(),follower: currentUsers[0].toLowerCase()} ))
             .then(res => {return res.json()}).then(res=>{
 
                 if(res[0][0].count > 0){
@@ -79,7 +82,7 @@ function ProfilData(props){
 
     // ZÄHLE ANZAHL FOLLOWER
     function getFollowCount(){
-        fetch("/databank",getOptions("followCount",{person: props.personData.friend_addr.toLowerCase()}))
+        fetch(fetchi + "/databank",getOptions("followCount",{person: props.personData.friend_addr.toLowerCase()}))
         .then(res => {return res.json()}).then(res=>{
             if(res==="error"){
                 setFollowCount(0);
@@ -93,7 +96,7 @@ function ProfilData(props){
 
 
     function getFollowList(){
-        fetch("/databank",getOptions("getFollowList",{person: props.personData.friend_addr.toLowerCase()}))
+        fetch(fetchi + "/databank",getOptions("getFollowList",{person: props.personData.friend_addr.toLowerCase()}))
         .then(res => {return res.json()}).then(res=>{
             console.log("getFollowList");
             console.log(res);

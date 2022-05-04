@@ -40,7 +40,6 @@ function NFTFormatEasy(props){
     const [offchain,setOffchain] = useState(false);
 
 
-    console.log(imageURL)
     // Metadaten aus TokenId bekommen:
     async function loadMetadata(tokenId){
 
@@ -69,9 +68,14 @@ function NFTFormatEasy(props){
             // New Feature: load Image from server. if no image on server load from ipfs 
             getNFTImageServerURL(props.tokenId).then(res=>{
 
+                
                 if(res.length >0 ){
+                    // if able to download from Server set ImageURL from server
                     setImageURL(res[0]);
+                    console.log("Image found on server. URL: " +res[0])
                 }else{
+                    // if not use IPFS URL
+                    console.log("not able to download Image from Server so download from ipfs: "+ipfsRes.image)
                     setImageURL(ipfsRes.image)
                 }
                 setImageLoad(true)

@@ -36,6 +36,11 @@ import SetNFTPriceModal from '../../components/standart2/SetNFTPriceModal'
 
 function OneNFTPage(){
 
+    const fetchi = "https://backendserverreact.azurewebsites.net"
+
+    const history = useHistory();
+    const {tokenId} = useParams();
+    
     const contractAddress ="0x7D66B92831bc5A7ae77541719526d4693FD9DC35"
 
     useEffect(() => {
@@ -44,8 +49,7 @@ function OneNFTPage(){
         window.ethereum.request({method: 'eth_requestAccounts'});
     },[])
 
-    const history = useHistory();
-    const {tokenId} = useParams();
+
 
     // const location = useLocation();
     // const data = location.state;
@@ -165,7 +169,7 @@ function OneNFTPage(){
 
     function getNFTLikes(){
         if(!window.ethereum){return}
-        fetch("/databank",getOptions("getNFTLikes",{tokenId: tokenId}))
+        fetch(fetchi+"/databank",getOptions("getNFTLikes",{tokenId: tokenId}))
         .then(res => {return res.json()}).then(res=>{
             if(res==="error"){
                 setNFTLikes(0);
@@ -193,7 +197,7 @@ function OneNFTPage(){
 
     function getLikesList(){
         if(!window.ethereum){return}
-        fetch("/databank",getOptions("getLikesList",{tokenId: tokenId}))
+        fetch(fetchi+"/databank",getOptions("getLikesList",{tokenId: tokenId}))
         .then(res => {return res.json()}).then(res=>{
 
             if(res==="error"){

@@ -23,7 +23,9 @@ import {getProfilePicURL} from '../../node/images'
 
 function ProfilData(){
 
-    getProfilePicURL().then(console.log)
+
+    const fetchi ="https://backendserverreact.azurewebsites.net"
+
 
     //onLoad();
 
@@ -80,7 +82,7 @@ function ProfilData(){
 
             const options=getOptions("find",{address: currentUsers[0] });
 
-            fetch("/databank/",options).then(res => { return res.json()}).then(res=>{
+            fetch(fetchi+ "/databank",options).then(res => { return res.json()}).then(res=>{
                 if(res[0].length===0){
                     setUsernameDB("unnamed");
                 }else{
@@ -117,13 +119,13 @@ function ProfilData(){
             // delete old picture
             const params = { userAddress: userAddress};
             const options = { method: 'POST',headers:{'content-type': 'application/json'},body: JSON.stringify( params ) };
-            fetch('/deleteProfilPic',options).then(res => { return res.json()}).then(res=>{
+            fetch(fetchi+  '/deleteProfilPic',options).then(res => { return res.json()}).then(res=>{
 
             }).then(()=>{
                 // upload new picture
 
                 console.log(formData)
-                fetch('/uploadUserImage', {
+                fetch( fetchi+ '/uploadUserImage', {
                     method: 'POST',
                     body: formData
                 }).then(console.log).then(window.location.reload())
@@ -142,6 +144,7 @@ function ProfilData(){
             if(url.length !==0){
                 setProfilePic(true);
                 setProfilePicSource(url[0])
+                console.log(url[0])
             }
         })
 

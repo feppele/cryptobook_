@@ -1,4 +1,6 @@
 
+
+const fetchi ="https://backendserverreact.azurewebsites.net"
 //test:
 //  query("add",{address:"0x15Db0F018209098e5e96FF68CB88F7080b65A841",username:"account4"});
 //  query("find",{address:"0x15Db0F018209098e5e96FF68CB88F7080b65A841"});
@@ -16,7 +18,7 @@ function query(_methode,_ele){
       headers:{'content-type': 'application/json'},
       body: JSON.stringify( params )
   };
-  fetch("/databank",options)
+  fetch(fetchi+ "/databank",options)
   .then(res => {return res.json()})
 }
 
@@ -37,7 +39,7 @@ return options;
 
 async function queryFetch(options){
 
-fetch("/databank",options)
+fetch(fetchi+ "/databank",options)
 .then(res => {return res.json()}).catch(console.log)
 
 }
@@ -67,13 +69,13 @@ function dislikeNFTOptions(tokenId){
 
 function followUser(useraddress){
   window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-      fetch("/databank",getOptions("follow",{person: useraddress.toLowerCase(),follower: currentUsers[0].toLowerCase()} )).catch(console.log);
+      fetch(fetchi+ "/databank",getOptions("follow",{person: useraddress.toLowerCase(),follower: currentUsers[0].toLowerCase()} )).catch(console.log);
   })
   window.location.reload(false);
 }
 function unfollowUser(useraddress){
   window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-      fetch("/databank",getOptions("unfollow",{person: useraddress.toLowerCase(),follower: currentUsers[0].toLowerCase()} )).catch(console.log);
+      fetch(fetchi+ "/databank",getOptions("unfollow",{person: useraddress.toLowerCase(),follower: currentUsers[0].toLowerCase()} )).catch(console.log);
   })
   window.location.reload(false);
 }
@@ -86,7 +88,7 @@ function unfollowUser(useraddress){
     async function loadNameFromDB2(address){
 
       const options=getOptions("find",{address: address });
-      return await fetch("/databank",options).then(res => { return res.json()}).then(res=>{
+      return await fetch(fetchi+ "/databank",options).then(res => { return res.json()}).then(res=>{
 
           if(res[0].length > 0){
             return {friend_name: res[0][0].name, friend_addr: address, blockchain: false};

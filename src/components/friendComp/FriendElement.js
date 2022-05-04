@@ -26,6 +26,7 @@ function FriendElement(props){
     const [profilePicURL,setProfilePicURL] = useState(StandartProfilPic);
 
 
+    
     function openFriendProfile(){
 
         // nicht mehr notwenig localStorage da nun der name gepushd wird

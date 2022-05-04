@@ -6,14 +6,43 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 app.use(express.json());
 
-// databank
+const cors = require('cors');
+// 3002 is node server which runs react app
+app.use(cors({ origin: '*'}))
+
+// databank psql
 var pgp = require("pg-promise")(/*options*/);
-var db = pgp("postgres://fritz:admin@localhost:5432/databank1");
+
+// Chose here if local or Azure Database
+// local database
+//var db = pgp("postgres://fritz:admin@localhost:5432/databank1");
+//azure database
+var db = pgp("postgres://fritz@psqlserver100:Admin123!@psqlserver100.postgres.database.azure.com:5432/databank1");
 
 
-// call react app
-app.use(express.static(path.join(__dirname, '../build')));
+//mySQL
+{
 
+//mySQL
+
+// var mysql      = require('mysql');
+// var connection = mysql.createConnection({
+//   host     : 'localhost',
+//   user     : 'fritz',
+//   password : 'CHammamelis123!',
+// database : 'databank1'
+// });
+
+// app.get("/test",(req,res) =>{
+//   console.log("test")
+//   res.json("errorHallo2");
+
+// })
+
+}
+
+  // donwload images
+  app.use("/images", express.static(__dirname + '/images'));
 
 // this is for Chainlink Smart Contracts to ask for price
 app.get("/price", (req, res) => {
@@ -35,7 +64,7 @@ app.get("/price", (req, res) => {
             })
             .catch(function (error) {
                 console.log("ERROR:", error);
-                res.json("error");
+                res.json(error);
             });
     });
 
@@ -49,6 +78,22 @@ app.get("/price", (req, res) => {
       console.log("Die Anfrage:  " + anfrage);
       console.log("Die Antwort:  ");
 
+        // mysql
+
+        // connection.query(anfrage, function(err, rows, fields) {
+
+        //   if (err){
+        //     console.log("err")
+        //     res.json("error");
+        //     return;
+        //   };
+        //     console.log('The solution is: ', rows[0].solution);
+        //   res.json(rows);
+
+        //   });
+
+        //psql
+
             db.multi(anfrage , 123)
             .then(function (sql_answer) {
                 // SEND FETCH ANSWER
@@ -59,19 +104,15 @@ app.get("/price", (req, res) => {
                 console.log("ERROR:", error);
                 res.json("error");
             });
+
+
+
+
     });
 
   });
 
 
-app.use(express.static('images'));
-
-
-
-
-
-  // const appRouter = require('./server_to_app.js')
-  // app.use('/app',appRouter)
 
 
 
@@ -87,14 +128,14 @@ app.use(express.static('images'));
 
         cb(null, file.originalname);
     }
-});
+  });
 
-var upload = multer({storage: storage});
-
-
+  var upload = multer({storage: storage});
 
 
-  // delete old picture
+
+
+  // delete old picture. Is used when upload new profile Pic, to delete the old one
   app.post("/deleteProfilPic", (req, res) => {
 
     console.log(req.body.userAddress);
@@ -110,8 +151,8 @@ var upload = multer({storage: storage});
   });
 
 
-
-// 'image' must be name of <input>'
+// Upload image
+// 'image' must be name of <input>' in react app
 app.use(upload.single('image'))
 app.post('/uploadUserImage', (req, res) => { });
 
@@ -119,9 +160,21 @@ app.post('/uploadUserImage', (req, res) => { });
 
 
 
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, '../build', 'index.html'));
-})
+
+  // call react app
+  // app.use(express.static(path.join(__dirname, '/build')));
+
+  // // using hashrouter in react app.get('/*)...  not necessary anymore
+
+  // app.get('/*', function (req, res) {
+  //   res.sendFile(path.join(__dirname, '/build', 'index.html'));
+  // })
+
+
+  // // const appRouter = require('./server_to_app.js')
+  // // app.use('/app',appRouter)
+
+
 
 
 

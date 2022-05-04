@@ -1,6 +1,6 @@
 
 import classes from './App.module.css';
-import { Route, Switch,HashRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 
 // Start
@@ -26,10 +26,6 @@ import NoMetaMaskPage from './pages/home/NoMetaMaskPage'
 
 
 function App() {
-
-
-
-
 
   return(
     <div>
@@ -95,12 +91,6 @@ function App() {
           <NavBarHome />
           <NoMetaMaskPage />
         </Route>
-
-
-        
-
-
-
 
 
       </Switch>

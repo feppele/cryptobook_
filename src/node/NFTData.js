@@ -2,6 +2,8 @@
 import {getCurrentUser} from '../web3/HelperFunctions'
 
 
+const fetchi ="https://backendserverreact.azurewebsites.net"
+
 function getOptions(_methode,_ele){
 
     const params = {
@@ -14,11 +16,11 @@ function getOptions(_methode,_ele){
         body: JSON.stringify( params )
     };
   return options;
-  }
+}
 
   async function queryFetch(options){
 
-  fetch("/databank",options)
+  fetch(fetchi+ "/databank",options)
   .then(res => {return res.json()}).catch(console.log)
 
   }
@@ -33,7 +35,7 @@ async function createCollection(collection){
     const ele = {collection: collection, creator: creator};
     const options = getOptions("createCollection",ele);
 
-    return await fetch("/databank",options).then(res => {return res.json()});
+    return await fetch(fetchi+ "/databank",options).then(res => {return res.json()});
 }
 
 // return array [{collection:},{collection:}] if none return []
@@ -43,7 +45,7 @@ async function getMyCollections(){
     const ele = {creator: creator};
     const options = getOptions("getMyCollections",ele);
 
-    return await fetch("/databank",options).then(res => {return res.json()}).then(res=>{return res[0]});
+    return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res=>{return res[0]});
 }
 
 
@@ -53,7 +55,7 @@ async function doesCollectionExist(collection){
     const ele = {collection: collection};
     const options = getOptions("doesCollectionExist",ele);
 
-    return await fetch("/databank",options).then(res => {return res.json()}).then(res=>{return res[0].length});
+    return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res=>{return res[0].length});
 }
 
 
@@ -63,7 +65,7 @@ async function getCretorFromCollection(collection){
     const ele = {collection: collection};
     const options = getOptions("getCretorFromCollection",ele);
 
-    return await fetch("/databank",options).then(res => {return res.json()}).then(res=>{return res[0][0].creator});
+    return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res=>{return res[0][0].creator});
 }
 
 
@@ -77,7 +79,7 @@ async function createNFTInfo(tokenId,name,searchTearms,collection,metaDataURL){
     const ele = {tokenId:tokenId, name:name, find:searchTearms, collection:collection, creator:creator,metaDataURL:metaDataURL};
     const options = getOptions("createNFTInfo",ele);
 
-    return await fetch("/databank",options).then(res => {return res.json()});
+    return await fetch(fetchi+ "/databank",options).then(res => {return res.json()});
 }
 
 
@@ -88,7 +90,7 @@ async function getAllTokenIdFromCollection(collection){
     const ele = {collection:collection};
     const options = getOptions("getAllTokenIdFromCollection",ele);
 
-    return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});
+    return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});
 }
 
 async function getNFTInfoFromTokenId(tokenId){
@@ -96,7 +98,7 @@ async function getNFTInfoFromTokenId(tokenId){
     const ele = {tokenId:tokenId};
     const options = getOptions("getNFTInfoFromTokenId",ele);
 
-    return await fetch("/databank",options).then(res => {return res.json()});
+    return await fetch(fetchi+ "/databank",options).then(res => {return res.json()});
 }
 
 async function highestTokenId(){
@@ -104,7 +106,7 @@ async function highestTokenId(){
     const ele = {};
     const options = getOptions("highestTokenId",ele);
 
-    return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res[0][0].max});;
+    return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res =>{return res[0][0].max});;
 }
 
 async function getAllSingles(){
@@ -112,7 +114,7 @@ async function getAllSingles(){
     const ele = {};
     const options = getOptions("getAllSingles",ele);
 
-    return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
+    return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
 }
 
 
@@ -122,7 +124,7 @@ async function getTokenIdFromSearch(find){
     const ele = {find:find};
     const options = getOptions("getTokenIdFromSearch",ele);
 
-    return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{
+    return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res =>{
         var array =[]
         res[0].forEach(ele=>{array.push(ele.tokenid)})
         return array
@@ -136,7 +138,7 @@ async function getAllCollections(){
     const ele = {};
     const options = getOptions("getAllCollections",ele);
 
-    return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
+    return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
 }
 
 async function searchCollections(find){
@@ -144,7 +146,7 @@ async function searchCollections(find){
     const ele = {find:find};
     const options = getOptions("searchCollections",ele);
 
-    return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
+    return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
 }
 
 async function getTokenURIDB(tokenId){
@@ -153,7 +155,7 @@ async function getTokenURIDB(tokenId){
     const ele = {tokenId:tokenId};
     const options = getOptions("getTokenURI",ele);
 
-    return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res[0][0].metaurl});;
+    return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res =>{return res[0][0].metaurl});;
 }
 
 
@@ -171,7 +173,7 @@ async function getOffchainMetaData(creator){
     const ele = {creator:creator};
     const options = getOptions("getOffchainMetaData",ele);
 
-    return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
+    return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
 }
 
 
@@ -180,7 +182,7 @@ async function buyOffChainNFT_deleteCreator(tokenId){
     const ele = {tokenId:tokenId};
     const options = getOptions("buyOffChainNFT_deleteCreator",ele);
 
-    return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
+    return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
 }
 
 
@@ -193,7 +195,7 @@ async function setPreisOfNFT(tokenId,preis){
     const ele = {tokenId:tokenId,preis:preis};
     const options = getOptions("setPreisOfNFT",ele);
 
-    return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
+    return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
 
 }
 
@@ -204,7 +206,7 @@ async function getPreisOfNFT(tokenId){
     const options = getOptions("getPreisOfNFT",ele);
 
     try{
-        return await fetch("/databank",options).then(res => {return res.json()}).then(res =>{return res[0][0].preis});;
+        return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res =>{return res[0][0].preis});;
     }catch(err){
         return "-";
     }

@@ -2,7 +2,7 @@ import {getOptions} from './databank'
 
 import {getCurrentUser} from '../web3/HelperFunctions'
 
-
+const fetchi ="https://backendserverreact.azurewebsites.net"
 
 
 // returns ["imageURL"], if no pic rteurns [] empty array
@@ -17,9 +17,9 @@ async function getProfilePicURL(user){
 
         const types = [".png",".jpeg",".jpg"]
         const result = Promise.all([
-            fetch("/images/profile/" + userAddress + types[0] ).then(res =>{ if(res.status === 200){return ("/images/profile/"+ userAddress + types[0])}   }),
-            fetch("/images/profile/" + userAddress + types[1] ).then(res =>{ if(res.status === 200){return ("/images/profile/"+ userAddress + types[1])}   }),
-            fetch("/images/profile/" + userAddress + types[2] ).then(res =>{ if(res.status === 200){return ("/images/profile/"+ userAddress + types[2])}   })
+            fetch(fetchi+ "/images/profile/" + userAddress + types[0] ).then(res =>{ if(res.status === 200){return (fetchi+"/images/profile/"+ userAddress + types[0])}   }),
+            fetch(fetchi+ "/images/profile/" + userAddress + types[1] ).then(res =>{ if(res.status === 200){return (fetchi+"/images/profile/"+ userAddress + types[1])}   }),
+            fetch(fetchi+ "/images/profile/" + userAddress + types[2] ).then(res =>{ if(res.status === 200){return (fetchi+"/images/profile/"+ userAddress + types[2])}   })
         ]).then(result=>{
 
             var resultArray =[]
@@ -47,7 +47,7 @@ function uploadNFTImageToServer (image,tokenId) {
 
     console.log(formData)
 
-    fetch('/uploadUserImage', {
+    fetch(fetchi+ '/uploadUserImage', {
                 method: 'POST',
                 body: formData
             }).then(console.log)
@@ -59,10 +59,13 @@ function uploadNFTImageToServer (image,tokenId) {
 async function getNFTImageServerURL(tokenId){
 
     const types = [".png",".jpeg",".jpg"]
+
     const result = Promise.all([
-        fetch("/static/images/profile/" + tokenId + types[0] ).then(res =>{ if(res.status === 200){return ("/images/profile/"+ tokenId + types[0])}   }),
-        fetch("/static/images/profile/" + tokenId + types[1] ).then(res =>{ if(res.status === 200){return ("/images/profile/"+ tokenId + types[1])}   }),
-        fetch("/static/images/profile/" + tokenId + types[2] ).then(res =>{ if(res.status === 200){return ("/images/profile/"+ tokenId + types[2])}   })
+
+        fetch(fetchi+ "/images/profile/" + tokenId + types[0] ).then(res =>{ if(res.status === 200){return (fetchi+"/images/profile/"+ tokenId + types[0])}   }),
+        fetch(fetchi+ "/images/profile/" + tokenId + types[1] ).then(res =>{ if(res.status === 200){return (fetchi+"/images/profile/"+ tokenId + types[1])}   }),
+        fetch(fetchi+ "/images/profile/" + tokenId + types[2] ).then(res =>{ if(res.status === 200){return (fetchi+"/images/profile/"+ tokenId + types[2])}   })
+
     ]).then(result=>{
 
         var resultArray =[]

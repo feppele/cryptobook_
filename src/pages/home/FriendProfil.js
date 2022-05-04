@@ -20,8 +20,11 @@ function Profil(){
     },[])
     //onLoad();
 
+
     // get Address from visiting profile from URL
     const {address} = useParams();
+
+    console.log(address);
     //this is name an address from Friend/NotFriend: person.friend_addr and person.friend_name
     const[person,setPerson] =useState(true);
     const[personSet,setPersonSet]=useState(false);

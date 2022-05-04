@@ -4,6 +4,8 @@ import {loadFriendsEasy} from './LoadingFunctions';
 import {getOptions} from '../node/databank'
 
 
+const fetchi = "https://backendserverreact.azurewebsites.net"
+
 
 async function getAllFriendsPromise(){
 
@@ -26,7 +28,7 @@ async function followFriends(){
 
 
         // load Follow Friends
-        const answer = fetch("/databank",getOptions("WHOdoIFollow",{me:  accounts[0].toLowerCase()}))
+        const answer = fetch(fetchi+"/databank",getOptions("WHOdoIFollow",{me:  accounts[0].toLowerCase()}))
         .then(res => {return res.json()})
         .then(res=>{
             var followFriends= res[0];

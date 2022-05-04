@@ -5,8 +5,8 @@ import Writer from './writer/Writer';
 function Page1(){
 
 
-
-    fetch("test").then(console.log)
+//fetch("http://mycryptobook.io/test")
+    
 
 const text1 = `Make the first step into the 
 connected Blockchain World`;
@@ -43,7 +43,7 @@ const [ writer4IsOpen, setWriter4IsOpen ] = useState(false);
 
     return (
         <div id="container" className={classes.container}>
-             {  writerIsOpen && <Writer  id="writer"  text={text1}/>}
+             {  writerIsOpen && <Writer   id="writer"  text={text1}/>}
              {  writer2IsOpen && <Writer  id="writer"  text={text2}/>}
              {  writer3IsOpen && <Writer  id="writer"  text={text3}/>}
              {  writer4IsOpen && <Writer  id="writer"  text={text4}/>}
