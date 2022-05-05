@@ -1,0 +1,6 @@
+Create table person (name varchar(255),address(255));
+create table likes (tokenid varchar(255),address varchar(255));
+create table follow (person varchar(255),follower varchar(255));
+create table collection (collection varchar(255),creator varchar(255));
+create table preis (tokenid varchar(255),preis varchar(255));
+create table nftinfo (tokenid varchar(255),find varchar(255),collection varchar(255),creator varchar(255),name varchar(255),metaurl varchar(255));
