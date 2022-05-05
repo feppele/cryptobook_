@@ -3,9 +3,7 @@ import {useState,useEffect} from 'react';
 import {getAllTokensMetadataArray,getOwnerOfTokenId} from '../../web3/NFTContractHelper';
 import NFTFormatCreator from './NFTFormatCreator';
 import loadImage from '../../images/Loader.gif'
-
 import NoNFT from './NoNFTsSign';
-
 import {getOffchainMetaData} from '../../node/NFTData'
 
 

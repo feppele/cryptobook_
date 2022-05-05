@@ -4,8 +4,6 @@ import { useHistory } from "react-router-dom";
 import {NFTContract,NFTContractAddress} from '../../../web3/NFTContract';
 
 
-
-
 //ipfs upload
 async function ipfsUpload(metaData,file){ //  MetaData json: {itemName, collection, description, extLink}
     const client = create('https://ipfs.infura.io:5001/api/v0')
@@ -47,8 +45,6 @@ async function createNFT(metaDataURL,id){
         from: owner,
         to: NFTContractAddress
     })
-
-
 
     const tokenId = response.events.Transfer.returnValues.tokenId;
     const txHash = response.events.Transfer.transactionHash;

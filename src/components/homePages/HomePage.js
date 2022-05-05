@@ -3,13 +3,9 @@ import { useHistory } from "react-router-dom";
 import{useState,useEffect} from 'react';
 import FriendsInfo from './FriendsInfo';
 import NFTFormatEasyOnePage from '../NFT/NFTFormatEasyOnePage';
-
 import BasicButton from '../standart/BasicButton';
 import BasicButton2 from '../standart/BasicButton2';
-
 import Impressum from '../start/startPageComponents/Impressum'
-
-
 
 
 function HomePage(){
@@ -24,7 +20,7 @@ function HomePage(){
             const accounts = await  window.ethereum.request({method: 'eth_requestAccounts'});
             history.push("/createNFT");
         }
-        
+
     }
     async function openExplore(){
         if(window.ethereum){const accounts = await  window.ethereum.request({method: 'eth_requestAccounts'});}
@@ -34,8 +30,6 @@ function HomePage(){
     function openMCBNFTDocs(){
         window.open("https://github.com/feppele/MyCryptoBookDocs/wiki/MyCryptoBook-NFTs-(MCBNFT)")
     }
-    
-
 
     return (
 

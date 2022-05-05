@@ -1,23 +1,20 @@
 import classes from './Marketplace.module.css';
 import NFTFormatEasy from '../../components/NFT/NFTFormatEasy'
 import NFTFormatCreatorNew from '../../components/NFT/NFTFormatCreatorNew'
-
 import NFTCollectionFormat from '../../components/NFT/NFTCollectionFormat';
 import {useState,useEffect} from 'react'
 import {highestTokenId,getTokenIdFromSearch} from '../../node/NFTData'
-
 import Single from './Marketplace/Single';
 import Collections from './Marketplace/Collections';
 import { useHistory } from "react-router-dom";
+
 function Marketplace(){
 
     const history = new useHistory();
 
-
     const [singleMode,setSingleMode] = useState(true);
     const [collectionMode,setCollectionMode] = useState(false);
 
-    
     // Button Style
     const buttons = document.getElementsByName('button')
     function changeButtonStyle(e){
@@ -33,9 +30,7 @@ function Marketplace(){
         }
     }
 
-
     const [searchValue,setSearchValue] = useState("");
-
 
     function search(e){
 
@@ -48,11 +43,8 @@ function Marketplace(){
 
     }
 
-
-
     return (
         <div className={classes.container}>
-
 
             <div className={classes.topBox}>
 
@@ -71,18 +63,11 @@ function Marketplace(){
             </div>
 
 
-
-
-
             <div className={classes.grid}>
 
                 { singleMode && < Single searchValue={searchValue}/>   }
 
                 { collectionMode && <Collections searchValue={searchValue}/> }
-
-
-    
-
 
             </div>
 

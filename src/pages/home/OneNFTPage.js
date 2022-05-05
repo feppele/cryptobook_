@@ -7,20 +7,15 @@ import {shortAddr} from '../../web3/LoadingFunctions'
 import NFTFormatEasyOnePage from '../../components/NFT/NFTFormatEasyOnePage';
 import Button3 from '../../components/standart/Button3';
 import BasicButton from '../../components/standart/BasicButton';
-
 import Button7BUY from '../../components/standart/Button7BUY'
-
 //img
 import black_herz from '../../images/black_herz.png';
 import shareImg from '../../images/share.png';
 import sendImg from '../../images/send.png';
 import profilePic from '../../images/profilepic.png';
-
 import linkImg from '../../images/link.png';
 import detailImg from '../../images/info.png';
-
 import desImg from '../../images/description.png';
-
 
 import Infobanner from './../../components/standart/Infobanner';
 import LikesList from './../../components/standart2/LikesList';
@@ -28,10 +23,8 @@ import Backdrop from './../../components/standart2/Backdrop';
 import {getOptions} from '../../node/databank';
 import SendOneNFT from '../../components/standart2/sendOneNFT/SendOneNFT';
 import {getTokenURIDB,getPreisOfNFT} from '../../node/NFTData'
-
 import {buyNFTOff,buyNFTOn} from '../../web3/BuyNFTContractHelper'
 import SetNFTPriceModal from '../../components/standart2/SetNFTPriceModal'
-
 
 
 function OneNFTPage(){
@@ -40,7 +33,7 @@ function OneNFTPage(){
 
     const history = useHistory();
     const {tokenId} = useParams();
-    
+
     const contractAddress ="0x7D66B92831bc5A7ae77541719526d4693FD9DC35"
 
     useEffect(() => {
@@ -64,9 +57,7 @@ function OneNFTPage(){
     const [likesList,setLikesList]=useState(false);
     const [NFTLikesArrayForList,setNFTLikesArrayForList] = useState([]);
     const [tokenURI,setTokenURI] = useState("")
-
     const [sendOneNFTModal,setSendOneNFTModal]=useState(false);
-
     const [amIOwner,setAmIOwner]=useState(false);
     const [NFTPriceModel,setNFTPriceModal] =useState(false);
 
@@ -88,13 +79,10 @@ function OneNFTPage(){
         try{
             tokenURI = await getTokenUri(tokenId);
 
-
         }catch(err){
             setIsOffchain(true);
             tokenURI = await getTokenURIDB(tokenId);
-
         }
-
 
         setTokenURI(tokenURI);
         setMetadata( await getAllMetadataFromURI(tokenURI,tokenId) );
@@ -108,8 +96,6 @@ function OneNFTPage(){
         getPreisOfNFT(tokenId).then(p =>{setPreis(p)});
 
         })},[])
-
-
 
 
     function getOwner(meta){
@@ -207,7 +193,7 @@ function OneNFTPage(){
         })
     }
     useEffect(() => {getLikesList()},[]);
-    
+
 
 
     function openSend(){
@@ -249,11 +235,7 @@ function OneNFTPage(){
                 //buy onchain
                 buyNFTOn(tokenId,owner,metaData.creator)
             }
-
         })
-
-
-
     }
 
     function changeNFTPrice(){
@@ -299,7 +281,7 @@ function OneNFTPage(){
                         {amIOwner && <Button3 img={profilePic} popupText={"profile pic"}/>  }
                         { !isOffchain && amIOwner && <Button3 onButtonClicked={openSend} img={sendImg} popupText={"send NFT"}/> }
                     </div>
-                    <Button7BUY preis={preis} onButtonClickded={buyButtonClicked} />  
+                    <Button7BUY preis={preis} onButtonClickded={buyButtonClicked} />
                 </div>
 
                     {/* name + collection */}
@@ -314,10 +296,6 @@ function OneNFTPage(){
                     </div>
 
 
-
-
-
-
                 {/* Description Box*/}
                 <div className={classes.niceBoxes}>
 
@@ -330,8 +308,6 @@ function OneNFTPage(){
                 </div>
 
 
-
-
                 {/* Detail Box*/}
                 <div className={classes.niceBoxes}>
 
@@ -340,7 +316,6 @@ function OneNFTPage(){
                         <div className={classes.h3}>Details:</div>
                     </div>
 
-                    
 
                     {/* owner*/}
                     <div className={classes.ownerWrapper}>
@@ -392,40 +367,17 @@ function OneNFTPage(){
                 </div>
 
 
-
-
-
-             
-
-
-
-
-
                 </div>
-
-
-
-
-
-
 
 
                 { shareLink && <Infobanner text ={"Link copied !"}/> }
 
 
-
             </div>
-
-
 
         </div>
 
-
-
-
-
     );
-
 
 }
 

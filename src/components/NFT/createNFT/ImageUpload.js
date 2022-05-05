@@ -5,7 +5,6 @@ import {NFTContract,NFTContractAddress} from '../../../web3/NFTContract';
 //ipfs upload
 import { create } from 'ipfs-http-client'
 import { useHistory } from "react-router-dom";
-
 import FinishedNFT from '../finishedNFTModal/FinishedNFT'
 
 
@@ -70,9 +69,6 @@ function ImageUpload(props){
 
       history.push("/finishedNFT");
     }
-
-
-
 
 
     // input Tag has ugly Button. So make input invisible in css. Create new button and ref!! on click to input tag

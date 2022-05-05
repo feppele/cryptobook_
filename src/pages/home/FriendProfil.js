@@ -18,7 +18,6 @@ function Profil(){
             history.push("/");
         }
     },[])
-    //onLoad();
 
 
     // get Address from visiting profile from URL
@@ -30,7 +29,6 @@ function Profil(){
     const[personSet,setPersonSet]=useState(false);
     // is set when address from URL is friend
     const[isBlockchainFriend,setIsBlockchainFriend]=useState(false);
-
 
 
     useEffect(() => {

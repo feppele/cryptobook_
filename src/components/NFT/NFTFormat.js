@@ -1,8 +1,6 @@
 import classes from './NFTFormat.module.css';
-
 import herz from '../../images/herz.png';
 import ethereum from '../../images/ethereum.png';
-
 import {NFTContract,NFTContractAddress} from '../../web3/NFTContract';
 import {useHistory} from 'react-router-dom';
 import {getOptions} from '../../node/databank';
@@ -10,7 +8,6 @@ import {useState,useEffect} from 'react';
 import redHerz from '../../images/redherz.png';
 import blackHerz from '../../images/backherz.png';
 import MiniButton from '../standart/MiniButton';
-
 import {getNFTLikes,likeNFT,dislikeNFT,doILike} from '../../node/NFTLikes';
 
 
@@ -28,7 +25,6 @@ function NFTFormat(props){
             pathname:"/thisNFT/"+props.tokenId,
         });
     }
-
 
     // like, dislike
     function likeNFTFunc(){
@@ -101,13 +97,7 @@ function NFTFormat(props){
 
         </div>
 
-
-
-
-
     );
-
-
 }
 
 export default NFTFormat;

@@ -4,9 +4,6 @@ import sad from '../../images/sad.png'
 
 function NoFriendsSign(props){
 
-
-
-
     return  (
 
     <div className={classes.noFriendsWrapper}>

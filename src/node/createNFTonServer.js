@@ -15,7 +15,7 @@ function getOptions(_methode,_ele){
         body: JSON.stringify( params )
     };
   return options;
-  }
+}
 
 
 

@@ -2,8 +2,6 @@ import classes from './MiniModal.module.css';
 
 function MiniModal(props){
 
-
-
     return(
 
     <div className={classes.miniModal}>
@@ -14,11 +12,6 @@ function MiniModal(props){
 
     );
 
-
-
-
-
 }
-
 
 export default MiniModal;

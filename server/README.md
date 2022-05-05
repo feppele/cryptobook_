@@ -1,0 +1,1 @@
+This is the Node.js Backend Server for the hosted React-App. It saves uploaded images from the React-App in the 'images' folder. It is also connected to a PSQL-Server. The React-App fetches all necessary data from this Backend Server.

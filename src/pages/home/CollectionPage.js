@@ -1,20 +1,15 @@
 import classes from './CollectionPage.module.css';
-
 import React, {useState,useEffect} from 'react';
 import {useParams} from 'react-router-dom';
-
 import { useHistory } from "react-router-dom";
-
 import {getAllTokenIdFromCollection,getCretorFromCollection} from '../../node/NFTData'
 import {getNFTImageServerURL} from '../../node/images'
 import {getNameFromAddress} from '../../node/betterFunctions'
-
 import NFTFormatEasy from '../../components/NFT/NFTFormatEasy'
 import image from '../../images/23.jpeg'
 
 
 function CollectionPage(){
-
 
     var key=1;
     const {collectionName} = useParams();
@@ -30,9 +25,7 @@ function CollectionPage(){
 
     useEffect(() => {
         load();
-
     },[])
-
 
     async function load(){
 
@@ -49,15 +42,13 @@ function CollectionPage(){
         const creatorName = await getNameFromAddress(creatorAddress);
 
         setCreator({name:creatorName,address:creatorAddress})
-
     }
 
-    console.log(creator )
+    console.log(creator)
 
     function goToCreator(){
         history.push("/profile/"+creator.address);
     }
-    
 
     return (
 
@@ -69,47 +60,30 @@ function CollectionPage(){
 
             </div>
 
-
-
             <p  className={classes.h1}> {collectionName}</p>
-        <div className={classes.box}>
 
-            
+            <div className={classes.box}>
 
-            <div className={classes.nameWrapper}>
-                <div  className={classes.h3}> {"Creator" }</div>
-                <div onClick={goToCreator} className={classes.h2}> {creator.name}</div>
+                <div className={classes.nameWrapper}>
+                    <div  className={classes.h3}> {"Creator" }</div>
+                    <div onClick={goToCreator} className={classes.h2}> {creator.name}</div>
+                </div>
+
+                <div className={classes.nameWrapper}>
+                    <div  className={classes.h3}> {"Items   "}</div>
+                    <div  className={classes.h2}> {allTokenIds.length}</div>
+                </div>
+
             </div>
 
-            <div className={classes.nameWrapper}>
-            <div  className={classes.h3}> {"Items   "}</div>
-            <div  className={classes.h2}> {allTokenIds.length}</div>
+
+            <div className={classes.grid}>
+
+                {allTokenIds.map( element =>  <NFTFormatEasy key={key++} tokenId={element.tokenid}/>  ) }
+
             </div>
 
-
-
         </div>
-
-
-         
-
-         <div className={classes.grid}>
-
-         {allTokenIds.map( element =>  <NFTFormatEasy key={key++} tokenId={element.tokenid}/>  ) }
-
-         </div>
-
-
-
-
-
-
-
-        </div>
-
-
-
-
 
     );
 

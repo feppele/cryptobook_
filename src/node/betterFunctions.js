@@ -4,9 +4,6 @@ const fetchi ="https://backendserverreact.azurewebsites.net"
 
 function getOptions(_methode,_ele){
 
-
-
-  
     const params = {
         methode: _methode,
         ele: _ele
@@ -17,29 +14,26 @@ function getOptions(_methode,_ele){
         body: JSON.stringify( params )
     };
   return options;
+}
+
+
+// on Load get name from databank
+async function getNameFromAddress(address){
+
+    const options=getOptions("find",{address: address });
+
+    return await fetch(fetchi+ "/databank",options).then(res => { return res.json()}).then(res=>{
+
+
+        if(res[0].length > 0){
+          return res[0][0].name;
+        }else{
+          return "unnamed";
+        }
+    })
   }
 
 
 
 
-
-    // on Load get name from databank
-    async function getNameFromAddress(address){
-
-        const options=getOptions("find",{address: address });
-
-        return await fetch(fetchi+ "/databank",options).then(res => { return res.json()}).then(res=>{
-
-  
-            if(res[0].length > 0){
-              return res[0][0].name;
-            }else{
-              return "unnamed";
-            }
-        })
-      }
-
-
-
-
-      export { getNameFromAddress}
+export { getNameFromAddress}

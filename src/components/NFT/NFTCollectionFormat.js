@@ -5,14 +5,9 @@ import {NFTContract,NFTContractAddress} from '../../web3/NFTContract';
 import {useHistory} from 'react-router-dom';
 import {getOptions} from '../../node/databank';
 import {useState,useEffect} from 'react';
-
-
 import {getTokenUri,getAllMetadataFromURI} from '../../web3/NFTContractHelper'
 import {getNFTImageServerURL} from '../../node/images'
-
-
 import {getAllTokenIdFromCollection,getCretorFromCollection} from '../../node/NFTData'
-
 import {getNameFromAddress} from '../../node/betterFunctions'
 
 

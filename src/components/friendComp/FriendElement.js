@@ -10,23 +10,20 @@ import profilePic from '../../images/profilepic.png';
 import saveFriend from '../../images/saveFriend2.png';
 import { UserContract } from '../../web3/UserContract';
 import {useState,useEffect} from 'react'
-
 import SendPopup from '../standart2/SendPopup';
 import Backdrop from '../standart2/Backdrop';
 import {unfollowUser} from '../../node/databank';
-
 import StandartProfilPic from '../../images/background.jpeg';
 import {getProfilePicURL} from '../../node/images'
 
 function FriendElement(props){
-    
+
     const history = useHistory();
 
     const [sendButton,setSendButton] = useState(false);
     const [profilePicURL,setProfilePicURL] = useState(StandartProfilPic);
 
 
-    
     function openFriendProfile(){
 
         // nicht mehr notwenig localStorage da nun der name gepushd wird
@@ -40,7 +37,6 @@ function FriendElement(props){
                 friendAddr: props.longAddr
             }
         });
-
 
     }
 
@@ -72,22 +68,18 @@ function FriendElement(props){
     },[])
 
 
-
     return (
 
             <div className={classes.element}>
 
-
                 { sendButton  && <SendPopup onCloseClicked={closeSend} longAddr={props.longAddr} addr={props.addr} friendName={props.friendName}/>}
                 {sendButton  && <Backdrop onBackDropClicked={closeSend}/>}
-
 
                 <div className={classes.nameWrapper}>
                 <img src={profilePicURL} className={classes.profilePicture}></img>
                     <div id="friendName" className={classes.name}> {props.friendName} </div>
                      { props.saveFriend &&  <div className={classes.buttonScaler}>    <Button6scaleable  img={saveFriend} popupText={"on chain"}/>             </div>     }
                 </div>
-
 
                 <div className={classes.wrapper}>
                     <div className={classes.cryptoWrapper}>  <CryptoAddress id="sendToAddr" cryptoSign={etherSign} addr={props.addr}/>   </div> 
@@ -98,9 +90,7 @@ function FriendElement(props){
                 </div>
             </div>
 
-
         );
-
 
 }
 

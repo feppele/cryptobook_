@@ -1,16 +1,13 @@
 import classes from './FriendsNFTs.module.css';
 import {useEffect} from 'react';
-
 import NftCollection from '../NFT/NftCollection';
 
 
 function FriendsNFTs(props){
 
-
     return (
 
         <div className={classes.container}>
-
 
                 <div className={classes.header}>
 
@@ -24,20 +21,11 @@ function FriendsNFTs(props){
 
                 <div className={classes.stripe}></div>
 
-
                 { <NftCollection from={props.personData.friend_addr}/>}
-
-
-
 
         </div>
 
-
-
-
-
     );
-
 
 }
 

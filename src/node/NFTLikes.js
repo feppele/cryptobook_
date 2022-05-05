@@ -34,7 +34,6 @@ async function dislikeNFT(tokenId){
 
 }
 
-
 async function doILike(tokenId){
 
     if(!window.ethereum){return}
@@ -49,10 +48,8 @@ async function doILike(tokenId){
         })
         return res2;
     })
-return res;
+    return res;
 }
-
-
 
 
 export{getNFTLikes}

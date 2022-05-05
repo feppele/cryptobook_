@@ -21,8 +21,6 @@ import {getAllFriendsPromise} from  '../../web3/GetAllFriends';
 
  function Friends(){
 
-    //useEffect(() => {onLoad()},[]);
-
     const [showSad, setShowSad] = useState(false);
     const [addFriendIsOpen, setAddFriendIsOpen ] = useState(false);
     const [searchResult,setSearchResult] = useState([]);
@@ -34,7 +32,6 @@ import {getAllFriendsPromise} from  '../../web3/GetAllFriends';
     function closeAddFriend(){
         setAddFriendIsOpen(false);
     }
-
 
     // Load Friends Stuff
     useEffect(() => {
@@ -104,7 +101,7 @@ import {getAllFriendsPromise} from  '../../web3/GetAllFriends';
 
             </div>{/* LEFT SIDE */}
 
-            {/* LRIGHT SIDE */}
+            {/* RIGHT SIDE */}
             <div className={classes.friendsListSite}>
 
                 {showSad && <NoFriendsSign text= "no friends yet"/>}
@@ -113,7 +110,7 @@ import {getAllFriendsPromise} from  '../../web3/GetAllFriends';
                     <FriendElementCreator friends ={searchResult} />
                 </div>
 
-            </div>{/* LRIGHT SIDE */}
+            </div>{/* RIGHT SIDE */}
         </div>
     );
 }

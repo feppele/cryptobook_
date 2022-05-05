@@ -7,30 +7,19 @@ import BasicButton2Big from '../../standart/BasicButton2Big';
 import BasicButtonBig from '../../standart/BasicButtonBig';
 import FinishedNFT from '../finishedNFTModal/FinishedNFT';
 import FinishedNFTBackdrop from '../finishedNFTModal/FinishedNFTBackdrop';
-
 import{uploadNFTImageToServer} from '../../../node/images'
-
 import Square from './Square';
 // Image Upload
 import image from '../../../images/image.png';
-
 //IPFS and Blockchain Functions
 import {ipfsUpload,createNFT} from './IPFSandNFTFunctions';
-
-
 import {createCollection,getMyCollections,doesCollectionExist,getNFTInfoFromTokenId,createNFTInfo,getAllTokenIdFromCollection} from '../../../node/NFTData'
-
 import {createNFTOnAndOff} from './OffChainCreate'
-
 import {getCurrentUser} from '../../../web3/HelperFunctions'
-
 import InfoBox from '../../standart2/InfoBox'
 
 
-
 function CreateNFT(props){
-
-
 
     const history =useHistory();
 
@@ -54,7 +43,6 @@ function CreateNFT(props){
     const handleClick = event => {
         hiddenFileInput.current.click();
     };
-
 
 
     // einfach erweiterbar: einfach in metaData weitere elemente hinzufügen
@@ -82,7 +70,7 @@ function CreateNFT(props){
         const imageFile = await selectedFile;
 
         console.log(selectedFile);
- 
+
         if(itemName==="" || !selectedFile){
             if(itemName===""){console.log("leerer Name")}
             if(!selectedFile){console.log("leeres Bild")}
@@ -150,8 +138,6 @@ function CreateNFT(props){
     function closeInfoBox(){
         setInfoBoxOpen(false)
     }
-
-
 
     return (
 

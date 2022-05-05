@@ -1,10 +1,8 @@
 import classes from './ImageSetting.module.css';
 import React, {useState} from 'react';
-
 import coverImage from '../../images/image.png';
 
 function ImageSetting(props){
-
 
     const [selectedFile, setSelectedFile] = useState();
     const [isSelected, setIsSelected] = useState(false);
@@ -20,10 +18,6 @@ function ImageSetting(props){
         hiddenFileInput.current.click();
     };
 
-
-
-
-
     return (
 
             <div className={classes.imageUploadWrapper}>
@@ -36,9 +30,6 @@ function ImageSetting(props){
                 { !isSelected && <img src ={coverImage} className={classes.coverImage}></img>}
                 { isSelected &&   <img src={URL.createObjectURL(selectedFile)} className={classes.image}></img>  }
 		    </div>
-
-
-
 
     );
 

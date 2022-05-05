@@ -20,9 +20,7 @@ import {query,getOptions,queryFetch} from '../../node/databank';
 import {getProfilePicURL} from '../../node/images'
 
 
-
 function ProfilData(){
-
 
     const fetchi ="https://backendserverreact.azurewebsites.net"
 
@@ -57,7 +55,6 @@ function ProfilData(){
             })
         }
 
-
         setSettingMode(false);
         // just for infobanner
         setSaved(true);
@@ -68,7 +65,6 @@ function ProfilData(){
         }else{
             window.location.reload()
         }
-
 
     }
 
@@ -92,9 +88,7 @@ function ProfilData(){
         });
 
     }
-
     useEffect(() => {loadNameFromDB();},[])
-
 
     // IMAGE SETTINGS___________________________________________________
     function uploadImage () {
@@ -152,7 +146,6 @@ function ProfilData(){
 
 
 
-
     // Image Settings__________________________________
     const [selectedFile, setSelectedFile] = useState();
     const [isSelected, setIsSelected] = useState(false);
@@ -167,8 +160,7 @@ function ProfilData(){
     const handleClick = event => {
         hiddenFileInput.current.click();
     };
-// IMAGE SETTINGS___________________________________________________^^^^^
-
+    // Image Settings__________________________________^^^^^
 
 
     return (
@@ -222,9 +214,6 @@ function ProfilData(){
 
             {saved  && <Infobanner text ={"Saved !"} />  }
         </div>
-
-
-
 
 
     );

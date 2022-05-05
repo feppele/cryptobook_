@@ -13,7 +13,6 @@ import NavBarHome from './components/home/NavBarHome';
 import Profil from './pages/home/Profil';
 import FriendsPage from './pages/home/FriendsPage';
 import OneNFTPage from './pages/home/OneNFTPage';
-
 import FriendProfil from './pages/home/FriendProfil';
 import MyNftPage from './components/NFT/MyNftPage'
 import CreateNFT from './components/NFT/createNFT/CreateNFT';
@@ -21,8 +20,6 @@ import FinishedNFT from './components/NFT/finishedNFTModal/FinishedNFT';
 import CollectionPage from './pages/home/CollectionPage';
 import Marketplace from './pages/home/Marketplace'
 import NoMetaMaskPage from './pages/home/NoMetaMaskPage'
-
-
 
 
 function App() {
@@ -94,7 +91,6 @@ function App() {
 
 
       </Switch>
-
 
     </div>
   );

@@ -1,6 +1,4 @@
-
 import {getCurrentUser} from '../web3/HelperFunctions'
-
 
 const fetchi ="https://backendserverreact.azurewebsites.net"
 
@@ -18,14 +16,12 @@ function getOptions(_methode,_ele){
   return options;
 }
 
-  async function queryFetch(options){
+async function queryFetch(options){
 
   fetch(fetchi+ "/databank",options)
   .then(res => {return res.json()}).catch(console.log)
 
-  }
-
-
+}
 
 
 // 4 Collection Functions
@@ -58,7 +54,6 @@ async function doesCollectionExist(collection){
     return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res=>{return res[0].length});
 }
 
-
 //return 0x123123
 async function getCretorFromCollection(collection){
 
@@ -67,9 +62,6 @@ async function getCretorFromCollection(collection){
 
     return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res=>{return res[0][0].creator});
 }
-
-
-
 
 
 //  NFT INFO Functions
@@ -81,7 +73,6 @@ async function createNFTInfo(tokenId,name,searchTearms,collection,metaDataURL){
 
     return await fetch(fetchi+ "/databank",options).then(res => {return res.json()});
 }
-
 
 
 //no items return [] else [{tokenid:},{tokenid:}...]
@@ -118,7 +109,6 @@ async function getAllSingles(){
 }
 
 
-
 async function getTokenIdFromSearch(find){
 
     const ele = {find:find};
@@ -150,7 +140,6 @@ async function searchCollections(find){
 }
 
 async function getTokenURIDB(tokenId){
-
 
     const ele = {tokenId:tokenId};
     const options = getOptions("getTokenURI",ele);
@@ -186,9 +175,7 @@ async function buyOffChainNFT_deleteCreator(tokenId){
 }
 
 
-
-
-// PREis______________________________
+// price______________________________
 
 async function setPreisOfNFT(tokenId,preis){
 
@@ -196,9 +183,7 @@ async function setPreisOfNFT(tokenId,preis){
     const options = getOptions("setPreisOfNFT",ele);
 
     return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
-
 }
-
 
 async function getPreisOfNFT(tokenId){
 
@@ -210,7 +195,6 @@ async function getPreisOfNFT(tokenId){
     }catch(err){
         return "-";
     }
-    
 }
 
 
@@ -223,8 +207,6 @@ export{getNFTInfoFromTokenId}
 export{createNFTInfo}
 export{getAllTokenIdFromCollection}
 export{getAllSingles}
-
-
 
 export{createCollection}
 export{getMyCollections}

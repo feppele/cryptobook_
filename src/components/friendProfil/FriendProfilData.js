@@ -9,20 +9,14 @@ import {onLoad} from '../../web3/LoadingFunctions'
 import {shortAddr} from '../../web3/LoadingFunctions'
 import MiniModal from '../miniModal/MiniModal'
 import MiniBackdrop from '../miniModal/MiniBackdrop'
-
 import followuser from '../../images/add-user.png';
 import Button3 from '../standart/Button3';
 import Button4 from '../standart/Button4';
-
 import black_herz from '../../images/backherz.png'
 import unfollowImg from '../../images/unfollow.png'
-
-
 import {getOptions} from '../../node/databank';
-
 import LikesList from '../standart2/LikesList';
 import Backdrop from '../standart2/Backdrop';
-
 import {getProfilePicURL} from '../../node/images'
 import {getCurrentUser} from '../../web3/HelperFunctions'
 
@@ -31,7 +25,6 @@ function ProfilData(props){
 
     const fetchi ="https://backendserverreact.azurewebsites.net"
 
-    
     const [modalOpen,setModalOpen] = useState(false);
     const[followList,setFollowList] = useState(false);
     const[followArrayList,setFollowArrayForList] = useState([]);
@@ -93,8 +86,6 @@ function ProfilData(props){
     useEffect(() => {getFollowCount()},[]);
 
 
-
-
     function getFollowList(){
         fetch(fetchi + "/databank",getOptions("getFollowList",{person: props.personData.friend_addr.toLowerCase()}))
         .then(res => {return res.json()}).then(res=>{
@@ -115,7 +106,6 @@ function ProfilData(props){
     function closeFollowList(){
         setFollowList(false);
     }
-
 
 
     // load ProfilPic
@@ -168,7 +158,7 @@ function ProfilData(props){
                     <img src={black_herz} className={classes.herz}></img>
                     <div onClick={openFollowList} className={classes.text}> {followCount + " follower"} </div>
             </div>
-            
+
         </div>
     );
 }
