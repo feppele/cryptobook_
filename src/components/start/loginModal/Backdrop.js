@@ -7,7 +7,7 @@ function Backdrop(props){
 
     return(
 
-        <div className={classes.backdrop} onMouseOver ={props.onBackDropClicked} onClick={props.onBackDropClicked}>
+        <div className={classes.backdrop} onClick={props.onBackDropClicked}>
 
         </div>
 

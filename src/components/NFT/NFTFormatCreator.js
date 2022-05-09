@@ -1,4 +1,4 @@
-import NFTFormatEasy from './NFTFormatEasy';
+import NFTFormatEasyOnePage from './NFTFormatEasyOnePage';
 
 
 function NFTFormatCreator(props){
@@ -8,7 +8,7 @@ function NFTFormatCreator(props){
     // es muss nurnoch die TokenId übergeben werden, da NFTFormatEasy selber alle daten lädt
     return  props.metadataArray.map(
 
-        element =>  <NFTFormatEasy key={key++} imageURL={element[0]} imageName={element[1]} tokenId={element[2]}/> 
+        element =>  <NFTFormatEasyOnePage key={key++} imageURL={element[0]} imageName={element[1]} tokenId={element[2]}/> 
 
     )
 

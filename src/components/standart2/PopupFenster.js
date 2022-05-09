@@ -1,5 +1,4 @@
 import classes from './LikesList.module.css';
-import Button6 from '../standart/Button6';
 import closePic from '../../images/close.png';
 
 function LikesList(props){
@@ -14,7 +13,7 @@ function LikesList(props){
 
 
             <div className={classes.top}>
-                Favorited by
+                {props.text}
             </div>
 
             <div className={classes.list}>

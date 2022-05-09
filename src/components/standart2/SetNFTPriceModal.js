@@ -15,7 +15,9 @@ function SetNFTPriceModal(props){
         const price = e.target.value;
 
         setPreisOfNFT(props.tokenId,price)
-        window.location.reload()
+        //window.location.reload()
+        props.nftpriceChanged(price)
+        props.onCloseClick()
     }
 
     return (

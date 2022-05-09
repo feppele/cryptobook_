@@ -22,7 +22,8 @@ import {getProfilePicURL} from '../../node/images'
 
 function ProfilData(){
 
-    const fetchi ="https://backendserverreact.azurewebsites.net"
+    var fetchi ="https://backendserverreact.azurewebsites.net"
+   //fetchi ="http://localhost:3001"
 
     const [settingMode,setSettingMode] =useState(false);
     const [usernameDB,setUsernameDB] =useState("noch net da");
@@ -47,12 +48,15 @@ function ProfilData(){
 
         console.log(username)
 
+        // if username is change
         if(username !== ""){
 
             window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
                 console.log(currentUsers)
                 const res = query("add",{ address: currentUsers[0], username: username});
+                console.log(res)
             })
+            setUsernameDB(username)
         }
 
         setSettingMode(false);
@@ -60,10 +64,16 @@ function ProfilData(){
         setSaved(true);
 
         var image= document.getElementById("imageInput").files[0];
+        // if image is change
         if(image !== undefined){
+            //upload image to backend
             uploadImage();
-        }else{
-            window.location.reload()
+            // set image direct without loading from DB
+            var reader = new FileReader();
+            reader.readAsDataURL(image);
+            reader.onload = function(e) {
+                setProfilePicSource(e.target.result)
+            };
         }
 
     }
@@ -112,16 +122,16 @@ function ProfilData(){
             // delete old picture
             const params = { userAddress: userAddress};
             const options = { method: 'POST',headers:{'content-type': 'application/json'},body: JSON.stringify( params ) };
-            fetch(fetchi+  '/deleteProfilPic',options).then(res => { return res.json()}).then(res=>{
+            fetch(fetchi+  '/deleteProfilPic',options).then(res => { return res.json()}).then(res=>{console.log(res)
 
             }).then(()=>{
-                // upload new picture
+                 //upload new picture
 
                 console.log(formData)
                 fetch( fetchi+ '/uploadUserImage', {
                     method: 'POST',
                     body: formData
-                }).then(console.log).then(window.location.reload())
+                }).then(console.log)//.then(window.location.reload())
             })
         })
     }

@@ -33,6 +33,8 @@ function ProfilData(props){
     const [profilePicURL,setProfilePicURL] =useState(ProfilPic);
     const[update,setUpdate]= useState(false);
 
+    console.log(followArrayList)
+
     function openMiniModal(){
 
         setModalOpen(true);
@@ -46,7 +48,11 @@ function ProfilData(props){
         window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
             fetch( fetchi + "/databank",getOptions("follow",{person: props.personData.friend_addr.toLowerCase(),follower: currentUsers[0].toLowerCase()} )).catch(console.log);
         })
-        window.location.reload(false);
+
+        // instead of window.location.reload()
+        console.log("follow")
+        setUserFollowed(true)
+        setFollowCount(parseInt(followCount)+1);
     }
 
     function unfollowUser(){
@@ -54,7 +60,11 @@ function ProfilData(props){
         window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
             fetch(fetchi + "/databank",getOptions("unfollow",{person: props.personData.friend_addr.toLowerCase(),follower: currentUsers[0].toLowerCase()} )).catch(console.log);
         })
-        window.location.reload(false);
+
+        // instead of window.location.reload()
+        setUserFollowed(false)
+        setFollowCount(parseInt(followCount)-1);
+        //window.location.reload(false);
     }
 
     // DO I FOLLOW?

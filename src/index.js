@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { BrowserRouter,HashRouter } from 'react-router-dom';
 
-
+require('dotenv').config()
 ReactDOM.render(
     <HashRouter>
       <App />

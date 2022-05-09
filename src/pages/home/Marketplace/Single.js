@@ -2,6 +2,7 @@
 import classes from './Single.module.css';
 
 import NFTFormatEasy from '../../../components/NFT/NFTFormatEasy'
+import NFTFormatEasyOnePage from '../../../components/NFT/NFTFormatEasyOnePage'
 import NFTFormatEasyWrapper from '../../../components/NFT/NFTFormatEasyWrapper'
 import NFTFormatCreatorNew from '../../../components/NFT/NFTFormatCreatorNew'
 
@@ -61,7 +62,7 @@ function Single(props){
 
 
 
-    return (  searchResult.map(  element =>  <NFTFormatEasy  tokenId={element.tokenid}/> )    );
+    return (  searchResult.map(  element =>  <NFTFormatEasyOnePage  tokenId={element.tokenid}/> )    );
 
 
 }

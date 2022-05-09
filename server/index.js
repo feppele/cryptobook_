@@ -80,7 +80,10 @@ var upload = multer({storage: storage});
 
 // 'image' must be name of <input>' in react app
 app.use(upload.single('image'))
-app.post('/uploadUserImage', (req, res) => { });
+app.post('/uploadUserImage', (req, res) => {
+
+  res.json({message:"upload Use Image"})
+ });
 
 
 // delete old picture. Is used when upload new profile Pic, to delete the old one

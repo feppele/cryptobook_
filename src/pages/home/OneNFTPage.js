@@ -124,9 +124,6 @@ function OneNFTPage(){
 
 
 
-
-
-
     function shortURI(uri){
         if( uri === undefined){return }
         return uri.toString().slice(0,12) +"..."
@@ -245,6 +242,10 @@ function OneNFTPage(){
         setNFTPriceModal(false);
     }
 
+    function nftpriceChanged(preis){
+        setPreis(preis)
+    }
+
     return (
 
         <div className={classes.container}>
@@ -263,7 +264,7 @@ function OneNFTPage(){
             <div className={classes.right}>
 
 
-                { NFTPriceModel && <SetNFTPriceModal text={"Set NFT price"} onCloseClick={closeSetPrice} tokenId={tokenId} />  }
+                { NFTPriceModel && <SetNFTPriceModal nftpriceChanged={nftpriceChanged} text={"Set NFT price"} onCloseClick={closeSetPrice} tokenId={tokenId} />  }
                 { NFTPriceModel && <Backdrop onBackDropClicked={closeSetPrice} />    }
 
                 {sendOneNFTModal && <SendOneNFT imageName={metaData.name} tokenId={tokenId}  onCloseClick={closeSend}/>}

@@ -6,6 +6,8 @@ import {getAllTokenIdFromCollection,getCretorFromCollection} from '../../node/NF
 import {getNFTImageServerURL} from '../../node/images'
 import {getNameFromAddress} from '../../node/betterFunctions'
 import NFTFormatEasy from '../../components/NFT/NFTFormatEasy'
+
+import NFTFormatEasyOnePage from '../../components/NFT/NFTFormatEasyOnePage'
 import image from '../../images/23.jpeg'
 
 
@@ -79,7 +81,7 @@ function CollectionPage(){
 
             <div className={classes.grid}>
 
-                {allTokenIds.map( element =>  <NFTFormatEasy key={key++} tokenId={element.tokenid}/>  ) }
+                {allTokenIds.map( element =>  <NFTFormatEasyOnePage key={key++} tokenId={element.tokenid}/>  ) }
 
             </div>
 

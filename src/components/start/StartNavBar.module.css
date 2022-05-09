@@ -42,21 +42,16 @@
 }
 
 .loginButton{
-  cursor: pointer;
-  z-index: 20;
-  margin-right: 30px;
   background-color: rgb(6, 29, 42);
+  cursor: pointer;
+  margin-right: 30px;
   height: 80px;
   font-size: 20px;
   color: white;
   border-style:hidden;
 }
-.loginButton:active {
-  background-color: rgba(0, 0, 0, 0.685);
-  border-style: hidden;
-}
+
 .loginButton:hover{
-  background-color: rgba(0, 0, 0, 0.685);
   color: rgb(0,124,255);
 }
 

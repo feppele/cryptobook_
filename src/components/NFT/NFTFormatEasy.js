@@ -57,6 +57,7 @@ function NFTFormatEasy(props){
 
         }
 
+        
         setMetadata( await getAllMetadataFromURI(tokenURI,tokenId) );
         return await getAllMetadataFromURI(tokenURI,tokenId);
 

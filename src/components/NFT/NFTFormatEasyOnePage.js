@@ -29,7 +29,6 @@ import PropTypes from "prop-types";
 function NFTFormatEasyOnePage(props){
 
 
-
     const history =useHistory();
 
     const [NFTLikes,setNFTLikes]= useState(0);
