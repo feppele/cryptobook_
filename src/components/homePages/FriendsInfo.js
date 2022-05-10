@@ -1,23 +1,26 @@
 import classes from './FriendsInfo.module.css';
 import { useHistory } from "react-router-dom";
-
+import{useState,useEffect} from 'react';
 import BasicButton from '../standart/BasicButton';
 import BasicButton2 from '../standart/BasicButton2';
-
+import LoginFenster from '../start/loginModal/LoginFenster';
+import Backdrop from '../start/loginModal/Backdrop';
 
 function FriendsInfo(){
 
     const history = useHistory();
 
+    const [loginModal,setLoginModal] = useState(false);
     async function goToFriends(){
         if(!window.ethereum){
             window.open("https://metamask.io");
             return
         }else{
-            const accounts = await  window.ethereum.request({method: 'eth_requestAccounts'});
-            history.push('/friends')
+            setLoginModal(true)
         }
-        
+    }
+    function closeLogin(){
+        setLoginModal(false)
     }
 
     function openFriendsDocs(){
@@ -29,6 +32,9 @@ function FriendsInfo(){
     return (
 
         <div className={classes.container}>
+
+            {loginModal && <LoginFenster nextPage={"/createNFT"} text={"Connect Wallet"} onModalCancelClicked={closeLogin}/>}
+            {loginModal && <Backdrop onBackDropClicked={closeLogin}/>}
 
             <div className={classes.friends}> Never use public addresses again</div>
 

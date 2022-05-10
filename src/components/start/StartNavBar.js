@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 
 //Modals
-import PopupFenster from './loginModal/PopupFenster'
+import LoginFenster from './loginModal/LoginFenster'
 import Backdrop2 from './loginModal/Backdrop.js';
 //css
 import classes from './StartNavBar.module.css';
@@ -50,22 +50,13 @@ function NavBar(){
     }
 
 
-
-    async function loginMetamask(){
-
-        const accounts =  await window.ethereum.request({method: 'eth_requestAccounts'});
-        var user = accounts[0];
-
-        history.push("/home");
-    }
-
     return (
 
         <div className={classes.container}>
 
 
 
-            {  loginPageIsOpen && <PopupFenster text={"Connect Wallet"} onModalCancelClicked={closeLogin} onModalMetamaskClicked={loginMetamask}/>}
+            {  loginPageIsOpen && <LoginFenster nextPage={"/home"} text={"Connect Wallet"} onModalCancelClicked={closeLogin}/>}
             {  loginPageIsOpen && <Backdrop2 onBackDropClicked={closeLogin} />  }
 
             <button className={classes.logo} onClick={reload}>

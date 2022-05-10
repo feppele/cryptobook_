@@ -87,10 +87,10 @@
     gap:8px;
     align-items: center;
     cursor: pointer;
-    opacity: 50%;
+    opacity: 0.5;
 }
 .followWrapper:hover{
-    opacity: 100%;
+    opacity: 1;
 }
 .herz{
     height: 15px;

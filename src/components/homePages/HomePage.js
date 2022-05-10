@@ -6,22 +6,29 @@ import NFTFormatEasyOnePage from '../NFT/NFTFormatEasyOnePage';
 import BasicButton from '../standart/BasicButton';
 import BasicButton2 from '../standart/BasicButton2';
 import Impressum from '../start/startPageComponents/Impressum'
-
+import LoginFenster from '../start/loginModal/LoginFenster';
+import Backdrop from '../start/loginModal/Backdrop';
 
 function HomePage(){
 
     const history = useHistory();
+
+    const [loginModal,setLoginModal] = useState(false);
 
     async function openCreatePage(){
         if(!window.ethereum){
             window.open("https://metamask.io");
             return
         }else{
-            const accounts = await  window.ethereum.request({method: 'eth_requestAccounts'});
-            history.push("/createNFT");
+            setLoginModal(true)
         }
-
     }
+
+    function closeLogin(){
+        setLoginModal(false)
+    }
+
+
     async function openExplore(){
         if(window.ethereum){const accounts = await  window.ethereum.request({method: 'eth_requestAccounts'});}
         history.push("/marketplace");
@@ -36,11 +43,13 @@ function HomePage(){
         <div className={classes.container}>
 
 
+            {loginModal && <LoginFenster nextPage={"/createNFT"} text={"Connect Wallet"} onModalCancelClicked={closeLogin}/>}
+            {loginModal && <Backdrop onBackDropClicked={closeLogin}/>}
 
             <div className={classes.top}>
 
                 <div className={classes.NFTwrapper}>
-                    <NFTFormatEasyOnePage  tokenId={"1080670587487461719420429993284072544"}/>
+                    <NFTFormatEasyOnePage  tokenId={"956886101373974921071286911279360404"}/>
                 </div>
 
 
