@@ -12,6 +12,7 @@ function getTokenIdFromMeta(meta){
     return sha
 }
 
+
 async function createNFTOnAndOff(metaData,imageFile,itemName,searchTearms,collection,offchain,preis){
 
     //IPFS upload
@@ -35,7 +36,7 @@ async function createNFTOnAndOff(metaData,imageFile,itemName,searchTearms,collec
     if(collection !== ""){
         await createCollection(collection);
     }
-    // upload to NFT Info
+    // upload to NFT Info db
     await createNFTInfo(tokenIdMeta,itemName,searchTearms,collection,metaDataURL);
 
     setPreisOfNFT(tokenIdMeta,preis)

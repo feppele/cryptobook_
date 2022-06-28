@@ -6,7 +6,7 @@ import {getOptions} from '../node/databank'
 
 const fetchi = "https://backendserverreact.azurewebsites.net"
 
-
+// return [{friend_name:String, friend_addr:String, blockchain:Boolean} ]
 async function getAllFriendsPromise(){
 
     const res = await Promise.all([

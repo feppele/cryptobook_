@@ -129,11 +129,6 @@
 
 
 
-.buttonWrapper{
-
-    display: flex;
-    gap:1px;
-}
 
 .buyButtonWrapper{
     position:absolute;

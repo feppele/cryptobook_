@@ -26,6 +26,19 @@ import {getTokenURIDB,getPreisOfNFT} from '../../node/NFTData'
 import {buyNFTOff,buyNFTOn} from '../../web3/BuyNFTContractHelper'
 import SetNFTPriceModal from '../../components/standart2/SetNFTPriceModal'
 
+import etherSign from '../../images/ethereum.png'
+
+// material UI
+import Alert from '@mui/material/Alert';
+import Collapse from '@mui/material/Collapse';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AlarmIcon from '@mui/icons-material/Alarm';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 function OneNFTPage(){
 
@@ -60,6 +73,8 @@ function OneNFTPage(){
     const [sendOneNFTModal,setSendOneNFTModal]=useState(false);
     const [amIOwner,setAmIOwner]=useState(false);
     const [NFTPriceModel,setNFTPriceModal] =useState(false);
+
+    const [alertOpen, setAlertOpen] = useState(true);
 
     // async function load(){
     //     getTokenUri(tokenId).then((uri)=>{
@@ -277,12 +292,31 @@ function OneNFTPage(){
                 <div className={classes.box}>
 
                 <div className={classes.buyButtonWrapper}>
-                    <div className={classes.buttonWrapper}>
-                        <Button3 onButtonClicked={copyURL} img={shareImg} popupText={"share link"}/>
-                        {amIOwner && <Button3 img={profilePic} popupText={"profile pic"}/>  }
-                        { !isOffchain && amIOwner && <Button3 onButtonClicked={openSend} img={sendImg} popupText={"send NFT"}/> }
-                    </div>
-                    <Button7BUY preis={preis} onButtonClickded={buyButtonClicked} />
+
+                    <ButtonGroup orientation="vertical" variant="outlined" aria-label="outlined button group" >
+
+                        <Tooltip title="copy link" disableInteractive arrow placement="left">
+                            <Button onClick={copyURL}>< img src={shareImg} style={{height: '20px',width: 'auto'}}></img></Button>
+                        </Tooltip>
+
+                        {amIOwner &&
+                        <Tooltip title="profile pic" disableInteractive arrow placement="left">
+                            <Button onClick={""}><img src={profilePic} style={{height: '20px',width: 'auto'}}></img></Button>
+                        </Tooltip>
+                        }
+
+                        { !isOffchain && amIOwner &&
+                        <Tooltip title="send NFT" disableInteractive arrow placement="left">
+                            <Button onClick={openSend}><img src={sendImg} style={{height: '20px',width: 'auto'}}></img></Button>
+                        </Tooltip>
+                        }
+
+                        <Tooltip title={amIOwner ? "set Price" : "buy"} disableInteractive arrow placement="left">
+                            <Button color="secondary" onClick={buyButtonClicked} > {preis} <img src={etherSign} style={{height: '20px',width: 'auto'}}></img> </Button>
+                        </Tooltip>
+
+                    </ButtonGroup>
+
                 </div>
 
                     {/* name + collection */}
@@ -371,7 +405,7 @@ function OneNFTPage(){
                 </div>
 
 
-                { shareLink && <Infobanner text ={"Link copied !"}/> }
+                { shareLink && <Collapse in={alertOpen}> <Alert onClose={() => {setAlertOpen(false)}} severity="success" color="info" sx={{position:'absolute', right:'0',bottom:'10px'}}>Link copied!</Alert> </Collapse> }
 
 
             </div>

@@ -29,6 +29,7 @@ import PropTypes from "prop-types";
 function NFTFormatEasyOnePage(props){
 
 
+
     const history =useHistory();
 
     const [NFTLikes,setNFTLikes]= useState(0);
@@ -52,7 +53,6 @@ function NFTFormatEasyOnePage(props){
         }catch(err){
             setOffchain(true);
             tokenURI = await getTokenURIDB(tokenId);
-
 
         }
 
@@ -82,15 +82,11 @@ function NFTFormatEasyOnePage(props){
 
 
 
-
-
     function openThisNFTPage(){
-        
         history.push({
             pathname:"/thisNFT/"+props.tokenId,
         });
     }
-
 
     // like, dislike
     function likeNFTFunc(){
@@ -127,26 +123,7 @@ function NFTFormatEasyOnePage(props){
     },[props])
 
 
-    const loadingAnimation = keyframes`
-  0% {
-    background-color: #fff;
-  }
-  50% {
-    background-color: #ccc;
-  }
-  100% {
-    background-color: #fff;
-  }
-`;
 
-const Placeholder = styled.div`
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  animation: ${loadingAnimation} 1s infinite;
-`;
 
 
 const refPlaceholder = React.useRef();
@@ -157,7 +134,8 @@ const refPlaceholder = React.useRef();
         <div className={classes.container} >
 
             {/*NFT IMAGE */}
-           {imageLoad && <img   src={imageURL} className={classes.NFTimage} onClick={openThisNFTPage}></img>   }
+            {!imageLoad && <div className={classes.placeholder}>  </div>}
+           {imageLoad && <img src={imageURL} className={classes.NFTimage} onClick={openThisNFTPage}></img>   }
             {/*NFT IMAGE */}
             <div className={classes.bottom}>
 

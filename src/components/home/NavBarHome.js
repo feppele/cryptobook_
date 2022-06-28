@@ -12,11 +12,12 @@ import classes from './NavBarHome.module.css';
 import {web3} from '../../web3/Web3.js';
 
 import profilColor from '../../images/background.jpeg';
+import friend from '../../images/friend.png';
+
 
 //import {onLoad} from '../../web3/LoadingFunctions'
 
 import {getProfilePicURL} from '../../node/images'
-
 import {getCurrentUser} from '../../web3/HelperFunctions'
 
 import logo from '../../images/logo.png'
@@ -60,8 +61,6 @@ function NavBar(){
 
             history.push("/me");
         }
-
-
 
     }
 
@@ -108,8 +107,8 @@ function NavBar(){
 
     return (
 
-        <div className={classes.container}>
 
+        <div className={classes.container}>
 
             {  menu2IsOpen && <MenuModal openMarketplace={openMarketplace}/>}
             {  menu2IsOpen && <MenuBackdrop  onBackDropClicked={closeMenu} />  }

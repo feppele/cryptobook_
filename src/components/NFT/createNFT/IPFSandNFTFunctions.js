@@ -38,6 +38,7 @@ async function ipfsUpload(metaData,file){ //  MetaData json: {itemName, collecti
 
 
 
+
 async function createNFT(metaDataURL,id){
 
     const owner = await window.web3.currentProvider.selectedAddress;

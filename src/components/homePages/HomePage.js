@@ -1,6 +1,7 @@
 import classes from './HomePage.module.css';
 import { useHistory } from "react-router-dom";
-import{useState,useEffect} from 'react';
+
+import{useState,useEffect,useRef, useLayoutEffect} from 'react';
 import FriendsInfo from './FriendsInfo';
 import NFTFormatEasyOnePage from '../NFT/NFTFormatEasyOnePage';
 import BasicButton from '../standart/BasicButton';
@@ -9,7 +10,34 @@ import Impressum from '../start/startPageComponents/Impressum'
 import LoginFenster from '../start/loginModal/LoginFenster';
 import Backdrop from '../start/loginModal/Backdrop';
 
+//material ui
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+
 function HomePage(){
+
+
+    
+    // for ease In animation
+    const NFTtextRef = useRef(null)
+    
+    useLayoutEffect(()=>{
+        const y = NFTtextRef.current.getBoundingClientRect().top
+        if(y <= 350){
+            // element transition
+            NFTtextRef.current.className= classes.easebox
+    }
+        document.addEventListener("scroll",()=>{
+        const y = NFTtextRef.current.getBoundingClientRect().top
+        if(y <= 350){
+                // element transition
+                NFTtextRef.current.className= classes.easebox
+        }
+        })
+    })
+
+
 
     const history = useHistory();
 
@@ -48,12 +76,12 @@ function HomePage(){
 
             <div className={classes.top}>
 
-                <div className={classes.NFTwrapper}>
+                <div  className={classes.NFTwrapper}>
                     <NFTFormatEasyOnePage  tokenId={"956886101373974921071286911279360404"}/>
                 </div>
 
 
-                <div className={classes.box}>
+                <div ref={NFTtextRef} id="box" className={classes.box}>
 
                     <p className={classes.nftText}> Discover, create and sell your Art as NFTs</p>
 
@@ -62,10 +90,15 @@ function HomePage(){
 
                     <div className={classes.buttonWrapper}>
 
+                        <Button onClick={openExplore} variant="contained">Explore</Button>
+                        <Button onClick={openCreatePage} variant="outlined">Create</Button>
+                        <Button onClick={openMCBNFTDocs} variant="outlined">Learn more</Button>
+
+                        {/*
                         <BasicButton onButtonClicked={openExplore} text ="Explore"/>
                         <BasicButton2 onButtonClicked={openCreatePage} text ="Create"/>
                         <BasicButton2 onButtonClicked={openMCBNFTDocs} text ="Learn more"/>
-
+                        */}
                     </div>
 
 
@@ -79,7 +112,7 @@ function HomePage(){
             <div className={classes.bottom}>
 
 
-            <FriendsInfo />
+                <FriendsInfo />
 
 
             </div>

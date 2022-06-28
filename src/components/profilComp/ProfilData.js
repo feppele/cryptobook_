@@ -20,10 +20,45 @@ import {query,getOptions,queryFetch} from '../../node/databank';
 import {getProfilePicURL} from '../../node/images'
 
 
-function ProfilData(){
+var fetchi ="https://backendserverreact.azurewebsites.net"
+//fetchi ="http://localhost:3001"
 
-    var fetchi ="https://backendserverreact.azurewebsites.net"
-   //fetchi ="http://localhost:3001"
+function uploadImage () {
+
+    // this returns a File().
+    var image= document.getElementById("imageInput").files[0];
+    var type = image.type;
+    var imgType = type.substring(type.lastIndexOf("/")+1,1000);
+    console.log(imgType);
+
+    getCurrentUser().then(userAddress =>{
+        // cannot change name of file so copy file and create new one with other name
+        // set Name to address from person
+        var blob = image.slice(0, image.size);
+        var newFile = new File([blob], userAddress +"." + imgType);
+
+        // FromData is a list from keys and values. set key=image and value = File. 'image is important because same name is used in server'
+        var formData = new FormData();
+        formData.set('image',newFile);
+
+        // delete old picture
+        const params = { userAddress: userAddress};
+        const options = { method: 'POST',headers:{'content-type': 'application/json'},body: JSON.stringify( params ) };
+        fetch(fetchi+  '/deleteProfilPic',options).then(res => { return res.json()}).then(res=>{console.log(res)
+
+        }).then(()=>{
+             //upload new picture
+
+            console.log(formData)
+            fetch( fetchi+ '/uploadUserImage', {
+                method: 'POST',
+                body: formData
+            }).then(console.log)//.then(window.location.reload())
+        })
+    })
+}
+
+function ProfilData(){
 
     const [settingMode,setSettingMode] =useState(false);
     const [usernameDB,setUsernameDB] =useState("noch net da");
@@ -101,40 +136,7 @@ function ProfilData(){
     useEffect(() => {loadNameFromDB();},[])
 
     // IMAGE SETTINGS___________________________________________________
-    function uploadImage () {
 
-        // this returns a File().
-        var image= document.getElementById("imageInput").files[0];
-        var type = image.type;
-        var imgType = type.substring(type.lastIndexOf("/")+1,1000);
-        console.log(imgType);
-
-        getCurrentUser().then(userAddress =>{
-            // cannot change name of file so copy file and create new one with other name
-            // set Name to address from person
-            var blob = image.slice(0, image.size);
-            var newFile = new File([blob], userAddress +"." + imgType);
-
-            // FromData is a list from keys and values. set key=image and value = File. 'image is important because same name is used in server'
-            var formData = new FormData();
-            formData.set('image',newFile);
-
-            // delete old picture
-            const params = { userAddress: userAddress};
-            const options = { method: 'POST',headers:{'content-type': 'application/json'},body: JSON.stringify( params ) };
-            fetch(fetchi+  '/deleteProfilPic',options).then(res => { return res.json()}).then(res=>{console.log(res)
-
-            }).then(()=>{
-                 //upload new picture
-
-                console.log(formData)
-                fetch( fetchi+ '/uploadUserImage', {
-                    method: 'POST',
-                    body: formData
-                }).then(console.log)//.then(window.location.reload())
-            })
-        })
-    }
 
 
     // GET Profile Picture
@@ -232,3 +234,4 @@ function ProfilData(){
 }
 
 export default ProfilData;
+

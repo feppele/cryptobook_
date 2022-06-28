@@ -6,6 +6,11 @@ import BasicButton2 from '../standart/BasicButton2';
 import LoginFenster from '../start/loginModal/LoginFenster';
 import Backdrop from '../start/loginModal/Backdrop';
 
+//material ui
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+
 function FriendsInfo(){
 
     const history = useHistory();
@@ -41,8 +46,13 @@ function FriendsInfo(){
             <div className={classes.text}> instead - send crypto by using names. Your friends name and address is interconnected in Smart Contracts on the Blockchain, so no one can can change it maliciously</div>
 
             <div className={classes.buttonWrapper}>
+
+                <Button onClick={goToFriends } variant="contained"> add friends </Button>
+                <Button onClick={openFriendsDocs } variant="outlined"> learn more </Button>
+                {/*}
                 <BasicButton onButtonClicked={goToFriends} text ="add friends"/>
                 <BasicButton2 onButtonClicked={openFriendsDocs}  text ="learn more"/>
+                */}
             </div>
 
         </div>

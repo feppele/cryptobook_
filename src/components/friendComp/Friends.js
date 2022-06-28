@@ -1,6 +1,6 @@
 import classes from './Friends.module.css';
 import React, { Component } from 'react';
-import {useState,useEffect} from 'react';
+import {useState,useEffect,useRef} from 'react';
 import FriendElement from './FriendElement';
 import BasicButton from '../standart/BasicButton';
 import BasicButton2 from '../standart/BasicButton2';
@@ -16,10 +16,16 @@ import saveFriend from '../../images/saveFriend2.png';
 import searchPeople from '../../images/searchPeople.png';
 import {getOptions} from '../../node/databank';
 import Button3 from '../standart/Button3';
-import Button7Breit from '../standart/Button7Breit';
 import {getAllFriendsPromise} from  '../../web3/GetAllFriends';
 
+//material UI
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Tooltip from '@mui/material/Tooltip';
  function Friends(){
+
+    const searchIn= useRef()
 
     const [showSad, setShowSad] = useState(false);
     const [addFriendIsOpen, setAddFriendIsOpen ] = useState(false);
@@ -35,7 +41,7 @@ import {getAllFriendsPromise} from  '../../web3/GetAllFriends';
 
     // Load Friends Stuff
     useEffect(() => {
-        getAllFriendsPromise().then(res => {
+        getAllFriendsPromise().then(res => { // return [{friend_name:String, friend_addr:String, blockchain:Boolean} ]
             setSearchResult(res);
             setAllFriends(res);
             if(res.length <1 ){
@@ -57,7 +63,13 @@ import {getAllFriendsPromise} from  '../../web3/GetAllFriends';
         setSearchResult(results);
     }
 
-    function search(){
+
+
+    function search(e){
+        if(e.key !== "Enter"){
+            return
+        }
+
         const searchName = document.getElementById("searchInput").value;
         var results =[];
         for(var i=0;i<allFriends.length;i++){
@@ -88,13 +100,20 @@ import {getAllFriendsPromise} from  '../../web3/GetAllFriends';
                     {  addFriendIsOpen && <AddFriendBackdrop  onBackDropClicked={closeAddFriend} />  }
 
                     <div className={classes.buttonWrapper}>
-                        <Button3 onButtonClicked={openAddFriend} img={addImg} popupText={"new friend"}/>
-                        <Button3 onButtonClicked={filter} img={saveFriend} popupText={"filter"}/>
+
+                    <ButtonGroup variant="outlined" aria-label="outlined primary button group">
+                        <Tooltip title="Add" placement="top" disableInteractive arrow>
+                            <Button onClick={openAddFriend} ><img src={addImg} style={{height:'20px',width:'auto'}}></img></Button>
+                        </Tooltip>
+                        <Tooltip title="filter" placement="top" disableInteractive arrow>
+                            <Button onClick={filter} ><img src={saveFriend} style={{height:'20px',width:'auto'}}></img></Button>
+                        </Tooltip>
+                    </ButtonGroup>
+
                     </div>
 
                     <div className={classes.searchWrapper}>
-                        <input id="searchInput" type="text" placeholder="name or address" className={classes.searchInput}></input>
-                        <Button7Breit onButtonClicked={search} img={searchPeople} popupText={"search"}/>
+                        <input onKeyDown={search} id="searchInput" type="text" placeholder="search name or address" className={classes.searchInput}></input>
                     </div>
 
                 </div>

@@ -4,6 +4,13 @@
   "private": true,
   "homepage": "https://backendserverreact.azurewebsites.net",
   "dependencies": {
+    "@craco/craco": "^6.4.3",
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@headlessui/react": "^1.6.5",
+    "@heroicons/react": "^1.0.6",
+    "@mui/icons-material": "^5.8.4",
+    "@mui/material": "^5.8.4",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -26,7 +33,7 @@
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
     "sha3": "^2.1.4",
-    "styled-components": "^5.3.3",
+    "styled-components": "^5.3.5",
     "web-vitals": "^1.1.2",
     "web3": "^1.6.0"
   },
@@ -34,6 +41,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -52,5 +62,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.8.8",
+    "postcss": "^7.0.39",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
   }
 }

@@ -1,4 +1,4 @@
-Create table person (name varchar(255),address(255));
+Create table person (name varchar(255),address varchar(255));
 create table likes (tokenid varchar(255),address varchar(255));
 create table follow (person varchar(255),follower varchar(255));
 create table collection (collection varchar(255),creator varchar(255));
