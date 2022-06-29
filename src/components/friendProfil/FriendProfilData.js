@@ -3,22 +3,24 @@ import ProfilPic from '../../images/background.jpeg';
 import etherSign from '../../images/Crypto-Icons/eth-logo.svg';
 import friend_symbol from '../../images/friend_symbol.png';
 import {useState,useEffect} from 'react';
-import {web3} from '../../web3/Web3';
-import {getAddress} from '../../web3/LoadingFunctions'
-import {onLoad} from '../../web3/LoadingFunctions'
 import {shortAddr} from '../../web3/LoadingFunctions'
 import MiniModal from '../miniModal/MiniModal'
 import MiniBackdrop from '../miniModal/MiniBackdrop'
 import followuser from '../../images/add-user.png';
-import Button3 from '../standart/Button3';
-import Button4 from '../standart/Button4';
 import black_herz from '../../images/backherz.png'
 import unfollowImg from '../../images/unfollow.png'
 import {getOptions} from '../../node/databank';
 import LikesList from '../standart2/LikesList';
 import Backdrop from '../standart2/Backdrop';
 import {getProfilePicURL} from '../../node/images'
-import {getCurrentUser} from '../../web3/HelperFunctions'
+
+
+//material UI 
+import Alert from '@mui/material/Alert';
+import Collapse from '@mui/material/Collapse';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 function ProfilData(props){
 
@@ -141,8 +143,11 @@ function ProfilData(props){
             {modalOpen && <MiniBackdrop onBackDropMouse={closeMiniModal}/>}
 
             <div className={classes.buttonPositon}>
-                {!userFollowed &&<Button3 onButtonClicked={followUser} img={followuser} popupText={"follow"}/> }
-                {userFollowed && <Button3 onButtonClicked={unfollowUser} img={unfollowImg} popupText={"unfollow"}/> }
+
+                <Tooltip title={!userFollowed ?"follow":"unfollow"} disableInteractive arrow placement="top">
+                    <Button variant="outlined" onClick={!userFollowed ?followUser:unfollowUser }> <img src={!userFollowed ? followuser:unfollowImg} style={{height: '20px',width: 'auto'}}></img>   </Button>
+                </Tooltip>
+
             </div>
 
             <div className={classes.greyBox}>
@@ -154,7 +159,11 @@ function ProfilData(props){
 
             <div className={classes.nameWrapper}>
                  <p id="name" className={classes.name}>{props.personData.friend_name}</p>
-                {props.isFriend && <Button4 img={friend_symbol} popupText={"stored in your friend-contract"}/>}
+                {props.isFriend && 
+                    <Tooltip title={"in your friend-contract"} disableInteractive arrow placement="top">
+                        <Button> <img src={friend_symbol} style={{height: '32px',width: 'auto'}}></img>   </Button>
+                    </Tooltip>
+                }
             </div>
 
             <div className={classes.addressWrapper}>

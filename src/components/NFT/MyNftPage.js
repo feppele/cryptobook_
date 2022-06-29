@@ -1,16 +1,15 @@
 import classes from './MyNftPage.module.css';
-
 import NftCollection from './NftCollection';
 import React, { Component } from 'react';
 import {useState,useEffect} from 'react';
-import {loadFriends,shortAddr,onLoad} from '../../web3/LoadingFunctions';
 import {useHistory} from 'react-router-dom';
-import {NFTContract,NFTContractAddress} from '../../web3/NFTContract';
-import {getAllTokensMetadataArray} from '../../web3/NFTContractHelper';
-import Button7Breit from '../standart/Button7Breit';
 import explorePic from '../../images/adventurer.png';
 import createPic from '../../images/paint.png'
 
+//material UI 
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 function MyNftPage(){
 
@@ -50,8 +49,14 @@ function MyNftPage(){
 
                     <div className={classes.buttonWrapper}>
 
-                        <Button7Breit onButtonClicked={openExplore} img={explorePic} popupText={"explore"}/>
-                        <Button7Breit onButtonClicked={openCreatePage} img={createPic} popupText={"create"}/>
+                    <ButtonGroup variant="outlined" >
+                        <Tooltip title="explore" disableInteractive arrow placement="top">
+                            <Button onClick={openExplore}>    < img src={explorePic} style={{height: '33px',width: 'auto'}}></img>   </Button>
+                        </Tooltip>
+                        <Tooltip title="create" disableInteractive arrow placement="top">
+                            <Button onClick={openCreatePage}>    < img src={createPic} style={{height: '27px',width: 'auto'}}></img>   </Button>
+                        </Tooltip>
+                    </ButtonGroup>
 
                     </div>
 

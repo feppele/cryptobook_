@@ -1,5 +1,4 @@
 import classes from './InfoBox.module.css';
-import Button6 from '../standart/Button6';
 import closePic from '../../images/close.png';
 
 

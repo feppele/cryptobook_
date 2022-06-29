@@ -61,14 +61,12 @@ function followUser(useraddress){
   window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
       fetch(fetchi+ "/databank",getOptions("follow",{person: useraddress.toLowerCase(),follower: currentUsers[0].toLowerCase()} )).catch(console.log);
   })
-  window.location.reload(false);
 }
 
 function unfollowUser(useraddress){
   window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
       fetch(fetchi+ "/databank",getOptions("unfollow",{person: useraddress.toLowerCase(),follower: currentUsers[0].toLowerCase()} )).catch(console.log);
   })
-  window.location.reload(false);
 }
 
 

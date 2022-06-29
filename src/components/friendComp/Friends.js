@@ -1,21 +1,12 @@
 import classes from './Friends.module.css';
 import React, { Component } from 'react';
 import {useState,useEffect,useRef} from 'react';
-import FriendElement from './FriendElement';
-import BasicButton from '../standart/BasicButton';
-import BasicButton2 from '../standart/BasicButton2';
 import FriendElementCreator from './FriendElementCreator';
-import {loadFriends,loadFriendsEasy,shortAddr,onLoad} from '../../web3/LoadingFunctions';
 //modals
 import AddPopupFenster from './addFriendModal/AddPopupFenster';
-import AddFriendModal from './addFriendModal/AddFriendModal';
-import AddFriendBackdrop from './addFriendModal/AddFriendBackdrop';
 import NoFriendsSign from './NoFriendsSign';
 import addImg from '../../images/add-user.png'
 import saveFriend from '../../images/saveFriend2.png';
-import searchPeople from '../../images/searchPeople.png';
-import {getOptions} from '../../node/databank';
-import Button3 from '../standart/Button3';
 import {getAllFriendsPromise} from  '../../web3/GetAllFriends';
 
 //material UI
@@ -97,11 +88,9 @@ import Tooltip from '@mui/material/Tooltip';
                 <div className={classes.box}>
 
                     {  addFriendIsOpen && <AddPopupFenster onCloseClicked={closeAddFriend}/>}
-                    {  addFriendIsOpen && <AddFriendBackdrop  onBackDropClicked={closeAddFriend} />  }
 
-                    <div className={classes.buttonWrapper}>
 
-                    <ButtonGroup variant="outlined" aria-label="outlined primary button group">
+                    <ButtonGroup sx={{marginRight:'1px'}}variant="outlined" aria-label="outlined primary button group">
                         <Tooltip title="Add" placement="top" disableInteractive arrow>
                             <Button onClick={openAddFriend} ><img src={addImg} style={{height:'20px',width:'auto'}}></img></Button>
                         </Tooltip>
@@ -110,11 +99,8 @@ import Tooltip from '@mui/material/Tooltip';
                         </Tooltip>
                     </ButtonGroup>
 
-                    </div>
+                    <input onKeyDown={search} id="searchInput" type="text" placeholder="  search name or address" className={classes.searchInput}></input>
 
-                    <div className={classes.searchWrapper}>
-                        <input onKeyDown={search} id="searchInput" type="text" placeholder="search name or address" className={classes.searchInput}></input>
-                    </div>
 
                 </div>
 

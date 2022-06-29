@@ -52,14 +52,7 @@ function shortAddr(address){
     return addrShort;
 }
 
-// getShortAddress
-async function getAddress2(){
-    if(!window.ethereum){return}
-    const accounts =  await window.ethereum.request({method: 'eth_accounts'});
-    var address = accounts[0];
-    var addrShort = shortAddr(address);
-    window.localStorage.setItem("myAddress",address);
-}
+
 
 
 // async function getAddress(){

@@ -5,7 +5,7 @@
     z-index: 200;
 
     height:50vh;
-    width: 50%;
+    width: 600px;
     border-radius:10px;
     background-color: white;
     box-shadow: 0 2px 500px rgba(0,0,0, 50);
@@ -24,12 +24,11 @@
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
     border-bottom: 2px solid rgb(224, 224, 224);
-    height: 33px;
     width:90%;
-    font-size:30px;
+    font-size:22px;
     text-align: center;
     text-justify: center;
-    padding:20px;
+    padding:16px;
     color:rgb(6, 29, 42);
 
 }
@@ -50,27 +49,19 @@
 
 .realModal{
     text-align: center;
-    margin-top: 40px;
+    margin-top: 20px;
     gap: 20px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    width: 90%;
+
 }
 
-
-.wrapper{
-    margin-left: 20px;
-    margin-right: 20px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
 
 .input{
-
     padding-left: 10px;
-    width: 360px;
+    width: 80%;
     height: 44px;
     font-size: 14px;
     border-radius: 10px;
@@ -92,32 +83,18 @@
 
 
 @media(max-width:1200px){
-    .input{
-        width: 250px;
-    }
+
 
 }
 
 @media(max-width:900px){
-    .input{
-        width: 180px;
-    }
-    .top{
-        font-size: 22px
-    }
+
     .container{
         width: 70%;
     }
 }
 
-@media(max-width:700px){
-    .input{
-        width: 150px;
-    }
-    .top{
-        font-size: 20px
-    }
-}
+
 
 
 

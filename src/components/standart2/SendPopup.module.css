@@ -1,15 +1,15 @@
 .container{
 
 
-    position:absolute;
+    position:fixed;
     z-index: 300;
 
     height:50vh;
-    width: 50%;
+    width: 400px;
     border-radius:10px;
     background-color: white;
-    box-shadow: 0 2px 500px rgba(0,0,0, 50);
-    top:150px;
+    box-shadow: 0 2px 5000px 5000px rgba(7, 7, 7, 0.3);
+    bottom:150px;
     left: 50%;
     transform: translate(-50%, 0);
 
@@ -24,9 +24,8 @@
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
     border-bottom: 2px solid rgb(224, 224, 224);
-    height: 33px;
     width:90%;
-    font-size:30px;
+    font-size:22px;
     text-align: center;
     text-justify: center;
     padding:20px;

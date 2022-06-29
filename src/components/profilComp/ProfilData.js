@@ -1,8 +1,4 @@
 import classes from './ProfilData.module.css';
-import SettingButton from './SettingButton';
-import Button3 from '../standart/Button3';
-import Button5 from '../standart/Button5';
-import Button4 from '../standart/Button4';
 import settingsPic from '../../images/settings2.png';
 import savePic from '../../images/save.png';
 import StandartProfilPic from '../../images/background.jpeg';
@@ -12,13 +8,18 @@ import {getAddress} from '../../web3/LoadingFunctions'
 //import {onLoad} from '../../web3/LoadingFunctions'
 import {shortAddr} from '../../web3/LoadingFunctions'
 import coverImage from '../../images/image.png';
-import Infobanner from '../standart/Infobanner';
 import {getCurrentUser} from '../../web3/HelperFunctions'
 import ImageSetting from './ImageSetting';
 import React, {useState,useEffect,useHistory} from 'react';
 import {query,getOptions,queryFetch} from '../../node/databank';
 import {getProfilePicURL} from '../../node/images'
 
+
+//material UI 
+import Alert from '@mui/material/Alert';
+import Collapse from '@mui/material/Collapse';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
 
 var fetchi ="https://backendserverreact.azurewebsites.net"
 //fetchi ="http://localhost:3001"
@@ -65,6 +66,8 @@ function ProfilData(){
     const [userNameIsLoad,setUserNameIsLoad] =useState(false);
     const [saved,setSaved] =useState(false);
     const [address,setAddress] =useState("");
+    // for Alert
+    const [alertOpen, setAlertOpen] = useState(true);
 
 
     useEffect(() => {
@@ -209,7 +212,11 @@ function ProfilData(){
             {/* SETTINGS MODE    NAME*/}
             { settingMode && <div className={classes.editNameWrapper}>
                                 <input id="userName"type="text" placeholder="your name" className={classes.textInput}></input>
-                                <Button5 onButtonClicked={onSaveClick} img={savePic} popupText="savew"/>
+                                
+                                <Tooltip title="save" disableInteractive arrow placement="top">
+                                    <Button variant="outlined" onClick={onSaveClick}>    < img src={savePic} style={{height: '20px',width: 'auto'}}></img>   </Button>
+                                </Tooltip>
+
                             </div>   }
 
             <div className={classes.addressWrapper}>
@@ -219,12 +226,15 @@ function ProfilData(){
             </div>
 
             <div className={classes.buttonPosition}>
-                <Button3 onButtonClickded={activateSetting} img={settingsPic} popupText="settings"/>
+                <Tooltip title="settings" disableInteractive arrow placement="top">
+                    <Button variant="outlined" onClick={activateSetting}>    < img src={settingsPic} style={{height: '20px',width: 'auto'}}></img>   </Button>
+                </Tooltip>
             </div>
 
 
 
-            {saved  && <Infobanner text ={"Saved !"} />  }
+            { saved && <Collapse in={alertOpen}> <Alert autoHideDuration={1000} onClose={() => {setAlertOpen(false)}} severity="success" color="info" sx={{position:'fixed', right:'0',bottom:'10px'}}>Saved sucessfully!</Alert> </Collapse> }
+
         </div>
 
 

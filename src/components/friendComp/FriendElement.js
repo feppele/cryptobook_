@@ -3,7 +3,6 @@ import etherSign from '../../images/Crypto-Icons/eth-logo.svg';
 import CryptoAddress from '../standart/CryptoAddress';
 import {web3} from '../../web3/Web3';
 import { useHistory } from "react-router-dom";
-import Button6scaleable from '../standart/Button6scaleable';
 import deleteImg from '../../images/delete.png';
 import sendImg from '../../images/send.png';
 import profilePic from '../../images/profilepic.png';
@@ -15,6 +14,13 @@ import Backdrop from '../standart2/Backdrop';
 import {unfollowUser} from '../../node/databank';
 import StandartProfilPic from '../../images/background.jpeg';
 import {getProfilePicURL} from '../../node/images'
+
+//material UI 
+import Alert from '@mui/material/Alert';
+import Collapse from '@mui/material/Collapse';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 function FriendElement(props){
 
@@ -76,17 +82,32 @@ function FriendElement(props){
                 {sendButton  && <Backdrop onBackDropClicked={closeSend}/>}
 
                 <div className={classes.nameWrapper}>
-                <img src={profilePicURL} className={classes.profilePicture}></img>
+                    <img src={profilePicURL} className={classes.profilePicture}></img>
                     <div id="friendName" className={classes.name}> {props.friendName} </div>
-                     { props.saveFriend &&  <div className={classes.buttonScaler}>    <Button6scaleable  img={saveFriend} popupText={"on chain"}/>             </div>     }
+                    {props.saveFriend &&  
+
+                        <Tooltip title="on chain" disableInteractive arrow placement="top">
+                            <Button>      < img src={saveFriend} style={{height: '20px',width: 'auto'}}></img>   </Button>
+                        </Tooltip>
+
+                    }
                 </div>
 
                 <div className={classes.wrapper}>
                     <div className={classes.cryptoWrapper}>  <CryptoAddress id="sendToAddr" cryptoSign={etherSign} addr={props.addr}/>   </div> 
 
-                    <div className={classes.buttonScaler}>  <Button6scaleable onButtonClicked={openFriendProfile} img={profilePic} popupText={"profile"}/>      </div>
-                    <div className={classes.buttonScaler}>  <Button6scaleable onButtonClicked={openSend} img={sendImg} popupText={"send"}/>                    </div>
-                    <div className={classes.buttonScaler}>  <Button6scaleable onButtonClicked={deleteFriend} img={deleteImg} popupText={"delete"}/>             </div>
+                    <ButtonGroup variant="text" >
+                        <Tooltip title="profile" disableInteractive arrow placement="top">
+                            <Button onClick={openFriendProfile}>    < img src={profilePic} style={{height: '20px',width: 'auto'}}></img>   </Button>
+                        </Tooltip>
+                        <Tooltip title="send" disableInteractive arrow placement="top">
+                            <Button onClick={openSend}>    < img src={sendImg} style={{height: '20px',width: 'auto'}}></img>   </Button>
+                        </Tooltip>
+                        <Tooltip title="delete" disableInteractive arrow placement="top">
+                            <Button  onClick={deleteFriend}>    < img src={deleteImg} style={{height: '20px',width: 'auto'}}></img>   </Button>
+                        </Tooltip>
+                    </ButtonGroup>
+
                 </div>
             </div>
 

@@ -1,5 +1,4 @@
 import classes from './ListElement.module.css';
-import Button6 from '../standart/Button6';
 import closePic from '../../images/close.png';
 import {shortAddr} from '../../web3/LoadingFunctions';
 import {useHistory} from 'react-router-dom';

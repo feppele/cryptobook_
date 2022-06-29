@@ -1,5 +1,4 @@
 import classes from './AddPopupFenster.module.css';
-import Button6 from '../../standart/Button6';
 import closePic from '../../../images/close.png';
 
 import React,{useState} from 'react';
@@ -7,12 +6,17 @@ import {web3} from '../../../web3/Web3'
 import {UserContract,userContractAddress} from '../../../web3/UserContract'
 import validImage from '../../../images/valid.png';
 import inValidImage from '../../../images/invalid.png';
-import Button7Breit from '../../standart/Button7Breit';
 import plusImg from '../../../images/plus.png';
+
+//material UI
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Tooltip from '@mui/material/Tooltip';
 
 function LikesList(props){
 
-    const [imgSource,setImgSource] = useState();
+    const [imgSource,setImgSource] = useState(inValidImage);
     function isValidAddress(){
         return web3.utils.isAddress(document.getElementById("addressInput").value);
     }
@@ -55,18 +59,22 @@ function LikesList(props){
 
             <div className={classes.realModal}>
 
-                <div className={classes.wrapper}>
+
                     <input id="inputName" type="text" placeholder="friend name" className={classes.input}></input>
 
-                    <Button7Breit onButtonClicked={addFriend} img={plusImg} popupText={"add"}/>
+
+                    <div style={{display: 'flex',flexDirection: 'row',width:'100%'}}>
+                        <input onChange={check} id="addressInput" type="text" placeholder="friend address" className={classes.input}></input>
+
+                        <Tooltip title={imgSource===validImage ? "valid address" : "unvalid address"} placement="top" disableInteractive arrow>
+                            <Button  onClick={addFriend} ><img src={imgSource} style={{height:'33px',width:'auto'}}></img></Button>
+                        </Tooltip>
+                    </div>
 
 
-                </div>
-                <div className={classes.wrapper}>
-                    <input onChange={check} id="addressInput" type="text" placeholder="friend address" className={classes.input}></input>
-                    <Button6 id="validImage" img={imgSource} popupText={"not valid"}/>
-
-                </div>
+                <Tooltip title="add" placement="top" disableInteractive arrow>
+                    <Button sx={{width:'100%'}}variant="outlined" onClick={addFriend} ><img src={plusImg} style={{height:'20px',width:'auto'}}></img></Button>
+                </Tooltip>
 
             </div>
 

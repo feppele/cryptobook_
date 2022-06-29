@@ -22,8 +22,6 @@ async function getAllFriendsPromise(){
 async function followFriends(){
     if(!window.ethereum){return}
 
-
-
     const ans = await window.ethereum.request({method: 'eth_accounts'}).then(accounts => {
 
 

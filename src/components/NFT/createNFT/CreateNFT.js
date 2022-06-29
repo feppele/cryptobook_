@@ -3,8 +3,7 @@ import React, {useState,useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import ImageUpload from './ImageUpload';
 import TextInput from '../../standart/TextInput';
-import BasicButton2Big from '../../standart/BasicButton2Big';
-import BasicButtonBig from '../../standart/BasicButtonBig';
+
 import FinishedNFT from '../finishedNFTModal/FinishedNFT';
 import FinishedNFTBackdrop from '../finishedNFTModal/FinishedNFTBackdrop';
 import{uploadNFTImageToServer} from '../../../node/images'
@@ -17,6 +16,13 @@ import {createCollection,getMyCollections,doesCollectionExist,getNFTInfoFromToke
 import {createNFTOnAndOff} from './OffChainCreate'
 import {getCurrentUser} from '../../../web3/HelperFunctions'
 import InfoBox from '../../standart2/InfoBox'
+
+//material UI 
+import Alert from '@mui/material/Alert';
+import Collapse from '@mui/material/Collapse';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 
 function CreateNFT(props){
@@ -194,9 +200,10 @@ function CreateNFT(props){
                 <input id="preis" type="text" placeholder="0.1 ether" className={classes.textInput}></input>
 
                 <div className={classes.createButton}>
-                    <BasicButtonBig onButtonClicked={onCreateButtonClicked} text ="Create offchain"/>
-                    <BasicButton2Big onButtonClicked={onCreateButtonClicked}  text ="Create onchain"/>
-
+                    <ButtonGroup variant="outlined" >
+                        <Button sx={{height:'60px'}}variant="contained" onClick={onCreateButtonClicked}> Create offchain     </Button>
+                        <Button onClick={onCreateButtonClicked}> Create onchain   </Button>
+                    </ButtonGroup>
                 </div>
                 <div className={classes.place}></div>
 

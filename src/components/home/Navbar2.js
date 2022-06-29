@@ -10,17 +10,32 @@ import profilColor from '../../images/background.jpeg';
 import {getProfilePicURL} from '../../node/images'
 import {getCurrentUser} from '../../web3/HelperFunctions'
 
-const navigation = [
-  { name: 'Friends', href: '#/friends', current: false },
-  { name: 'Wallet', href: '#/wallet', current: false },
-  { name: 'NFT-Marketplace', href: '#/marketplace', current: false },
-]
+import Wallet from '../wallet/Wallet'
+
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function NavBar2() {
+      
+  const [walletOpen,setWalletOpen] =useState(false)
+
+  function closeWallet(){
+    setWalletOpen(false)
+  }
+
+  function openWallet(){
+    setWalletOpen(true)
+  }
+
+      const navigation = [
+        { name: 'Friends', onclick: openFriends, current: false },
+        { name: 'Wallet', onclick: openWallet, current: false },
+        { name: 'My NFTs', onclick: openMyNftPage, current: false },
+        { name: 'NFT-Marketplace', onclick: openMarketplace, current: false },
+      ]
 
         //my Code
 
@@ -31,33 +46,38 @@ export default function NavBar2() {
 
 
         function openHome(){
-            history.push("/home");
+          closeWallet()
+          history.push("/home");
         }
         // for change Path
         function openProfil(){
             if(!window.ethereum){ history.push("/")}else{
-
                 history.push("/me");
+                closeWallet()
             }
         }
 
         function openFriends(){
             if(!window.ethereum){ history.push("/")}else{
-                history.push("/friends");
+                history.push("/friends")
+                closeWallet()
             }
         }
         function openMyNftPage(){
             if(!window.ethereum){ history.push("/")}else{
                 history.push("/mynft");
+                closeWallet()
             }
         }
 
         function openMarketplace(){
             history.push("/marketplace");
+            closeWallet()
         }
 
         function logOut(){
             history.push("/");
+            closeWallet()
         }
 
         //load ProfilePic
@@ -78,10 +98,13 @@ export default function NavBar2() {
 
 
 
-    <div style={{width: '100%', background: 'black',position: 'sticky',top:0,margin: '0px',zIndex:100}} >
+    <div style={{width: '100%', background: 'black',position: 'sticky',top:0,margin: '0px',zIndex:'2000'}} >
 
 
-    <Disclosure as="nav" className="bg-black-800" >
+    {walletOpen && <Wallet closeWalletFunc={closeWallet}/> }
+
+
+    <Disclosure as="nav" className="bg-black-800"  style={{zIndex:'3000'}}>
       {({ open }) => (
         <>
           <div className="max-w-10xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -114,12 +137,14 @@ export default function NavBar2() {
                     alt="Workflow"
                   />
                 </div>
-                <div className="hidden sm:block sm:ml-6">
+                <div style={{zIndex:'2000'}} className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
                       <a
+                        style={{cursor:'pointer'}}
                         key={item.name}
                         href={item.href}
+                        onClick={item.onclick}
                         className={classNames(
                           item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                           'px-3 py-2 rounded-md text-sm font-medium'
@@ -163,11 +188,11 @@ export default function NavBar2() {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items style={{zIndex:'2000'}}className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#/me"
+                          <a style={{cursor:'pointer'}}
+                            onClick={openProfil}
                             
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >

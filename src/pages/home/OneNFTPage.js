@@ -5,9 +5,6 @@ import {getAllMetadataFromURI,getTokenUri} from '../../web3/NFTContractHelper';
 import {getOwnerOfTokenId,sendNFT} from '../../web3/NFTContractHelper'
 import {shortAddr} from '../../web3/LoadingFunctions'
 import NFTFormatEasyOnePage from '../../components/NFT/NFTFormatEasyOnePage';
-import Button3 from '../../components/standart/Button3';
-import BasicButton from '../../components/standart/BasicButton';
-import Button7BUY from '../../components/standart/Button7BUY'
 //img
 import black_herz from '../../images/black_herz.png';
 import shareImg from '../../images/share.png';
@@ -33,11 +30,6 @@ import Alert from '@mui/material/Alert';
 import Collapse from '@mui/material/Collapse';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AlarmIcon from '@mui/icons-material/Alarm';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
 function OneNFTPage(){
@@ -74,6 +66,7 @@ function OneNFTPage(){
     const [amIOwner,setAmIOwner]=useState(false);
     const [NFTPriceModel,setNFTPriceModal] =useState(false);
 
+    // for Alert
     const [alertOpen, setAlertOpen] = useState(true);
 
     // async function load(){
@@ -405,7 +398,7 @@ function OneNFTPage(){
                 </div>
 
 
-                { shareLink && <Collapse in={alertOpen}> <Alert onClose={() => {setAlertOpen(false)}} severity="success" color="info" sx={{position:'absolute', right:'0',bottom:'10px'}}>Link copied!</Alert> </Collapse> }
+                { shareLink && <Collapse in={alertOpen}> <Alert autoHideDuration={1000} onClose={() => {setAlertOpen(false)}} severity="success" color="info" sx={{position:'fixed', right:'0',bottom:'10px'}}>Link copied!</Alert> </Collapse> }
 
 
             </div>

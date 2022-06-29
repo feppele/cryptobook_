@@ -1,8 +1,6 @@
 import classes from './FriendsInfo.module.css';
 import { useHistory } from "react-router-dom";
 import{useState,useEffect} from 'react';
-import BasicButton from '../standart/BasicButton';
-import BasicButton2 from '../standart/BasicButton2';
 import LoginFenster from '../start/loginModal/LoginFenster';
 import Backdrop from '../start/loginModal/Backdrop';
 

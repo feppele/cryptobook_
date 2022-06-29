@@ -4,8 +4,6 @@ import { useHistory } from "react-router-dom";
 import{useState,useEffect,useRef, useLayoutEffect} from 'react';
 import FriendsInfo from './FriendsInfo';
 import NFTFormatEasyOnePage from '../NFT/NFTFormatEasyOnePage';
-import BasicButton from '../standart/BasicButton';
-import BasicButton2 from '../standart/BasicButton2';
 import Impressum from '../start/startPageComponents/Impressum'
 import LoginFenster from '../start/loginModal/LoginFenster';
 import Backdrop from '../start/loginModal/Backdrop';

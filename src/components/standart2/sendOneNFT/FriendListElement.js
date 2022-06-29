@@ -1,6 +1,5 @@
 import classes from './FriendListElement.module.css';
 
-import Button6 from './../../standart/Button6';
 import {shortAddr} from '../../../web3/LoadingFunctions';
 import {useHistory} from 'react-router-dom';
 import {sendNFT} from '../../../web3/NFTContractHelper';

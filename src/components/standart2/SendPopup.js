@@ -1,5 +1,4 @@
 import classes from './SendPopup.module.css';
-import Button6 from '../standart/Button6';
 import closePic from '../../images/close.png';
 import sendImg from '../../images/send.png';
 import {useState} from 'react';
@@ -7,8 +6,15 @@ import equalImg from'../../images/equal.png';
 
 import {web3} from '../../web3/Web3';
 
-const ethPrice = require('eth-price');
+
  
+//material UI 
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+
+
+const ethPrice = require('eth-price');
+
 
 function SendPopup(props){
 
@@ -100,7 +106,6 @@ function SendPopup(props){
 
             <img onClick={props.onCloseClicked} src={closePic} className={classes.close}></img>
 
-
             <div className={classes.top}>
                 Send Ether to {props.friendName}
             </div>
@@ -115,8 +120,14 @@ function SendPopup(props){
                         <img src={equalImg} className={classes.equalimg}></img>
                         <input id="usdValue" onChange={calcFromUSD} type="text"  className={classes.textInput}></input>
 
+
+                        <Tooltip title="send" disableInteractive arrow placement="top">
+                            <Button variant="outlined" sx={{width:'100%'}} onClick={send}>  < img src={sendImg} style={{height: '33px',width: 'auto'}}></img>   </Button>
+                        </Tooltip>
                     </div>
-                    <div className={classes.button}>    <Button6 onButtonClicked={ send} popupText={"send"} img={sendImg}/>    </div>
+
+
+
             </div>
 
             </div>
