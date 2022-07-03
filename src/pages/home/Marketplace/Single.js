@@ -1,23 +1,15 @@
 
 import classes from './Single.module.css';
 
-import NFTFormatEasy from '../../../components/NFT/NFTFormatEasy'
 import NFTFormatEasyOnePage from '../../../components/NFT/NFTFormatEasyOnePage'
-import NFTFormatEasyWrapper from '../../../components/NFT/NFTFormatEasyWrapper'
-import NFTFormatCreatorNew from '../../../components/NFT/NFTFormatCreatorNew'
-
-import NFTCollectionFormat from '../../../components/NFT/NFTCollectionFormat';
 import {useState,useEffect} from 'react'
 import {highestTokenId,getTokenIdFromSearch,getAllSingles} from '../../../node/NFTData';
-
-
 
 // props.searchValue input.  "" show all
 function Single(props){
 
 
     const [searchResult,setSearchResult] = useState([])
-
 
     // Show All NFTs __ and mix the array random
     async function showAllNFTs(){
@@ -30,9 +22,7 @@ function Single(props){
 
         setSearchResult([]);
         setSearchResult(singles)
-
     }
-
 
     // search in nftInfo Database 
     async function searchSingle(searchValue){
@@ -45,7 +35,6 @@ function Single(props){
         // important, when net reset doesnt work
         setSearchResult([]);
         setSearchResult(results);
-
     }
 
 
@@ -57,8 +46,6 @@ function Single(props){
         }
 
     },[props])
-
-
 
 
 

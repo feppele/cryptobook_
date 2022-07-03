@@ -7,10 +7,11 @@ const cors = require('cors');
 app.use(cors({ origin: '*'}))
 var pgp = require("pg-promise")(/*options*/); //psql
 
-// Chose here if local or Azure Database
+
+// Choose here if local or Azure Database
 //var db = pgp("postgres://fritz:admin@localhost:5432/databank1"); // local database
-var db = pgp("postgres://fritz@psqlserver100:Admin123!@psqlserver100.postgres.database.azure.com:5432/databank1");
-//var db = pgp("postgres://fritz:Hallo123!@kleinerpsql.postgres.database.azure.com:5432/databank1");
+//var db = pgp("postgres://fritz@psqlserver100:Admin123!@psqlserver100.postgres.database.azure.com:5432/databank1");
+var db = pgp("postgres://fritz:Admin123!@kleinerpsql.postgres.database.azure.com:5432/databank1");
 
 
 // download images
@@ -105,8 +106,6 @@ app.post("/deleteProfilPic", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
-
-
 
 
 

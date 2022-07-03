@@ -1,8 +1,6 @@
 
 import classes from './Collections.module.css';
 
-import NFTFormatEasy from '../../../components/NFT/NFTFormatEasy'
-import NFTFormatCreatorNew from '../../../components/NFT/NFTFormatCreatorNew'
 
 import NFTCollectionFormat from '../../../components/NFT/NFTCollectionFormat';
 import {useState,useEffect} from 'react'

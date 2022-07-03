@@ -1,6 +1,7 @@
 import {getCurrentUser} from '../web3/HelperFunctions'
 
-const fetchi ="https://backendserverreact.azurewebsites.net"
+//const fetchi ="https://backendserverreact.azurewebsites.net"
+import {fetchi} from '../globalData'
 
 function getOptions(_methode,_ele){
 

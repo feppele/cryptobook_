@@ -3,8 +3,8 @@
 import {loadFriendsEasy} from './LoadingFunctions';
 import {getOptions} from '../node/databank'
 
-
-const fetchi = "https://backendserverreact.azurewebsites.net"
+import {fetchi} from '../globalData'
+//const fetchi = "https://backendserverreact.azurewebsites.net"
 
 // return [{friend_name:String, friend_addr:String, blockchain:Boolean} ]
 async function getAllFriendsPromise(){

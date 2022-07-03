@@ -34,18 +34,17 @@
     align-items: flex-start;
     justify-content:   center;
 
-    
 
 }
 
 
 @keyframes rightIn {
     from {right:-1000px;}
-    to {right: -100px;}
+    to {right: -10px;}
 }
 @keyframes leftIn {
     from {left:-1000px;}
-    to {left: -100px;}
+    to {left: -10px;}
 }
 
 .box{
@@ -59,7 +58,6 @@
     justify-content: center;
 
     visibility: hidden;
-
 }
 .easebox{
     height: 100%;
@@ -76,7 +74,7 @@
     animation-timing-function: ease-out;
 
     position: relative;
-    right: -60px;
+    right: -10px;
 }
 
 
@@ -137,9 +135,16 @@
     .top{
         flex-direction: column;
         align-items: center;
+        
     }
     .box{
         width: 70%;
+        visibility: inherit;
+    }
+    .easebox{
+        width: 90%;
+        animation-name: none;
+        right: 0px;
     }
     .NFTwrapper{
         
@@ -149,6 +154,11 @@
 @media(max-width: 600px) {
     .box{
         width: 90%;
+    }
+    .easebox{
+        width: 90%;
+        animation-name: none;
+        right: none;
     }
     .NFTwrapper{
         width:65%;

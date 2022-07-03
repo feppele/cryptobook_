@@ -1,7 +1,7 @@
 import classes from './NftCollection.module.css';
 import {useState,useEffect} from 'react';
 import {getAllTokensMetadataArray,getOwnerOfTokenId} from '../../web3/NFTContractHelper';
-import NFTFormatCreator from './NFTFormatCreator';
+import NFTFormatEasyOnePage from './NFTFormatEasyOnePage'
 import loadImage from '../../images/Loader.gif'
 import NoNFT from './NoNFTsSign';
 import {getOffchainMetaData} from '../../node/NFTData'
@@ -94,7 +94,7 @@ function NftCollection(props){
            {loading && <img src={loadImage} className={classes.loading}></img> }
            {!noNFTs && <NoNFT text ="no NFTs yet"/> }
 
-          <NFTFormatCreator metadataArray={metadataArray}/>
+           {metadataArray.map( element =>  <NFTFormatEasyOnePage imageURL={element[0]} imageName={element[1]} tokenId={element[2]}/>  )}
 
         </div>
 

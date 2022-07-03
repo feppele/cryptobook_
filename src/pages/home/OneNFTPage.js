@@ -32,9 +32,11 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
+import {fetchi} from '../../globalData'
+
 function OneNFTPage(){
 
-    const fetchi = "https://backendserverreact.azurewebsites.net"
+    //const fetchi = "https://backendserverreact.azurewebsites.net"
 
     const history = useHistory();
     const {tokenId} = useParams();

@@ -14,6 +14,7 @@ import React, {useState,useEffect,useHistory} from 'react';
 import {query,getOptions,queryFetch} from '../../node/databank';
 import {getProfilePicURL} from '../../node/images'
 
+import {fetchi} from '../../globalData'
 
 //material UI 
 import Alert from '@mui/material/Alert';
@@ -21,7 +22,7 @@ import Collapse from '@mui/material/Collapse';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 
-var fetchi ="https://backendserverreact.azurewebsites.net"
+//var fetchi ="https://backendserverreact.azurewebsites.net"
 //fetchi ="http://localhost:3001"
 
 function uploadImage () {

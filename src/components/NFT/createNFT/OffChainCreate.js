@@ -41,7 +41,7 @@ async function createNFTOnAndOff(metaData,imageFile,itemName,searchTearms,collec
 
     setPreisOfNFT(tokenIdMeta,preis)
 
-    if(offchain==="Create offchain"){
+    if(offchain==="offchainCreate"){
         console.log("create offchain")
     }else{
         console.log("onchain")

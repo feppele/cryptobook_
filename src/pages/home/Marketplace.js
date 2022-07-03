@@ -1,7 +1,4 @@
 import classes from './Marketplace.module.css';
-import NFTFormatEasy from '../../components/NFT/NFTFormatEasy'
-import NFTFormatCreatorNew from '../../components/NFT/NFTFormatCreatorNew'
-import NFTCollectionFormat from '../../components/NFT/NFTCollectionFormat';
 import {useState,useEffect} from 'react'
 import {highestTokenId,getTokenIdFromSearch} from '../../node/NFTData'
 import Single from './Marketplace/Single';

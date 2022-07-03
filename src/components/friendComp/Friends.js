@@ -89,7 +89,6 @@ import Tooltip from '@mui/material/Tooltip';
 
                     {  addFriendIsOpen && <AddPopupFenster onCloseClicked={closeAddFriend}/>}
 
-
                     <ButtonGroup sx={{marginRight:'1px'}}variant="outlined" aria-label="outlined primary button group">
                         <Tooltip title="Add" placement="top" disableInteractive arrow>
                             <Button onClick={openAddFriend} ><img src={addImg} style={{height:'20px',width:'auto'}}></img></Button>

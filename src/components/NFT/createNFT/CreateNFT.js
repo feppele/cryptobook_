@@ -3,6 +3,7 @@ import React, {useState,useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import ImageUpload from './ImageUpload';
 import TextInput from '../../standart/TextInput';
+import {useRef} from 'react'
 
 import FinishedNFT from '../finishedNFTModal/FinishedNFT';
 import FinishedNFTBackdrop from '../finishedNFTModal/FinishedNFTBackdrop';
@@ -98,7 +99,7 @@ function CreateNFT(props){
         document.getElementById("externalLink").value ="";
         document.getElementById("preis").value ="";
 
-        var response = await createNFTOnAndOff(metaData,imageFile,itemName,searchTearms,collection,e.target.innerHTML,preis) //e.target.innerHTML = button offchain or onchain
+        var response = await createNFTOnAndOff(metaData,imageFile,itemName,searchTearms,collection,e.target.id,preis) //e.target.id = button offchain or onchain
 
         //await setTxHash(response.txhash);
         await setTokenId(response);
@@ -201,8 +202,8 @@ function CreateNFT(props){
 
                 <div className={classes.createButton}>
                     <ButtonGroup variant="outlined" >
-                        <Button sx={{height:'60px'}}variant="contained" onClick={onCreateButtonClicked}> Create offchain     </Button>
-                        <Button onClick={onCreateButtonClicked}> Create onchain   </Button>
+                        <Button id="offchainCreate" sx={{height:'60px'}}variant="contained" onClick={onCreateButtonClicked}> Create offchain     </Button>
+                        <Button id="onchainCreate" onClick={onCreateButtonClicked}> Create onchain   </Button>
                     </ButtonGroup>
                 </div>
                 <div className={classes.place}></div>

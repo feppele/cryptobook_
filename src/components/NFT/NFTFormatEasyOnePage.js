@@ -23,6 +23,10 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import PropTypes from "prop-types";
 
+//material UI
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+
 // input just token ID as props: props.tokenId
 // loads Metadata(name, description..) from ipfs. 
 // loads image from server if not available from ipfs
@@ -147,15 +151,25 @@ const refPlaceholder = React.useRef();
 
             <div className={classes.bottom2}>
 
-                <div className={classes.ethereum}>
-                    {!offchain && <MiniButtonNoOpacity  img={ethereum} popupText={"Ethereum"}/>   }
-                    {offchain && <MiniButtonNoOpacity  img={offchainPic} popupText={"Off-Chain"}/> }
-                </div>
+
+
+
+                    <Tooltip title={!offchain ? "Ethereum":"Offchain"} placement="top" disableInteractive arrow>
+                            <IconButton size="small">
+                                   <img src={!offchain ? ethereum: offchainPic} style={{height:'15px', width:'auto'}}></img>
+                            </IconButton>
+                    </Tooltip>
+
+
+
 
                 <div className={classes.likesWrapper}>
 
-                { !iLike &&  <MiniButton onButtonClicked={likeNFTFunc} img={blackHerz} popupText={"like"}/>  }
-                { iLike  &&   <MiniButton onButtonClicked={dislikeNFTFunc} img={redHerz} popupText={"dislike"}/>  }
+                <Tooltip title={!iLike ? "like":"dislike"} placement="top" disableInteractive arrow>
+                        <IconButton onClick={!iLike ? likeNFTFunc : dislikeNFTFunc} size="small" sx={{opacity:'0.5', "&:hover":{opacity:'1'} }}>
+                               <img src={!iLike ? blackHerz: redHerz} style={{height:'15px', width:'auto'}}></img>
+                        </IconButton>
+                </Tooltip>
 
                     <div className={classes.numberlikes}> {NFTLikes} </div>
                 </div>

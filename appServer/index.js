@@ -1,3 +1,5 @@
+// This is the appServer. It just provides the Build React App with a Node/Express Server.
+
 const express = require("express");
 const path = require('path');
 const PORT = process.env.PORT || 3002;

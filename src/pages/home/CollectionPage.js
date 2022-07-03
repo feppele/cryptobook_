@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 import {getAllTokenIdFromCollection,getCretorFromCollection} from '../../node/NFTData'
 import {getNFTImageServerURL} from '../../node/images'
 import {getNameFromAddress} from '../../node/betterFunctions'
-import NFTFormatEasy from '../../components/NFT/NFTFormatEasy'
 
 import NFTFormatEasyOnePage from '../../components/NFT/NFTFormatEasyOnePage'
 import image from '../../images/23.jpeg'

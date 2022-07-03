@@ -1,6 +1,6 @@
 
-
-const fetchi ="https://backendserverreact.azurewebsites.net"
+import {fetchi} from '../globalData'
+//const fetchi ="https://backendserverreact.azurewebsites.net"
 
 
 function getOptions(_methode,_ele){

@@ -1,6 +1,7 @@
 import {getOptions} from './databank'
 
-const fetchi = "https://backendserverreact.azurewebsites.net"
+//const fetchi = "https://backendserverreact.azurewebsites.net"
+import {fetchi} from '../globalData'
 
 async function getNFTLikes(tokenId){
 

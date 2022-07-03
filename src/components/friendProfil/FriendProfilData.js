@@ -14,6 +14,7 @@ import LikesList from '../standart2/LikesList';
 import Backdrop from '../standart2/Backdrop';
 import {getProfilePicURL} from '../../node/images'
 
+import {fetchi} from '../../globalData'
 
 //material UI 
 import Alert from '@mui/material/Alert';
@@ -25,7 +26,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 function ProfilData(props){
 
 
-    const fetchi ="https://backendserverreact.azurewebsites.net"
+    //const fetchi ="https://backendserverreact.azurewebsites.net"
 
     const [modalOpen,setModalOpen] = useState(false);
     const[followList,setFollowList] = useState(false);

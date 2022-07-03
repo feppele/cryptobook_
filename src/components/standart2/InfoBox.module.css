@@ -1,56 +1,52 @@
-.container{
-    position: relative;
-    width: calc(100% - 40px);
-    border-radius:10px;
-    background-color: white;
-    box-shadow: 0 1px 5px rgba(0,0,0, 50);
+.container {
+  position: relative;
+  width: calc(100% - 40px);
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 50);
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-    padding: 20px;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  padding: 20px;
 }
 
-.top{
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-    border-bottom: 2px solid rgb(224, 224, 224);
-    width:90%;
-    font-size:22px;
-    text-align: center;
-    text-justify: center;
-    color:rgb(6, 29, 42);
+.top {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom: 2px solid rgb(224, 224, 224);
+  width: 90%;
+  font-size: 22px;
+  text-align: center;
+  text-justify: center;
+  color: rgb(6, 29, 42);
 }
 
-.box{
-    display: flex;
-    flex-direction: column;
+.box {
+  display: flex;
+  flex-direction: column;
 
-    height: 100%;
-    width: 100%;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-
+  height: 100%;
+  width: 100%;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
-.text{
-    margin: 5px;
-    margin-left: 20px;
-    margin-right: 20px;
-    
+.text {
+  margin: 5px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
-.close{
-    position:absolute;
-    top:27px;
-    right:27px;
-    height: 15px;
-    width: 15px;
-    opacity: 0.5;
-    cursor: pointer;
+.close {
+  position: absolute;
+  top: 27px;
+  right: 27px;
+  height: 15px;
+  width: 15px;
+  opacity: 0.5;
+  cursor: pointer;
 }
-.close:hover{
-    opacity: 1;
+.close:hover {
+  opacity: 1;
 }
-
