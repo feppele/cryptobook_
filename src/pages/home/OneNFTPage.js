@@ -5,6 +5,10 @@ import {getAllMetadataFromURI,getTokenUri} from '../../web3/NFTContractHelper';
 import {getOwnerOfTokenId,sendNFT} from '../../web3/NFTContractHelper'
 import {shortAddr} from '../../web3/LoadingFunctions'
 import NFTFormatEasyOnePage from '../../components/NFT/NFTFormatEasyOnePage';
+import {getOptions} from '../../node/databank';
+import {getTokenURIDB,getPreisOfNFT} from '../../node/NFTData'
+import {buyNFTOff,buyNFTOn} from '../../web3/BuyNFTContractHelper'
+
 //img
 import black_herz from '../../images/black_herz.png';
 import shareImg from '../../images/share.png';
@@ -13,22 +17,13 @@ import profilePic from '../../images/profilepic.png';
 import linkImg from '../../images/link.png';
 import detailImg from '../../images/info.png';
 import desImg from '../../images/description.png';
-
-import Infobanner from './../../components/standart/Infobanner';
-import LikesList from './../../components/standart2/LikesList';
-import Backdrop from './../../components/standart2/Backdrop';
-import {getOptions} from '../../node/databank';
-import SendOneNFT from '../../components/standart2/sendOneNFT/SendOneNFT';
-import {getTokenURIDB,getPreisOfNFT} from '../../node/NFTData'
-import {buyNFTOff,buyNFTOn} from '../../web3/BuyNFTContractHelper'
-import SetNFTPriceModal from '../../components/standart2/SetNFTPriceModal'
-
 import etherSign from '../../images/ethereum.png'
 
 //popup
 import PopupFenster from '../../components/PopupFenster/PopupFenster'
 import SendNFTIntegration from '../../components/PopupFenster/SendNFTIntegration'
-
+import LikesIntegration from '../../components/PopupFenster/LikesIntegration'
+import SetNFTPriceIntegration from '../../components/PopupFenster/SetNFTPriceIntegration'
 
 // material UI
 import Alert from '@mui/material/Alert';
@@ -40,8 +35,6 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import {fetchi} from '../../globalData'
 
 function OneNFTPage(){
-
-    //const fetchi = "https://backendserverreact.azurewebsites.net"
 
     const history = useHistory();
     const {tokenId} = useParams();
@@ -73,6 +66,8 @@ function OneNFTPage(){
     const [amIOwner,setAmIOwner]=useState(false);
     const [NFTPriceModel,setNFTPriceModal] =useState(false);
 
+
+    console.log(NFTLikesArrayForList)
     // for Alert
     const [alertOpen, setAlertOpen] = useState(true);
 
@@ -278,19 +273,14 @@ function OneNFTPage(){
             {/*right */}
             <div className={classes.right}>
 
+                {/* SetPrice Popup */}
+                { NFTPriceModel && <PopupFenster integration={<SetNFTPriceIntegration nftpriceChanged={nftpriceChanged} onCloseClick={closeSetPrice} tokenId={tokenId}/>} text={"Set NFT price"} onCloseClicked={closeSetPrice} />  }
 
-                { NFTPriceModel && <SetNFTPriceModal nftpriceChanged={nftpriceChanged} text={"Set NFT price"} onCloseClick={closeSetPrice} tokenId={tokenId} />  }
-                { NFTPriceModel && <Backdrop onBackDropClicked={closeSetPrice} />    }
+                {/* SendNFT Popup */}
+                {sendOneNFTModal && <PopupFenster integration={<SendNFTIntegration tokenId={tokenId}/>} onCloseClicked={closeSend} text={`Send NFT: ${metaData.name}`}/>}
 
-                {sendOneNFTModal && <SendOneNFT imageName={metaData.name} tokenId={tokenId}  onCloseClick={closeSend}/>}
-                {sendOneNFTModal && <Backdrop onBackDropClicked={closeSend}/>}
-
-                {sendOneNFTModal && <PopupFenster onCloseClicked={closeSend}/>}
-                
-
-                {likesList && <Backdrop onBackDropClicked={closeLikesList}/> }
-                {likesList && <LikesList text={"Favorited by"} onCloseClick={closeLikesList} likesList={NFTLikesArrayForList}/>  }
-
+                {/* Likes Popup */}
+                {likesList && <PopupFenster onCloseClicked={closeLikesList} integration={<LikesIntegration likesList={NFTLikesArrayForList}/>}  text={"Favorited by"} />  }
 
                 <div className={classes.box}>
 

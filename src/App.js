@@ -10,7 +10,7 @@ import NavBar from './components/start/StartNavBar';
 //Home
 import Home from './pages/home/Home';
 //import NavBarHome from './components/home/NavBarHome';
-import NavBarHome from './components/home/Navbar2';
+import NavBarHome from './components/home/Navbar3';
 import Profil from './pages/home/Profil';
 import FriendsPage from './pages/home/FriendsPage';
 import OneNFTPage from './pages/home/OneNFTPage';

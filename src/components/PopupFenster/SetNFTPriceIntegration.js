@@ -1,5 +1,4 @@
-import classes from './SetNFTPriceModal.module.css';
-import closePic from '../../images/close.png';
+import classes from './SetNFTPriceIntegration.module.css';
 
 import {setPreisOfNFT} from '../../node/NFTData'
 
@@ -21,27 +20,13 @@ function SetNFTPriceModal(props){
 
     return (
 
-        <div className={classes.container}>
-
-        <img onClick={props.onCloseClick} src={closePic} className={classes.close}></img>
-
-
-            <div className={classes.top}>
-                {props.text}
-
-            </div>
-
-            <div className={classes.list}>
+        <div className={classes.integration}>
 
             <input className={classes.textInput} placeholder="0.01 (ether)" onKeyDown={changePrice} ></input>
-
-            </div>
-
 
         </div>
 
     );
-
 
 }
 

@@ -9,14 +9,11 @@ import profilePic from '../../images/profilepic.png';
 import saveFriend from '../../images/saveFriend2.png';
 import { UserContract } from '../../web3/UserContract';
 import {useState,useEffect} from 'react'
-import SendPopup from '../standart2/SendPopup';
-import Backdrop from '../standart2/Backdrop';
 import {unfollowUser} from '../../node/databank';
 import StandartProfilPic from '../../images/background.jpeg';
 import {getProfilePicURL} from '../../node/images'
 
 //popup 
-
 import PopupFenster from '../PopupFenster/PopupFenster'
 import SendIntergation from '../PopupFenster/SendIntergation'
 
@@ -28,12 +25,18 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
+//ColorTheme
+import {theme} from '../../ColorTheme'
+
 function FriendElement(props){
 
     const history = useHistory();
 
     const [sendButton,setSendButton] = useState(false);
     const [profilePicURL,setProfilePicURL] = useState(StandartProfilPic);
+
+    //for Alert
+    const [alertOpen, setAlertOpen] = useState(true);
 
 
     function openFriendProfile(){
@@ -82,40 +85,46 @@ function FriendElement(props){
 
     return (
 
-            <div className={classes.element}>
+            <div style={{backgroundColor:theme.color2,border:theme.border}} className={classes.element}>
 
 
                 { sendButton  && <PopupFenster integration={<SendIntergation longAddr={props.longAddr} addr={props.addr} friendName={props.friendName}/>} text={`Send Ether to ${props.friendName}`} onCloseClicked={closeSend} />   }
 
-                { false  && <SendPopup onCloseClicked={closeSend} longAddr={props.longAddr} addr={props.addr} friendName={props.friendName}/>}
-                {false  && <Backdrop onBackDropClicked={closeSend}/>}
 
                 <div className={classes.nameWrapper}>
                     <img src={profilePicURL} className={classes.profilePicture}></img>
-                    <div id="friendName" className={classes.name}> {props.friendName} </div>
-                    {props.saveFriend &&  
+                    <div style={{color:theme.font}}id="friendName" className={classes.name}> {props.friendName}  </div>
+                    {props.saveFriend &&
 
                         <Tooltip title="on chain" disableInteractive arrow placement="top">
-                            <Button>      < img src={saveFriend} style={{height: '20px',width: 'auto'}}></img>   </Button>
+                            <Button> < img src={saveFriend} style={{height: '20px',width: 'auto'}}></img>   </Button>
                         </Tooltip>
 
                     }
                 </div>
 
                 <div className={classes.wrapper}>
-                    <div className={classes.cryptoWrapper}>  <CryptoAddress id="sendToAddr" cryptoSign={etherSign} addr={props.addr}/>   </div> 
+                    
+                    {/* Crypto Address */}
+                    <Tooltip title="Copy" placement="left" arrow>
+                        <Button sx={{marginRight:'10px'}} >{props.addr}</Button>
+                    </Tooltip>
 
                     <ButtonGroup variant="text" >
                         <Tooltip title="profile" disableInteractive arrow placement="top">
-                            <Button onClick={openFriendProfile}>    < img src={profilePic} style={{height: '20px',width: 'auto'}}></img>   </Button>
+                            <Button onClick={openFriendProfile}>    < img src={profilePic} style={{height: '20px',width: 'auto',filter:theme.png}}></img>   </Button>
                         </Tooltip>
                         <Tooltip title="send" disableInteractive arrow placement="top">
-                            <Button onClick={openSend}>    < img src={sendImg} style={{height: '20px',width: 'auto'}}></img>   </Button>
+                            <Button onClick={openSend}>    < img src={sendImg} style={{height: '20px',width: 'auto',filter:theme.png}}></img>   </Button>
                         </Tooltip>
                         <Tooltip title="delete" disableInteractive arrow placement="top">
-                            <Button  onClick={deleteFriend}>    < img src={deleteImg} style={{height: '20px',width: 'auto'}}></img>   </Button>
+                            <Button  onClick={deleteFriend}>    < img src={deleteImg} style={{height: '20px',width: 'auto',filter:theme.png}}></img>   </Button>
                         </Tooltip>
                     </ButtonGroup>
+
+
+                    { true && <Collapse in={alertOpen}> <Alert autoHideDuration={1000} onClose={() => {setAlertOpen(false)}} severity="success" color="info" sx={{position:'fixed', right:'0',bottom:'10px'}}>Link copied!</Alert> </Collapse> }
+
 
                 </div>
             </div>

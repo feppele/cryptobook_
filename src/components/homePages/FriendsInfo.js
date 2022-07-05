@@ -9,6 +9,10 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
+
+//ColorTheme
+import {theme} from '../../ColorTheme'
+
 function FriendsInfo(){
 
     const history = useHistory();
@@ -39,9 +43,9 @@ function FriendsInfo(){
             {loginModal && <LoginFenster nextPage={"/createNFT"} text={"Connect Wallet"} onModalCancelClicked={closeLogin}/>}
             {loginModal && <Backdrop onBackDropClicked={closeLogin}/>}
 
-            <div className={classes.friends}> Never use public addresses again</div>
+            <div style={{color: theme.font}} className={classes.friends}> Never use public addresses again</div>
 
-            <div className={classes.text}> instead - send crypto by using names. Your friends name and address is interconnected in Smart Contracts on the Blockchain, so no one can can change it maliciously</div>
+            <div style={{color: theme.font}} className={classes.text}> instead - send crypto by using names. Your friends name and address is interconnected in Smart Contracts on the Blockchain, so no one can can change it maliciously</div>
 
             <div className={classes.buttonWrapper}>
 

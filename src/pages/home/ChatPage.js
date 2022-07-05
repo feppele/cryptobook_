@@ -14,8 +14,6 @@ function ChatPage(){
 
         <div>
 
-            <PopupFenser text={"Hallo2"}/>
-
             Chats
 
         </div>

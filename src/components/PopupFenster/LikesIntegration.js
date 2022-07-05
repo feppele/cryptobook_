@@ -1,6 +1,5 @@
 import classes from './LikesIntegration.module.css';
 
-import closePic from '../../images/close.png';
 import ListElement from './ListElement';
 
 function LikesIntegration(props){

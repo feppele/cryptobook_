@@ -1,0 +1,25 @@
+
+.integration{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    height: 100%;
+    width: 100%;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+
+}
+
+
+
+.textInput{
+
+    padding-left: 10px;
+    width: 80%;
+    height: 40px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 2px solid rgb(209, 209, 209);
+}
+

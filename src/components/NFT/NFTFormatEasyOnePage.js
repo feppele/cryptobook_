@@ -27,6 +27,11 @@ import PropTypes from "prop-types";
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 
+
+//ColorTheme
+import {theme} from '../../ColorTheme'
+
+
 // input just token ID as props: props.tokenId
 // loads Metadata(name, description..) from ipfs. 
 // loads image from server if not available from ipfs
@@ -141,21 +146,23 @@ const refPlaceholder = React.useRef();
             {!imageLoad && <div className={classes.placeholder}>  </div>}
            {imageLoad && <img src={imageURL} className={classes.NFTimage} onClick={openThisNFTPage}></img>   }
             {/*NFT IMAGE */}
-            <div className={classes.bottom}>
 
-                <div className={classes.nameAndFrom}> {metaData.name}</div>
-                <div className={classes.nameAndNumber}>{metaData.collection }</div>
+
+            <div style={{backgroundColor: theme.color3}} className={classes.bottom}>
+
+                <div style={{color: theme.font}} className={classes.nameAndFrom}> {metaData.name}</div>
+                <div style={{color: theme.font}} className={classes.nameAndNumber}>{metaData.collection }</div>
 
 
             </div>
 
-            <div className={classes.bottom2}>
+            <div  style={{backgroundColor: theme.color2}} className={classes.bottom2}>
 
 
 
 
                     <Tooltip title={!offchain ? "Ethereum":"Offchain"} placement="top" disableInteractive arrow>
-                            <IconButton size="small">
+                            <IconButton sx={{filter: theme.png}}  size="small">
                                    <img src={!offchain ? ethereum: offchainPic} style={{height:'15px', width:'auto'}}></img>
                             </IconButton>
                     </Tooltip>
@@ -171,7 +178,7 @@ const refPlaceholder = React.useRef();
                         </IconButton>
                 </Tooltip>
 
-                    <div className={classes.numberlikes}> {NFTLikes} </div>
+                    <div style={{color: theme.font}} className={classes.numberlikes}> {NFTLikes} </div>
                 </div>
 
             </div>

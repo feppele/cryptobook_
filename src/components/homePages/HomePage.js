@@ -13,13 +13,15 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
+//ColorTheme
+import {theme} from '../../ColorTheme'
+
+
 function HomePage(){
 
-
-    
     // for ease In animation
     const NFTtextRef = useRef(null)
-    
+
     useLayoutEffect(()=>{
         const y = NFTtextRef.current.getBoundingClientRect().top
         if(y <= 350){
@@ -66,7 +68,7 @@ function HomePage(){
 
     return (
 
-        <div className={classes.container}>
+        <div style={{backgroundColor: theme.color1}} className={classes.container}>
 
 
             {loginModal && <LoginFenster nextPage={"/createNFT"} text={"Connect Wallet"} onModalCancelClicked={closeLogin}/>}
@@ -81,9 +83,9 @@ function HomePage(){
 
                 <div ref={NFTtextRef} id="box" className={classes.box}>
 
-                    <p className={classes.nftText}> Discover, create and sell your Art as NFTs</p>
+                    <p style={{color: theme.font}} className={classes.nftText}> Discover, create and sell your Art as NFTs</p>
 
-                    <p className={classes.text}> ... and thats not everything. show your collection in your profile or explore those of your friends. Sell, buy them or just send them as a present. <big>Create </big> your Art on or off chain, and just upgrade them to the Blockchain when someone is buying</p>
+                    <p style={{color: theme.font}} className={classes.text}> ... and thats not everything. show your collection in your profile or explore those of your friends. Sell, buy them or just send them as a present. <big>Create </big> your Art on or off chain, and just upgrade them to the Blockchain when someone is buying</p>
 
 
                     <div className={classes.buttonWrapper}>
@@ -107,7 +109,7 @@ function HomePage(){
             </div>
 
 
-            <div className={classes.bottom}>
+            <div style={{backgroundColor: theme.color2}} className={classes.bottom}>
 
 
                 <FriendsInfo />

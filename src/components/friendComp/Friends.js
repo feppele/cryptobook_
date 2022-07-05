@@ -18,6 +18,10 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Tooltip from '@mui/material/Tooltip';
+
+//ColorTheme
+import {theme} from '../../ColorTheme'
+
  function Friends(){
 
     const searchIn= useRef()
@@ -75,21 +79,21 @@ import Tooltip from '@mui/material/Tooltip';
         setSearchResult(results);
     }
 
-
+    console.log({backgroundColor:theme.color2})
 
     return (
-        <div className={classes.container}>
+        <div style={{backgroundColor:theme.color1}} className={classes.container}>
 
             <div className={classes.stripe}></div>
 
             {/* LEFT SIDE */}
-            <div className={classes.menu}>
+            <div style={{backgroundColor:theme.color1}} className={classes.menu}>
 
                 <div className={classes.haederWrapper}>
-                    <h className={classes.header}> friends </h>
+                    <h style={{color:theme.font}} className={classes.header}> friends </h>
                 </div>
 
-                <div className={classes.box}>
+                <div style={{backgroundColor:theme.color2,border:theme.border}} className={classes.box}>
 
                     {  addFriendIsOpen && <PopupFenster integration={<AddFriendIntegration/>} onCloseClicked={closeAddFriend} text={"Add Blockchain Friend"}/>}
 

@@ -1,15 +1,15 @@
 import classes from './FriendListElement.module.css';
 
-import {shortAddr} from '../../../web3/LoadingFunctions';
+import {shortAddr} from '../../web3/LoadingFunctions';
 import {useHistory} from 'react-router-dom';
-import {sendNFT} from '../../../web3/NFTContractHelper';
+import {sendNFT} from '../../web3/NFTContractHelper';
 import {useEffect,useState} from 'react'
 
 
-import {getProfilePicURL} from '../../../node/images'
+import {getProfilePicURL} from '../../node/images'
 
 
-import StandartProfilPic from '../../../images/background.jpeg';
+import StandartProfilPic from '../../images/background.jpeg';
 function FriendListElement(props){
 
 
