@@ -4,17 +4,18 @@ import etherSign from '../../images/Crypto-Icons/eth-logo.svg';
 import friend_symbol from '../../images/friend_symbol.png';
 import {useState,useEffect} from 'react';
 import {shortAddr} from '../../web3/LoadingFunctions'
-import MiniModal from '../miniModal/MiniModal'
-import MiniBackdrop from '../miniModal/MiniBackdrop'
 import followuser from '../../images/add-user.png';
 import black_herz from '../../images/backherz.png'
 import unfollowImg from '../../images/unfollow.png'
 import {getOptions} from '../../node/databank';
-import LikesList from '../standart2/LikesList';
-import Backdrop from '../standart2/Backdrop';
+
 import {getProfilePicURL} from '../../node/images'
 
 import {fetchi} from '../../globalData'
+
+//popup
+import PopupFenster from '../PopupFenster/PopupFenster'
+import LikesIntegration from '../PopupFenster/LikesIntegration'
 
 //material UI 
 import Alert from '@mui/material/Alert';
@@ -28,23 +29,14 @@ function ProfilData(props){
 
     //const fetchi ="https://backendserverreact.azurewebsites.net"
 
-    const [modalOpen,setModalOpen] = useState(false);
     const[followList,setFollowList] = useState(false);
     const[followArrayList,setFollowArrayForList] = useState([]);
     const[followCount,setFollowCount] = useState(0);
     const[userFollowed,setUserFollowed] = useState(false);
     const [profilePicURL,setProfilePicURL] =useState(ProfilPic);
-    const[update,setUpdate]= useState(false);
 
     console.log(followArrayList)
 
-    function openMiniModal(){
-
-        setModalOpen(true);
-    }
-    function closeMiniModal(){
-        setModalOpen(false);
-    }
 
     function followUser(){
         if(!window.ethereum){return}
@@ -136,12 +128,8 @@ function ProfilData(props){
 
         <div id="cont" className={classes.container}>
 
-                {followList && <Backdrop onBackDropClicked={closeFollowList}/>              }
-                {followList && <LikesList text={"Followed by"} onCloseClick={closeFollowList} likesList={followArrayList}/> }
+            {followList && <PopupFenster text={"Followed by"} onCloseClicked={closeFollowList} integration={<LikesIntegration likesList={followArrayList}/>} /> }
 
-
-            {modalOpen && <MiniModal />}
-            {modalOpen && <MiniBackdrop onBackDropMouse={closeMiniModal}/>}
 
             <div className={classes.buttonPositon}>
 

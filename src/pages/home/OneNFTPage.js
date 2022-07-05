@@ -25,6 +25,11 @@ import SetNFTPriceModal from '../../components/standart2/SetNFTPriceModal'
 
 import etherSign from '../../images/ethereum.png'
 
+//popup
+import PopupFenster from '../../components/PopupFenster/PopupFenster'
+import SendNFTIntegration from '../../components/PopupFenster/SendNFTIntegration'
+
+
 // material UI
 import Alert from '@mui/material/Alert';
 import Collapse from '@mui/material/Collapse';
@@ -279,6 +284,9 @@ function OneNFTPage(){
 
                 {sendOneNFTModal && <SendOneNFT imageName={metaData.name} tokenId={tokenId}  onCloseClick={closeSend}/>}
                 {sendOneNFTModal && <Backdrop onBackDropClicked={closeSend}/>}
+
+                {sendOneNFTModal && <PopupFenster onCloseClicked={closeSend}/>}
+                
 
                 {likesList && <Backdrop onBackDropClicked={closeLikesList}/> }
                 {likesList && <LikesList text={"Favorited by"} onCloseClick={closeLikesList} likesList={NFTLikesArrayForList}/>  }

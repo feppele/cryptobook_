@@ -3,11 +3,15 @@ import React, { Component } from 'react';
 import {useState,useEffect,useRef} from 'react';
 import FriendElementCreator from './FriendElementCreator';
 //modals
-import AddPopupFenster from './addFriendModal/AddPopupFenster';
 import NoFriendsSign from './NoFriendsSign';
 import addImg from '../../images/add-user.png'
 import saveFriend from '../../images/saveFriend2.png';
 import {getAllFriendsPromise} from  '../../web3/GetAllFriends';
+
+
+//popup
+import PopupFenster from '../PopupFenster/PopupFenster'
+import AddFriendIntegration from '../PopupFenster/AddFriendIntegration'
 
 //material UI
 import TextField from '@mui/material/TextField';
@@ -87,7 +91,7 @@ import Tooltip from '@mui/material/Tooltip';
 
                 <div className={classes.box}>
 
-                    {  addFriendIsOpen && <AddPopupFenster onCloseClicked={closeAddFriend}/>}
+                    {  addFriendIsOpen && <PopupFenster integration={<AddFriendIntegration/>} onCloseClicked={closeAddFriend} text={"Add Blockchain Friend"}/>}
 
                     <ButtonGroup sx={{marginRight:'1px'}}variant="outlined" aria-label="outlined primary button group">
                         <Tooltip title="Add" placement="top" disableInteractive arrow>

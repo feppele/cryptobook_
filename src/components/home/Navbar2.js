@@ -35,6 +35,7 @@ export default function NavBar2() {
         { name: 'Wallet', onclick: openWallet, current: false },
         { name: 'My NFTs', onclick: openMyNftPage, current: false },
         { name: 'NFT-Marketplace', onclick: openMarketplace, current: false },
+        { name: 'Crypto-Chats', onclick: openChats, current: false }
       ]
 
         //my Code
@@ -50,6 +51,13 @@ export default function NavBar2() {
           history.push("/home");
         }
         // for change Path
+        function openChats(){
+          if(!window.ethereum){ history.push("/")}else{
+              history.push("/chats");
+              closeWallet()
+          }
+      }
+
         function openProfil(){
             if(!window.ethereum){ history.push("/")}else{
                 history.push("/me");

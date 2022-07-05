@@ -15,6 +15,12 @@ import {unfollowUser} from '../../node/databank';
 import StandartProfilPic from '../../images/background.jpeg';
 import {getProfilePicURL} from '../../node/images'
 
+//popup 
+
+import PopupFenster from '../PopupFenster/PopupFenster'
+import SendIntergation from '../PopupFenster/SendIntergation'
+
+
 //material UI 
 import Alert from '@mui/material/Alert';
 import Collapse from '@mui/material/Collapse';
@@ -78,8 +84,11 @@ function FriendElement(props){
 
             <div className={classes.element}>
 
-                { sendButton  && <SendPopup onCloseClicked={closeSend} longAddr={props.longAddr} addr={props.addr} friendName={props.friendName}/>}
-                {sendButton  && <Backdrop onBackDropClicked={closeSend}/>}
+
+                { sendButton  && <PopupFenster integration={<SendIntergation longAddr={props.longAddr} addr={props.addr} friendName={props.friendName}/>} text={`Send Ether to ${props.friendName}`} onCloseClicked={closeSend} />   }
+
+                { false  && <SendPopup onCloseClicked={closeSend} longAddr={props.longAddr} addr={props.addr} friendName={props.friendName}/>}
+                {false  && <Backdrop onBackDropClicked={closeSend}/>}
 
                 <div className={classes.nameWrapper}>
                     <img src={profilePicURL} className={classes.profilePicture}></img>

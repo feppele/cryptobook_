@@ -21,6 +21,7 @@ import FinishedNFT from './components/NFT/finishedNFTModal/FinishedNFT';
 import CollectionPage from './pages/home/CollectionPage';
 import Marketplace from './pages/home/Marketplace'
 import NoMetaMaskPage from './pages/home/NoMetaMaskPage'
+import ChatPage from './pages/home/ChatPage'
 
 
 function App() {
@@ -89,6 +90,12 @@ function App() {
           <NavBarHome />
           <NoMetaMaskPage />
         </Route>
+
+        <Route path='/chats'>
+          <NavBarHome />
+          <ChatPage />
+        </Route>
+        
 
 
       </Switch>
