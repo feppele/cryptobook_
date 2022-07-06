@@ -361,6 +361,24 @@ async function getAnfrage(methode,ele){
     `;
   }
 
+
+  // MESSAGES_____________
+
+  if(methode === "getMessages"){
+    anfrage= `
+
+    select * from messages where von = '${ele.from}' AND zu ='${ele.to}' OR (zu = '${ele.from}' AND von ='${ele.to}');
+
+    `;
+  }
+
+  if(methode === "sendMessage"){
+    anfrage= `
+
+      insert into messages values ('${ele.message}','${ele.from}','${ele.to}','${ele.date}')
+    `;
+  }
+
   return anfrage; /// <-- return
 }
 

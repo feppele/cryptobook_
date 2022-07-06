@@ -41,10 +41,10 @@ import {NightContext} from '../../NightModeProvider'
             console.log(props)
         },[])
 
-        
+
 
     return(
-        <div style={{borderBottom:theme.border}} className={classes.container}>
+        <div onClick={()=>props.onClick(pic)} style={{borderBottom:theme.border}} className={classes.container}>
 
             <Avatar sx={{height:'33px',width:'33px',marginLeft:'10px',marginRight:'10px'}} src={pic} />
 
