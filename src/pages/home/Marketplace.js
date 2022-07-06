@@ -1,11 +1,27 @@
 import classes from './Marketplace.module.css';
-import {useState,useEffect} from 'react'
+import {useState,useEffect,useContext} from 'react'
 import {highestTokenId,getTokenIdFromSearch} from '../../node/NFTData'
 import Single from './Marketplace/Single';
 import Collections from './Marketplace/Collections';
 import { useHistory } from "react-router-dom";
 
+//ColorTheme - Night Mode
+import {themes} from '../../ColorTheme'
+import {NightContext} from '../../NightModeProvider'
+
+
 function Marketplace(){
+
+        // Night Mode
+        const nightMode = useContext(NightContext)
+        const [theme,setTheme] =useState(themes.bright)
+        useEffect(()=>{
+            if(nightMode){
+                setTheme(themes.dark)
+            }else{
+                setTheme(themes.bright)
+            }
+        },[nightMode])
 
     const history = new useHistory();
 
@@ -41,19 +57,19 @@ function Marketplace(){
     }
 
     return (
-        <div className={classes.container}>
+        <div style={{backgroundColor:theme.color1}} className={classes.container}>
 
-            <div className={classes.topBox}>
+            <div style={{backgroundColor:theme.color2}} className={classes.topBox}>
 
-                <div className={classes.header}>Marketplace</div>
+                <div style={{color:theme.font}} className={classes.header}>Marketplace</div>
 
                 <div className={classes.searchBox}>
 
-                    <div className={classes.button} name="button" onClick={changeButtonStyle} >Collections</div>
+                    <div style={{color:theme.font}} className={classes.button} name="button" onClick={changeButtonStyle} >Collections</div>
 
-                    <div className={classes.button} name="button" onClick={changeButtonStyle} >Single</div>
+                    <div style={{color:theme.font}} className={classes.button} name="button" onClick={changeButtonStyle} >Single</div>
 
-                    <input id="searchInput" className={classes.textInput} placeholder="search items" onKeyDown={search} ></input>
+                    <input style={{backgroundColor:theme.color2,color:theme.font}} id="searchInput" className={classes.textInput} placeholder="search items" onKeyDown={search} ></input>
 
                 </div>
 

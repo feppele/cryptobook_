@@ -23,11 +23,14 @@ import Marketplace from './pages/home/Marketplace'
 import NoMetaMaskPage from './pages/home/NoMetaMaskPage'
 import ChatPage from './pages/home/ChatPage'
 
+//Night Mode
+import {NightModeProvider} from './NightModeProvider'
 
 function App() {
 
   return(
     <div>
+      <NightModeProvider>
 
       <Switch>
         <Route path='/' exact>
@@ -100,6 +103,7 @@ function App() {
 
       </Switch>
 
+      </NightModeProvider>
     </div>
   );
 

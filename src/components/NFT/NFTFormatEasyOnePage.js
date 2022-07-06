@@ -19,7 +19,7 @@ import {getTokenURIDB} from '../../node/NFTData'
 import { useInViewport } from 'react-in-viewport';
 
 import LazyLoad from "react-lazyload";
-import React from "react";
+import React,{useContext} from "react";
 import styled, { keyframes } from "styled-components";
 import PropTypes from "prop-types";
 
@@ -28,8 +28,10 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 
 
-//ColorTheme
-import {theme} from '../../ColorTheme'
+//ColorTheme - Night Mode
+import {themes} from '../../ColorTheme'
+import {NightContext} from '../../NightModeProvider'
+
 
 
 // input just token ID as props: props.tokenId
@@ -37,7 +39,16 @@ import {theme} from '../../ColorTheme'
 // loads image from server if not available from ipfs
 function NFTFormatEasyOnePage(props){
 
-
+        // Night Mode
+        const nightMode = useContext(NightContext)
+        const [theme,setTheme] =useState(themes.bright)
+        useEffect(()=>{
+            if(nightMode){
+                setTheme(themes.dark)
+            }else{
+                setTheme(themes.bright)
+            }
+        },[nightMode])
 
     const history =useHistory();
 

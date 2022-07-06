@@ -1,23 +1,36 @@
 import classes from './HomePage.module.css';
 import { useHistory } from "react-router-dom";
 
-import{useState,useEffect,useRef, useLayoutEffect} from 'react';
+import{useState,useEffect,useRef, useLayoutEffect,useContext} from 'react';
 import FriendsInfo from './FriendsInfo';
 import NFTFormatEasyOnePage from '../NFT/NFTFormatEasyOnePage';
 import Impressum from '../start/startPageComponents/Impressum'
-import LoginFenster from '../start/loginModal/LoginFenster';
-import Backdrop from '../start/loginModal/Backdrop';
 
 //material ui
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
-//ColorTheme
-import {theme} from '../../ColorTheme'
+
+//ColorTheme - Night Mode
+import {themes} from '../../ColorTheme'
+import {NightContext} from '../../NightModeProvider'
 
 
 function HomePage(){
+
+    // Night Mode
+    const nightMode = useContext(NightContext)
+    const [theme,setTheme] =useState(themes.bright)
+    useEffect(()=>{
+        if(nightMode){
+            setTheme(themes.dark)
+        }else{
+            setTheme(themes.bright)
+        }
+    },[nightMode])
+
+
 
     // for ease In animation
     const NFTtextRef = useRef(null)
@@ -70,9 +83,6 @@ function HomePage(){
 
         <div style={{backgroundColor: theme.color1}} className={classes.container}>
 
-
-            {loginModal && <LoginFenster nextPage={"/createNFT"} text={"Connect Wallet"} onModalCancelClicked={closeLogin}/>}
-            {loginModal && <Backdrop onBackDropClicked={closeLogin}/>}
 
             <div className={classes.top}>
 

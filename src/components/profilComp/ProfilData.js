@@ -10,7 +10,7 @@ import {shortAddr} from '../../web3/LoadingFunctions'
 import coverImage from '../../images/image.png';
 import {getCurrentUser} from '../../web3/HelperFunctions'
 import ImageSetting from './ImageSetting';
-import React, {useState,useEffect,useHistory} from 'react';
+import React, {useState,useEffect,useHistory,useContext} from 'react';
 import {query,getOptions,queryFetch} from '../../node/databank';
 import {getProfilePicURL} from '../../node/images'
 
@@ -22,8 +22,10 @@ import Collapse from '@mui/material/Collapse';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 
-//var fetchi ="https://backendserverreact.azurewebsites.net"
-//fetchi ="http://localhost:3001"
+//ColorTheme - Night Mode
+import {themes} from '../../ColorTheme'
+import {NightContext} from '../../NightModeProvider'
+
 
 function uploadImage () {
 
@@ -61,6 +63,17 @@ function uploadImage () {
 }
 
 function ProfilData(){
+
+        // Night Mode
+        const nightMode = useContext(NightContext)
+        const [theme,setTheme] =useState(themes.bright)
+        useEffect(()=>{
+            if(nightMode){
+                setTheme(themes.dark)
+            }else{
+                setTheme(themes.bright)
+            }
+        },[nightMode])
 
     const [settingMode,setSettingMode] =useState(false);
     const [usernameDB,setUsernameDB] =useState("noch net da");
@@ -181,7 +194,7 @@ function ProfilData(){
 
     return (
 
-        <div id="cont" className={classes.container}>
+        <div style={{backgroundColor:theme.color1}} id="cont" className={classes.container}>
 
             <div className={classes.greyBox}>
 
@@ -208,27 +221,26 @@ function ProfilData(){
            }{/* SETTINGS MODE    PICTURE*/}
 
 
-            { !settingMode && userNameIsLoad && <p id="name" className={classes.name}> {usernameDB}</p>    }
+            { !settingMode && userNameIsLoad && <p style={{color:theme.font}} id="name" className={classes.name}> {usernameDB}</p>    }
 
             {/* SETTINGS MODE    NAME*/}
             { settingMode && <div className={classes.editNameWrapper}>
                                 <input id="userName"type="text" placeholder="your name" className={classes.textInput}></input>
-                                
+
                                 <Tooltip title="save" disableInteractive arrow placement="top">
                                     <Button variant="outlined" onClick={onSaveClick}>    < img src={savePic} style={{height: '20px',width: 'auto'}}></img>   </Button>
                                 </Tooltip>
 
                             </div>   }
 
-            <div className={classes.addressWrapper}>
-                <img id="cryptoSign" src={etherSign} className={classes.cryptoSign}></img>
-                <p className={classes.address} id="address">{shortAddr(address)}</p>
 
-            </div>
+                {/*Crypto Address */}
+                <Button sx={{gap:'10px',border:'1px solid black'}}> <img id="cryptoSign" src={etherSign} className={classes.cryptoSign}></img> {shortAddr(address)}</Button>
+
 
             <div className={classes.buttonPosition}>
                 <Tooltip title="settings" disableInteractive arrow placement="top">
-                    <Button variant="outlined" onClick={activateSetting}>    < img src={settingsPic} style={{height: '20px',width: 'auto'}}></img>   </Button>
+                    <Button variant="outlined" onClick={activateSetting}>    < img src={settingsPic} style={{height: '20px',width: 'auto',filter:theme.png}}></img>   </Button>
                 </Tooltip>
             </div>
 

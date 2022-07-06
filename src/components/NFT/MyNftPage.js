@@ -1,6 +1,6 @@
 import classes from './MyNftPage.module.css';
 import NftCollection from './NftCollection';
-import React, { Component } from 'react';
+import React, { Component,useContext } from 'react';
 import {useState,useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import explorePic from '../../images/adventurer.png';
@@ -11,7 +11,22 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
+//ColorTheme - Night Mode
+import {themes} from '../../ColorTheme'
+import {NightContext} from '../../NightModeProvider'
+
 function MyNftPage(){
+
+        // Night Mode
+        const nightMode = useContext(NightContext)
+        const [theme,setTheme] =useState(themes.bright)
+        useEffect(()=>{
+            if(nightMode){
+                setTheme(themes.dark)
+            }else{
+                setTheme(themes.bright)
+            }
+        },[nightMode])
 
     const [myAddress,setMyAddress] = useState("")
     const [address,setAddress] =useState(false)
@@ -40,21 +55,21 @@ function MyNftPage(){
     console.log(myAddress)
     return (
 
-        <div className={classes.container}>
+        <div style={{backgroundColor:theme.color1}} className={classes.container}>
 
 
                 <div className={classes.header}>
 
-                    <div className={classes.headerText}>my NFTs</div>
+                    <div style={{color:theme.font}} className={classes.headerText}>my NFTs</div>
 
                     <div className={classes.buttonWrapper}>
 
                     <ButtonGroup variant="outlined" >
                         <Tooltip title="explore" disableInteractive arrow placement="top">
-                            <Button onClick={openExplore}>    < img src={explorePic} style={{height: '33px',width: 'auto'}}></img>   </Button>
+                            <Button onClick={openExplore}>  < img src={explorePic} style={{height: '33px',width: 'auto',filter:theme.png}}></img>   </Button>
                         </Tooltip>
                         <Tooltip title="create" disableInteractive arrow placement="top">
-                            <Button onClick={openCreatePage}>    < img src={createPic} style={{height: '27px',width: 'auto'}}></img>   </Button>
+                            <Button onClick={openCreatePage}>    < img src={createPic} style={{height: '27px',width: 'auto',filter:theme.png}}></img>   </Button>
                         </Tooltip>
                     </ButtonGroup>
 

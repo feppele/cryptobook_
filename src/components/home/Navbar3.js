@@ -16,11 +16,21 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Badge from '@mui/material/Badge';
 
+
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
 //myCode
 import { useHistory } from "react-router-dom";
 import Wallet from '../wallet/Wallet'
+import {useState,useEffect,useContext} from 'react'
+import logo from '../../images/logo.png'
+import profilColor from '../../images/background.jpeg';
+import {getProfilePicURL} from '../../node/images'
+import {getCurrentUser} from '../../web3/HelperFunctions'
 
-const cryptoChat = <Badge badgeContent={4} color="error"> <MailIcon /> </Badge>
+//Night Mode
+import {ChangeNightFunction} from '../../NightModeProvider'
 
 const pages = ['Friends', 'Wallet', 'My-NFT','NFT-Marketplace','Crypto-Chat'];
 const settings = ['Profile', 'Logout'];
@@ -32,8 +42,27 @@ const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const [page,setPage] = React.useState("ne")
   const [walletOpen,setWalletOpen] =React.useState(false)
+  const [profilePic,setProfilePic] = useState(profilColor);
+
+  const [nightMode,setNightMode] = useState(false)
+  const setNightModeFunc = useContext(ChangeNightFunction)
+
+  function handleNightChange(e){
+    setNightMode(e.target.checked)
+    setNightModeFunc(e.target.checked)
+  }
+
+  //load ProfilePic
+  useEffect(() => {
+    getCurrentUser().then(address=>{
+      getProfilePicURL(address).then(url => {
+        if(url.length >0){
+          setProfilePic(url);
+        }
+      })
+    })
+  },[])
 
   function closeWallet(){
     setWalletOpen(false)
@@ -94,26 +123,21 @@ const ResponsiveAppBar = () => {
 
   return (
 
-  
   <div style={{width: '100%', position:'sticky',top:'0px',zIndex:'3000'}}> 
 
-    
 
     {walletOpen && <Wallet closeWalletFunc={closeWallet}/>}
-    
 
     <AppBar  sx={{backgroundColor:'rgb(6, 29, 42);',position:'relative',zIndex:'3002'}}>
 
 
-
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -124,7 +148,7 @@ const ResponsiveAppBar = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            <img src={logo} style={{height:'25px',width:'auto'}}></img>
           </Typography>
 
           {/** Breites Menu */}
@@ -181,14 +205,14 @@ const ResponsiveAppBar = () => {
 
 
           {/** Mittleres Logo */}
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
             component="a"
-            href=""
+            
             sx={{
               mr: 2,
+              ml: 4,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
               fontFamily: 'monospace',
@@ -198,21 +222,10 @@ const ResponsiveAppBar = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            <img src={logo} style={{height:'25px',width:'auto'}}></img>
           </Typography>
 
-          
-
-
-
-
-
-
-
-
           <Box sx={{ flexGrow: 0 }}>
-
-
 
           <IconButton sx={{marginRight:'10px'}} size="large" aria-label="show 4 new mails" color="inherit">
             <Badge badgeContent={4} color="error">
@@ -223,12 +236,8 @@ const ResponsiveAppBar = () => {
 
 
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              <Avatar alt="Remy Sharp" src={profilePic} sx={{border: '2px solid white',height: '50px',width: '50px'}}/>
             </IconButton>
-
-
-
-
 
 
             <Menu
@@ -253,6 +262,7 @@ const ResponsiveAppBar = () => {
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
+              <FormControlLabel sx={{marginLeft:'5px'}} labelPlacement="left" control={<Switch checked={nightMode} onChange={handleNightChange}/>} label="Night Mode" />
             </Menu>
           </Box>
         </Toolbar>

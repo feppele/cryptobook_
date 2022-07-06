@@ -1,0 +1,27 @@
+.container{
+
+
+    width: 100%;
+    height: 60px;
+    display:flex;
+    align-items: center;
+    cursor: pointer;
+    border-bottom: 1px solid black;
+}
+
+.container:hover{
+}
+.wrapper1{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    overflow: hidden;
+}
+
+.date{
+    font-size: 11px;
+    height: 100%;
+    width: 100%;
+    text-align: end;
+    padding: 6px;
+}

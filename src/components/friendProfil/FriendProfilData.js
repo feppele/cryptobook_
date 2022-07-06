@@ -2,7 +2,7 @@ import classes from './FriendProfilData.module.css';
 import ProfilPic from '../../images/background.jpeg';
 import etherSign from '../../images/Crypto-Icons/eth-logo.svg';
 import friend_symbol from '../../images/friend_symbol.png';
-import {useState,useEffect} from 'react';
+import {useState,useEffect,useContext} from 'react';
 import {shortAddr} from '../../web3/LoadingFunctions'
 import followuser from '../../images/add-user.png';
 import black_herz from '../../images/backherz.png'
@@ -24,11 +24,23 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
+//ColorTheme - Night Mode
+import {themes} from '../../ColorTheme'
+import {NightContext} from '../../NightModeProvider'
+
+
 function ProfilData(props){
 
-
-    //const fetchi ="https://backendserverreact.azurewebsites.net"
-
+    // Night Mode
+    const nightMode = useContext(NightContext)
+    const [theme,setTheme] =useState(themes.bright)
+    useEffect(()=>{
+        if(nightMode){
+            setTheme(themes.dark)
+        }else{
+            setTheme(themes.bright)
+        }
+    },[nightMode])
     const[followList,setFollowList] = useState(false);
     const[followArrayList,setFollowArrayForList] = useState([]);
     const[followCount,setFollowCount] = useState(0);
@@ -126,7 +138,7 @@ function ProfilData(props){
 
     return (
 
-        <div id="cont" className={classes.container}>
+        <div style={{backgroundColor:theme.color2}} id="cont" className={classes.container}>
 
             {followList && <PopupFenster text={"Followed by"} onCloseClicked={closeFollowList} integration={<LikesIntegration likesList={followArrayList}/>} /> }
 
@@ -134,7 +146,7 @@ function ProfilData(props){
             <div className={classes.buttonPositon}>
 
                 <Tooltip title={!userFollowed ?"follow":"unfollow"} disableInteractive arrow placement="top">
-                    <Button variant="outlined" onClick={!userFollowed ?followUser:unfollowUser }> <img src={!userFollowed ? followuser:unfollowImg} style={{height: '20px',width: 'auto'}}></img>   </Button>
+                    <Button variant="outlined" onClick={!userFollowed ?followUser:unfollowUser }> <img src={!userFollowed ? followuser:unfollowImg} style={{height: '20px',width: 'auto',filter:theme.png}}></img>   </Button>
                 </Tooltip>
 
             </div>
@@ -147,24 +159,23 @@ function ProfilData(props){
             <img src={profilePicURL} className={classes.profilePicture}></img>
 
             <div className={classes.nameWrapper}>
-                 <p id="name" className={classes.name}>{props.personData.friend_name}</p>
+                 <p style={{color:theme.font}} id="name" className={classes.name}>{props.personData.friend_name}</p>
                 {props.isFriend && 
                     <Tooltip title={"in your friend-contract"} disableInteractive arrow placement="top">
-                        <Button> <img src={friend_symbol} style={{height: '32px',width: 'auto'}}></img>   </Button>
+                        <Button> <img src={friend_symbol} style={{height: '32px',width: 'auto',filter:theme.png}}></img>   </Button>
                     </Tooltip>
                 }
             </div>
 
-            <div className={classes.addressWrapper}>
-                <img id="cryptoSign" src={etherSign} className={classes.cryptoSign}></img>
-                <p className={classes.address} id="address">{shortAddr(props.personData.friend_addr)}</p>
+                {/*Crypto Address */}
+                <Button sx={{gap:'10px',border:'1px solid black'}}> <img id="cryptoSign" src={etherSign} className={classes.cryptoSign}></img> {shortAddr(props.personData.friend_addr)}</Button>
 
-            </div>
+
 
 
             <div className={classes.followWrapper}>
                     <img src={black_herz} className={classes.herz}></img>
-                    <div onClick={openFollowList} className={classes.text}> {followCount + " follower"} </div>
+                    <div style={{color:theme.font}} onClick={openFollowList} className={classes.text}> {followCount + " follower"} </div>
             </div>
 
         </div>

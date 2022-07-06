@@ -3,7 +3,7 @@ import React, {useState,useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import ImageUpload from './ImageUpload';
 import TextInput from '../../standart/TextInput';
-import {useRef} from 'react'
+import {useRef,useContext} from 'react'
 
 import FinishedNFT from '../finishedNFTModal/FinishedNFT';
 import FinishedNFTBackdrop from '../finishedNFTModal/FinishedNFTBackdrop';
@@ -25,8 +25,23 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
+//ColorTheme - Night Mode
+import {themes} from '../../../ColorTheme'
+import {NightContext} from '../../../NightModeProvider'
+
 
 function CreateNFT(props){
+
+        // Night Mode
+        const nightMode = useContext(NightContext)
+        const [theme,setTheme] =useState(themes.bright)
+        useEffect(()=>{
+            if(nightMode){
+                setTheme(themes.dark)
+            }else{
+                setTheme(themes.bright)
+            }
+        },[nightMode])
 
     const history =useHistory();
 
@@ -148,7 +163,7 @@ function CreateNFT(props){
 
     return (
 
-        <div className={classes.container}>
+        <div style={{backgroundColor:theme.color1}} className={classes.container}>
 
             <div className={classes.container2}>
 
@@ -157,9 +172,9 @@ function CreateNFT(props){
             {creationFinish && <FinishedNFT tokenId={tokenId} txHash={txHash} />}
             {creationFinish && <FinishedNFTBackdrop onBackDropClicked={onBackDropClicked}/>}
 
-                <div className={classes.h1}>Create new Item</div>
-                <div className={classes.h2}>Upload your Image: </div>
-                <div className={classes.h3}> accepted: png, jpeg, jpg</div>
+                <div style={{color: theme.font}} className={classes.h1}>Create new Item</div>
+                <div style={{color: theme.font}} className={classes.h2}>Upload your Image: </div>
+                <div style={{color: theme.font}} className={classes.h3}> accepted: png, jpeg, jpg</div>
 
                 {/* Image Upload */}
                 <div id="imageWrap"className={classes.imageUploadWrapper}>
@@ -173,32 +188,32 @@ function CreateNFT(props){
 
 
 
-                <div className={classes.h2}> Name: </div>
-                <input id="itemName"type="text" placeholder="Item name" className={classes.textInput}></input>
+                <div style={{color: theme.font}} className={classes.h2}> Name: </div>
+                <input style={{backgroundColor: theme.color1}} id="itemName"type="text" placeholder="Item name" className={classes.textInput}></input>
 
-                <div className={classes.h2}> Search Tearms: </div>
-                <input id="searchTearms" type="text" placeholder="space, football, painting "  className={classes.textInput}></input>
-                <div className={classes.h3}> choose up to 5 words seperated with comma </div>
+                <div style={{color: theme.font}} className={classes.h2}> Search Tearms: </div>
+                <input style={{backgroundColor: theme.color1}} id="searchTearms" type="text" placeholder="space, football, painting "  className={classes.textInput}></input>
+                <div style={{color: theme.font}} className={classes.h3}> choose up to 5 words seperated with comma </div>
 
-                <div className={classes.h2}> Collection: </div>
-                <input id="collection" type="text" placeholder="Collection Name" list="data" onChange ={checkCollectionExist} className={classes.textInput}></input>
+                <div style={{color: theme.font}} className={classes.h2}> Collection: </div>
+                <input style={{backgroundColor: theme.color1}} id="collection" type="text" placeholder="Collection Name" list="data" onChange ={checkCollectionExist} className={classes.textInput}></input>
                 {notMyCollection && <div className={classes.fehlermeldung}> this collection name is already taken </div> }
-                <div className={classes.h3}> add to old collection or create new one </div>
+                <div style={{color: theme.font}} className={classes.h3}> add to old collection or create new one </div>
 
                 <datalist id="data"> {collectionList.map( item =>   <option  value={item.collection} /> )}  </datalist>
 
 
-                <div className={classes.h2}> Description: </div>
-                <textarea id="description" type="text" placeholder="Tell the world, what you want to say about this item. " className={classes.textInputBig}></textarea>
+                <div style={{color: theme.font}} className={classes.h2}> Description: </div>
+                <textarea style={{backgroundColor: theme.color1}} id="description" type="text" placeholder="Tell the world, what you want to say about this item. " className={classes.textInputBig}></textarea>
 
-                <div className={classes.h2}> External link: </div>
-                <input id="externalLink" type="text" placeholder="https://yoursite.io" className={classes.textInput}></input>
+                <div style={{color: theme.font}} className={classes.h2}> External link: </div>
+                <input style={{backgroundColor: theme.color1}} id="externalLink" type="text" placeholder="https://yoursite.io" className={classes.textInput}></input>
 
 
                 { dataMissing && <div className={classes.fehlermeldung}>fill all required forms</div>}
 
-                <div className={classes.h2}> Want to sell this NFT? Set a Price in Ether: </div>
-                <input id="preis" type="text" placeholder="0.1 ether" className={classes.textInput}></input>
+                <div style={{color: theme.font}} className={classes.h2}> Want to sell this NFT? Set a Price in Ether: </div>
+                <input style={{backgroundColor: theme.color1}} id="preis" type="text" placeholder="0.1 ether" className={classes.textInput}></input>
 
                 <div className={classes.createButton}>
                     <ButtonGroup variant="outlined" >

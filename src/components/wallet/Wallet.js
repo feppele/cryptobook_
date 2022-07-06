@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import {useEffect,useRef,useState} from 'react'
+import {useEffect,useRef,useState,useContext} from 'react'
 import classes from './Wallet.module.css'
 
 import {getProfilePicURL} from '../../node/images'
@@ -13,6 +13,11 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import { height } from '@mui/material/node_modules/@mui/system';
 
+//ColorTheme - Night Mode
+import {themes} from '../../ColorTheme'
+import {NightContext} from '../../NightModeProvider'
+
+
 const Web3 =require('web3');
 const web3 = new Web3(window.ethereum);
 
@@ -21,6 +26,17 @@ const ethPrice = require('eth-price');
 //props.walletOpen:Boolean
 //props.closeWalletFunc:Function
 export default function Wallet(props) {
+
+        // Night Mode
+        const nightMode = useContext(NightContext)
+        const [theme,setTheme] =useState(themes.bright)
+        useEffect(()=>{
+            if(nightMode){
+                setTheme(themes.dark)
+            }else{
+                setTheme(themes.bright)
+            }
+        },[nightMode])
 
     const [profilePicURL,setURL] = useState("")
     const [addr,setAddr] = useState({})//{long:String,short:String}
@@ -66,14 +82,14 @@ export default function Wallet(props) {
         </div>
 
         {/*wallet*/}
-        <div ref={wallet} className={classes.wallet}>
+        <div style={{backgroundColor:theme.color1}} ref={wallet} className={classes.wallet}>
 
             {/*header*/}
             <div className={classes.header}>
 
                 <div style={{display: 'flex'}}>
                     <Avatar src={profilePicURL}  sx={{ width: 33, height: 33,marginLeft:'10px',marginRight:'10px' }}  />
-                    <div style={{fontSize:'22px'}}>My Wallet</div>
+                    <div style={{fontSize:'22px',color:theme.font}} >My Wallet</div>
                 </div>
                 <Tooltip title="Copy" placement="right" >
                     <Button sx={{marginRight:'10px'}} >{addr.short}</Button>
@@ -82,25 +98,25 @@ export default function Wallet(props) {
             </div>
 
             {/*totalAmount*/}
-            <div className={classes.totalAmount}>
+            <div style={{backgroundColor:theme.color2,border:theme.border}} className={classes.totalAmount}>
 
-                <div style={{marginTop:'10px',opacity:'0.6'}}> Total Amount</div>
-                <div style={{fontSize:'24px',marginBottom:'10px'}}>{(ethPrice1* ethBalance).toFixed(2) + " USD"}</div>
+                <div style={{marginTop:'10px',opacity:'0.6',color:theme.font}}> Total Amount</div>
+                <div style={{fontSize:'24px',marginBottom:'10px',color:theme.font}}>{(ethPrice1* ethBalance).toFixed(2) + " USD"}</div>
 
-                <div style={{width:'100%',borderTop:'1px solid rgb(212, 212, 212)'}}>
+                <div style={{width:'100%',borderTop:'1px solid rgb(212, 212, 212)',borderTop:theme.border}}>
                     <Button sx={{width:'100%'}}><div style={{fontSize:'15px'}}>Add Funds</div></Button>
                 </div>
 
             </div>
             {/*asset*/}
-            <div className={classes.asset}>
+            <div style={{backgroundColor:theme.color2,border:theme.border}} className={classes.asset}>
 
-                <div style={{display: 'flex',margin:'10px',gap:'5px'}}>
+                <div style={{display: 'flex',margin:'10px',gap:'5px',color:theme.font}}>
                     <img src={etherSign} style={{height: '22px',width: 'auto'}}></img>
                     ETH
                 </div>
 
-                <div style={{margin:'10px',fontSize:'18px'}}>{ethBalance}</div>
+                <div style={{margin:'10px',fontSize:'18px',color:theme.font}}>{ethBalance}</div>
             </div>
 
         </div> {/*wallet*/}

@@ -1,6 +1,6 @@
 import classes from './OneNFTPage.module.css';
 import {useLocation,useHistory,useParams} from 'react-router-dom';
-import {useState,useEffect} from 'react';
+import {useState,useEffect,useContext} from 'react';
 import {getAllMetadataFromURI,getTokenUri} from '../../web3/NFTContractHelper';
 import {getOwnerOfTokenId,sendNFT} from '../../web3/NFTContractHelper'
 import {shortAddr} from '../../web3/LoadingFunctions'
@@ -34,7 +34,22 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 
 import {fetchi} from '../../globalData'
 
+//ColorTheme - Night Mode
+import {themes} from '../../ColorTheme'
+import {NightContext} from '../../NightModeProvider'
+
 function OneNFTPage(){
+
+        // Night Mode
+        const nightMode = useContext(NightContext)
+        const [theme,setTheme] =useState(themes.bright)
+        useEffect(()=>{
+            if(nightMode){
+                setTheme(themes.dark)
+            }else{
+                setTheme(themes.bright)
+            }
+        },[nightMode])
 
     const history = useHistory();
     const {tokenId} = useParams();
@@ -258,7 +273,7 @@ function OneNFTPage(){
 
     return (
 
-        <div className={classes.container}>
+        <div style={{backgroundColor:theme.color1}} className={classes.container}>
 
             {/*left */}
             <div className={classes.left}>
@@ -271,7 +286,7 @@ function OneNFTPage(){
 
 
             {/*right */}
-            <div className={classes.right}>
+            <div  style={{backgroundColor:theme.color1}} className={classes.right}>
 
                 {/* SetPrice Popup */}
                 { NFTPriceModel && <PopupFenster integration={<SetNFTPriceIntegration nftpriceChanged={nftpriceChanged} onCloseClick={closeSetPrice} tokenId={tokenId}/>} text={"Set NFT price"} onCloseClicked={closeSetPrice} />  }
@@ -289,18 +304,18 @@ function OneNFTPage(){
                     <ButtonGroup orientation="vertical" variant="outlined" aria-label="outlined button group" >
 
                         <Tooltip title="copy link" disableInteractive arrow placement="left">
-                            <Button onClick={copyURL}>< img src={shareImg} style={{height: '20px',width: 'auto'}}></img></Button>
+                            <Button onClick={copyURL}>< img src={shareImg} style={{height: '20px',width: 'auto',filter:theme.png}}></img></Button>
                         </Tooltip>
 
                         {amIOwner &&
                         <Tooltip title="profile pic" disableInteractive arrow placement="left">
-                            <Button onClick={""}><img src={profilePic} style={{height: '20px',width: 'auto'}}></img></Button>
+                            <Button onClick={""}><img src={profilePic} style={{height: '20px',width: 'auto',filter:theme.png}}></img></Button>
                         </Tooltip>
                         }
 
                         { !isOffchain && amIOwner &&
                         <Tooltip title="send NFT" disableInteractive arrow placement="left">
-                            <Button onClick={openSend}><img src={sendImg} style={{height: '20px',width: 'auto'}}></img></Button>
+                            <Button onClick={openSend}><img src={sendImg} style={{height: '20px',width: 'auto',filter:theme.png}}></img></Button>
                         </Tooltip>
                         }
 
@@ -313,23 +328,23 @@ function OneNFTPage(){
                 </div>
 
                     {/* name + collection */}
-                    <div className={classes.h2}>{metaData.name }</div>
+                    <div style={{color: theme.font}} className={classes.h2}>{metaData.name }</div>
                     <div onClick={openCollection} className={classes.h1}>{metaData.collection  }</div>
 
 
                     {/* liked */}
                         <div className={classes.likesWrapper}>
                         <img src={black_herz} className={classes.herz}></img>
-                        <div onClick={openLikesList} className={classes.text}> {NFTLikes + " favorites"} </div>
+                        <div style={{color: theme.font}} onClick={openLikesList} className={classes.text}> {NFTLikes + " favorites"} </div>
                     </div>
 
 
                 {/* Description Box*/}
-                <div className={classes.niceBoxes}>
+                <div style={{backgroundColor:theme.color2,border:theme.border}} className={classes.niceBoxes}>
 
-                    <div className={classes.topBox}>
-                        <img src={desImg} className={classes.descriptImg}></img>
-                        <div className={classes.h3}>Description:</div>
+                    <div style={{borderBottom:theme.border}} className={classes.topBox}>
+                        <img style={{filter: theme.png}} src={desImg} className={classes.descriptImg}></img>
+                        <div style={{color: theme.font}} className={classes.h3}>Description:</div>
                     </div>
 
                     <div className={classes.h4}> {metaData.description}</div>
@@ -337,46 +352,46 @@ function OneNFTPage(){
 
 
                 {/* Detail Box*/}
-                <div className={classes.niceBoxes}>
+                <div style={{backgroundColor:theme.color2,border:theme.border}} className={classes.niceBoxes}>
 
-                    <div className={classes.topBox}>
-                        <img src={detailImg} className={classes.descriptImg}></img>
-                        <div className={classes.h3}>Details:</div>
+                    <div style={{borderBottom:theme.border}} className={classes.topBox}>
+                        <img style={{filter: theme.png}} src={detailImg} className={classes.descriptImg}></img>
+                        <div style={{color: theme.font}} className={classes.h3}>Details:</div>
                     </div>
 
 
                     {/* owner*/}
                     <div className={classes.ownerWrapper}>
-                        <div className={classes.text}>Owned by</div>
+                        <div style={{color: theme.font}} className={classes.text}>Owned by</div>
                         <div className={classes.owner}  onClick={goToProfile} id={owner}>    {shortOwner}   </div> 
 
                     </div>
 
                     <div className={classes.ownerWrapper}>
-                        <div className={classes.text}>Created by</div>
+                        <div style={{color: theme.font}} className={classes.text}>Created by</div>
                         <div className={classes.owner} onClick={goToProfile} id={metaData.creator}>    {shortAddr(metaData.creator +"")}   </div>
                     </div>
 
                     <div className={classes.ownerWrapper}>
-                        <div className={classes.text}>Contract Address</div>
+                        <div style={{color: theme.font}} className={classes.text}>Contract Address</div>
                         <div className={classes.owner} onClick={openEtherContract}>    {shortAddr(contractAddress)}   </div>
                     </div>
 
                     <div className={classes.ownerWrapper}>
-                        <div className={classes.text}>Token Type</div>
+                        <div style={{color: theme.font}} className={classes.text}>Token Type</div>
                         <div className={classes.owner} onClick={openErc721}>    {"ERC721"}   </div>
                     </div>
 
 
                     {/* metadata*/}
                     <div className={classes.ownerWrapper}>
-                        <div  className={classes.text}> Metadata: </div>
+                        <div style={{color: theme.font}} className={classes.text}> Metadata: </div>
                         <div onClick={openURI} className={classes.owner}>{shortURI(tokenURI)}</div>
                     </div>
 
                     {/* tokenId*/}
                     <div className={classes.ownerWrapper}>
-                        <div  className={classes.text}> TokenId: </div>
+                        <div style={{color: theme.font}} className={classes.text}> TokenId: </div>
                         <div className={classes.owner}>{shortURI(metaData.tokenId)}</div>
                     </div>
 
@@ -386,10 +401,10 @@ function OneNFTPage(){
 
 
                 {/* EXT Link*/}
-                <div className={classes.niceBoxes}>
-                    <div className={classes.topBox}>
-                    <img src={linkImg} className={classes.descriptImg}></img>
-                        <div className={classes.h3}>Link from Creator:</div>
+                <div style={{backgroundColor:theme.color2,border:theme.border}} className={classes.niceBoxes}>
+                    <div style={{borderBottom:theme.border}} className={classes.topBox}>
+                    <img style={{filter: theme.png}} src={linkImg} className={classes.descriptImg}></img>
+                        <div style={{color: theme.font}} className={classes.h3}>Link from Creator:</div>
                     </div>
                     <div className={classes.link}> {metaData.extLink}</div>
                 </div>

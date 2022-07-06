@@ -1,4 +1,5 @@
-
+// Import nightMode Boolean from Navbar Switch
+import {nightMode} from './components/home/Navbar3'
 
 const dark1 = 'rgb(32, 34, 37)'//{backgroundColor:'rgb(32, 34, 37)'}
 const dark2 = 'rgb(48, 51, 57)'//{backgroundColor:'rgb(48, 51, 57)'}
@@ -17,8 +18,9 @@ const borderBright = '1px solid rgb(212, 212, 212)' //{border: '1px solid rgb(21
 const darkTheme= {color1:dark1, color2:dark2,color3:dark2,font:darkFont,png:pngDark,border:borderDark}
 const brightTheme= {color1:white, color2:lightGrey,color3:white,font:brightFont,png:pngNormal,border:borderBright}
 
-const theme = darkTheme
+const theme = brightTheme
 
-
+const themes ={dark:darkTheme,bright:brightTheme}
 
 export {theme}
+export {themes}

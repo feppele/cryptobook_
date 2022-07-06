@@ -2,9 +2,6 @@ import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 
-//Modals
-import LoginFenster from './loginModal/LoginFenster'
-import Backdrop2 from './loginModal/Backdrop.js';
 //css
 import classes from './StartNavBar.module.css';
 
@@ -12,6 +9,11 @@ import {web3} from '../../web3/Web3.js';
 import {UserContract} from '../../web3/UserContract.js';
 
 import logomy from '../../images/logo_my.png';
+
+
+//popup
+import PopupFenster from '../PopupFenster/PopupFenster'
+import LoginIntegration from '../PopupFenster/LoginIntegration'
 
 function NavBar(){
 
@@ -55,9 +57,7 @@ function NavBar(){
         <div className={classes.container}>
 
 
-
-            {  loginPageIsOpen && <LoginFenster nextPage={"/home"} text={"Connect Wallet"} onModalCancelClicked={closeLogin}/>}
-            {  loginPageIsOpen && <Backdrop2 onBackDropClicked={closeLogin} />  }
+           { loginPageIsOpen && <PopupFenster integration={<LoginIntegration nextPage={"/home"}/>} onCloseClicked={closeLogin} text={"Connect Wallet"}/>   }
 
             <button className={classes.logo} onClick={reload}>
                 MyCryptoBook

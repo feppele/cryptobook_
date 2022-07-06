@@ -1,5 +1,5 @@
 import classes from './Friends.module.css';
-import React, { Component } from 'react';
+import React, { Component,useContext } from 'react';
 import {useState,useEffect,useRef} from 'react';
 import FriendElementCreator from './FriendElementCreator';
 //modals
@@ -19,10 +19,23 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Tooltip from '@mui/material/Tooltip';
 
-//ColorTheme
-import {theme} from '../../ColorTheme'
+//ColorTheme - Night Mode
+import {themes} from '../../ColorTheme'
+import {NightContext} from '../../NightModeProvider'
+
 
  function Friends(){
+
+        // Night Mode
+        const nightMode = useContext(NightContext)
+        const [theme,setTheme] =useState(themes.bright)
+        useEffect(()=>{
+            if(nightMode){
+                setTheme(themes.dark)
+            }else{
+                setTheme(themes.bright)
+            }
+        },[nightMode])
 
     const searchIn= useRef()
 
@@ -99,14 +112,14 @@ import {theme} from '../../ColorTheme'
 
                     <ButtonGroup sx={{marginRight:'1px'}}variant="outlined" aria-label="outlined primary button group">
                         <Tooltip title="Add" placement="top" disableInteractive arrow>
-                            <Button onClick={openAddFriend} ><img src={addImg} style={{height:'20px',width:'auto'}}></img></Button>
+                            <Button onClick={openAddFriend} ><img src={addImg} style={{height:'20px',width:'auto',filter:theme.png}}></img></Button>
                         </Tooltip>
                         <Tooltip title="filter" placement="top" disableInteractive arrow>
                             <Button onClick={filter} ><img src={saveFriend} style={{height:'20px',width:'auto'}}></img></Button>
                         </Tooltip>
                     </ButtonGroup>
 
-                    <input onKeyDown={search} id="searchInput" type="text" placeholder="  search name or address" className={classes.searchInput}></input>
+                    <input style={{backgroundColor:theme.color2,color:theme.font}}onKeyDown={search} id="searchInput" type="text" placeholder="  search name or address" className={classes.searchInput}></input>
 
 
                 </div>

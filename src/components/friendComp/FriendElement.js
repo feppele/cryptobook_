@@ -8,7 +8,7 @@ import sendImg from '../../images/send.png';
 import profilePic from '../../images/profilepic.png';
 import saveFriend from '../../images/saveFriend2.png';
 import { UserContract } from '../../web3/UserContract';
-import {useState,useEffect} from 'react'
+import {useState,useEffect,useContext} from 'react'
 import {unfollowUser} from '../../node/databank';
 import StandartProfilPic from '../../images/background.jpeg';
 import {getProfilePicURL} from '../../node/images'
@@ -26,14 +26,29 @@ import Tooltip from '@mui/material/Tooltip';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
 //ColorTheme
-import {theme} from '../../ColorTheme'
+//ColorTheme - Night Mode
+import {themes} from '../../ColorTheme'
+import {NightContext} from '../../NightModeProvider'
+
 
 function FriendElement(props){
+
+        // Night Mode
+        const nightMode = useContext(NightContext)
+        const [theme,setTheme] =useState(themes.bright)
+        useEffect(()=>{
+            if(nightMode){
+                setTheme(themes.dark)
+            }else{
+                setTheme(themes.bright)
+            }
+        },[nightMode])
 
     const history = useHistory();
 
     const [sendButton,setSendButton] = useState(false);
     const [profilePicURL,setProfilePicURL] = useState(StandartProfilPic);
+    const [copyClicked,setCopyClicked] = useState(false);
 
     //for Alert
     const [alertOpen, setAlertOpen] = useState(true);
@@ -64,6 +79,16 @@ function FriendElement(props){
         }
     }
 
+    function copyAddress(){
+        navigator.clipboard.writeText(props.longAddr);
+        setCopyClicked(true)
+    }
+
+    function closeTooltip(){
+        setTimeout(() => {setCopyClicked(false)},200)
+        
+    }
+
     // Value is HardCoded right now
     function openSend(){
         setSendButton(true)
@@ -73,7 +98,7 @@ function FriendElement(props){
     }
 
     useEffect(() => {
-
+        console.log(props.longAddr)
         getProfilePicURL(props.longAddr).then(url =>{
             if(url.length >0){
                 setProfilePicURL(url)
@@ -104,10 +129,10 @@ function FriendElement(props){
                 </div>
 
                 <div className={classes.wrapper}>
-                    
+
                     {/* Crypto Address */}
-                    <Tooltip title="Copy" placement="left" arrow>
-                        <Button sx={{marginRight:'10px'}} >{props.addr}</Button>
+                    <Tooltip className={classes.cryptoWrapper} onClose={closeTooltip} title={copyClicked ? "Copied!" : "Copy"} placement="left" arrow>
+                        <Button onClick={copyAddress} sx={{marginRight:'10px'}} >{props.addr}</Button>
                     </Tooltip>
 
                     <ButtonGroup variant="text" >
@@ -122,8 +147,6 @@ function FriendElement(props){
                         </Tooltip>
                     </ButtonGroup>
 
-
-                    { true && <Collapse in={alertOpen}> <Alert autoHideDuration={1000} onClose={() => {setAlertOpen(false)}} severity="success" color="info" sx={{position:'fixed', right:'0',bottom:'10px'}}>Link copied!</Alert> </Collapse> }
 
 
                 </div>

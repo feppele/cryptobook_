@@ -1,8 +1,6 @@
 import classes from './FriendsInfo.module.css';
 import { useHistory } from "react-router-dom";
-import{useState,useEffect} from 'react';
-import LoginFenster from '../start/loginModal/LoginFenster';
-import Backdrop from '../start/loginModal/Backdrop';
+import{useState,useEffect,useContext} from 'react';
 
 //material ui
 import * as React from 'react';
@@ -10,10 +8,22 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
 
-//ColorTheme
-import {theme} from '../../ColorTheme'
+//ColorTheme - Night Mode
+import {themes} from '../../ColorTheme'
+import {NightContext} from '../../NightModeProvider'
 
 function FriendsInfo(){
+
+        // Night Mode
+        const nightMode = useContext(NightContext)
+        const [theme,setTheme] =useState(themes.bright)
+        useEffect(()=>{
+            if(nightMode){
+                setTheme(themes.dark)
+            }else{
+                setTheme(themes.bright)
+            }
+        },[nightMode])
 
     const history = useHistory();
 
@@ -40,8 +50,6 @@ function FriendsInfo(){
 
         <div className={classes.container}>
 
-            {loginModal && <LoginFenster nextPage={"/createNFT"} text={"Connect Wallet"} onModalCancelClicked={closeLogin}/>}
-            {loginModal && <Backdrop onBackDropClicked={closeLogin}/>}
 
             <div style={{color: theme.font}} className={classes.friends}> Never use public addresses again</div>
 
