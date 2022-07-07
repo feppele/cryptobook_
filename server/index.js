@@ -397,6 +397,33 @@ async function getAnfrage(methode,ele){
   }
   
 
+  // NOTIFICATIONS
+
+  if(methode === "loadMyNotifications"){
+    anfrage= `
+
+    select * from notifications where zu='${ele.zu}';
+
+    `;
+  }
+
+  if(methode === "setNotification"){
+    anfrage= `
+
+    delete from notifications where notification = '${ele.notification}' and von = '${ele.von}' and zu = '${ele.zu}' and nft = '${ele.nft}';
+    insert into notifications values ('${ele.notification}','${ele.von}','${ele.zu}','${ele.nft}');
+
+    `;
+  }
+
+  if(methode === "deleteNotification"){
+    anfrage= `
+
+    delete from notifications where id = '${ele.id}';
+ 
+    `;
+  }
+
   return anfrage; /// <-- return
 }
 

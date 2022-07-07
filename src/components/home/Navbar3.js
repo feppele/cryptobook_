@@ -15,10 +15,17 @@ import AdbIcon from '@mui/icons-material/Adb';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Badge from '@mui/material/Badge';
-
-
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
+
+// Sidebar
+import Sidebar from '../sidebar/Sidebar';
+import NotificationIntegration from '../sidebar/notifications/NotificationIntegration';
+
+
+//Image
+import profilePic from '../../images/profil.png'
+import logoutPic from '../../images/log-out.png'
 
 //myCode
 import { useHistory } from "react-router-dom";
@@ -26,14 +33,21 @@ import Wallet from '../wallet/Wallet'
 import {useState,useEffect,useContext} from 'react'
 import logo from '../../images/logo.png'
 import profilColor from '../../images/background.jpeg';
+import notificationImg from '../../images/notification.png';
 import {getProfilePicURL} from '../../node/images'
 import {getCurrentUser} from '../../web3/HelperFunctions'
 
 //Night Mode
 import {ChangeNightFunction} from '../../NightModeProvider'
 
+const profile = <div id={"profile"} style={{display:'flex',flexDirection:'row',gap:'26px'}}> <img src={profilePic} style={{height: '20px',width: 'auto'}}></img> <div style={{fontSize:'13px'}}>Profile</div> </div>
+const notification = <div style={{display:'flex',flexDirection:'row',gap:'23px'}}> <img src={notificationImg} style={{height: '20px',width: 'auto',marginLeft:'1px',marginRight:'2px'}}></img>  <div style={{fontSize:'13px'}}>Notification</div> </div>
+const logout = <div style={{display:'flex',flexDirection:'row',gap:'23px'}}> <img src={logoutPic} style={{height: '20px',width: 'auto',marginLeft:'3px'}}></img>  <div style={{fontSize:'13px'}}>Logout</div> </div>
+
+
+
 const pages = ['Friends', 'Wallet', 'My-NFT','Create-NFT','NFT-Marketplace','Crypto-Chat'];
-const settings = ['Profile', 'Logout'];
+const settings = [{a:profile,b:"profile"},{a:notification,b:"notification"},{a:logout,b:"logout"} ];
 
 
 
@@ -43,6 +57,7 @@ const ResponsiveAppBar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const [walletOpen,setWalletOpen] =React.useState(false)
+  const [notificationOpen,setNotificationOpen] =React.useState(false)
   const [profilePic,setProfilePic] = useState(profilColor);
 
   const [nightMode,setNightMode] = useState(false)
@@ -72,6 +87,14 @@ const ResponsiveAppBar = () => {
     setWalletOpen(true)
   }
 
+  function closeNotification(){
+    setNotificationOpen(false)
+  }
+
+  function openNotification(){
+    setNotificationOpen(true)
+  }
+
 
   const history = useHistory();
   function openPage(page){
@@ -87,9 +110,11 @@ const ResponsiveAppBar = () => {
         history.push("/marketplace");
       }else if(page==="Crypto-Chat"){
         history.push("/chats");
-      }else if(page==="Profile"){
+      }else if(page==="profile"){
         history.push("/me");
-      }else if(page==="Logout"){
+      }else if(page==="notification"){
+        openNotification()
+      }else if(page==="logout"){
         history.push("/");
       }else if(page==="Create-NFT"){
         history.push("/createNFT");
@@ -120,6 +145,7 @@ const ResponsiveAppBar = () => {
 
   const handleCloseUserMenu = (event) => {
     setAnchorElUser(null);
+    console.log(event.currentTarget.id)
     openPage(event.currentTarget.id)
   };
 
@@ -127,10 +153,11 @@ const ResponsiveAppBar = () => {
 
   <div style={{width: '100%', position:'sticky',top:'0px',zIndex:'3000'}}> 
 
+    {notificationOpen && <Sidebar integration={<NotificationIntegration notifications={[1,2,3]} close={closeNotification}/>} closeWalletFunc={closeNotification}/>}
 
     {walletOpen && <Wallet closeWalletFunc={closeWallet}/>}
 
-    <AppBar  sx={{backgroundColor:'rgb(6, 29, 42);',position:'relative',zIndex:'3002'}}>
+    <AppBar  sx={{backgroundColor:'rgb(6, 29, 42);',position:'relative',zIndex:'3002',height:'65px'}}>
 
 
       <Container maxWidth="xl">
@@ -139,7 +166,6 @@ const ResponsiveAppBar = () => {
             variant="h6"
             noWrap
             component="a"
-            
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -229,14 +255,6 @@ const ResponsiveAppBar = () => {
 
           <Box sx={{ flexGrow: 0 }}>
 
-          <IconButton sx={{marginRight:'10px'}} size="large" aria-label="show 4 new mails" color="inherit">
-            <Badge badgeContent={4} color="error">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-
-
-
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Avatar alt="Remy Sharp" src={profilePic} sx={{border: '2px solid white',height: '50px',width: '50px'}}/>
             </IconButton>
@@ -260,11 +278,15 @@ const ResponsiveAppBar = () => {
             >
 
               {settings.map((setting) => (
-                <MenuItem id={setting} key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem id={setting.b} key={setting} onClick={handleCloseUserMenu} sx={{backgroundColor:'yellow'}}>
+                  <Typography textAlign="center">{setting.a}</Typography>
                 </MenuItem>
               ))}
-              <FormControlLabel sx={{marginLeft:'5px'}} labelPlacement="left" control={<Switch checked={nightMode} onChange={handleNightChange}/>} label="Night Mode" />
+              <div style={{display:'flex',flexDirection:'row',alignItems: 'center',gap:'5px'}}>
+              <Switch checked={nightMode} onChange={handleNightChange}/>
+
+                <div style={{fontSize:'13px',marginRight: '10px'}}>Night Mode</div>
+              </div>
             </Menu>
           </Box>
         </Toolbar>

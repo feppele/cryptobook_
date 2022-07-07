@@ -2,6 +2,7 @@ import {getCurrentUser} from '../web3/HelperFunctions'
 
 //const fetchi ="https://backendserverreact.azurewebsites.net"
 import {fetchi} from '../globalData'
+import {getOwnerOfTokenId} from '../web3/NFTContractHelper'
 
 function getOptions(_methode,_ele){
 
@@ -92,6 +93,24 @@ async function getNFTInfoFromTokenId(tokenId){
 
     return await fetch(fetchi+ "/databank",options).then(res => {return res.json()});
 }
+
+// get Owner of TOkenid Doesnt matter if on or offchain!
+async function getOwnerFromTokenId(tokenId){
+
+    const info = await getNFTInfoFromTokenId(tokenId)
+    const creator = info[0][0].creator
+
+    //get Owner from Blockchain. if no owner, owner = creator, because Offchain NFT
+    const owner = await getOwnerOfTokenId(tokenId)
+    if (owner === "error"){
+        return creator
+    }else{
+        return owner
+    }
+
+}
+
+
 
 async function highestTokenId(){
 
@@ -220,3 +239,6 @@ export{searchCollections}
 export{getTokenURIDB}
 export{getOffchainMetaData}
 export{buyOffChainNFT_deleteCreator}
+
+
+export {getOwnerFromTokenId}

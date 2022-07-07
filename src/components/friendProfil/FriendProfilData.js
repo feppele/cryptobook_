@@ -8,6 +8,7 @@ import followuser from '../../images/add-user.png';
 import black_herz from '../../images/backherz.png'
 import unfollowImg from '../../images/unfollow.png'
 import {getOptions} from '../../node/databank';
+import {follow,unfollow} from '../../node/followFunction';
 
 import {getProfilePicURL} from '../../node/images'
 
@@ -51,23 +52,15 @@ function ProfilData(props){
 
 
     function followUser(){
-        if(!window.ethereum){return}
-        window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-            fetch( fetchi + "/databank",getOptions("follow",{person: props.personData.friend_addr.toLowerCase(),follower: currentUsers[0].toLowerCase()} )).catch(console.log);
-        })
-
-        // instead of window.location.reload()
+        follow(props.personData.friend_addr.toLowerCase())//Database
+        // insead of window.location.reload()
         console.log("follow")
         setUserFollowed(true)
         setFollowCount(parseInt(followCount)+1);
     }
 
     function unfollowUser(){
-        if(!window.ethereum){return}
-        window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-            fetch(fetchi + "/databank",getOptions("unfollow",{person: props.personData.friend_addr.toLowerCase(),follower: currentUsers[0].toLowerCase()} )).catch(console.log);
-        })
-
+        unfollow(props.personData.friend_addr.toLowerCase())//Database
         // instead of window.location.reload()
         setUserFollowed(false)
         setFollowCount(parseInt(followCount)-1);

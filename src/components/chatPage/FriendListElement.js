@@ -18,8 +18,6 @@ import {NightContext} from '../../NightModeProvider'
 // props: {friend_name:String, friend_addr:String, blockchain:Boolean}
  function FriendListElement(props){
 
-    console.log(props)
-
         // Night Mode
         const nightMode = useContext(NightContext)
         const [theme,setTheme] =useState(themes.bright)

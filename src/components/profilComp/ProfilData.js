@@ -13,8 +13,12 @@ import ImageSetting from './ImageSetting';
 import React, {useState,useEffect,useHistory,useContext} from 'react';
 import {query,getOptions,queryFetch} from '../../node/databank';
 import {getProfilePicURL} from '../../node/images'
+import black_herz from '../../images/backherz.png'
 
 import {fetchi} from '../../globalData'
+
+import PopupFenster from '../PopupFenster/PopupFenster'
+import LikesIntegration from '../PopupFenster/LikesIntegration'
 
 //material UI 
 import Alert from '@mui/material/Alert';
@@ -80,8 +84,36 @@ function ProfilData(){
     const [userNameIsLoad,setUserNameIsLoad] =useState(false);
     const [saved,setSaved] =useState(false);
     const [address,setAddress] =useState("");
+    const [followArrayList,setFollowArrayForList]= useState([]);
+    const [followList,setFollowList]= useState(false);
+    
     // for Alert
     const [alertOpen, setAlertOpen] = useState(true);
+
+
+    // Follower
+    function getFollowList(){
+        fetch(fetchi + "/databank",getOptions("getFollowList",{person: address}))
+        .then(res => {return res.json()}).then(res=>{
+            console.log("getFollowList");
+            console.log(res);
+            if(res==="error"){
+                setFollowArrayForList([]);
+            }
+            setFollowArrayForList(res);
+        })
+    }
+    function closeFollowList(){
+        setFollowList(false);
+    }
+    function openFollowList(){
+        setFollowList(true);
+    }
+
+    useEffect(()=>{
+        getFollowList()
+    },[address])
+    
 
 
     useEffect(() => {
@@ -196,6 +228,8 @@ function ProfilData(){
 
         <div style={{backgroundColor:theme.color1}} id="cont" className={classes.container}>
 
+            {followList && <PopupFenster text={"My Followers"} onCloseClicked={closeFollowList} integration={<LikesIntegration likesList={followArrayList}/>} /> }
+
             <div className={classes.greyBox}>
 
             <img className={classes.backgroundPic} src={profilePicSource}></img>
@@ -242,6 +276,12 @@ function ProfilData(){
                 <Tooltip title="settings" disableInteractive arrow placement="top">
                     <Button variant="outlined" onClick={activateSetting}>    < img src={settingsPic} style={{height: '20px',width: 'auto',filter:theme.png}}></img>   </Button>
                 </Tooltip>
+            </div>
+
+
+            <div className={classes.followWrapper}>
+                    <img src={black_herz} className={classes.herz}></img>
+                    <div style={{color:theme.font}} onClick={openFollowList} className={classes.text}> {"My Followers"} </div>
             </div>
 
 

@@ -6,19 +6,30 @@ import {UserContract,userContractAddress} from '../../web3/UserContract'
 import validImage from '../../images/valid.png';
 import inValidImage from '../../images/invalid.png';
 import plusImg from '../../images/plus.png';
+import {follow} from '../../node/followFunction';
 
 //material UI
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+
 
 function AddFriendIntegration(props){
 
     const [imgSource,setImgSource] = useState(inValidImage);
+    const [alignment,setAlignment] = React.useState('left');
+
+    const handleAlignment = (event, newAlignment) => {
+        if (newAlignment !== null) {
+          setAlignment(newAlignment);
+        }
+      };
+    
     function isValidAddress(){
         return web3.utils.isAddress(document.getElementById("addressInput").value);
     }
     function check(){
-        const addressInput = document.getElementById("validImage");
         if(isValidAddress()){
             setImgSource(validImage);
         }else{
@@ -28,15 +39,18 @@ function AddFriendIntegration(props){
 
     function addFriend(){
 
-        const name= document.getElementById("inputName").value;
         const addr= document.getElementById("addressInput").value;
-
-        if(name!=="" && addr!==""){
-
-            UserContract.methods.updateFriends(name,addr).send({
-                from: window.web3.currentProvider.selectedAddress,
-                to: userContractAddress
-            });
+        //BlockchainFriend
+        if(alignment ==="left"){
+            const name= document.getElementById("inputName").value;
+            if(name!=="" && addr!==""){
+                UserContract.methods.updateFriends(name,addr).send({
+                    from: window.web3.currentProvider.selectedAddress,
+                    to: userContractAddress
+                });
+            }
+        }else{ // FollowFried
+            follow(addr.toLowerCase())
         }
     }
 
@@ -48,8 +62,19 @@ function AddFriendIntegration(props){
             <div className={classes.integration}>
 
 
-                    <input id="inputName" type="text" placeholder="friend name" className={classes.input}></input>
+                <ToggleButtonGroup value={alignment} exclusive onChange={handleAlignment} aria-label="text alignment" sx={{width:'100%'}}>
+                    <ToggleButton value="left" aria-label="left aligned" sx={{width:'100%'}}>
+                    Blockchain Friend
+                    </ToggleButton>
+                    <ToggleButton value="center" aria-label="right aligned" sx={{width:'100%'}}>
+                    Follow Friend
+                    </ToggleButton>
 
+                </ToggleButtonGroup>
+
+                    {alignment==="left" &&
+                    <input id="inputName" type="text" placeholder="friend name" className={classes.input}></input>
+                    }
 
                     <div style={{display: 'flex',flexDirection: 'row',width:'100%'}}>
                         <input onChange={check} id="addressInput" type="text" placeholder="friend address" className={classes.input}></input>

@@ -108,7 +108,7 @@ import {NightContext} from '../../NightModeProvider'
 
                 <div style={{backgroundColor:theme.color2,border:theme.border}} className={classes.box}>
 
-                    {  addFriendIsOpen && <PopupFenster integration={<AddFriendIntegration/>} onCloseClicked={closeAddFriend} text={"Add Blockchain Friend"}/>}
+                    {  addFriendIsOpen && <PopupFenster integration={<AddFriendIntegration/>} onCloseClicked={closeAddFriend} text={"Add Friend"}/>}
 
                     <ButtonGroup sx={{marginRight:'1px'}}variant="outlined" aria-label="outlined primary button group">
                         <Tooltip title="Add" placement="top" disableInteractive arrow>

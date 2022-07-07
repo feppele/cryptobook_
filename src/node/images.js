@@ -1,7 +1,5 @@
 import {getOptions} from './databank'
 import {getCurrentUser} from '../web3/HelperFunctions'
-
-//const fetchi ="https://backendserverreact.azurewebsites.net"
 import {fetchi} from '../globalData'
 
 // returns ["imageURL"], if no pic rteurns [] empty array

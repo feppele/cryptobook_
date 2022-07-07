@@ -6,6 +6,8 @@ import {getAllFriendsPromise} from '../../web3/GetAllFriends'
 import FriendListElement from '../../components/chatPage/FriendListElement'
 import Message from '../../components/chatPage/Message'
 import sendImg from '../../images/send.png'
+import backImg from '../../images/zuruck.png'
+import addImg from '../../images/plus.png'
 import {shortAddr} from '../../web3/LoadingFunctions'
 import {loadMessagesFromDB} from '../../node/cryptoMessages'
 import {sendMessageToDB} from '../../node/cryptoMessages'
@@ -14,12 +16,15 @@ import {getLatestMessage} from '../../node/cryptoMessages'
 
 
 
-import PopupFenser from '../../components/PopupFenster/PopupFenster'
+//popup
+import PopupFenster from '../../components/PopupFenster/PopupFenster'
+import AddFriendIntegration from '../../components/PopupFenster/AddFriendIntegration'
 
 //mui
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
 
 
@@ -40,6 +45,39 @@ function ChatPage(){
     const [currentMessages,setCurrentMessages] = useState([]) //[{message,from,to,date}]
     const [inputValue,setInputValue] = useState("")
 
+    const [chatOpen,setChatOpen] = useState(true)
+    const [openAddModal,setOpenFriendModal] = useState(false)
+
+
+    function addFriend(){
+        setOpenFriendModal(true)
+    }
+
+    function closeAddFriend(){
+        setOpenFriendModal(false)
+        loadFriends()
+    }
+
+
+
+    // CSS OPEN CLOSE chat window for phone Version
+    const chatWindowRef = useRef()
+    window.addEventListener("resize", ()=>{
+        if(window.innerWidth>=1000){
+            setChatOpen(true)
+        }
+    });
+    function openChatWindow(){
+        setChatOpen(true)
+        setTimeout(()=>{chatWindowRef.current.style.right= '0px'},100)
+    }
+    function closeChatWindow(){
+        chatWindowRef.current.style.right= '-1000px'
+        setTimeout(()=>{setChatOpen(false)},1000)
+    }
+
+
+
 
     useEffect(()=>{
         if(nightMode){
@@ -51,7 +89,7 @@ function ChatPage(){
 
 
     useLayoutEffect(() => {
-
+        if(!chatOpen){return}
         var elem = document.getElementById('messageArea');
         elem.scrollTop = elem.scrollHeight;
 
@@ -66,18 +104,14 @@ function ChatPage(){
 
     const messageInput = useRef()
 
-
+ 
     async function loadFriends(){
         const res = await getAllFriendsPromise() // return [{friend_name:String, friend_addr:String, blockchain:Boolean} ]
-        
-        
-
 
         // SORT 
         var array =[]
         for (const ele of res){
             const res1 = await getLatestMessage(ele.friend_addr).then(message=>{
-                console.log(message)
                 var id 
                 if(message.message===""){
                     id=0
@@ -92,14 +126,16 @@ function ChatPage(){
 
         // sort nach ID
         array.sort(function(a,b){return b.id-a.id;})
-        console.log(array)
+        // filter double. bacuse blockchain and same followfriend could be in array
+        array = array.filter((v, i, a) => a.findIndex(t => (t.friend_addr === v.friend_addr)) === i);
 
+        console.log(array)
         setFriends(array)
-        setSelectedFriends(array[0])
-        setFriendIsSelected(true)
+        if(array.length>0){
+            setSelectedFriends(array[0])
+            setFriendIsSelected(true)
+        }
     }
-    
-  
 
     useEffect(() => {
         loadFriends()
@@ -130,14 +166,18 @@ function ChatPage(){
         setInputValue(e.target.value)
     }
 
+    // when on MenuFriend clicked
     function selectFriend(pic,friend){ // friend: {friend_name:String, friend_addr:String, blockchain:Boolean}
         friend.pic=pic[0];  // add selectedFriendPicURL: // friend: {friend_name:String, friend_addr:String, blockchain:Boolean, pic:String}
         setSelectedFriends(friend)
+
+        openChatWindow()
 
 
     }
     
     async function loadMessages(){
+        //if(!friendIsSelected){return}
         console.log(selectedFriend.friend_addr)
         const myAddress = await window.ethereum.request({method: 'eth_accounts'}).then(res=>{return res[0]});
         const partnerAddress = selectedFriend.friend_addr;
@@ -169,21 +209,34 @@ function ChatPage(){
 
         <div style={{backgroundColor:theme.color1}} className={classes.container}>
 
+        { openAddModal && <PopupFenster integration={<AddFriendIntegration/>} onCloseClicked={closeAddFriend} text={"Add Friend"}/>}
+
+
             <div style={{backgroundColor:theme.color1,border:theme.border}}  className={classes.container2}>
 
                 {/*Menu */}
                 <div style={{borderRight:theme.border}} className={classes.menu}>
 
-                    {friends.map(friend =><FriendListElement onClick={(pic)=>{selectFriend(pic,friend)}} friend={friend} seleced={selectedFriend}/>)}
+                    <div style={{borderBottom:theme.border}} className={classes.menuHeader}>
+
+                        <IconButton onClick={addFriend} sx={{marginRight:'10px'}}> <img style={{height:'20px',width:'auto',filter:theme.png}} src={addImg}></img> </IconButton>
+
+                    </div>
+
+                    {friends.map(friend =><div style={friend.friend_addr===selectedFriend.friend_addr? {backgroundColor:theme.color2} : {backgroundColor:theme.color1}}><FriendListElement onClick={(pic)=>{selectFriend(pic,friend)}} friend={friend} seleced={selectedFriend}/></div>)}
 
                 </div>
 
                 {/*ChatFenster */}
-                <div className={classes.chatWindow}>
+
+                {chatOpen && <div ref={ chatWindowRef} style={{backgroundColor:theme.color1}} className={classes.chatWindow}>
 
                     {/*chatPartner */}
 
                     <div className={classes.chatPartner} style={{borderBottom:theme.border}}>
+
+
+                    <div className={classes.backButton}><IconButton onClick={closeChatWindow}> <img style={{height:'25px',width:'auto',filter:theme.png}} src={backImg}></img>  </IconButton></div>
                     {friendIsSelected &&
                         <div style={{display: 'flex',alignItems:'center',cursor:'pointer'}} onClick={openProfile}>
                             <Avatar sx={{height:'33px',width:'33px',marginLeft:'10px',marginRight:'10px'}} src={selectedFriend.pic} />
@@ -216,6 +269,7 @@ function ChatPage(){
 
 
                 </div>
+                }
 
             </div>
 

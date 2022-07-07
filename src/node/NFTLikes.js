@@ -3,6 +3,9 @@ import {getOptions} from './databank'
 //const fetchi = "https://backendserverreact.azurewebsites.net"
 import {fetchi} from '../globalData'
 
+import {setNotificationsToDB} from './NotificationManagement'
+import {getOwnerFromTokenId} from './NFTData'
+
 async function getNFTLikes(tokenId){
 
     const res = await fetch(fetchi+ "/databank",getOptions("getNFTLikes",{tokenId: tokenId}))
@@ -21,9 +24,16 @@ async function getNFTLikes(tokenId){
 async function likeNFT(tokenId){
 
     if(!window.ethereum){return}
-    window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-        fetch(fetchi+ "/databank",getOptions("likeNFT",{tokenId: tokenId, address: currentUsers[0]} )).catch(console.log);
-    })
+    const currentUser = await window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{return currentUsers[0] })
+
+    fetch(fetchi+ "/databank",getOptions("likeNFT",{tokenId: tokenId, address: currentUser} )).catch(console.log);
+
+    //get Owner of NFT that he can get a Notification
+    const owner = await getOwnerFromTokenId(tokenId)
+
+    await setNotificationsToDB("nftlike",currentUser.toLowerCase(),owner,tokenId)
+
+    console.log("LIKE NFT")
 }
 
 async function dislikeNFT(tokenId){

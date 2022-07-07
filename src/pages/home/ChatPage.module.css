@@ -1,6 +1,6 @@
 .container{
     width: 100%;
-    height: 90vh;
+    height: calc(100vh - 65px);
     display: flex;
 
     align-items: center;
@@ -12,7 +12,7 @@
 .container2{
 
     width: 1000px;
-    height: 80vh;
+    height: 90%;
     border: 1px black solid;
     border-radius: 5px;
 
@@ -27,11 +27,22 @@
     scroll-behavior: smooth;
     overflow: scroll;
 }
+.menuHeader{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+}
 .chatWindow{
     width: 70%;
     height: 100%;
     display: flex;
     flex-direction: column;
+
+    transition: right 1s;
+    background-color: white;
 
 }
 
@@ -68,25 +79,51 @@
     border: 2px solid rgb(209, 209, 209);
 }
 
+.backButton{
+
+
+    visibility:hidden;
+}
 
 
 @media (max-width:1000px){
 
+    .container{
+        width: 100%;
+        height: calc(100vh - 65px);
+    }
+
     .container2{
-        flex-direction: column;
+        height:100%;
+        width: 100%;
     }
 
     .menu{
         width: 100%;
-        height: 300px;
-
+        height: calc(100vh - 65px);
         scroll-behavior: smooth;
         overflow: scroll;
     }
     .chatWindow{
         width: 100%;
+        height:90vh;
         display: flex;
         flex-direction: column;
+        position: absolute;
+
+        right: -1000px;
+
+    }
+
+    .chatPartner{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     
+    .backButton{
+        visibility:visible;
+        position:absolute;
+        left: 10px;
     }
 }

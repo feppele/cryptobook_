@@ -196,7 +196,20 @@
     position: absolute;
 }
 
-
+.followWrapper{
+    margin-top: 40px;
+    display: flex;
+    gap:8px;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0.5;
+}
+.followWrapper:hover{
+    opacity: 1;
+}
+.herz{
+    height: 15px;
+}
 
 
 

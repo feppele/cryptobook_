@@ -6,3 +6,7 @@ create table preis (tokenid varchar(255),preis varchar(255));
 create table nftinfo (tokenid varchar(255),find varchar(255),collection varchar(255),creator varchar(255),name varchar(255),metaurl varchar(255));
 
 create table messages (message varchar(255),von varchar(255), zu varchar(255),date varchar(255),ID  SERIAL PRIMARY KEY);
+
+create table notifications (notification varchar(255),von varchar(255),zu varchar(255),nft varchar(255),ID  SERIAL PRIMARY KEY);
+
+
