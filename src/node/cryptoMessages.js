@@ -21,7 +21,7 @@ async function loadMessagesFromDB(me,partner){
         return ele
     })
     const erg = {messages:messages,amount:amountMessages}
-    console.log(erg)
+    //console.log(erg.messages)
 
     return erg
 }
@@ -35,8 +35,24 @@ async function sendMessageToDB(message){
 }
 
 
+// return {messsage,von,zu,date,id}
+async function getLatestMessage(partner){
+
+    const me = await window.ethereum.request({method: 'eth_accounts'}).then(res =>{return res[0]})
+
+    var latesMessage = await fetch(fetchi+ "/databank",getOptions("getLatestMessage",{from: me, to: partner}  )).then(res => {return res.json()}).catch(console.log);
+
+    //console.log(latesMessage[0][0])
+
+    return latesMessage[0][0] || {message:""};
+
+}
+
+
 
 
 
 export {loadMessagesFromDB};
 export {sendMessageToDB};
+export {getLatestMessage};
+

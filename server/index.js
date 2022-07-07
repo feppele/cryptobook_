@@ -379,6 +379,24 @@ async function getAnfrage(methode,ele){
     `;
   }
 
+  if(methode === "getAllMyMessages"){
+    anfrage= `
+
+    select * from messages where von = '${ele.me}' OR zu ='${ele.me}';
+
+    `;
+  }
+
+  if(methode === "getLatestMessage"){
+    anfrage= `
+
+    select * from messages where id = (select max(id) from messages where von = '${ele.from}' AND zu ='${ele.to}' OR (zu = '${ele.from}' AND von ='${ele.to}' ) );
+
+
+    `;
+  }
+  
+
   return anfrage; /// <-- return
 }
 

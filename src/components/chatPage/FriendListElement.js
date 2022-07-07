@@ -2,6 +2,7 @@ import classes from './FriendListElement.module.css';
 import React, { Component,useContext } from 'react';
 import {useState,useEffect,useRef,useLayoutEffect} from 'react';
 import {getProfilePicURL} from '../../node/images'
+import {getLatestMessage} from '../../node/cryptoMessages'
 
 //material UI
 import TextField from '@mui/material/TextField';
@@ -17,10 +18,14 @@ import {NightContext} from '../../NightModeProvider'
 // props: {friend_name:String, friend_addr:String, blockchain:Boolean}
  function FriendListElement(props){
 
+    console.log(props)
+
         // Night Mode
         const nightMode = useContext(NightContext)
         const [theme,setTheme] =useState(themes.bright)
         const [pic,setPic] =useState("")
+        const [latestMessage,setLatestMessage] =useState({message:""})
+
         useEffect(()=>{
             if(nightMode){
                 setTheme(themes.dark)
@@ -38,11 +43,19 @@ import {NightContext} from '../../NightModeProvider'
 
         useLayoutEffect(() => {
             loadPic()
-            console.log(props)
         },[])
 
+        async function loadLatestMessage(){
+            setLatestMessage(await getLatestMessage(props.friend.friend_addr) )
+        }
 
+        useLayoutEffect(() => {
+            loadLatestMessage()
+        },[])
 
+        //console.log(latestMessage.message)
+
+        
     return(
         <div onClick={()=>props.onClick(pic)} style={{borderBottom:theme.border}} className={classes.container}>
 
@@ -52,13 +65,13 @@ import {NightContext} from '../../NightModeProvider'
             <div className={classes.wrapper1}>
 
                 <div style={{fontWeight:'bold',fontSize:'11px',color:theme.font}}>{props.friend.friend_name}</div>
-                <div style={{fontSize:'11px',color:theme.font}}>{"Message"}</div>
+                <div style={{fontSize:'11px',color:theme.font}}>{latestMessage.message} </div>
 
             </div>
 
 
             <div style={{color:theme.font}} className={classes.date}>
-                {"27.01.2022"}
+                {latestMessage.date}
             </div>
 
 

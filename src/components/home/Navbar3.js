@@ -32,7 +32,7 @@ import {getCurrentUser} from '../../web3/HelperFunctions'
 //Night Mode
 import {ChangeNightFunction} from '../../NightModeProvider'
 
-const pages = ['Friends', 'Wallet', 'My-NFT','NFT-Marketplace','Crypto-Chat'];
+const pages = ['Friends', 'Wallet', 'My-NFT','Create-NFT','NFT-Marketplace','Crypto-Chat'];
 const settings = ['Profile', 'Logout'];
 
 
@@ -91,6 +91,8 @@ const ResponsiveAppBar = () => {
         history.push("/me");
       }else if(page==="Logout"){
         history.push("/");
+      }else if(page==="Create-NFT"){
+        history.push("/createNFT");
       }
     }
   }

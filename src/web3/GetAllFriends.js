@@ -14,8 +14,9 @@ async function getAllFriendsPromise(){
         followFriends()
     ]).then(messages => {
         return [].concat(messages[0],messages[1]);
+
     })
-    return res;
+    return res.map(ele=>{return {friend_name:ele.friend_name, friend_addr:ele.friend_addr.toLowerCase(), blockchain:ele.blockchain}});
 }
 
 
