@@ -78,10 +78,41 @@ function HomePage(){
     function openMCBNFTDocs(){
         window.open("https://github.com/feppele/MyCryptoBookDocs/wiki/MyCryptoBook-NFTs-(MCBNFT)")
     }
+    async function openChat(){
+        if(window.ethereum){const accounts = await  window.ethereum.request({method: 'eth_requestAccounts'});}
+        history.push("/chats");
+    }
+
+    function openChatDocs(){
+        window.open("https://github.com/feppele/MyCryptoBookDocs/wiki/Crypto-Chat")
+    }
 
     return (
 
         <div style={{backgroundColor: theme.color1}} className={classes.container}>
+
+
+            <div style={{backgroundColor: theme.color2}} className={classes.cryptochat}>
+
+
+
+                <div style={{color: theme.font}} className={classes.nftText}>
+                    Encrypt messages with your private key
+                </div>
+
+                <div style={{color: theme.font}} className={classes.cryptoText}>
+                    Since MyCryptoBook is open Source, you are able to verify, that messages are 100% encrypted and signed with private keys.
+                </div>
+
+            <div className={classes.buttonWrapper}>
+
+                <Button variant="contained" onClick={openChat}> Crypto-Chat </Button>
+                <Button variant="outlined" onClick={openChatDocs}> learn more </Button>
+            </div>
+
+
+
+            </div>
 
 
             <div className={classes.top}>

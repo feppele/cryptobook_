@@ -304,7 +304,7 @@ async function getAnfrage(methode,ele){
   if(methode === "getAllSingles"){
     anfrage= `
 
-    select tokenid from nftInfo;
+    select tokenid from nftInfo limit ${ele.limit} offset ${ele.offset};
 
     `;
   }

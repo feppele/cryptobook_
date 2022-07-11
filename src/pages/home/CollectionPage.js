@@ -1,5 +1,5 @@
 import classes from './CollectionPage.module.css';
-import React, {useState,useEffect} from 'react';
+import React, {useState,useEffect,useContext} from 'react';
 import {useParams} from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import {getAllTokenIdFromCollection,getCretorFromCollection} from '../../node/NFTData'
@@ -9,8 +9,22 @@ import {getNameFromAddress} from '../../node/betterFunctions'
 import NFTFormatEasyOnePage from '../../components/NFT/NFTFormatEasyOnePage'
 import image from '../../images/23.jpeg'
 
+//ColorTheme - Night Mode
+import {themes} from '../../ColorTheme'
+import {NightContext} from '../../NightModeProvider'
 
 function CollectionPage(){
+
+                // Night Mode
+                const nightMode = useContext(NightContext)
+                const [theme,setTheme] =useState(themes.bright)
+                useEffect(()=>{
+                    if(nightMode){
+                        setTheme(themes.dark)
+                    }else{
+                        setTheme(themes.bright)
+                    }
+                },[nightMode])
 
     var key=1;
     const {collectionName} = useParams();
@@ -53,7 +67,7 @@ function CollectionPage(){
 
     return (
 
-        <div  className={classes.container}>
+        <div style={{backgroundColor:theme.color1}} className={classes.container}>
 
             <div className={classes.greyBox}>
 
@@ -61,17 +75,17 @@ function CollectionPage(){
 
             </div>
 
-            <p  className={classes.h1}> {collectionName}</p>
+            <p style={{color:theme.font}} className={classes.h1}> {collectionName}</p>
 
-            <div className={classes.box}>
+            <div style={{border:theme.border}} className={classes.box}>
 
                 <div className={classes.nameWrapper}>
-                    <div  className={classes.h3}> {"Creator" }</div>
+                    <div style={{color:theme.font}} className={classes.h3}> {"Creator" }</div>
                     <div onClick={goToCreator} className={classes.h2}> {creator.name}</div>
                 </div>
 
                 <div className={classes.nameWrapper}>
-                    <div  className={classes.h3}> {"Items   "}</div>
+                    <div  style={{color:theme.font}} className={classes.h3}> {"Items   "}</div>
                     <div  className={classes.h2}> {allTokenIds.length}</div>
                 </div>
 

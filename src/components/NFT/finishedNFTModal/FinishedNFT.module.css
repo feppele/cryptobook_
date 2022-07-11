@@ -1,26 +1,20 @@
 .container{
     background-color: white;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column; 
+
     border-radius: 10px;
 
     top:20%;
-    transform: translate(-50%, 0);
 
 
 
     position: fixed;
-    margin-top: 5px;
 
     left: 50%;
     transform: translate(-50%, 0);
     z-index: 20;
 
-    height: 400px;
-    width: 300px;
-    padding: 50px;
+    width:300px;
+
 
 
 }

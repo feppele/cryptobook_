@@ -68,8 +68,8 @@
 
 
 .grid{
-    max-width: 95%;
-    margin-top: 120px;
+    width: 95%;
+    margin-top: 70px;
     align-items: center;
     justify-content: center;
 

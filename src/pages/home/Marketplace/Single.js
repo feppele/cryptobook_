@@ -17,14 +17,18 @@ function Single(props){
         // const highId = await highestTokenId();
         // var array= Array.from({length: highId}, (_, i) => i + 1)
 
-        var singles = await getAllSingles();
-        singles.sort((a, b) => 0.5 - Math.random()); // shuffle
+        var singles = await getAllSingles(9,props.loadOffset);
+        console.table(singles)
+        //singles.sort((a, b) => 0.5 - Math.random()); // shuffle
 
-        setSearchResult([]);
-        setSearchResult(singles)
+        // nicht das ganze Array neu laden
+        setSearchResult(searchResult => [...searchResult,...singles])
+        // setSearchResult([]);
+        // setSearchResult(singles)
     }
+    console.table(searchResult)
 
-    // search in nftInfo Database 
+    // search in nftInfo Database
     async function searchSingle(searchValue){
 
         if(searchValue === ""){ return }

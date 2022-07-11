@@ -1,34 +1,30 @@
 .noFriendsWrapper{
 
-    margin-top: 200px;
+    margin-top: 30px;
     display:flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     gap: 10px;
-    position: absolute;
+    position: relative;
     width: 500px;
+    top:0px;
 
+    left: 50%;
+    transform: translate(-50%, 0);
 }
+
+
+
+
 .noFriends{
-    font-size: 40px;
-    opacity: 30%;
+
+    font-size: 20px;
+    opacity: 0.3;
 }
 
 .sad{
-    width: 100%;
-    opacity: 20%;
-    height: 30%;
-}
-
-@media(max-width: 700px){
-    .noFriendsWrapper{
-        margin-top: 150px;
-        width: 300px;
-    }
-    .noFriends{
-        font-size: 20px;
-    }
-
+    width: 30px;
+    opacity: 0.2;
 
 }

@@ -120,9 +120,9 @@ async function highestTokenId(){
     return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res =>{return res[0][0].max});;
 }
 
-async function getAllSingles(){
+async function getAllSingles(limit,offset){
 
-    const ele = {};
+    const ele = {limit:limit,offset:offset};
     const options = getOptions("getAllSingles",ele);
 
     return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;

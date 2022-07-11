@@ -18,6 +18,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Tooltip from '@mui/material/Tooltip';
+import CircularProgress from '@mui/material/CircularProgress';
 
 //ColorTheme - Night Mode
 import {themes} from '../../ColorTheme'
@@ -95,16 +96,24 @@ import {NightContext} from '../../NightModeProvider'
     console.log({backgroundColor:theme.color2})
 
     return (
-        <div style={{backgroundColor:theme.color1}} className={classes.container}>
 
-            <div className={classes.stripe}></div>
+        <div style={{backgroundColor:theme.color1}} className={classes.container1}>
+
+
+            <div style={{borderBottom: theme.border}} className={classes.header}>
+            
+                <div style={{color:theme.font,fontSize:'40px',marginLeft:'40px'}}>friends</div>
+            </div>
+
+
+
+        <div className={classes.container}>
+
+
+
 
             {/* LEFT SIDE */}
-            <div style={{backgroundColor:theme.color1}} className={classes.menu}>
-
-                <div className={classes.haederWrapper}>
-                    <h style={{color:theme.font}} className={classes.header}> friends </h>
-                </div>
+            <div  className={classes.menu}>
 
                 <div style={{backgroundColor:theme.color2,border:theme.border}} className={classes.box}>
 
@@ -129,7 +138,7 @@ import {NightContext} from '../../NightModeProvider'
             {/* RIGHT SIDE */}
             <div className={classes.friendsListSite}>
 
-                {showSad && <NoFriendsSign text= "no friends yet"/>}
+                {allFriends.length<1 && <NoFriendsSign load={showSad} text= "no friends yet"/>}
 
                 <div id="friendList" className={classes.friendList}>
                     <FriendElementCreator friends ={searchResult} />
@@ -137,6 +146,8 @@ import {NightContext} from '../../NightModeProvider'
 
             </div>{/* RIGHT SIDE */}
         </div>
+        </div>
+
     );
 }
 

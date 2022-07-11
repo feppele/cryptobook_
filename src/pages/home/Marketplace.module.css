@@ -82,7 +82,7 @@
 
 .grid{
     margin-top:10px;
-    max-width: 95%;
+    width: 95%;
     align-items: center;
     justify-content: center;
     display: grid;

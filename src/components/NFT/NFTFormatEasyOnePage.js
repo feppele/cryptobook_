@@ -65,7 +65,7 @@ function NFTFormatEasyOnePage(props){
 
         var tokenURI;
 
-        // get get metadata from blockchain, if not is offchain and get from DB
+        // get get TokenURI from blockchain, if not is offchain and get from DB
         try{
             tokenURI = await getTokenUri(tokenId);
 

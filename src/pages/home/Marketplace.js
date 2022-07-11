@@ -9,6 +9,8 @@ import { useHistory } from "react-router-dom";
 import {themes} from '../../ColorTheme'
 import {NightContext} from '../../NightModeProvider'
 
+//mui
+import Button from '@mui/material/Button';
 
 function Marketplace(){
 
@@ -27,6 +29,8 @@ function Marketplace(){
 
     const [singleMode,setSingleMode] = useState(true);
     const [collectionMode,setCollectionMode] = useState(false);
+    // offset: select * from nftinfo limit 3 offset 3
+    const [loadOffset,setLoadOffset] = useState(0);
 
     // Button Style
     const buttons = document.getElementsByName('button')
@@ -56,6 +60,10 @@ function Marketplace(){
 
     }
 
+    function loadMore(){
+        setLoadOffset(loadOffset+9)
+    }
+
     return (
         <div style={{backgroundColor:theme.color1}} className={classes.container}>
 
@@ -78,11 +86,13 @@ function Marketplace(){
 
             <div className={classes.grid}>
 
-                { singleMode && < Single searchValue={searchValue}/>   }
+                { singleMode && < Single loadOffset={loadOffset} searchValue={searchValue}/>   }
 
                 { collectionMode && <Collections searchValue={searchValue}/> }
 
             </div>
+
+            <Button onClick={loadMore} sx={{marginBottom:'33px'}}variant="outlined">load more</Button>
 
         </div>
 

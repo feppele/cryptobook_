@@ -14,3 +14,11 @@
     justify-content: center;
 
 }
+
+
+.list{
+    scroll-behavior:smooth;
+    overflow:scroll;
+
+    height: calc(100vh - 165px);
+}
