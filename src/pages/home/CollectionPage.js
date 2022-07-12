@@ -13,6 +13,9 @@ import image from '../../images/23.jpeg'
 import {themes} from '../../ColorTheme'
 import {NightContext} from '../../NightModeProvider'
 
+//mui
+import Link from '@mui/material/Link';
+
 function CollectionPage(){
 
                 // Night Mode

@@ -39,30 +39,6 @@
     justify-content: center;
 }
 
-.button{
-    font-size: 20px;
-    font-weight: bold;
-    opacity: 0.5;
-    cursor: pointer;
-    margin: 20px;
-
-}
-.button:hover{
-    opacity: 1;
-}
-
-
-.clickedButton{
-    font-size: 20px;
-    font-weight: bold;
-    opacity: 1;
-    cursor: pointer;
-    margin: 20px;
-
-    color: blue;
-
-}
-
 
 .textInput{
     margin-left: 20px;
@@ -106,33 +82,14 @@
 
 @media(max-width:800px){
 
-
-    .header{
-        font-size: 28px;
-    }
-    .button{
-        font-size: 15px;
-        margin: 5px;
-    
-    }
-    .clickedButton{
-        font-size: 15px;
-
-        margin: 5px;
-    
-        color: blue;
-    
-    }
     .textInput{
         margin-left: 5px;
         margin-right: 2px;
-    
         padding-left: 10px;
         width: 99%;
         height: 40px;
         font-size: 15px;
         border-radius: 10px;
         border: 2px solid rgb(209, 209, 209);
-        
     }
 }

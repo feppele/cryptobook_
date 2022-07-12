@@ -129,31 +129,28 @@ async function getAllSingles(limit,offset){
 }
 
 
-async function getTokenIdFromSearch(find){
 
-    const ele = {find:find};
-    const options = getOptions("getTokenIdFromSearch",ele);
+async function getTokenIdFromSearchLimit(find,limit,offset){
 
-    return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res =>{
-        var array =[]
-        res[0].forEach(ele=>{array.push(ele.tokenid)})
-        return array
+    const ele = {find:find,limit:limit,offset:offset};
+    const options = getOptions("getTokenIdFromSearchLimit",ele);
 
-    });;
+    return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
+
 }
 
 
-async function getAllCollections(){
+async function getAllCollections(limit,offset){
 
-    const ele = {};
+    const ele = {limit:limit,offset:offset};
     const options = getOptions("getAllCollections",ele);
 
     return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
 }
 
-async function searchCollections(find){
+async function searchCollections(find,limit,offset){
 
-    const ele = {find:find};
+    const ele = {find:find,limit:limit,offset:offset};
     const options = getOptions("searchCollections",ele);
 
     return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
@@ -233,7 +230,6 @@ export{getMyCollections}
 export{doesCollectionExist}
 export{getCretorFromCollection}
 export{highestTokenId}
-export{getTokenIdFromSearch}
 export{getAllCollections}
 export{searchCollections}
 export{getTokenURIDB}
@@ -242,3 +238,6 @@ export{buyOffChainNFT_deleteCreator}
 
 
 export {getOwnerFromTokenId}
+
+
+export{getTokenIdFromSearchLimit}

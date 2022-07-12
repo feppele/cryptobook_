@@ -252,7 +252,7 @@ async function getAnfrage(methode,ele){
   if(methode === "getAllCollections"){
     anfrage= `
 
-    select collection from collection;
+    select collection from collection limit ${ele.limit} offset ${ele.offset};
 
     `;
   }
@@ -261,7 +261,7 @@ async function getAnfrage(methode,ele){
   if(methode === "searchCollections"){
     anfrage= `
 
-    select DISTINCT collection from nftInfo where find like '%${ele.find}%' and collection != '';
+    select DISTINCT collection from nftInfo where find like '%${ele.find}%' and collection != '' limit ${ele.limit} offset ${ele.offset};
 
     `;
   }
@@ -313,6 +313,14 @@ async function getAnfrage(methode,ele){
     anfrage= `
 
     select tokenid from nftinfo where find like  '%${ele.find}%';
+
+    `;
+  }
+
+  if(methode === "getTokenIdFromSearchLimit"){
+    anfrage= `
+
+    select tokenid from nftinfo where find like  '%${ele.find}%' limit ${ele.limit} offset ${ele.offset};
 
     `;
   }

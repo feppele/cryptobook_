@@ -1,5 +1,4 @@
 .container{
-    
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -16,7 +15,7 @@
 .NFTimage{
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-
+    cursor:pointer;
     object-fit: cover;
     width: 100%;
     height: 100%;

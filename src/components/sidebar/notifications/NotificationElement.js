@@ -70,12 +70,12 @@ function NotificationElement(props){
 
                 {props.notification.notification === "follow" &&
                 <div className={classes.text}>
-                          <Link sx={{cursor: "pointer"}} onClick={openActorProfile} underline="hover"> {actorName.friend_name} </Link> <div>is following you</div>
+                          <Link sx={{cursor: "pointer"}} onClick={openActorProfile} underline="hover"> {actorName.friend_name} </Link> <div style={{color:theme.font}}>is following you</div>
                 </div>
                 }
                 {props.notification.notification === "nftlike" &&
                 <div className={classes.text}>
-                          <Link sx={{cursor: "pointer"}} onClick={openActorProfile} underline="hover"> {actorName.friend_name} </Link> <div>likes your NFT: </div> <Link sx={{cursor: "pointer"}} onClick={openNFTPage} underline="hover"> {NFTName} </Link>
+                          <Link sx={{cursor: "pointer"}} onClick={openActorProfile} underline="hover"> {actorName.friend_name} </Link> <div style={{color:theme.font}}>likes your NFT: </div> <Link sx={{cursor: "pointer"}} onClick={openNFTPage} underline="hover"> {NFTName} </Link>
                 </div>
                 }
 

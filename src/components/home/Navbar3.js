@@ -26,6 +26,8 @@ import NotificationIntegration from '../sidebar/notifications/NotificationIntegr
 //Image
 import profilePic from '../../images/profil.png'
 import logoutPic from '../../images/log-out.png'
+import mondPic from '../../images/mond.png'
+
 
 //myCode
 import { useHistory } from "react-router-dom";
@@ -157,7 +159,7 @@ const ResponsiveAppBar = () => {
 
     {walletOpen && <Wallet closeWalletFunc={closeWallet}/>}
 
-    <AppBar  sx={{backgroundColor:'rgb(6, 29, 42);',position:'relative',zIndex:'3002',height:'65px'}}>
+    <AppBar  sx={{backgroundColor:'rgb(6, 29, 42);',position:'relative',zIndex:'3002'}}>
 
 
       <Container maxWidth="xl">
@@ -278,14 +280,18 @@ const ResponsiveAppBar = () => {
             >
 
               {settings.map((setting) => (
-                <MenuItem id={setting.b} key={setting} onClick={handleCloseUserMenu} sx={{backgroundColor:'yellow'}}>
+                <MenuItem id={setting.b} key={setting} onClick={handleCloseUserMenu} >
                   <Typography textAlign="center">{setting.a}</Typography>
                 </MenuItem>
               ))}
               <div style={{display:'flex',flexDirection:'row',alignItems: 'center',gap:'5px'}}>
-              <Switch checked={nightMode} onChange={handleNightChange}/>
+                  
+                  <img src={mondPic} style={{height: '25px',width: 'auto',marginLeft: '17px',marginRight:'14px'}}></img>
 
-                <div style={{fontSize:'13px',marginRight: '10px'}}>Night Mode</div>
+                  <div style={{fontSize:'13px',marginRight: '0px'}}>Night Mode</div>
+                  <Switch checked={nightMode} onChange={handleNightChange}/>
+
+
               </div>
             </Menu>
           </Box>
