@@ -18,3 +18,8 @@ Build the react app in the main folder with
 npm run build
 
 And provide it to the appServer folder.
+
+
+For testing or Production Build change the Fetch URL in globalData.js
+
+To create SQL Tables use createSQLTables.txt. In this case PSQL is used.
