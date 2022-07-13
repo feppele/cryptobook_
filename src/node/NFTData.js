@@ -1,4 +1,5 @@
 import {getCurrentUser} from '../web3/HelperFunctions'
+import {getAllTokensMetadataArray} from '../web3/NFTContractHelper'
 
 //const fetchi ="https://backendserverreact.azurewebsites.net"
 import {fetchi} from '../globalData'
@@ -214,7 +215,38 @@ async function getPreisOfNFT(tokenId){
     }
 }
 
+// return 
+async function getAllMyTokenIDs_On_Off_chain(from){
 
+    //onchainarray: [metaurl,name,tokenid]
+    var onChainTokenIDs = await getAllTokensMetadataArray(from)
+    onChainTokenIDs = onChainTokenIDs.map(ele => ele[2]) //ele[2] = tokenid
+    console.table(onChainTokenIDs)
+
+    //offchainmetaarray: {metaurl:,name:,tokenid:}
+    var offChainTokenIDs = await getOffchainMetaData(from);
+    offChainTokenIDs = offChainTokenIDs.map(ele => ele.tokenid)
+    console.table(offChainTokenIDs)
+
+    //add onChainTokenIDs +offChainTokenIDs together. But check before if onchain is still in offchain array
+    //offchains werden in nftinfo anhand von 'creator' erkannt. nach verkauf gehört offchaini nicht mehr mir also wird erst gecheckt ob die gleiche tokenId ein onchani ist
+    //wenn onchani wird er nicht hinzugefügt
+    // wenn ich ein offchani erstelle und verkauft ist es ein onchani aber ich bin trotzdem noch in der DB creator also gibt getOffchainMetaData() es weiter hinzurück
+
+    for(var i=0;i<offChainTokenIDs.length;i++){
+        const add = offChainTokenIDs[i]
+        const owner =  await getOwnerOfTokenId(add)
+        if(owner ==="error" ){
+            if(onChainTokenIDs.every(ele => ele !==add)){ // ist nicht enhalten return true
+                onChainTokenIDs.push(add)
+            }
+        }
+    }
+    const allIDs = onChainTokenIDs
+    console.table(allIDs)
+    console.log("DIE LÖNGE DES ARRAY:: " + allIDs.length)
+    return allIDs
+}
 
 
 export{setPreisOfNFT}
@@ -241,3 +273,5 @@ export {getOwnerFromTokenId}
 
 
 export{getTokenIdFromSearchLimit}
+
+export {getAllMyTokenIDs_On_Off_chain}

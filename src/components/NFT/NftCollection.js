@@ -4,8 +4,10 @@ import {getAllTokensMetadataArray,getOwnerOfTokenId} from '../../web3/NFTContrac
 import NFTFormatEasyOnePage from './NFTFormatEasyOnePage'
 import loadImage from '../../images/Loader.gif'
 import NoNFTsSign from './NoNFTsSign';
+import NFTUbersicht from '../../pages/home/Marketplace/NFTUbersicht'
 
-import {getOffchainMetaData} from '../../node/NFTData'
+import {getOffchainMetaData,getAllMyTokenIDs_On_Off_chain} from '../../node/NFTData'
+
 
 
 // input User Address
@@ -13,65 +15,15 @@ function NftCollection(props){
 
     const[loading,setLoading]= useState(true);
     const[noNFTs,setNoNFTs] = useState(true);
-    const [metadataArray,setMetadataArray]=useState([]);
+    const [tokenidArray,setTokenidArray]=useState([]);
 
 
     console.log(props)
     //console.log(metadataArray)
     async function loadNFT(){
 
-
-
-
-        //onchainarray: [metaurl,name,tokenid]
-        var onChainMetaArray = await getAllTokensMetadataArray(props.from)
-
-        // just load from DB because the are on and offChains
-        //load also offChain NFT from DB
-        const offChainMetaArray = await getOffchainMetaData(props.from);
-
-
-        // add off an on to one array
-        //offchainmetaarray: {metaurl:,name:,tokenid:}
-
-
-        for(var i=0;i<offChainMetaArray.length;i++){
-
-            const add = offChainMetaArray[i]
-
-            //offchains werden in nftinfo anhand von 'creator' erkannt. nach verkauf gehört offchaini nicht mehr mir also wird erst gecheckt ob die gleiche tokenId ein onchani ist
-            //wenn onchani wird er nicht hinzugefügt
-            // getOwnerOfTokenId() returns error if no owner == not exists in
-
-            const owner =  await getOwnerOfTokenId(add.tokenid)
-
-            if(owner ==="error" ){
-
-                if(onChainMetaArray.every(e => e[2] !==add.tokenid)){ // ist nicht enhalten return true
-
-                    onChainMetaArray.push([add.metaurl,add.name,add.tokenid])
-                }
-            }
-
-
-        }
-
-
-
-
-
-
-
-
-
-
-        console.log(onChainMetaArray)
-
-
-        setMetadataArray( onChainMetaArray);
-
+        setTokenidArray( await getAllMyTokenIDs_On_Off_chain(props.from));
         setLoading(false);
-
     }
     // just load at mount
     useEffect(() => {loadNFT()},[]);
@@ -79,7 +31,7 @@ function NftCollection(props){
 
     useEffect(() => {
         if(!loading){
-            if(metadataArray.length === 0){
+            if(tokenidArray.length === 0){
                 setNoNFTs(false);
             }else{
                 setNoNFTs(true);
@@ -93,9 +45,8 @@ function NftCollection(props){
         <div className={classes.container}>
 
            { (!noNFTs || loading) && <NoNFTsSign load={!noNFTs} text ="no NFTs yet"/> }
-
-           {metadataArray.map( element =>  <NFTFormatEasyOnePage imageURL={element[0]} imageName={element[1]} tokenId={element[2]}/>  )}
-
+ 
+           <NFTUbersicht user={props.from}/>
         </div>
 
     );

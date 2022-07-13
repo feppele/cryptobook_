@@ -5,7 +5,7 @@ import classes from './Single.module.css';
 import NFTFormatEasyOnePage from '../../../components/NFT/NFTFormatEasyOnePage'
 import {useState,useEffect} from 'react'
 import {highestTokenId,getTokenIdFromSearch,getAllSingles,getTokenIdFromSearchLimit} from '../../../node/NFTData';
-
+import {getAllMyTokenIDs_On_Off_chain} from '../../../node/NFTData'
 
 const LIMIT_LOAD = 15
 
@@ -20,7 +20,17 @@ function Single(props){
     // Show All NFTs __ and mix the array random
     async function showAllNFTs(){
 
-        const result = await getAllSingles(LIMIT_LOAD,props.loadOffset);
+        //if porps.user === true => not Marketplace sondern MyNFTPage
+        var result
+
+        if(props.user){
+            result = await getAllMyTokenIDs_On_Off_chain(props.user)
+            result = result.map(ele=>{return{tokenid:ele}})
+            result=result.slice(props.loadOffset,props.loadOffset+LIMIT_LOAD)
+        }else{
+            result = await getAllSingles(LIMIT_LOAD,props.loadOffset);
+        }
+
 
         //singles.sort((a, b) => 0.5 - Math.random()); // shuffle
 
