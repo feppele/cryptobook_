@@ -16,17 +16,35 @@ function Single(props){
     const [prevSearch,setPrevSearch] = useState("")
     const [NFTs,setNFTs] = useState([])
 
+    // schnellere Variante für Load more --> uncomment
+    //just if MYNFTPage
+    const [allMyTokenIds,setAllMyTokenIds] = useState(getAllMyTokenIds())
+    async function getAllMyTokenIds(){
+        const res = await getAllMyTokenIDs_On_Off_chain(props.user) 
+        return res.map(ele=>{return{tokenid:ele}}) 
+    }
+    
+    useEffect(() => {
+        setAllMyTokenIds(getAllMyTokenIds())
+    },[])
+    //// ^^^^ schnellere Variante für Load more --> uncomment ^^^^
 
     // Show All NFTs __ and mix the array random
     async function showAllNFTs(){
-
-        //if porps.user === true => not Marketplace sondern MyNFTPage
         var result
+        //if porps.user === true => not Marketplace sondern MyNFTPage
 
         if(props.user){
-            result = await getAllMyTokenIDs_On_Off_chain(props.user)
-            result = result.map(ele=>{return{tokenid:ele}})
-            result=result.slice(props.loadOffset,props.loadOffset+LIMIT_LOAD)
+
+            // schnellere Variante für Load more --> uncomment, das da unten dafür commentieren
+            const all = await allMyTokenIds
+            result=all.slice(props.loadOffset,props.loadOffset+LIMIT_LOAD)
+
+            // langsamere Variante für Load more, dafür weniger Code, weil da oben alles wegfällt
+            // result = await getAllMyTokenIDs_On_Off_chain(props.user) 
+            // result=result.map(ele=>{return{tokenid:ele}}) 
+            // result=result.slice(props.loadOffset,props.loadOffset+LIMIT_LOAD)
+
         }else{
             result = await getAllSingles(LIMIT_LOAD,props.loadOffset);
         }
@@ -37,7 +55,6 @@ function Single(props){
         // nicht das ganze Array neu laden
         setNFTs(NFTs => [...NFTs,...result])
     }
-    console.table(NFTs)
 
     // search in nftInfo Database
     async function searchSingle(searchValue){

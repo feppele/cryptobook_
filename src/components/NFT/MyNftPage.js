@@ -57,41 +57,9 @@ function MyNftPage(){
 
         <div style={{backgroundColor:theme.color1}} className={classes.container}>
 
-
-                <div className={classes.header}>
-
-                    <div style={{color:theme.font}} className={classes.headerText}>my NFTs</div>
-
-                    <div className={classes.buttonWrapper}>
-
-                    <ButtonGroup variant="outlined" >
-                        <Tooltip title="explore" disableInteractive arrow placement="top">
-                            <Button onClick={openExplore}>  < img src={explorePic} style={{height: '33px',width: 'auto',filter:theme.png}}></img>   </Button>
-                        </Tooltip>
-                        <Tooltip title="create" disableInteractive arrow placement="top">
-                            <Button onClick={openCreatePage}>    < img src={createPic} style={{height: '27px',width: 'auto',filter:theme.png}}></img>   </Button>
-                        </Tooltip>
-                    </ButtonGroup>
-
-                    </div>
-
-                </div>
-
-                <div className={classes.stripe}></div>
-
-
-                { address && <NftCollection from={myAddress}/>}
-
-
-
+                { address && <NftCollection header={"myNFTs"} from={myAddress}/>}
 
         </div>
-
-
-
-
-
-
     );
 
 

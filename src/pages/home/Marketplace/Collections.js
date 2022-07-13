@@ -4,7 +4,7 @@ import classes from './Collections.module.css';
 
 import NFTCollectionFormat from '../../../components/NFT/NFTCollectionFormat';
 import {useState,useEffect} from 'react'
-import {getAllCollections,searchCollections} from '../../../node/NFTData';
+import {getAllCollections,searchCollections,getAllCollectionsOfPerson,searchCollectionsOfPerson} from '../../../node/NFTData';
 
 
 const LIMIT_LOAD = 15
@@ -22,7 +22,14 @@ function Collections(props){
     // Show All NFTs __ and mix the array random
     async function showAllCollections(){
         // get All Collections from DB and shuffle
-        const result = await getAllCollections(LIMIT_LOAD,props.loadOffset);
+        var result
+
+        if(props.user){
+            result = await getAllCollectionsOfPerson(props.user,LIMIT_LOAD,props.loadOffset);
+        }else{
+            result = await getAllCollections(LIMIT_LOAD,props.loadOffset);
+        }
+
         //result.sort((a, b) => 0.5 - Math.random() );
 
         setNFTs(NFTs => [...NFTs,...result])
@@ -40,7 +47,15 @@ function Collections(props){
         }
         setPrevSearch(searchValue)
 
-        const result = await searchCollections(searchValue,LIMIT_LOAD,props.loadOffset)
+        var result
+
+        if(props.user){
+            result = await searchCollectionsOfPerson(props.user,searchValue,LIMIT_LOAD,props.loadOffset)
+        }else{
+            result = await searchCollections(searchValue,LIMIT_LOAD,props.loadOffset)
+        }
+
+        
 
         // important, when net reset doesnt work
         setSearchResult(searchResult => [...searchResult,...result])

@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Tooltip from '@mui/material/Tooltip';
 import Avatar from '@mui/material/Avatar';
+import Skeleton from '@mui/material/Skeleton';
 
 //ColorTheme - Night Mode
 import {themes} from '../../ColorTheme'
@@ -23,6 +24,7 @@ import {NightContext} from '../../NightModeProvider'
         const [theme,setTheme] =useState(themes.bright)
         const [pic,setPic] =useState("")
         const [latestMessage,setLatestMessage] =useState({message:""})
+        const [loading,setLoading] = useState(true)
 
         useEffect(()=>{
             if(nightMode){
@@ -34,9 +36,14 @@ import {NightContext} from '../../NightModeProvider'
 
         async function loadPic(){
            const res=  await getProfilePicURL(props.friend.friend_addr)
+
+setTimeout(()=>{
            if(res.length>0){
             setPic(res)
            }
+           
+           setLoading(false)
+           },2000)
         }
 
         useLayoutEffect(() => {

@@ -6,9 +6,6 @@ import LinearProgress from '@mui/material/LinearProgress';
 
 function NoNFTsSign(props){
 
-
-
-
     return  (
 
     <div className={classes.noFriendsWrapper}>

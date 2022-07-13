@@ -257,11 +257,27 @@ async function getAnfrage(methode,ele){
     `;
   }
 
+  if(methode === "getAllCollectionsOfPerson"){
+    anfrage= `
+
+    select collection from collection where creator='${ele.person}' limit ${ele.limit} offset ${ele.offset};
+
+    `;
+  }
+
 
   if(methode === "searchCollections"){
     anfrage= `
 
     select DISTINCT collection from nftInfo where find like '%${ele.find}%' and collection != '' limit ${ele.limit} offset ${ele.offset};
+
+    `;
+  }
+
+  if(methode === "searchCollectionsOfPerson"){
+    anfrage= `
+
+    select DISTINCT collection from nftInfo where find like '%${ele.find}%' and collection != '' and creator='${ele.person}' limit ${ele.limit} offset ${ele.offset};
 
     `;
   }

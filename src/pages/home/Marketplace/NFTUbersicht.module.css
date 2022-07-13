@@ -75,11 +75,15 @@
 
 
 
-@media(max-width:1200px){
-
-}
 
 @media(max-width:800px){
+
+    .searchBox{
+        flex-direction: column;
+    }
+    .toggleButtonWrapper{
+        width: 100%;
+    }
 
     .textInput{
         margin-left: 5px;

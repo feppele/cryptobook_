@@ -26,6 +26,9 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
+import CircularProgress from '@mui/material/CircularProgress';
+import LinearProgress from '@mui/material/LinearProgress';
+import Skeleton from '@mui/material/Skeleton';
 
 
 //ColorTheme - Night Mode
@@ -47,7 +50,7 @@ function ChatPage(){
 
     const [chatOpen,setChatOpen] = useState(true)
     const [openAddModal,setOpenFriendModal] = useState(false)
-
+    const [loading,setLoading] = useState(true)
 
     function addFriend(){
         setOpenFriendModal(true)
@@ -135,6 +138,8 @@ function ChatPage(){
             setSelectedFriends(array[0])
             setFriendIsSelected(true)
         }
+
+        setLoading(false)
     }
 
     useEffect(() => {
@@ -223,6 +228,9 @@ function ChatPage(){
 
                     </div>
 
+                    {false && <CircularProgress color="inherit" sx={{position: 'relative',left:'50%',transform:'translateX(-50%)' }}/>}
+
+                    {loading && <LinearProgress color="inherit" sx={{backgroundColor:'white'}}/>}
                     {friends.map(friend =><div style={friend.friend_addr===selectedFriend.friend_addr? {backgroundColor:theme.color2} : {backgroundColor:theme.color1}}><FriendListElement onClick={(pic)=>{selectFriend(pic,friend)}} friend={friend} seleced={selectedFriend}/></div>)}
 
                 </div>

@@ -1,17 +1,6 @@
 .container{
-    width:95%;
-    margin-top: 120px;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
 
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-
-    grid-template-rows: 1fr;
-    gap: 10px;
-
-    position: relative;
-    margin-bottom: 30px;
 
 }
 

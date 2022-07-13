@@ -15,8 +15,6 @@ async function getNFTLikes(tokenId){
         }
         return res[0][0].count;
     })
-
-    console.log(res)
     return res;
 }
 
@@ -33,7 +31,6 @@ async function likeNFT(tokenId){
 
     await setNotificationsToDB("nftlike",currentUser.toLowerCase(),owner,tokenId)
 
-    console.log("LIKE NFT")
 }
 
 async function dislikeNFT(tokenId){

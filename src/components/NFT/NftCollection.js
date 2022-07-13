@@ -17,8 +17,6 @@ function NftCollection(props){
     const[noNFTs,setNoNFTs] = useState(true);
     const [tokenidArray,setTokenidArray]=useState([]);
 
-
-    console.log(props)
     //console.log(metadataArray)
     async function loadNFT(){
 
@@ -46,7 +44,7 @@ function NftCollection(props){
 
            { (!noNFTs || loading) && <NoNFTsSign load={!noNFTs} text ="no NFTs yet"/> }
  
-           <NFTUbersicht user={props.from}/>
+           <NFTUbersicht header={props.header} user={props.from}/>
         </div>
 
     );

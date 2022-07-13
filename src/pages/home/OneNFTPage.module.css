@@ -115,6 +115,7 @@
 }
 
 .likesWrapper{
+    width: 120px;
     margin-top: 20px;
     margin-bottom: 30px;
     display: flex;

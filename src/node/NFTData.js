@@ -4,6 +4,7 @@ import {getAllTokensMetadataArray} from '../web3/NFTContractHelper'
 //const fetchi ="https://backendserverreact.azurewebsites.net"
 import {fetchi} from '../globalData'
 import {getOwnerOfTokenId} from '../web3/NFTContractHelper'
+import {NFTContract} from '../web3/NFTContract';
 
 function getOptions(_methode,_ele){
 
@@ -149,13 +150,29 @@ async function getAllCollections(limit,offset){
     return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
 }
 
+async function getAllCollectionsOfPerson(person,limit,offset){
+
+    const ele = {person:person,limit:limit,offset:offset};
+    const options = getOptions("getAllCollectionsOfPerson",ele);
+
+    return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
+}
+
 async function searchCollections(find,limit,offset){
 
     const ele = {find:find,limit:limit,offset:offset};
     const options = getOptions("searchCollections",ele);
-
     return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
 }
+
+async function searchCollectionsOfPerson(person,find,limit,offset){
+
+    const ele = {person:person,find:find,limit:limit,offset:offset};
+    const options = getOptions("searchCollections",ele);
+    return await fetch(fetchi+ "/databank",options).then(res => {return res.json()}).then(res =>{return res[0]});;
+}
+
+
 
 async function getTokenURIDB(tokenId){
 
@@ -218,33 +235,48 @@ async function getPreisOfNFT(tokenId){
 // return 
 async function getAllMyTokenIDs_On_Off_chain(from){
 
-    //onchainarray: [metaurl,name,tokenid]
-    var onChainTokenIDs = await getAllTokensMetadataArray(from)
-    onChainTokenIDs = onChainTokenIDs.map(ele => ele[2]) //ele[2] = tokenid
-    console.table(onChainTokenIDs)
+    var onChainTokenIDs = NFTContract.methods.ownersTokenIds(from).call();
 
-    //offchainmetaarray: {metaurl:,name:,tokenid:}
-    var offChainTokenIDs = await getOffchainMetaData(from);
+    var offChainTokenIDs = getOffchainMetaData(from);
+
+    // onChain on Offchain can Load simultanously
+    const result = await Promise.allSettled([onChainTokenIDs,offChainTokenIDs])
+    onChainTokenIDs = result[0].value
+    offChainTokenIDs = result[1].value
+
+    onChainTokenIDs = onChainTokenIDs.map(ele => ele) // anders gehts nicht, kp warum
+    console.log(onChainTokenIDs)
     offChainTokenIDs = offChainTokenIDs.map(ele => ele.tokenid)
-    console.table(offChainTokenIDs)
+    console.log(offChainTokenIDs)
 
     //add onChainTokenIDs +offChainTokenIDs together. But check before if onchain is still in offchain array
     //offchains werden in nftinfo anhand von 'creator' erkannt. nach verkauf gehört offchaini nicht mehr mir also wird erst gecheckt ob die gleiche tokenId ein onchani ist
     //wenn onchani wird er nicht hinzugefügt
     // wenn ich ein offchani erstelle und verkauft ist es ein onchani aber ich bin trotzdem noch in der DB creator also gibt getOffchainMetaData() es weiter hinzurück
 
+    //check if offchaini is really offchai by checking if offchani has an owner on blockchain
+    // this happens when i create offline and sell it. then I am still creator and getOffchainMetaData() says its still mine
+
+    // if has owner: owner=owneraddress. Else owner = "error"
+    var promisearray = []
+    offChainTokenIDs.forEach(ele=>{
+        promisearray.push( getOwnerOfTokenId(ele) )
+    })
+
+    var onwers = await Promise.allSettled(promisearray)
+    onwers = onwers.map(ele => ele.value)
+    console.log(onwers)
+
     for(var i=0;i<offChainTokenIDs.length;i++){
         const add = offChainTokenIDs[i]
-        const owner =  await getOwnerOfTokenId(add)
-        if(owner ==="error" ){
+
+        if(onwers[i] ==="error" ){
             if(onChainTokenIDs.every(ele => ele !==add)){ // ist nicht enhalten return true
                 onChainTokenIDs.push(add)
             }
         }
     }
     const allIDs = onChainTokenIDs
-    console.table(allIDs)
-    console.log("DIE LÖNGE DES ARRAY:: " + allIDs.length)
     return allIDs
 }
 
@@ -275,3 +307,6 @@ export {getOwnerFromTokenId}
 export{getTokenIdFromSearchLimit}
 
 export {getAllMyTokenIDs_On_Off_chain}
+
+export{getAllCollectionsOfPerson}
+export{searchCollectionsOfPerson}

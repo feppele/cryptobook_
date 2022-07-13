@@ -24,19 +24,8 @@ function FriendsNFTs(props){
 
         <div style={{backgroundColor:theme.color1}} className={classes.container}>
 
-                <div className={classes.header}>
 
-                    <div style={{color: theme.font}} className={classes.headerText}> {props.personData.friend_name +"'s NFTs"}</div>
-
-                    <div className={classes.buttonWrapper}>
-
-                    </div>
-
-                </div>
-
-                <div className={classes.stripe}></div>
-
-                { <NftCollection from={props.personData.friend_addr}/>}
+            { <NftCollection header={props.personData.friend_name + "'s NFTs"} from={props.personData.friend_addr}/>}
 
         </div>
 

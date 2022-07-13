@@ -134,14 +134,17 @@ function NFTUbersicht(props){
 
                 <div className={classes.searchBox}>
 
-                <ToggleButtonGroup value={alignment} exclusive onChange={handleAlignment} aria-label="text alignment" sx={{height:'40px'}} >
-                    <ToggleButton value="collection" aria-label="left aligned" sx={{width:'100px'}}>
+
+                <div className={classes.toggleButtonWrapper}>
+                <ToggleButtonGroup value={alignment} exclusive onChange={handleAlignment} aria-label="text alignment" sx={{height:'40px',width:'100%'}} >
+                    <ToggleButton value="collection" aria-label="left aligned" sx={{width:'50%'}}>
                     <div style={{color:theme.font}}>Collection</div>
                     </ToggleButton>
-                    <ToggleButton value="single" aria-label="right aligned" default sx={{width:'100px'}}>
+                    <ToggleButton value="single" aria-label="right aligned" default sx={{width:'50%'}}>
                     <div style={{color:theme.font}}>Single</div>
                     </ToggleButton>
                 </ToggleButtonGroup>
+                </div>
 
 
                     <input style={{backgroundColor:theme.color2,color:theme.font,border:theme.border}} id="searchInput" className={classes.textInput} placeholder="search items" onKeyDown={search} ></input>

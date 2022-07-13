@@ -39,6 +39,8 @@ import {NightContext} from '../../NightModeProvider'
 // loads image from server if not available from ipfs
 function NFTFormatEasyOnePage(props){
 
+    console.log("NFTFormatEasyOnePage")
+
         // Night Mode
         const nightMode = useContext(NightContext)
         const [theme,setTheme] =useState(themes.bright)
