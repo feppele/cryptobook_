@@ -403,6 +403,15 @@ async function getAnfrage(methode,ele){
     `;
   }
 
+  if(methode === "sendMessageEnrcypt"){
+    anfrage= `
+
+      insert into messages (message,von,zu,date,sendermessage,receivermessage) values ('${ele.message}','${ele.from}','${ele.to}','${ele.date}', '${ele.senderMessage}', '${ele.receiverMessage}')
+    `;
+  }
+
+  
+
   if(methode === "getAllMyMessages"){
     anfrage= `
 
@@ -447,6 +456,38 @@ async function getAnfrage(methode,ele){
  
     `;
   }
+
+
+  // ADD PUBLIC KEY 
+  if(methode === "addPublicKeyToDB"){
+    anfrage= `
+
+    insert into publickey values ('${ele.address}', '${ele.key}');
+ 
+    `;
+  }
+
+  if(methode === "checkPublicKeyExists"){
+    anfrage= `
+
+    select count(*) from publickey where address = '${ele.address}';
+ 
+    `;
+  }
+
+  if(methode === "getPublicKey"){
+    anfrage= `
+
+    select key from publickey where address = '${ele.address}';
+ 
+    `;
+  }
+
+
+  
+
+
+    
 
   return anfrage; /// <-- return
 }

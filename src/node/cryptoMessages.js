@@ -34,6 +34,14 @@ async function sendMessageToDB(message){
 
 }
 
+export async function sendMessageToDBEnrcypt(message){
+
+    var res = await fetch(fetchi+ "/databank",getOptions("sendMessageEnrcypt",message )).then(res => {return res.json()}).catch(console.log);
+
+    console.log(res)
+
+}
+
 
 // return {messsage,von,zu,date,id}
 async function getLatestMessage(partner){

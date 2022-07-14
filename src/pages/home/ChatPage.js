@@ -10,11 +10,15 @@ import backImg from '../../images/zuruck.png'
 import addImg from '../../images/plus.png'
 import {shortAddr} from '../../web3/LoadingFunctions'
 import {loadMessagesFromDB} from '../../node/cryptoMessages'
-import {sendMessageToDB} from '../../node/cryptoMessages'
+import {sendMessageToDB,sendMessageToDBEnrcypt} from '../../node/cryptoMessages'
 import {getLatestMessage} from '../../node/cryptoMessages'
+import {web3} from '../../web3/Web3'
+import { ethers } from "ethers";
+// import {crypto} from'crypto';
+import {getPublicKey} from '../../node/databank'
 
 
-
+import {encryptMessage} from '../../encryption'
 
 //popup
 import PopupFenster from '../../components/PopupFenster/PopupFenster'
@@ -34,6 +38,8 @@ import Skeleton from '@mui/material/Skeleton';
 //ColorTheme - Night Mode
 import {themes} from '../../ColorTheme'
 import {NightContext} from '../../NightModeProvider'
+
+const crypto = require('crypto');
 
 
 // Message : {message,from,to,date}
@@ -146,16 +152,25 @@ function ChatPage(){
         loadFriends()
     },[])
 
-
+    
     async function send(text){
         const myAddress = await window.ethereum.request({method: 'eth_accounts'}).then(res=>{return res[0]})
 
-        const message = {message:text,from:myAddress,to:selectedFriend.friend_addr,date:new Date().toLocaleString('en-US', { timeZone: 'UTC' })} //new Date().toLocaleString('en-US', { timeZone: 'UTC' })
+        var message = {message:text,from:myAddress,to:selectedFriend.friend_addr,date:new Date().toLocaleString('en-US', { timeZone: 'UTC' })} //new Date().toLocaleString('en-US', { timeZone: 'UTC' })
 
         console.log(message)
 
+        // const senderMessage = await encryptMessage(message.message,message.from)
+        // const receiverMessage = await encryptMessage(message.message,message.to)
+
+        // message.senderMessage=senderMessage
+        // message.receiverMessage=receiverMessage
+
+        console.log(message)
         // Send MEssage to DB
         sendMessageToDB(message)
+        //sendMessageToDBEnrcypt(message)
+        
         // Also add direkt to State, that I see my new message immediatley. add message.sender, which also happens in cryptomessages.js
         message.sender="me"
         setCurrentMessages(currentMessages=>[...currentMessages,message]   )
@@ -210,9 +225,12 @@ function ChatPage(){
 
     // },[])
 
+
     return (
 
         <div style={{backgroundColor:theme.color1}} className={classes.container}>
+
+            <Button onClick={getPublicKey}>cllll</Button>
 
         { openAddModal && <PopupFenster integration={<AddFriendIntegration/>} onCloseClicked={closeAddFriend} text={"Add Friend"}/>}
 

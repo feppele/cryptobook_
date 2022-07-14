@@ -49,7 +49,7 @@ import {NightContext} from '../../NightModeProvider'
 
             <div className={classes.bottom} style={{color:theme.font}}>
 
-                {props.message}
+                <div>  {props.message}  </div>
 
             </div>
 

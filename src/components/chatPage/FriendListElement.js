@@ -70,7 +70,7 @@ setTimeout(()=>{
             <div className={classes.wrapper1}>
 
                 <div style={{fontWeight:'bold',fontSize:'11px',color:theme.font}}>{props.friend.friend_name}</div>
-                <div style={{fontSize:'11px',color:theme.font}}>{latestMessage.message} </div>
+                <div style={{fontSize:'11px',color:theme.font}}>{ latestMessage.message.slice(0,25)} </div>
 
             </div>
 

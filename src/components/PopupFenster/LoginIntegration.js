@@ -3,12 +3,15 @@ import metamaskPic from '../../images/metamask.png';
 import etherPic from '../../images/ether.png';
 import {useEffect,useState} from 'react';
 import { useHistory } from "react-router-dom";
+import {addPublicKeyToDB} from '../../node/databank'
 
 function LoginIntegration(props){
     window.scrollTo(0, 0);
     const history = useHistory();
 
     const [notPolygon,setNotPolygon] = useState(false)
+
+
 
     async function checkChain(){
         const chainId = await window.ethereum.request({ method: 'eth_chainId' });
@@ -21,12 +24,20 @@ function LoginIntegration(props){
 
     useEffect(() => {
         checkChain()
+
     },[])
 
     async function loginMetamask(){
         if(notPolygon){return}
 
         const accounts =  await window.ethereum.request({method: 'eth_requestAccounts'});
+        console.table(accounts)
+
+        // erstmal weglassen bis fertig implementriert
+        // Add Public KEy to DB
+        //addPublicKeyToDB(accounts[0])
+
+
         history.push(props.nextPage);
     }
 

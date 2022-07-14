@@ -125,6 +125,7 @@ function NFTUbersicht(props){
         }
     });
 
+
     return (
         <div style={{backgroundColor:theme.color1}} className={classes.container}>
 

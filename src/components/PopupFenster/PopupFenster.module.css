@@ -3,7 +3,6 @@
 .komplett{
     position:absolute;
 
-
 }
 .backdrop{
 
@@ -87,7 +86,7 @@
 }
 
 @media(max-width: 650px){
-    .container{
+    .fenster{
         width:95%;
     }
 }

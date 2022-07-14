@@ -86,6 +86,49 @@ async function loadNameFromDB2(address){
 }
 
 
+
+export async function addPublicKeyToDB(address){
+
+  //const currentUser = await window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{return currentUsers[0]})
+  // This should just happen at the first login, so check if already happend:
+  if( await checkPublicKeyExists(address)){
+    console.log("Public KEy exists")
+    return
+  }
+
+  const publicKey = await window.ethereum.request({
+    method: 'eth_getEncryptionPublicKey',
+    params: [address], // you must have access to the specified account
+  })
+  .then(res=>{return res})
+
+  fetch(fetchi+ "/databank",getOptions("addPublicKeyToDB",{address: address.toLowerCase(),key: publicKey} )).catch(console.log);
+
+}
+
+export async function checkPublicKeyExists(address){
+  const count = await fetch(fetchi+ "/databank",getOptions("checkPublicKeyExists",{address: address.toLowerCase()} )).then(res => {return res.json()}).then(res=>{return res[0][0].count})
+  // if !==0 ==> EXISTS
+  console.log("COUNT:" +count)
+  return count !== '0'
+
+}
+
+export async function getPublicKey(address){
+
+  if(address !=="me"){
+    address = await window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{return currentUsers[0]})
+  }
+  const key = await fetch(fetchi+ "/databank",getOptions("getPublicKey",{address: address.toLowerCase()} )).then(res => {return res.json()}).then(res=>{return res[0]})
+
+  if(key.length === 0 ){
+    return undefined
+  }else{
+    return key[0].key
+  }
+}
+
+
 export{loadNameFromDB2}
 export{unfollowUser};
 export{followUser};
