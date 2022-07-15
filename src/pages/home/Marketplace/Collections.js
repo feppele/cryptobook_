@@ -33,6 +33,7 @@ function Collections(props){
         //result.sort((a, b) => 0.5 - Math.random() );
 
         setNFTs(NFTs => [...NFTs,...result])
+        props.setLoading(false)
 
     }
 

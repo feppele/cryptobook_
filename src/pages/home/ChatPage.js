@@ -42,6 +42,10 @@ import {NightContext} from '../../NightModeProvider'
 const crypto = require('crypto');
 
 
+    // amount of Messages which load when load older messages Button pressed
+    const LIMIT = 7
+    const OFFSET = 7
+
 // Message : {message,from,to,date}
 function ChatPage(){
     const history =useHistory();
@@ -97,12 +101,35 @@ function ChatPage(){
     },[nightMode])
 
 
+    const [firstTime,setfirstTime] =useState(true)
+    
+    
     useLayoutEffect(() => {
+        var messageArea = document.getElementById('messageArea');
+        //  messageArea.addEventListener('scroll',()=>{
+        //     setBottom( messageArea.scrollHeight -messageArea.scrollTop -messageArea.clientHeight)
+        //     console.log(" bottom....."+ bottom)
+        // })
+
         if(!chatOpen){return}
-        var elem = document.getElementById('messageArea');
-        elem.scrollTop = elem.scrollHeight;
+        messageArea.scrollTop = messageArea.scrollHeight
+
+        // console.log("messageArea.scrollTop" +messageArea.scrollTop)
+        // console.log(" messageArea.scrollHeight" + messageArea.scrollHeight) // fenster höhe
+        // console.log(" messageArea.clientHeight" + messageArea.clientHeight) // fenster höhe
+        // console.log(" bottom."+ bottom)
+        // console.log(bottom+messageArea.clientHeight+messageArea.scrollTop)
+
+
+        if (firstTime) {
+            messageArea.scrollTop = messageArea.scrollHeight;
+            setfirstTime( false)
+        } else if (messageArea.scrollTop + messageArea.clientHeight === messageArea.scrollHeight) {
+            messageArea.scrollTop = messageArea.scrollHeight;
+        }
 
     })
+
 
     function openProfile(){
         history.push(`/profile/${selectedFriend.friend_addr}`)
@@ -188,14 +215,20 @@ function ChatPage(){
 
     // when on MenuFriend clicked
     function selectFriend(pic,friend){ // friend: {friend_name:String, friend_addr:String, blockchain:Boolean}
+
+        // just if friend switch, not when press 2 timies on same friend
+        if(selectedFriend ==friend){return}
+
         friend.pic=pic[0];  // add selectedFriendPicURL: // friend: {friend_name:String, friend_addr:String, blockchain:Boolean, pic:String}
         setSelectedFriends(friend)
-
+        setMsgOffset(0) //msgOffset
         openChatWindow()
-
+        setCurrentMessages([])
 
     }
-    
+
+
+    const [msgOffset,setMsgOffset] =useState(0)
     async function loadMessages(){
         //if(!friendIsSelected){return}
         console.log(selectedFriend.friend_addr)
@@ -206,15 +239,19 @@ function ChatPage(){
         //Load all Messages from me and partner from DB
         //{messages: [{message,from,to,date}],amount:amountMessages}] if no messages amount = 0
         // message = {message,from,to,date}
-        const res = await loadMessagesFromDB(myAddress,partnerAddress)
-        setCurrentMessages(res.messages)
+
+
+
+        const res = await loadMessagesFromDB(myAddress,partnerAddress,LIMIT,msgOffset)
+        //setCurrentMessages(res.messages)
+        setCurrentMessages(currentMessages=>[...res.messages,...currentMessages]   )
         //console.log(res.messages)
     }
 
     // Load Messages everyTime SelectedFriend changes
     useEffect(() =>{
         loadMessages()
-    },[selectedFriend])
+    },[selectedFriend,msgOffset])
 
 
     //Load new Messages in Interval
@@ -230,7 +267,6 @@ function ChatPage(){
 
         <div style={{backgroundColor:theme.color1}} className={classes.container}>
 
-            <Button onClick={getPublicKey}>cllll</Button>
 
         { openAddModal && <PopupFenster integration={<AddFriendIntegration/>} onCloseClicked={closeAddFriend} text={"Add Friend"}/>}
 
@@ -276,6 +312,8 @@ function ChatPage(){
 
                     {/*messageArea */}
                     <div id="messageArea" className={classes.messageArea} style={{borderBottom:theme.border}}>
+
+                        <Button onClick={()=>{setMsgOffset(msgOffset+OFFSET)}} sx={{width:'200px',position:'relative',left:'50%',transform: 'translate(-50%, 0)'}}>load older messages</Button>
 
                     {  currentMessages.map(item =>{
 

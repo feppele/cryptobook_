@@ -258,7 +258,7 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
 
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="Remy Sharp" src={profilePic} sx={{border: '2px solid white',height: '50px',width: '50px'}}/>
+              <Avatar alt="Remy Sharp" src={profilePic} sx={{border: '2px solid white',height: '40px',width: '40px'}}/>
             </IconButton>
 
 

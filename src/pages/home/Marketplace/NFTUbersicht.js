@@ -17,12 +17,17 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import CircularProgress from '@mui/material/CircularProgress';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const LIMIT_LOAD = 15
 
 // NFTUbersicht is used for MarketPlace and for MYNFTPAGE
 //if not MarketPlace then props.user is injected
 function NFTUbersicht(props){
+
+    const [loading,setLoading] = useState(true)
+    const [moreButtonVisible,setMoreButtonVisible] = useState(false)
 
     const gridRef = useRef()
 
@@ -126,6 +131,7 @@ function NFTUbersicht(props){
     });
 
 
+
     return (
         <div style={{backgroundColor:theme.color1}} className={classes.container}>
 
@@ -163,18 +169,19 @@ function NFTUbersicht(props){
 
                 </div>
 
+                {loading && <LinearProgress color="inherit" sx={{width:'100%',position:'absolute'}}/>}
             </div>
-
 
             <div ref={gridRef} className={classes.grid}>
 
-                { singleMode && < Single user={props.user} loadOffset={loadOffset} searchValue={searchValue}/>   }
 
-                { collectionMode && <Collections user={props.user} loadOffset={loadOffset} searchValue={searchValue}/> }
+                { singleMode && < Single user={props.user} loadOffset={loadOffset} searchValue={searchValue} setLoading={setLoading} setMoreButtonVisible={setMoreButtonVisible}/>   }
+
+                { collectionMode && <Collections user={props.user} loadOffset={loadOffset} searchValue={searchValue} setLoading={setLoading} setMoreButtonVisible={setMoreButtonVisible}/> }
 
             </div>
 
-            <Button onClick={loadMore} sx={{marginBottom:'33px'}}variant="outlined">load more</Button>
+            { moreButtonVisible && <Button onClick={loadMore} sx={{marginBottom:'33px'}}variant="outlined">load more</Button>}
 
         </div>
 

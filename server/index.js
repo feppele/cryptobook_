@@ -391,7 +391,7 @@ async function getAnfrage(methode,ele){
   if(methode === "getMessages"){
     anfrage= `
 
-    select * from messages where von = '${ele.from}' AND zu ='${ele.to}' OR (zu = '${ele.from}' AND von ='${ele.to}');
+    select * from messages where von = '${ele.from}' AND zu ='${ele.to}' OR (zu = '${ele.from}' AND von ='${ele.to}') ORDER BY id desc limit ${ele.limit} offset ${ele.offset} ;
 
     `;
   }

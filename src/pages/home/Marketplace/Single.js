@@ -15,6 +15,7 @@ function Single(props){
     const [searchResult,setSearchResult] = useState([])
     const [prevSearch,setPrevSearch] = useState("")
     const [NFTs,setNFTs] = useState([])
+    
 
     // schnellere Variante für Load more --> uncomment
     //just if MYNFTPage
@@ -54,6 +55,13 @@ function Single(props){
 
         // nicht das ganze Array neu laden
         setNFTs(NFTs => [...NFTs,...result])
+
+        console.log( result);
+        if(result.length >0){
+            props.setMoreButtonVisible(true)
+        }
+
+        props.setLoading(false)
     }
 
     // search in nftInfo Database

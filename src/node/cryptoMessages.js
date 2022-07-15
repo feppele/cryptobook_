@@ -7,11 +7,12 @@ import {loadNameFromDB2} from './databank'
 //if no Messages amount = 0
 // return return {messages:messages[0],amount:amountMessages}
 //message = {message,from,to,date}
-async function loadMessagesFromDB(me,partner){
+async function loadMessagesFromDB(me,partner,limit,offset){
 
-    var messages = await fetch(fetchi+ "/databank",getOptions("getMessages",{from: me, to: partner} )).then(res => {return res.json()}).catch(console.log);
+    var messages = await fetch(fetchi+ "/databank",getOptions("getMessages",{from: me, to: partner,limit:limit,offset:offset} )).then(res => {return res.json()}).catch(console.log);
     const amountMessages =messages[0].length
     messages = messages[0]
+    messages = messages.reverse()
 
     //Load Also names from DB
     const partnerName = await loadNameFromDB2(partner)

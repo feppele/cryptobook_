@@ -2,6 +2,7 @@
 
 .komplett{
     position:absolute;
+    width: 100%;
 
 }
 .backdrop{
@@ -87,6 +88,7 @@
 
 @media(max-width: 650px){
     .fenster{
-        width:95%;
+        width:98%;
+        min-width: 0px;
     }
 }
