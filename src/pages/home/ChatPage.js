@@ -43,8 +43,8 @@ const crypto = require('crypto');
 
 
     // amount of Messages which load when load older messages Button pressed
-    const LIMIT = 7
-    const OFFSET = 7
+    const LIMIT = 15
+    const OFFSET = 15
 
 // Message : {message,from,to,date}
 function ChatPage(){
@@ -101,32 +101,29 @@ function ChatPage(){
     },[nightMode])
 
 
-    const [firstTime,setfirstTime] =useState(true)
-    
+   
     
     useLayoutEffect(() => {
-        var messageArea = document.getElementById('messageArea');
+       // var messageArea = document.getElementById('messageArea');
         //  messageArea.addEventListener('scroll',()=>{
         //     setBottom( messageArea.scrollHeight -messageArea.scrollTop -messageArea.clientHeight)
         //     console.log(" bottom....."+ bottom)
         // })
 
+        console.log("useLayoutEffect")
+
         if(!chatOpen){return}
-        messageArea.scrollTop = messageArea.scrollHeight
+
 
         // console.log("messageArea.scrollTop" +messageArea.scrollTop)
         // console.log(" messageArea.scrollHeight" + messageArea.scrollHeight) // fenster höhe
         // console.log(" messageArea.clientHeight" + messageArea.clientHeight) // fenster höhe
         // console.log(" bottom."+ bottom)
         // console.log(bottom+messageArea.clientHeight+messageArea.scrollTop)
+        //     setBottom( messageArea.scrollHeight -messageArea.scrollTop -messageArea.clientHeight)
+        //     console.log(" bottom....."+ bottom)
 
 
-        if (firstTime) {
-            messageArea.scrollTop = messageArea.scrollHeight;
-            setfirstTime( false)
-        } else if (messageArea.scrollTop + messageArea.clientHeight === messageArea.scrollHeight) {
-            messageArea.scrollTop = messageArea.scrollHeight;
-        }
 
     })
 
@@ -201,6 +198,8 @@ function ChatPage(){
         // Also add direkt to State, that I see my new message immediatley. add message.sender, which also happens in cryptomessages.js
         message.sender="me"
         setCurrentMessages(currentMessages=>[...currentMessages,message]   )
+        var messageArea = document.getElementById('messageArea');
+        messageArea.scrollTop = messageArea.scrollHeight
 
     }
     function sendWithEnter(e){
@@ -227,8 +226,9 @@ function ChatPage(){
 
     }
 
-
+    const [bottom,setBottom] =useState(0)
     const [msgOffset,setMsgOffset] =useState(0)
+    var bot =0
     async function loadMessages(){
         //if(!friendIsSelected){return}
         console.log(selectedFriend.friend_addr)
@@ -242,10 +242,25 @@ function ChatPage(){
 
 
 
+        // console.log("messageArea.scrollTop" +messageArea.scrollTop)
+        // console.log(" messageArea.scrollHeight" + messageArea.scrollHeight) // fenster höhe
+        // console.log(" messageArea.clientHeight" + messageArea.clientHeight) // fenster höhe
+        // console.log(" bottom."+ bottom)
+        // console.log(bottom+messageArea.clientHeight+messageArea.scrollTop)
+        var messageArea = document.getElementById('messageArea');
+        // bevore new message
+        //setBottom( messageArea.scrollHeight -messageArea.scrollTop -messageArea.clientHeight)
+        bot = messageArea.scrollHeight -messageArea.scrollTop -messageArea.clientHeight
+            console.log(" bottom....."+ bot)
+
+
+
         const res = await loadMessagesFromDB(myAddress,partnerAddress,LIMIT,msgOffset)
         //setCurrentMessages(res.messages)
         setCurrentMessages(currentMessages=>[...res.messages,...currentMessages]   )
         //console.log(res.messages)
+
+        messageArea.scrollTop = messageArea.scrollHeight - bot - messageArea.clientHeight
     }
 
     // Load Messages everyTime SelectedFriend changes
