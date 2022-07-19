@@ -22,6 +22,7 @@ import CollectionPage from './pages/home/CollectionPage';
 import Marketplace from './pages/home/Marketplace'
 import NoMetaMaskPage from './pages/home/NoMetaMaskPage'
 import ChatPage from './pages/home/ChatPage'
+import LoginPage from './pages/home/LoginPage'
 
 //Night Mode
 import {NightModeProvider} from './NightModeProvider'
@@ -98,7 +99,11 @@ function App() {
           <NavBarHome />
           <ChatPage />
         </Route>
-        
+
+        <Route path='/login'>
+          <LoginPage />
+        </Route>
+
 
 
       </Switch>

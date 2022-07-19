@@ -35,13 +35,7 @@ function ProfilData(props){
     // Night Mode
     const nightMode = useContext(NightContext)
     const [theme,setTheme] =useState(themes.bright)
-    useEffect(()=>{
-        if(nightMode){
-            setTheme(themes.dark)
-        }else{
-            setTheme(themes.bright)
-        }
-    },[nightMode])
+    useEffect(()=>{ nightMode ? setTheme(themes.dark) : setTheme(themes.bright) },[nightMode])
     const[followList,setFollowList] = useState(false);
     const[followArrayList,setFollowArrayForList] = useState([]);
     const[followCount,setFollowCount] = useState(0);

@@ -17,6 +17,8 @@ import { height } from '@mui/material/node_modules/@mui/system';
 import {themes} from '../../ColorTheme'
 import {NightContext} from '../../NightModeProvider'
 
+import { useClickOutside } from '@mantine/hooks';
+
 
 const Web3 =require('web3');
 const web3 = new Web3(window.ethereum);
@@ -30,17 +32,14 @@ export default function Sidebar(props) {
         // Night Mode
         const nightMode = useContext(NightContext)
         const [theme,setTheme] =useState(themes.bright)
-        useEffect(()=>{
-            if(nightMode){
-                setTheme(themes.dark)
-            }else{
-                setTheme(themes.bright)
-            }
-        },[nightMode])
+        useEffect(()=>{ nightMode ? setTheme(themes.dark) : setTheme(themes.bright) },[nightMode])
 
 
     const wallet = useRef()
     const backdrop = useRef()
+
+    const closeRef = useClickOutside(() => closeWallet());
+
 
     function closeWallet(){
 
@@ -54,7 +53,7 @@ export default function Sidebar(props) {
 
   return (
 
-    <div className={classes.container}>
+    <div ref={closeRef} className={classes.container}>
 
         <div ref={backdrop} onClick={closeWallet} className={classes.backdrop}>
 

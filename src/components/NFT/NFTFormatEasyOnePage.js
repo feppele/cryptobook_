@@ -13,8 +13,7 @@ import MiniButtonNoOpacity from '../standart/MiniButtonNoOpacity';
 import {getNFTLikes,likeNFT,dislikeNFT,doILike} from '../../node/NFTLikes';
 import {getTokenUri,getAllMetadataFromURI} from '../../web3/NFTContractHelper'
 import {getNFTImageServerURL} from '../../node/images'
-
-import {getTokenURIDB} from '../../node/NFTData'
+import {getTokenURIDB,getPreisOfNFT} from '../../node/NFTData'
 
 import { useInViewport } from 'react-in-viewport';
 
@@ -44,13 +43,7 @@ function NFTFormatEasyOnePage(props){
         // Night Mode
         const nightMode = useContext(NightContext)
         const [theme,setTheme] =useState(themes.bright)
-        useEffect(()=>{
-            if(nightMode){
-                setTheme(themes.dark)
-            }else{
-                setTheme(themes.bright)
-            }
-        },[nightMode])
+        useEffect(()=>{ nightMode ? setTheme(themes.dark) : setTheme(themes.bright) },[nightMode])
 
     const history =useHistory();
 
@@ -59,8 +52,13 @@ function NFTFormatEasyOnePage(props){
     const [metaData,setMetadata] = useState({});
     const [imageURL,setImageURL] = useState(false);
     const [imageLoad,setImageLoad] = useState(false);
-
     const [offchain,setOffchain] = useState(false);
+    const [preis,setPreis] = useState("");
+
+
+    useEffect(()=>{
+        getPreisOfNFT(props.tokenId).then(p =>{setPreis(p)});
+    },[])
 
     // Metadaten aus TokenId bekommen:
     async function loadMetadata(tokenId){
@@ -86,22 +84,24 @@ function NFTFormatEasyOnePage(props){
     useEffect(() => {
         loadMetadata(props.tokenId).then((ipfsRes)=>{
 
-            // New Feature: load Image from server. if no image on server load from ipfs 
-            getNFTImageServerURL(props.tokenId).then(res=>{
+            setImageURL(ipfsRes.image)
+            setImageLoad(true)
 
-                if(res.length >0 ){
-                    setImageURL(res[0]);
-                }else{
-                    setImageURL(ipfsRes.image)
-                }
-                setImageLoad(true)
-            })
+            // New Feature: load Image from server. if no image on server load from ipfs 
+            // getNFTImageServerURL(props.tokenId).then(res=>{
+
+            //     if(res.length >0 ){
+            //         setImageURL(res[0]);
+            //     }else{
+            //         setImageURL(ipfsRes.image)
+            //     }
+            //     setImageLoad(true)
+            // })
 
         })
 
 
     },[])
-
 
 
     function openThisNFTPage(){
@@ -144,13 +144,6 @@ function NFTFormatEasyOnePage(props){
         }
     },[props])
 
-
-
-
-
-const refPlaceholder = React.useRef();
-
-
     return (
 
         <div className={classes.container} >
@@ -161,15 +154,17 @@ const refPlaceholder = React.useRef();
             {/*NFT IMAGE */}
 
 
-            <div style={{backgroundColor: theme.color3}} className={classes.bottom}>
+            <div style={{backgroundColor: theme.color2}} className={classes.bottom}>
 
                 <div style={{color: theme.font}} className={classes.nameAndFrom}> {metaData.name}</div>
                 <div style={{color: theme.font}} className={classes.nameAndNumber}>{metaData.collection }</div>
 
 
+                <div className={classes.preis}> {preis}</div>
+
             </div>
 
-            <div  style={{backgroundColor: theme.color2}} className={classes.bottom2}>
+            <div  style={{backgroundColor: theme.color3}} className={classes.bottom2}>
 
 
 

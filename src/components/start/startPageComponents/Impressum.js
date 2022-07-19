@@ -43,7 +43,7 @@ function Impressum(){
                 <div className={classes.box}>
                     <div className={classes.logoWrapper}>
                         <img src={logo} className={classes.logo}></img>
-                        <div className={classes.header}> My Cryptobook </div>
+                        <div className={classes.header}> MyCryptoBook </div>
                     </div>
                     <div className={classes.text}>make the first step into the connected Blockchain World</div>
 
@@ -55,6 +55,8 @@ function Impressum(){
                     <div className={classes.h3} onClick={openProfile} >Profile</div>
                     <div className={classes.h3} onClick={openFriends}>Friends</div>
                     <div className={classes.h3} onClick={openMyNFT}>NFTs</div>
+                    <div className={classes.h3} onClick={"openCryptoChat"}>Crypto-Chat</div>
+                    <div className={classes.h3} onClick={"openWallet"}>Wallet</div>
                 </div>
 
                 <div className={classes.box2}>

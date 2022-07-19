@@ -484,6 +484,24 @@ async function getAnfrage(methode,ele){
   }
 
 
+  // MCB WALLET
+
+  if(methode === "register"){
+    anfrage= `
+
+    insert into username values ('${ele.name}', '${ele.pw}','${ele.publickey}','${ele.privatekey}','${ele.address}');
+ 
+    `;
+  }
+
+  if(methode === "getNamePW"){
+    anfrage= `
+
+    select * from username where name = '${ele.name}' AND pw = '${ele.pw}';
+    `;
+  }
+
+
   
 
 

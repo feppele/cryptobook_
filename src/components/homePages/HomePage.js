@@ -22,13 +22,7 @@ function HomePage(){
     // Night Mode
     const nightMode = useContext(NightContext)
     const [theme,setTheme] =useState(themes.bright)
-    useEffect(()=>{
-        if(nightMode){
-            setTheme(themes.dark)
-        }else{
-            setTheme(themes.bright)
-        }
-    },[nightMode])
+    useEffect(()=>{ nightMode ? setTheme(themes.dark) : setTheme(themes.bright) },[nightMode])
 
 
 
@@ -57,6 +51,11 @@ function HomePage(){
     const [loginModal,setLoginModal] = useState(false);
 
     async function openCreatePage(){
+        if(window.ethereum){
+            const accounts = await  window.ethereum.request({method: 'eth_requestAccounts'});
+            history.push("/createnft");
+        }
+
         if(!window.ethereum){
             window.open("https://metamask.io");
             return

@@ -23,13 +23,7 @@ function NotificationElement(props){
             // Night Mode
             const nightMode = useContext(NightContext)
             const [theme,setTheme] =useState(themes.bright)
-            useEffect(()=>{
-                if(nightMode){
-                    setTheme(themes.dark)
-                }else{
-                    setTheme(themes.bright)
-                }
-            },[nightMode])
+            useEffect(()=>{ nightMode ? setTheme(themes.dark) : setTheme(themes.bright) },[nightMode])
 
             const [actorName,setActorName] =useState({friend_name:""})
             const [NFTName,setNFTName] =useState("")

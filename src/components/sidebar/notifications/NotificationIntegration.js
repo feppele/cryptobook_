@@ -16,13 +16,7 @@ export default function NotificationIntegration(props) {
           // Night Mode
           const nightMode = useContext(NightContext)
           const [theme,setTheme] =useState(themes.bright)
-          useEffect(()=>{
-              if(nightMode){
-                  setTheme(themes.dark)
-              }else{
-                  setTheme(themes.bright)
-              }
-          },[nightMode])
+          useEffect(()=>{ nightMode ? setTheme(themes.dark) : setTheme(themes.bright) },[nightMode])
 
           const [notifications,setNotifications] = useState([])
 

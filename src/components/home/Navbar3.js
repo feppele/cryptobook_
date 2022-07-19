@@ -27,6 +27,7 @@ import NotificationIntegration from '../sidebar/notifications/NotificationIntegr
 import profilePic from '../../images/profil.png'
 import logoutPic from '../../images/log-out.png'
 import mondPic from '../../images/mond.png'
+import walletPic from '../../images/wallet.png'
 
 
 //myCode
@@ -42,18 +43,27 @@ import {getCurrentUser} from '../../web3/HelperFunctions'
 //Night Mode
 import {ChangeNightFunction} from '../../NightModeProvider'
 
+//ColorTheme - Night Mode
+import {themes} from '../../ColorTheme'
+import {NightContext} from '../../NightModeProvider'
+
+
+
 const profile = <div id={"profile"} style={{display:'flex',flexDirection:'row',gap:'26px'}}> <img src={profilePic} style={{height: '20px',width: 'auto'}}></img> <div style={{fontSize:'13px'}}>Profile</div> </div>
-const notification = <div style={{display:'flex',flexDirection:'row',gap:'23px'}}> <img src={notificationImg} style={{height: '20px',width: 'auto',marginLeft:'1px',marginRight:'2px'}}></img>  <div style={{fontSize:'13px'}}>Notification</div> </div>
+const wallet = <div id={"profile"} style={{display:'flex',flexDirection:'row',gap:'26px'}}> <img src={walletPic} style={{height: '20px',width: 'auto'}}></img> <div style={{fontSize:'13px'}}>Wallet</div> </div>
+const notification = <div style={{display:'flex',flexDirection:'row',gap:'23px'}}><img src={notificationImg} style={{height: '20px',width: 'auto',marginLeft:'1px',marginRight:'2px'}}></img>  <div style={{fontSize:'13px'}}>Notification</div> </div>
 const logout = <div style={{display:'flex',flexDirection:'row',gap:'23px'}}> <img src={logoutPic} style={{height: '20px',width: 'auto',marginLeft:'3px'}}></img>  <div style={{fontSize:'13px'}}>Logout</div> </div>
 
 
 
-const pages = ['Friends', 'Wallet', 'My-NFT','Create-NFT','NFT-Marketplace','Crypto-Chat'];
-const settings = [{a:profile,b:"profile"},{a:notification,b:"notification"},{a:logout,b:"logout"} ];
+const pages = ['Friends', 'My-NFT','Create-NFT','NFT-Marketplace','Crypto-Chat'];
+const settings = [{a:profile,b:"profile"},{a:wallet,b:"wallet"},{a:notification,b:"notification"},{a:logout,b:"logout"} ];
 
 
 
 const ResponsiveAppBar = () => {
+
+
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -64,6 +74,9 @@ const ResponsiveAppBar = () => {
 
   const [nightMode,setNightMode] = useState(false)
   const setNightModeFunc = useContext(ChangeNightFunction)
+  // Night Mode
+  const [theme,setTheme] =useState(themes.bright)
+  useEffect(()=>{ nightMode ? setTheme(themes.dark) : setTheme(themes.bright) },[nightMode])
 
   function handleNightChange(e){
     setNightMode(e.target.checked)
@@ -104,7 +117,7 @@ const ResponsiveAppBar = () => {
       closeWallet()
       if(page==="Friends"){
         history.push("/friends")
-      }else if(page==="Wallet"){
+      }else if(page==="wallet"){
         openWallet()
       }else if(page==="My-NFT"){
         history.push("/mynft");
@@ -159,7 +172,7 @@ const ResponsiveAppBar = () => {
 
     {walletOpen && <Wallet closeWalletFunc={closeWallet}/>}
 
-    <AppBar  sx={{backgroundColor:'rgb(6, 29, 42);',position:'relative',zIndex:'3002'}}>
+    <AppBar  sx={{backgroundColor:theme.navbar,position:'relative',zIndex:'3002'}}>
 
 
       <Container maxWidth="xl">
@@ -170,15 +183,16 @@ const ResponsiveAppBar = () => {
             component="a"
             sx={{
               mr: 2,
-              display: { xs: 'none', md: 'flex' },
+              display: { xs: 'none', md: 'flex',alignItems:'center' },
               fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
+              fontWeight: 300,
+              color: theme.font,
               textDecoration: 'none',
+              fontSize:'22px'
             }}
           >
-            <img src={logo} style={{height:'25px',width:'auto'}}></img>
+            MyCryptoBook
+
           </Typography>
 
           {/** Breites Menu */}
@@ -188,7 +202,7 @@ const ResponsiveAppBar = () => {
                 id={page}
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: theme.font, display: 'block' }}
               >
                 {page}
               </Button>
@@ -196,7 +210,7 @@ const ResponsiveAppBar = () => {
           </Box>
 
           {/** Eingeklapptes Menu */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' ,color:theme.font} }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -242,7 +256,7 @@ const ResponsiveAppBar = () => {
             
             sx={{
               mr: 2,
-              ml: 4,
+              ml: 1,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
               fontFamily: 'monospace',
@@ -258,7 +272,7 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
 
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="Remy Sharp" src={profilePic} sx={{border: '2px solid white',height: '40px',width: '40px'}}/>
+              <Avatar alt="Remy Sharp" src={profilePic} sx={{border: '2px solid grey',height: '40px',width: '40px'}}/>
             </IconButton>
 
 

@@ -1,0 +1,32 @@
+.container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+.box {
+    border-radius:5px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    height: 500px;
+    width: 500px;
+    padding: 20px;
+}
+
+
+.textInput{
+
+    padding-left: 10px;
+    height: 35px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 2px solid rgb(209, 209, 209);
+}

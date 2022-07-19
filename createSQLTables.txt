@@ -10,3 +10,7 @@ create table messages (message varchar(255),von varchar(255), zu varchar(255),da
 create table notifications (notification varchar(255),von varchar(255),zu varchar(255),nft varchar(255),ID  SERIAL PRIMARY KEY);
 
 
+// messages also for encrypted version: serndermessage varchar(2000), receivermessage varchar(2000)
+
+
+create table username (name varchar(255),pw varchar(255),publickey varchar(255),privatekey varchar(255),address varchar(255));

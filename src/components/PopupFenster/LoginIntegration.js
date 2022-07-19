@@ -35,10 +35,16 @@ function LoginIntegration(props){
 
         // erstmal weglassen bis fertig implementriert
         // Add Public KEy to DB
-        //addPublicKeyToDB(accounts[0])
+        addPublicKeyToDB(accounts[0])
 
 
         history.push(props.nextPage);
+    }
+
+    function loginCryptoBookWallet(){
+
+       history.push("/login");
+
     }
 
     window.ethereum.on('chainChanged', ()=>{setNotPolygon(false)})
@@ -71,8 +77,6 @@ function LoginIntegration(props){
 
     return (
 
-
-
             <div className={classes.integration}>
 
                 <div onClick={loginMetamask} className={classes.walletButton}>
@@ -87,6 +91,11 @@ function LoginIntegration(props){
                     <div className={classes.buttonText}>
                         Ropsten
                     </div>
+                </div>
+
+                <div onClick={loginCryptoBookWallet} className={classes.walletButton}>
+
+                        MyCryptoBook-Wallet
                 </div>
 
                 { notPolygon && <div onClick={addRopstenChain} className={classes.walletButton}>

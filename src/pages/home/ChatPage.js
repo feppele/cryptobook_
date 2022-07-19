@@ -9,7 +9,7 @@ import sendImg from '../../images/send.png'
 import backImg from '../../images/zuruck.png'
 import addImg from '../../images/plus.png'
 import {shortAddr} from '../../web3/LoadingFunctions'
-import {loadMessagesFromDB} from '../../node/cryptoMessages'
+import {loadMessagesFromDB,loadMessagesFromDBEncrypt} from '../../node/cryptoMessages'
 import {sendMessageToDB,sendMessageToDBEnrcypt} from '../../node/cryptoMessages'
 import {getLatestMessage} from '../../node/cryptoMessages'
 import {web3} from '../../web3/Web3'
@@ -52,6 +52,8 @@ function ChatPage(){
     // Night Mode
     const nightMode = useContext(NightContext)
     const [theme,setTheme] =useState(themes.bright)
+    useEffect(()=>{ nightMode ? setTheme(themes.dark) : setTheme(themes.bright) },[nightMode])
+
     const [friends,setFriends] = useState([])
     const [selectedFriend,setSelectedFriends] = useState({})
     const [friendIsSelected,setFriendIsSelected] = useState(false) //{friend_name:String, friend_addr:String, blockchain:Boolean, pic:String}
@@ -92,40 +94,8 @@ function ChatPage(){
 
 
 
-    useEffect(()=>{
-        if(nightMode){
-            setTheme(themes.dark)
-        }else{
-            setTheme(themes.bright)
-        }
-    },[nightMode])
 
 
-   
-    
-    useLayoutEffect(() => {
-       // var messageArea = document.getElementById('messageArea');
-        //  messageArea.addEventListener('scroll',()=>{
-        //     setBottom( messageArea.scrollHeight -messageArea.scrollTop -messageArea.clientHeight)
-        //     console.log(" bottom....."+ bottom)
-        // })
-
-        console.log("useLayoutEffect")
-
-        if(!chatOpen){return}
-
-
-        // console.log("messageArea.scrollTop" +messageArea.scrollTop)
-        // console.log(" messageArea.scrollHeight" + messageArea.scrollHeight) // fenster höhe
-        // console.log(" messageArea.clientHeight" + messageArea.clientHeight) // fenster höhe
-        // console.log(" bottom."+ bottom)
-        // console.log(bottom+messageArea.clientHeight+messageArea.scrollTop)
-        //     setBottom( messageArea.scrollHeight -messageArea.scrollTop -messageArea.clientHeight)
-        //     console.log(" bottom....."+ bottom)
-
-
-
-    })
 
 
     function openProfile(){
@@ -137,10 +107,9 @@ function ChatPage(){
 
     const messageInput = useRef()
 
- 
+
     async function loadFriends(){
         const res = await getAllFriendsPromise() // return [{friend_name:String, friend_addr:String, blockchain:Boolean} ]
-
         // SORT 
         var array =[]
         for (const ele of res){
@@ -156,19 +125,16 @@ function ChatPage(){
             })
             array.push(res1)
         }
-
         // sort nach ID
         array.sort(function(a,b){return b.id-a.id;})
         // filter double. bacuse blockchain and same followfriend could be in array
         array = array.filter((v, i, a) => a.findIndex(t => (t.friend_addr === v.friend_addr)) === i);
 
-        console.log(array)
         setFriends(array)
         if(array.length>0){
             setSelectedFriends(array[0])
             setFriendIsSelected(true)
         }
-
         setLoading(false)
     }
 
@@ -176,32 +142,20 @@ function ChatPage(){
         loadFriends()
     },[])
 
-    
     async function send(text){
         const myAddress = await window.ethereum.request({method: 'eth_accounts'}).then(res=>{return res[0]})
-
         var message = {message:text,from:myAddress,to:selectedFriend.friend_addr,date:new Date().toLocaleString('en-US', { timeZone: 'UTC' })} //new Date().toLocaleString('en-US', { timeZone: 'UTC' })
-
-        console.log(message)
-
-        // const senderMessage = await encryptMessage(message.message,message.from)
-        // const receiverMessage = await encryptMessage(message.message,message.to)
-
-        // message.senderMessage=senderMessage
-        // message.receiverMessage=receiverMessage
-
-        console.log(message)
         // Send MEssage to DB
         sendMessageToDB(message)
+        // send encrypt
         //sendMessageToDBEnrcypt(message)
-        
         // Also add direkt to State, that I see my new message immediatley. add message.sender, which also happens in cryptomessages.js
         message.sender="me"
         setCurrentMessages(currentMessages=>[...currentMessages,message]   )
         var messageArea = document.getElementById('messageArea');
         messageArea.scrollTop = messageArea.scrollHeight
-
     }
+
     function sendWithEnter(e){
         if(e.key === "Enter"){
             send(e.target.value)
@@ -214,68 +168,38 @@ function ChatPage(){
 
     // when on MenuFriend clicked
     function selectFriend(pic,friend){ // friend: {friend_name:String, friend_addr:String, blockchain:Boolean}
-
         // just if friend switch, not when press 2 timies on same friend
         if(selectedFriend ==friend){return}
-
         friend.pic=pic[0];  // add selectedFriendPicURL: // friend: {friend_name:String, friend_addr:String, blockchain:Boolean, pic:String}
         setSelectedFriends(friend)
         setMsgOffset(0) //msgOffset
         openChatWindow()
         setCurrentMessages([])
-
     }
 
-    const [bottom,setBottom] =useState(0)
+    // load messages
     const [msgOffset,setMsgOffset] =useState(0)
-    var bot =0
+    var bottom =0
     async function loadMessages(){
         //if(!friendIsSelected){return}
         console.log(selectedFriend.friend_addr)
         const myAddress = await window.ethereum.request({method: 'eth_accounts'}).then(res=>{return res[0]});
         const partnerAddress = selectedFriend.friend_addr;
-
-        //loadMessagesFromDB(me,partner)
-        //Load all Messages from me and partner from DB
-        //{messages: [{message,from,to,date}],amount:amountMessages}] if no messages amount = 0
-        // message = {message,from,to,date}
-
-
-
-        // console.log("messageArea.scrollTop" +messageArea.scrollTop)
-        // console.log(" messageArea.scrollHeight" + messageArea.scrollHeight) // fenster höhe
-        // console.log(" messageArea.clientHeight" + messageArea.clientHeight) // fenster höhe
-        // console.log(" bottom."+ bottom)
-        // console.log(bottom+messageArea.clientHeight+messageArea.scrollTop)
+        // bevore new message calculate Bottom
         var messageArea = document.getElementById('messageArea');
-        // bevore new message
-        //setBottom( messageArea.scrollHeight -messageArea.scrollTop -messageArea.clientHeight)
-        bot = messageArea.scrollHeight -messageArea.scrollTop -messageArea.clientHeight
-            console.log(" bottom....."+ bot)
-
-
-
+        bottom = messageArea.scrollHeight -messageArea.scrollTop -messageArea.clientHeight
+        // load Messages from DB
         const res = await loadMessagesFromDB(myAddress,partnerAddress,LIMIT,msgOffset)
-        //setCurrentMessages(res.messages)
-        setCurrentMessages(currentMessages=>[...res.messages,...currentMessages]   )
-        //console.log(res.messages)
-
-        messageArea.scrollTop = messageArea.scrollHeight - bot - messageArea.clientHeight
+        //const res = await loadMessagesFromDBEncrypt(myAddress,partnerAddress,LIMIT,msgOffset)
+        setCurrentMessages(currentMessages=>[...res.messages,...currentMessages])
+        // after new messages Load set scrollTop
+        messageArea.scrollTop = messageArea.scrollHeight - bottom - messageArea.clientHeight
     }
 
-    // Load Messages everyTime SelectedFriend changes
+    // Load Messages everyTime SelectedFriend and msgOffset changes
     useEffect(() =>{
         loadMessages()
     },[selectedFriend,msgOffset])
-
-
-    //Load new Messages in Interval
-    // useEffect(() => {
-    //     setInterval(() =>{
-    //         loadMessages();
-    //     },6000)
-
-    // },[])
 
 
     return (

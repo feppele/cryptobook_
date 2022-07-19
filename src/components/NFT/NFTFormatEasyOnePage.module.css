@@ -60,9 +60,15 @@
     margin-bottom:3px;
     font-size: 13px;
     font-weight: bold;
-
 }
 
+.preis{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    background-color:yellow;
+    width: 20px;
+}
 
 
 

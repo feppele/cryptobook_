@@ -26,13 +26,7 @@ import {NightContext} from '../../NightModeProvider'
         const [latestMessage,setLatestMessage] =useState({message:""})
         const [loading,setLoading] = useState(true)
 
-        useEffect(()=>{
-            if(nightMode){
-                setTheme(themes.dark)
-            }else{
-                setTheme(themes.bright)
-            }
-        },[nightMode])
+        useEffect(()=>{ nightMode ? setTheme(themes.dark) : setTheme(themes.bright) },[nightMode])
 
         async function loadPic(){
            const res=  await getProfilePicURL(props.friend.friend_addr)
