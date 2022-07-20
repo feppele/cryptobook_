@@ -23,6 +23,7 @@
     "crypto-js": "^4.1.1",
     "dotenv": "^16.0.0",
     "eth-price": "^0.1.5",
+    "ethereumjs-tx": "^2.1.2",
     "ethereumjs-util": "^7.1.5",
     "ethers": "^5.6.9",
     "get-eth-price": "^1.0.0",

@@ -88,9 +88,7 @@ export async function loadMessagesFromDBEncrypt(me,partner,limit,offset){
 
 
 // return {messsage,von,zu,date,id}
-async function getLatestMessage(partner){
-
-    const me = await window.ethereum.request({method: 'eth_accounts'}).then(res =>{return res[0]})
+async function getLatestMessage(me,partner){
 
     var latesMessage = await fetch(fetchi+ "/databank",getOptions("getLatestMessage",{from: me, to: partner}  )).then(res => {return res.json()}).catch(console.log);
 

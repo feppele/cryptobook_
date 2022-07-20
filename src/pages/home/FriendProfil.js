@@ -3,9 +3,7 @@ import {useParams} from 'react-router-dom';
 import {useState,useEffect} from 'react'
 import FriendProfilData from '../../components/friendProfil/FriendProfilData';
 import FriendsNFTs from '../../components/friendProfil/FriendsNFTs';
-import {onLoad,loadFriendsEasy} from '../../web3/LoadingFunctions';
 import {web3} from '../../web3/Web3';
-import {getOptions} from '../../node/databank';
 import {loadNameFromDB2} from '../../node/databank'
 import {checkIfBlockchainFriend} from '../../web3/UserContractHelper'
 import { useHistory } from "react-router-dom";

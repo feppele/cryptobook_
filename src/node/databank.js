@@ -58,15 +58,17 @@ function dislikeNFTOptions(tokenId){
 
 
 function followUser(useraddress){
-  window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-      fetch(fetchi+ "/databank",getOptions("follow",{person: useraddress.toLowerCase(),follower: currentUsers[0].toLowerCase()} )).catch(console.log);
-  })
+  const address = JSON.parse(sessionStorage.getItem("userdata")).address
+  
+  fetch(fetchi+ "/databank",getOptions("follow",{person: useraddress.toLowerCase(),follower: address.toLowerCase()} )).catch(console.log);
+
 }
 
 function unfollowUser(useraddress){
-  window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-      fetch(fetchi+ "/databank",getOptions("unfollow",{person: useraddress.toLowerCase(),follower: currentUsers[0].toLowerCase()} )).catch(console.log);
-  })
+  const address = JSON.parse(sessionStorage.getItem("userdata")).address
+  
+  fetch(fetchi+ "/databank",getOptions("unfollow",{person: useraddress.toLowerCase(),follower: address.toLowerCase()} )).catch(console.log);
+
 }
 
 
@@ -114,10 +116,11 @@ export async function checkPublicKeyExists(address){
 
 }
 
+
 export async function getPublicKey(address){
 
-  if(address !=="me"){
-    address = await window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{return currentUsers[0]})
+  if(address ==="me"){
+    address = JSON.parse(sessionStorage.getItem("userdata")).address
   }
   const key = await fetch(fetchi+ "/databank",getOptions("getPublicKey",{address: address.toLowerCase()} )).then(res => {return res.json()}).then(res=>{return res[0]})
 

@@ -7,11 +7,6 @@ function Profil(){
 
     const history = new useHistory();
 
-    if(!window.ethereum){
-        history.push("/noMetaMask")
-    }else{
-        const accounts = window.ethereum.request({method: 'eth_requestAccounts'});
-    }
 
     return (
 

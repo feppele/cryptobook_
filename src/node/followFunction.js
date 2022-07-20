@@ -3,7 +3,7 @@ import {fetchi} from '../globalData'
 
 async function follow(person){
     if(!window.ethereum){return}
-    const currentUser = await window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{return currentUsers[0]})
+    const currentUser = JSON.parse(sessionStorage.getItem("userdata")).address
 
     fetch( fetchi + "/databank",getOptions("follow",{person: person,follower: currentUser.toLowerCase()} )).catch(console.log);
 
@@ -13,7 +13,7 @@ async function follow(person){
 
 async function unfollow(person){
     if(!window.ethereum){return}
-    const currentUser = await window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{return currentUsers[0]})
+    const currentUser = JSON.parse(sessionStorage.getItem("userdata")).address
 
     fetch(fetchi + "/databank",getOptions("unfollow",{person: person,follower: currentUser.toLowerCase()} )).catch(console.log);
 

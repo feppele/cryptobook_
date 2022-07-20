@@ -15,15 +15,18 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import {themes} from '../../ColorTheme'
 import {NightContext} from '../../NightModeProvider'
 
-function MyNftPage(){
+//User Context
+import {UserContext} from '../../UserProvider'
 
+
+function MyNftPage(){
+        const userData = useContext(UserContext)
         // Night Mode
         const nightMode = useContext(NightContext)
         const [theme,setTheme] =useState(themes.bright)
         useEffect(()=>{ nightMode ? setTheme(themes.dark) : setTheme(themes.bright) },[nightMode])
 
-    const [myAddress,setMyAddress] = useState("")
-    const [address,setAddress] =useState(false)
+    //const [myAddress,setMyAddress] = useState(userData.address)
 
     const history = useHistory();
 
@@ -35,23 +38,11 @@ function MyNftPage(){
     }
 
 
-    useEffect(() => {
-
-        window.ethereum.request({method: 'eth_accounts'}).then(acc =>{
-            setMyAddress(acc[0].toString());
-            setAddress(true)
-        })
-
-
-    },[])
-
-
-    console.log(myAddress)
     return (
 
         <div style={{backgroundColor:theme.color1}} className={classes.container}>
 
-                { address && <NftCollection header={"myNFTs"} from={myAddress}/>}
+            <NftCollection header={"myNFTs"} from={userData.address}/>
 
         </div>
     );

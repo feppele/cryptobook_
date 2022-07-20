@@ -4,7 +4,7 @@ import {useState} from 'react';
 import equalImg from'../../images/equal.png';
 
 import {web3} from '../../web3/Web3';
-
+import {sendEtherInfura} from '../../web3/SendEtherInfura'
 
  
 //material UI 
@@ -26,10 +26,23 @@ function SendIntergation(props){
 
 
     function send(){
-        web3.eth.sendTransaction({
-            from:window.web3.currentProvider.selectedAddress,
-            to:props.longAddr,
-            value: web3.utils.toWei(sendEther.toString())});
+        // if Metamask is conncted userdata = {address} if MCB Wallet userdata={address,privkey,pubkey,....}
+        const userdata = JSON.parse(sessionStorage.getItem("userdata"))
+        if(Object.keys(userdata).length === 1){// Metamask
+
+            web3.eth.sendTransaction({
+                from:window.web3.currentProvider.selectedAddress,
+                to:props.longAddr,
+                value: web3.utils.toWei(sendEther.toString())
+            });
+
+        }else{// MCB Wallet
+
+            sendEtherInfura(  userdata.address, props.longAddr, userdata.privatekey, web3.utils.toWei(sendEther.toString())  ) //(from,to,privateKey,value)
+
+        }
+
+
     }
 
 
@@ -48,17 +61,12 @@ function SendIntergation(props){
         setSendEther(inputValue.value);
 
         ethPrice("usd").then(res=>{
-
             const ethPrice=parseFloat(res.toString().split(":").pop())
-            console.log(ethPrice)
             const calc =(ethPrice*parseFloat(ethValue)).toFixed(2);
             usdValue.value=calc;
             setEtherPrice(calc); // in usd
         })
     }
-
-    console.log(typeof(sendEther));
-    console.log(web3.utils.toWei(sendEther.toString()));
 
     function calcFromUSD(){
 
@@ -72,23 +80,17 @@ function SendIntergation(props){
         }
 
         ethPrice("usd").then(res=>{
-
             const ethPrice=parseFloat(res.toString().split(":").pop())
-            console.log(ethPrice)
             const calc =(parseFloat(usdValue2)/ethPrice).toFixed(10);
             inputValue.value=calc;
-
             setSendEther(calc);
         })
     }
 
     function oneEtherCalc(){
         ethPrice("usd").then(res=>{
-
             const ethPrice=parseFloat(res.toString().split(":").pop())
-
             var usdValue = document.getElementById("usdValue");
-
             usdValue.placeholder = ethPrice.toString() + " usd";
             setOneEther(ethPrice);
         })

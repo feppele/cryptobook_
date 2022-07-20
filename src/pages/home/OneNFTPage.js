@@ -52,8 +52,6 @@ function OneNFTPage(){
 
     useEffect(() => {
         window.scrollTo(0,0)
-        if(!window.ethereum){return;}
-        window.ethereum.request({method: 'eth_requestAccounts'});
     },[])
 
 

@@ -48,6 +48,7 @@ import {NightContext} from '../../NightModeProvider'
 
     // Load Friends Stuff
     useEffect(() => {
+        
         getAllFriendsPromise().then(res => { // return [{friend_name:String, friend_addr:String, blockchain:Boolean} ]
             setSearchResult(res);
             setAllFriends(res);

@@ -1,7 +1,5 @@
 import {getCurrentUser} from '../web3/HelperFunctions'
-import {getAllTokensMetadataArray} from '../web3/NFTContractHelper'
 
-//const fetchi ="https://backendserverreact.azurewebsites.net"
 import {fetchi} from '../globalData'
 import {getOwnerOfTokenId} from '../web3/NFTContractHelper'
 import {NFTContract} from '../web3/NFTContract';
@@ -186,7 +184,7 @@ async function getTokenURIDB(tokenId){
 async function getOffchainMetaData(creator){
 
     if(creator ==="me"){
-        creator = await window.ethereum.request({method: 'eth_accounts'});
+        creator = JSON.parse(sessionStorage.getItem("userdata")).address
         creator = creator[0];
     }
 

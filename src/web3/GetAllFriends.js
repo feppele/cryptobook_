@@ -21,13 +21,16 @@ async function getAllFriendsPromise(){
 
 
 async function followFriends(){
-    if(!window.ethereum){return}
 
-    const ans = await window.ethereum.request({method: 'eth_accounts'}).then(accounts => {
-
+        const address = JSON.parse(sessionStorage.getItem("userdata")).address
+        console.log(address)
+        console.log(address)
+        console.log(address)
+        console.log(address)
+        
 
         // load Follow Friends
-        const answer = fetch(fetchi+"/databank",getOptions("WHOdoIFollow",{me:  accounts[0].toLowerCase()}))
+        const answer = fetch(fetchi+"/databank",getOptions("WHOdoIFollow",{me:  address.toLowerCase()}))
         .then(res => {return res.json()})
         .then(res=>{
             var followFriends= res[0];
@@ -45,16 +48,13 @@ async function followFriends(){
         }).then(newFormatFollow=>{return newFormatFollow})
 
     return answer;
-    })
 
-return ans;
 }// followFriends
 
 
 
 
 async function blockchainFriends(){
-    if(!window.ethereum){return}
 
     const ans = await loadFriendsEasy().then(friendsLoad=>{
 

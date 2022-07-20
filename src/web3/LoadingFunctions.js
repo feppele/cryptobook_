@@ -4,12 +4,12 @@ import { useHistory } from "react-router-dom";
 
 
 
+
 // load Frieds
 async function loadFriendsEasy(){
-    if(!window.ethereum){return}
-    const address = await window.ethereum.request({method: 'eth_accounts'});
+    const address = JSON.parse(sessionStorage.getItem("userdata")).address
 
-    const friends = await UserContract.methods.getFriendsFrom(address[0]).call();
+    const friends = await UserContract.methods.getFriendsFrom(address).call();
 
     return await friends;
 }
@@ -17,32 +17,32 @@ async function loadFriendsEasy(){
 
 
 // load Frieds
-async function loadFriends(){
-    if(!window.ethereum){return}
-    const accounts =  await window.ethereum.request({method: 'eth_accounts'});
-    var user = accounts[0];
+// async function loadFriends(){
+//     if(!window.ethereum){return}
+//     const accounts =  await window.ethereum.request({method: 'eth_accounts'});
+//     var user = accounts[0];
 
-    await UserContract.methods.getFriendsFrom(user).call().then(result =>{
+//     await UserContract.methods.getFriendsFrom(user).call().then(result =>{
     
-        var friends =[];
-        for(var i=0;i<result.length;i++){
+//         var friends =[];
+//         for(var i=0;i<result.length;i++){
 
-            let tuple = [result[i].friend_addr.toString(),result[i].friend_name.toString()];
-            friends.push(tuple);
-        }
+//             let tuple = [result[i].friend_addr.toString(),result[i].friend_name.toString()];
+//             friends.push(tuple);
+//         }
 
-        if(friends.length>0){
+//         if(friends.length>0){
 
-            localStorage.setItem('friends', JSON.stringify(friends));
-            return "mehr als null freunde";
-        }else{
-            return "null return";
-            //localStorage.clear();
-        }
-    });
+//             localStorage.setItem('friends', JSON.stringify(friends));
+//             return "mehr als null freunde";
+//         }else{
+//             return "null return";
+//             //localStorage.clear();
+//         }
+//     });
 
-    return "das return ich eh";
-}
+//     return "das return ich eh";
+// }
 
 
 // short Address
@@ -112,7 +112,7 @@ if(window.ethereum){
 
 
 //export{onLoad};
-export {loadFriends};
+//export {loadFriends};
 export {shortAddr};
 //export {getAddress};
 

@@ -17,6 +17,10 @@ import { height } from '@mui/material/node_modules/@mui/system';
 import {themes} from '../../ColorTheme'
 import {NightContext} from '../../NightModeProvider'
 
+//User Context
+import {UserContext} from '../../UserProvider'
+
+
 
 const Web3 =require('web3');
 const web3 = new Web3(window.ethereum);
@@ -26,7 +30,7 @@ const ethPrice = require('eth-price');
 //props.walletOpen:Boolean
 //props.closeWalletFunc:Function
 export default function Wallet(props) {
-
+    const userData = useContext(UserContext)
         // Night Mode
         const nightMode = useContext(NightContext)
         const [theme,setTheme] =useState(themes.bright)
@@ -40,9 +44,9 @@ export default function Wallet(props) {
 
     useEffect(() => {
 
-        getProfilePicURL("me").then(res=>{setURL(res)})
-        window.ethereum.request({method: 'eth_accounts'}).then(res=>{setAddr({long:res,short:shortAddr(res)})})
-        window.ethereum.request({method: 'eth_accounts'}).then(res=>{web3.eth.getBalance(res[0]).then(res=>{setEthBalance(web3.utils.fromWei(res,"ether").slice(0,6))})})
+        getProfilePicURL(userData.address).then(res=>{setURL(res)})
+        setAddr({long:userData.address,short:shortAddr(userData.address)})
+        web3.eth.getBalance(userData.address).then(bal=>{setEthBalance(web3.utils.fromWei(bal,"ether").slice(0,6))})
     },[])
 
     ethPrice("usd").then(res=>{

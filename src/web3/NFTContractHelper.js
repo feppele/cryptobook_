@@ -2,6 +2,7 @@
 import {NFTContract} from './NFTContract';
 
 import {NFTContractAddress} from './NFTContract';
+import {sendNFTInfura} from './SendEtherInfura'
 
 async function getTokenUri(tokenId){
 
@@ -39,34 +40,27 @@ async function getMetadataFromURI(uri,tokenId) {
 
 
 
-async function getAllTokensMetadataArray(owner){
 
-    try{
-        if(owner ==="me"){
-            owner = await window.ethereum.request({method: 'eth_accounts'});
-            owner = owner[0];
-        }
-        // else wurde schon übergeben von FriendsElement
-
-        const ownersTokenIds = await NFTContract.methods.ownersTokenIds(owner).call();
-        var array =[];
-
-        // wenn versendet wird und man 0 hat zeit er 0 an?? komisch :(
-        if(ownersTokenIds[0] !== '0'){}
-
-            // token ID ==> TokenURI ==> token Metadata ==> Token Metadata Lisa_____ hiten nochmal Id übergeben um mit in Metadata machen
-            for(var i=0;i<ownersTokenIds.length;i++){
-                array.push(await getMetadataFromURI(await getTokenUri(ownersTokenIds[i]),ownersTokenIds[i] ) );
-            }
-        
-        console.log("in console.log(array); LÄNGE ARRAY::    "+ array.length );
-        console.log(array);
-        return array;
-
-    }catch(error){
-        console.log("Error getAllTokensMetadataArray() : ", error);
-    }
-}
+// async function getAllTokensMetadataArray(owner){
+//     try{
+//         if(owner ==="me"){
+//             owner = await window.ethereum.request({method: 'eth_accounts'});
+//             owner = owner[0];
+//         }
+//         // else wurde schon übergeben von FriendsElement
+//         const ownersTokenIds = await NFTContract.methods.ownersTokenIds(owner).call();
+//         var array =[];
+//         // wenn versendet wird und man 0 hat zeit er 0 an?? komisch :(
+//         if(ownersTokenIds[0] !== '0'){}
+//             // token ID ==> TokenURI ==> token Metadata ==> Token Metadata Lisa_____ hiten nochmal Id übergeben um mit in Metadata machen
+//             for(var i=0;i<ownersTokenIds.length;i++){
+//                 array.push(await getMetadataFromURI(await getTokenUri(ownersTokenIds[i]),ownersTokenIds[i] ) );
+//             }
+//         return array;
+//     }catch(error){
+//         console.log("Error getAllTokensMetadataArray() : ", error);
+//     }
+// }
 
 
 
@@ -84,13 +78,21 @@ async function getOwnerOfTokenId(tokenId){
 
 async function sendNFT(to,tokenId){
 
-    const _from = await window.web3.currentProvider.selectedAddress;
     const _to =to;
     const _tokenId =tokenId;
 
 
-    NFTContract.methods.transferFrom(_from,_to,_tokenId).send({from:_from}).then(console.log).catch(console.log);
+    // if Metamask is conncted userdata = {address} if MCB Wallet userdata={address,privkey,pubkey,....}
+    const userdata = JSON.parse(sessionStorage.getItem("userdata"))
+    if(Object.keys(userdata).length === 1){// Metamask
+        const _from = await window.web3.currentProvider.selectedAddress;
+        NFTContract.methods.transferFrom(_from,_to,_tokenId).send({from:_from}).then(console.log).catch(console.log);
 
+    }else{// MCB Wallet
+
+        sendNFTInfura(  userdata.address, _to, userdata.privatekey, _tokenId,"data","contractAddr"  ) //(from,to,privateKey,value)
+
+    }
 }
 
 
@@ -102,7 +104,7 @@ async function sendNFT(to,tokenId){
 
 export{getTokenUri};
 export{getMetadataFromURI};
-export{getAllTokensMetadataArray};
+//export{getAllTokensMetadataArray};
 
 export{getOwnerOfTokenId};
 export{sendNFT};

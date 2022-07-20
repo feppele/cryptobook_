@@ -51,17 +51,9 @@ function HomePage(){
     const [loginModal,setLoginModal] = useState(false);
 
     async function openCreatePage(){
-        if(window.ethereum){
-            const accounts = await  window.ethereum.request({method: 'eth_requestAccounts'});
-            history.push("/createnft");
-        }
 
-        if(!window.ethereum){
-            window.open("https://metamask.io");
-            return
-        }else{
-            setLoginModal(true)
-        }
+        history.push("/createnft");
+
     }
 
     function closeLogin(){
@@ -70,7 +62,6 @@ function HomePage(){
 
 
     async function openExplore(){
-        if(window.ethereum){const accounts = await  window.ethereum.request({method: 'eth_requestAccounts'});}
         history.push("/marketplace");
     }
 
@@ -78,7 +69,6 @@ function HomePage(){
         window.open("https://github.com/feppele/MyCryptoBookDocs/wiki/MyCryptoBook-NFTs-(MCBNFT)")
     }
     async function openChat(){
-        if(window.ethereum){const accounts = await  window.ethereum.request({method: 'eth_requestAccounts'});}
         history.push("/chats");
     }
 

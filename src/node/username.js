@@ -35,6 +35,7 @@ export async function loginDB(name,pw){
     }else{
         res = res[0][0]
         res.privatekey = PWdecrypt(res.privatekey,unhasedPW)
+        res.address = res.address.toLowerCase()
         return res
     }
 

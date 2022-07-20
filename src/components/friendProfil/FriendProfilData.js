@@ -29,9 +29,13 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import {themes} from '../../ColorTheme'
 import {NightContext} from '../../NightModeProvider'
 
+//User Context
+import {UserContext} from '../../UserProvider'
+
+
 
 function ProfilData(props){
-
+    const userData = useContext(UserContext)
     // Night Mode
     const nightMode = useContext(NightContext)
     const [theme,setTheme] =useState(themes.bright)
@@ -64,15 +68,17 @@ function ProfilData(props){
     // DO I FOLLOW?
     function doIFollow(){
         if(!window.ethereum){return}
-        window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-            fetch(fetchi + "/databank",getOptions("doIFollow",{person: props.personData.friend_addr.toLowerCase(),follower: currentUsers[0].toLowerCase()} ))
+        //window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
+
+            fetch(fetchi + "/databank",getOptions("doIFollow",{person: props.personData.friend_addr.toLowerCase(),follower: userData.address.toLowerCase()} ))
             .then(res => {return res.json()}).then(res=>{
 
                 if(res[0][0].count > 0){
                     setUserFollowed(true);
                 }
             }).catch(console.log);
-        })
+
+        //})
     }
     useEffect(() => {doIFollow()},[]);
 

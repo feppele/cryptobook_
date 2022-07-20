@@ -26,11 +26,13 @@ import LoginPage from './pages/home/LoginPage'
 
 //Night Mode
 import {NightModeProvider} from './NightModeProvider'
+import {UserProvider} from './UserProvider'
 
 function App() {
 
   return(
     <div>
+      <UserProvider>
       <NightModeProvider>
 
       <Switch>
@@ -109,6 +111,7 @@ function App() {
       </Switch>
 
       </NightModeProvider>
+      </UserProvider>
     </div>
   );
 

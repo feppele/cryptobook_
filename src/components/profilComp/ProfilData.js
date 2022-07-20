@@ -30,8 +30,11 @@ import Tooltip from '@mui/material/Tooltip';
 import {themes} from '../../ColorTheme'
 import {NightContext} from '../../NightModeProvider'
 
+//User Context
+import {UserContext} from '../../UserProvider'
 
-function uploadImage () {
+
+function uploadImage (userAddress) {
 
     // this returns a File().
     var image= document.getElementById("imageInput").files[0];
@@ -39,7 +42,8 @@ function uploadImage () {
     var imgType = type.substring(type.lastIndexOf("/")+1,1000);
     console.log(imgType);
 
-    getCurrentUser().then(userAddress =>{
+    // because comes from Context now
+    //getCurrentUser().then(userAddress =>{
         // cannot change name of file so copy file and create new one with other name
         // set Name to address from person
         var blob = image.slice(0, image.size);
@@ -63,11 +67,12 @@ function uploadImage () {
                 body: formData
             }).then(console.log)//.then(window.location.reload())
         })
-    })
+    
+    //})
 }
 
 function ProfilData(){
-
+        const userData = useContext(UserContext)
         // Night Mode
         const nightMode = useContext(NightContext)
         const [theme,setTheme] =useState(themes.bright)
@@ -77,7 +82,7 @@ function ProfilData(){
     const [usernameDB,setUsernameDB] =useState("noch net da");
     const [userNameIsLoad,setUserNameIsLoad] =useState(false);
     const [saved,setSaved] =useState(false);
-    const [address,setAddress] =useState("");
+    const [address,setAddress] =useState(userData.address);
     const [followArrayList,setFollowArrayForList]= useState([]);
     const [followList,setFollowList]= useState(false);
     
@@ -112,8 +117,8 @@ function ProfilData(){
 
     useEffect(() => {
 
-        getCurrentUser().then(res=>{setAddress(res);})
-
+        //getCurrentUser().then(res=>{setAddress(res);})
+        setAddress(userData.address)
     },[])
 
     function activateSetting(){
@@ -129,11 +134,11 @@ function ProfilData(){
         // if username is change
         if(username !== ""){
 
-            window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-                console.log(currentUsers)
-                const res = query("add",{ address: currentUsers[0], username: username});
+            //window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
+                //const res = query("add",{ address: currentUsers[0], username: username});
+                const res = query("add",{ address: userData.address, username: username});
                 console.log(res)
-            })
+            //})
             setUsernameDB(username)
         }
 
@@ -145,7 +150,7 @@ function ProfilData(){
         // if image is change
         if(image !== undefined){
             //upload image to backend
-            uploadImage();
+            uploadImage(userData.address);
             // set image direct without loading from DB
             var reader = new FileReader();
             reader.readAsDataURL(image);
@@ -161,9 +166,10 @@ function ProfilData(){
     function loadNameFromDB(){
         if(!window.ethereum){return}
 
-        window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
+        //window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
 
-            const options=getOptions("find",{address: currentUsers[0] });
+
+            const options=getOptions("find",{address: userData.address });
 
             fetch(fetchi+ "/databank",options).then(res => { return res.json()}).then(res=>{
                 if(res[0].length===0){
@@ -173,7 +179,7 @@ function ProfilData(){
                 }
                 setUserNameIsLoad(true);
             });
-        });
+        //});
 
     }
     useEffect(() => {loadNameFromDB();},[])
@@ -188,7 +194,7 @@ function ProfilData(){
 
     function getProfilePic(){
 
-        getProfilePicURL("me").then(url =>{
+        getProfilePicURL(userData.address).then(url =>{
             if(url.length !==0){
                 setProfilePic(true);
                 setProfilePicSource(url[0])

@@ -47,6 +47,9 @@ import {ChangeNightFunction} from '../../NightModeProvider'
 import {themes} from '../../ColorTheme'
 import {NightContext} from '../../NightModeProvider'
 
+//User Context
+import {UserContext} from '../../UserProvider'
+import {ChangeUserContext} from '../../UserProvider'
 
 
 const profile = <div id={"profile"} style={{display:'flex',flexDirection:'row',gap:'26px'}}> <img src={profilePic} style={{height: '20px',width: 'auto'}}></img> <div style={{fontSize:'13px'}}>Profile</div> </div>
@@ -62,9 +65,7 @@ const settings = [{a:profile,b:"profile"},{a:wallet,b:"wallet"},{a:notification,
 
 
 const ResponsiveAppBar = () => {
-
-
-
+  const userData = useContext(UserContext)
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -83,14 +84,14 @@ const ResponsiveAppBar = () => {
     setNightModeFunc(e.target.checked)
   }
 
+
+  console.log(userData)
   //load ProfilePic
   useEffect(() => {
-    getCurrentUser().then(address=>{
-      getProfilePicURL(address).then(url => {
-        if(url.length >0){
-          setProfilePic(url);
-        }
-      })
+    getProfilePicURL(userData.address).then(url => {
+      if(url.length >0){
+        setProfilePic(url);
+      }
     })
   },[])
 

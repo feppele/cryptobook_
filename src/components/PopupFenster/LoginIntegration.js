@@ -1,16 +1,20 @@
 import classes from './LoginIntegration.module.css';
 import metamaskPic from '../../images/metamask.png';
 import etherPic from '../../images/ether.png';
-import {useEffect,useState} from 'react';
+import {useEffect,useState,useContext} from 'react';
 import { useHistory } from "react-router-dom";
 import {addPublicKeyToDB} from '../../node/databank'
+//userdata
+import {ChangeUserContext} from '../../UserProvider'
+
 
 function LoginIntegration(props){
     window.scrollTo(0, 0);
     const history = useHistory();
-
     const [notPolygon,setNotPolygon] = useState(false)
-
+    // set userdata Kotect also here loginMetamask()
+    //userData context
+    const setUserDataFunc = useContext(ChangeUserContext)
 
 
     async function checkChain(){
@@ -36,7 +40,8 @@ function LoginIntegration(props){
         // erstmal weglassen bis fertig implementriert
         // Add Public KEy to DB
         addPublicKeyToDB(accounts[0])
-
+        //set userdata Context
+        setUserDataFunc({address:accounts[0]})
 
         history.push(props.nextPage);
     }

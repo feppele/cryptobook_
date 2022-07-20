@@ -1,6 +1,6 @@
 import classes from './LoginPage.module.css'
-import {useEffect,useHistory,useState,useRef} from 'react'
-
+import {useEffect,useState,useRef,useContext} from 'react'
+import { useHistory } from "react-router-dom";
 //mui
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -16,19 +16,21 @@ import Link from '@mui/material/Link';
 import { ethers } from 'ethers';
 import {registerDB,loginDB} from '../../node/username'
 
-function LoginPage(){
+//userdata
+import {ChangeUserContext} from '../../UserProvider'
 
-    const checkPwRef = useRef()
+function LoginPage(){
+    const history = useHistory()
     const [username,setUsername] = useState("")
     const [password,setPassword] = useState("")
     const [passwordCheck,setPasswordCheck] = useState("")
     const [loginpage,setLoginpage] = useState(true)
     const [helperText,setHelperText] = useState("")
     const [helperTextUser,setHelperTextUser] = useState("")
-    const [loginError,setLoginError] = useState("")
-
-    
+    const [loginError,setLoginError] = useState("")    
     const [randomMnemonic,setrandomMnemonic] = useState("")
+    //userData context
+    const setUserDataFunc = useContext(ChangeUserContext)
 
     useEffect(() => {
         console.log("HII")
@@ -76,14 +78,16 @@ function LoginPage(){
         const res = await loginDB(username,password) // not exist: return "error" else: {name:'',pw:'',publickey,privatekey,address}
 
         if( res === "error"){
-            setLoginError("false")
+            setLoginError("unvalid username or password")
             return
         }
 
+        console.log(res)
+        
         // login Valid:
         //set privkey,pubkey,address to useContext!! and go to home
-
-
+        setUserDataFunc(res) //context {name:'',pw:'',publickey,privatekey,address}
+        history.push("/home")
 
     }
 

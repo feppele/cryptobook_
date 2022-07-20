@@ -1,12 +1,9 @@
 import classes from './NftCollection.module.css';
 import {useState,useEffect} from 'react';
-import {getAllTokensMetadataArray,getOwnerOfTokenId} from '../../web3/NFTContractHelper';
-import NFTFormatEasyOnePage from './NFTFormatEasyOnePage'
-import loadImage from '../../images/Loader.gif'
 import NoNFTsSign from './NoNFTsSign';
 import NFTUbersicht from '../../pages/home/Marketplace/NFTUbersicht'
 
-import {getOffchainMetaData,getAllMyTokenIDs_On_Off_chain} from '../../node/NFTData'
+import {getAllMyTokenIDs_On_Off_chain} from '../../node/NFTData'
 
 
 

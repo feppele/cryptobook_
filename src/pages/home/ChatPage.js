@@ -39,6 +39,10 @@ import Skeleton from '@mui/material/Skeleton';
 import {themes} from '../../ColorTheme'
 import {NightContext} from '../../NightModeProvider'
 
+//User Context
+import {UserContext} from '../../UserProvider'
+
+
 const crypto = require('crypto');
 
 
@@ -48,6 +52,7 @@ const crypto = require('crypto');
 
 // Message : {message,from,to,date}
 function ChatPage(){
+    const userData = useContext(UserContext)
     const history =useHistory();
     // Night Mode
     const nightMode = useContext(NightContext)
@@ -113,7 +118,7 @@ function ChatPage(){
         // SORT 
         var array =[]
         for (const ele of res){
-            const res1 = await getLatestMessage(ele.friend_addr).then(message=>{
+            const res1 = await getLatestMessage(userData.address, ele.friend_addr).then(message=>{
                 var id 
                 if(message.message===""){
                     id=0
@@ -143,7 +148,7 @@ function ChatPage(){
     },[])
 
     async function send(text){
-        const myAddress = await window.ethereum.request({method: 'eth_accounts'}).then(res=>{return res[0]})
+        const myAddress = userData.address
         var message = {message:text,from:myAddress,to:selectedFriend.friend_addr,date:new Date().toLocaleString('en-US', { timeZone: 'UTC' })} //new Date().toLocaleString('en-US', { timeZone: 'UTC' })
         // Send MEssage to DB
         sendMessageToDB(message)
@@ -183,7 +188,7 @@ function ChatPage(){
     async function loadMessages(){
         //if(!friendIsSelected){return}
         console.log(selectedFriend.friend_addr)
-        const myAddress = await window.ethereum.request({method: 'eth_accounts'}).then(res=>{return res[0]});
+        const myAddress = userData.address
         const partnerAddress = selectedFriend.friend_addr;
         // bevore new message calculate Bottom
         var messageArea = document.getElementById('messageArea');

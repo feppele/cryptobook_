@@ -2,15 +2,16 @@ import classes from './ListElement.module.css';
 import closePic from '../../images/close.png';
 import {shortAddr} from '../../web3/LoadingFunctions';
 import {useHistory} from 'react-router-dom';
-import {useEffect,useState} from 'react'
-
+import {useEffect,useState,useContext} from 'react'
 import {getProfilePicURL} from '../../node/images'
-
-
 import StandartProfilPic from '../../images/background.jpeg';
 
-function ListElement(props){
+//User Context
+import {UserContext} from '../../UserProvider'
 
+
+function ListElement(props){
+    const userData = useContext(UserContext)
 
     const [profilePic,setProfilePic] =useState(StandartProfilPic);
 
@@ -28,8 +29,8 @@ function ListElement(props){
 
     const history = useHistory();
     function goToProfile(){
-        window.ethereum.request({method: 'eth_accounts'}).then(accounts=>{
-            if(accounts[0] ===address){
+        //window.ethereum.request({method: 'eth_accounts'}).then(accounts=>{
+            if(userData.address ===address){
 
                 history.push({
                     pathname:"/me/"
@@ -39,7 +40,7 @@ function ListElement(props){
                     pathname:"/profile/"+address
                 });
             }
-        })
+       // })
     }
 
 

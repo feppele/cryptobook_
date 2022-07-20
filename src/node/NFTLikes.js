@@ -22,7 +22,7 @@ async function getNFTLikes(tokenId){
 async function likeNFT(tokenId){
 
     if(!window.ethereum){return}
-    const currentUser = await window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{return currentUsers[0] })
+    const currentUser = JSON.parse(sessionStorage.getItem("userdata")).address
 
     fetch(fetchi+ "/databank",getOptions("likeNFT",{tokenId: tokenId, address: currentUser} )).catch(console.log);
 
@@ -36,27 +36,27 @@ async function likeNFT(tokenId){
 async function dislikeNFT(tokenId){
 
     if(!window.ethereum){return}
-    window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-        fetch(fetchi+ "/databank",getOptions("dislikeNFT",{tokenId: tokenId,address: currentUsers[0]})).catch(console.log);
-    })
+    const me = JSON.parse(sessionStorage.getItem("userdata")).address
+
+    fetch(fetchi+ "/databank",getOptions("dislikeNFT",{tokenId: tokenId,address: me})).catch(console.log);
+
 
 }
 
 async function doILike(tokenId){
 
-    if(!window.ethereum){return}
-    const res = await window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-        const res2 =  fetch(fetchi+ "/databank",getOptions("doILike",{tokenId: tokenId, address: currentUsers[0] }))
-        .then(res => {return res.json()}).then(res=>{
-            if(res==="error" || res[0][0].count==="0"){
-                return false;
-            }else{
-                return true;
-            }
-        })
-        return res2;
+    const me = JSON.parse(sessionStorage.getItem("userdata")).address
+    
+    const res2 =  fetch(fetchi+ "/databank",getOptions("doILike",{tokenId: tokenId, address: me }))
+    .then(res => {return res.json()}).then(res=>{
+        if(res==="error" || res[0][0].count==="0"){
+            return false;
+        }else{
+            return true;
+        }
     })
-    return res;
+    return res2;
+
 }
 
 

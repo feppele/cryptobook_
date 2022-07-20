@@ -12,9 +12,8 @@ function getCurrentUser2(){
 
 
 async function getCurrentUser(){
-
-    if(!window.ethereum){return}
-    return await window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{ return currentUsers[0]})
+    const address = JSON.parse(sessionStorage.getItem("userdata")).address
+    return address
 }
 
 
