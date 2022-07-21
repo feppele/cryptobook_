@@ -7,6 +7,7 @@ import validImage from '../../images/valid.png';
 import inValidImage from '../../images/invalid.png';
 import plusImg from '../../images/plus.png';
 import {follow} from '../../node/followFunction';
+import {updateFriendsfura} from '../../web3/SendEtherInfura'
 
 //material UI
 import Button from '@mui/material/Button';
@@ -45,10 +46,17 @@ function AddFriendIntegration(props){
         if(alignment ==="left"){
             const name= document.getElementById("inputName").value;
             if(name!=="" && addr!==""){
-                UserContract.methods.updateFriends(name,addr).send({
-                    from: window.web3.currentProvider.selectedAddress,
-                    to: userContractAddress
-                });
+
+                const userdata = JSON.parse(sessionStorage.getItem("userdata"))
+                if(Object.keys(userdata).length === 1){// Metamask
+                    UserContract.methods.updateFriends(name,addr).send({
+                        from: userdata.address,
+                        to: userContractAddress
+                    });
+                }else{ //MCB Wallet
+                    updateFriendsfura(userdata.privatekey,userdata.address,name,addr)
+                }
+
             }
         }else{ // FollowFried
             follow(addr.toLowerCase())

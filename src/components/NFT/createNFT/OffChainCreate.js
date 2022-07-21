@@ -13,6 +13,7 @@ function getTokenIdFromMeta(meta){
 }
 
 
+
 async function createNFTOnAndOff(metaData,imageFile,itemName,searchTearms,collection,offchain,preis){
 
     //IPFS upload
@@ -46,7 +47,7 @@ async function createNFTOnAndOff(metaData,imageFile,itemName,searchTearms,collec
     }else{
         console.log("onchain")
         //create NFT with metadata return from IPFS upload
-        const response = await createNFT(metaDataURL,tokenIdMeta); // returns tokenId when success
+        await createNFT(metaDataURL,tokenIdMeta); 
     }
 
     return tokenIdMeta;

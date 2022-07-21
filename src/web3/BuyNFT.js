@@ -2,6 +2,9 @@ const Web3 =require('web3');
 //const web3 = new Web3('https://ropsten.infura.io/v3/13185221b99744cda86c46e02a3ded8f');
 const web3 = new Web3(window.ethereum);
 
+// var ropstenAlchemy='wss://eth-ropsten.alchemyapi.io/v2/YdR1ysbKAahCXjlkJTCwbikRTC9Ap9wp'
+// var web3 = new Web3(new Web3.providers.WebsocketProvider(ropstenAlchemy));
+
 
 const BuyNFTContractAddress ='0x784CFE28F17bbb8d13b4B543b8b9AF90a7A85933';
 const BuyNFTContractABI=[

@@ -24,6 +24,13 @@ import Collapse from '@mui/material/Collapse';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import Snackbar from '@mui/material/Snackbar';
+import Slide from '@mui/material/Slide';
+import CircularProgress from '@mui/material/CircularProgress';
+
+//mantine
+import { Notification } from '@mantine/core';
+import { Check } from 'tabler-icons-react';
 
 //ColorTheme - Night Mode
 import {themes} from '../../../ColorTheme'
@@ -48,6 +55,8 @@ function CreateNFT(props){
     const [collectionList,setConnectionList]=useState([]);
     const [notMyCollection,setNotMyCollection] = useState(false);
     const [InfoBoxOpen,setInfoBoxOpen] = useState(true);
+    // for Alert
+    const [alertOpen, setAlertOpen] = useState(false);
 
     // HIDDEN BUTTON STUFF
 	const changeHandler = (event) => {
@@ -64,9 +73,7 @@ function CreateNFT(props){
     // einfach erweiterbar: einfach in metaData weitere elemente hinzufügen
     async function onCreateButtonClicked(e){
 
-        const creator = await getCurrentUser();
-
-        console.log(notMyCollection)
+        const creator = JSON.parse(sessionStorage.getItem("userdata")).address
 
         if(notMyCollection){ return;}
 
@@ -107,6 +114,10 @@ function CreateNFT(props){
         document.getElementById("searchTearms").value ="";
         document.getElementById("externalLink").value ="";
         document.getElementById("preis").value ="";
+
+        if(e.target.id !=="offchainCreate"){
+            setAlertOpen(true)
+        }
 
         var response = await createNFTOnAndOff(metaData,imageFile,itemName,searchTearms,collection,e.target.id,preis) //e.target.id = button offchain or onchain
 
@@ -218,6 +229,12 @@ function CreateNFT(props){
                 <div className={classes.place}></div>
 
             </div>
+
+                  
+
+        {alertOpen && <Collapse in={alertOpen}> <Alert autoHideDuration={1000} onClose={() => {setAlertOpen(false)}} severity="success" color="info" sx={{position:'fixed', right:'0',bottom:'10px'}}> Minting Process takes up to 2 min</Alert> </Collapse> }
+
+
         </div>
     );
 }

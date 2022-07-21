@@ -112,14 +112,12 @@ function NFTFormatEasyOnePage(props){
 
     // like, dislike
     function likeNFTFunc(){
-        if(!window.ethereum){ return }
         likeNFT(props.tokenId);
         setILike(true);
         setNFTLikes(parseInt(NFTLikes)+1);
 
     }
     function dislikeNFTFunc(){
-        if(!window.ethereum){ return }
         dislikeNFT(props.tokenId);
         setILike(false);
         setNFTLikes(parseInt(NFTLikes)-1);

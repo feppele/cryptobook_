@@ -96,6 +96,8 @@ function LoginPage(){
     return (
         <div className={classes.container}>
 
+            <div className={classes.headerText}>MyCryptoBook-Wallet Login</div>
+
             {loginpage &&
             <div className={classes.box}>
 

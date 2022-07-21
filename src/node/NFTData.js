@@ -190,8 +190,6 @@ async function getOffchainMetaData(creator){
 
     creator = creator.toLowerCase();
 
-    console.log(creator);
-
     const ele = {creator:creator};
     const options = getOptions("getOffchainMetaData",ele);
 
@@ -243,9 +241,7 @@ async function getAllMyTokenIDs_On_Off_chain(from){
     offChainTokenIDs = result[1].value
 
     onChainTokenIDs = onChainTokenIDs.map(ele => ele) // anders gehts nicht, kp warum
-    console.log(onChainTokenIDs)
     offChainTokenIDs = offChainTokenIDs.map(ele => ele.tokenid)
-    console.log(offChainTokenIDs)
 
     //add onChainTokenIDs +offChainTokenIDs together. But check before if onchain is still in offchain array
     //offchains werden in nftinfo anhand von 'creator' erkannt. nach verkauf gehört offchaini nicht mehr mir also wird erst gecheckt ob die gleiche tokenId ein onchani ist
@@ -263,7 +259,6 @@ async function getAllMyTokenIDs_On_Off_chain(from){
 
     var onwers = await Promise.allSettled(promisearray)
     onwers = onwers.map(ele => ele.value)
-    console.log(onwers)
 
     for(var i=0;i<offChainTokenIDs.length;i++){
         const add = offChainTokenIDs[i]

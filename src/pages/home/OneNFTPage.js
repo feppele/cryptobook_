@@ -119,13 +119,12 @@ function OneNFTPage(){
         // get Owner
         getOwnerOfTokenId(tokenId).then(response =>{
 
-            if(!window.ethereum){return}
             // if not on blockchain owner == creator. 
             if(response === "error"){
                 console.log(meta)
                 setOwner(meta.creator)
                 setShortOwner(shortAddr(meta.creator));
-                if(meta.creator.toLowerCase() === window.web3.currentProvider.selectedAddress.toLowerCase()){
+                if(meta.creator.toLowerCase() === JSON.parse(sessionStorage.getItem("userdata")).address){
                     setAmIOwner(true);
                 }
                 return;
@@ -133,7 +132,7 @@ function OneNFTPage(){
             //else
             setOwner(response);
              setShortOwner(shortAddr(response));
-            if(response.toLowerCase() === window.web3.currentProvider.selectedAddress.toLowerCase()){
+            if(response.toLowerCase() === JSON.parse(sessionStorage.getItem("userdata")).address){
                 setAmIOwner(true);
             }
         });
@@ -232,9 +231,7 @@ function OneNFTPage(){
 
 
     function buyButtonClicked(){
-        if(!window.ethereum){return}
         if(amIOwner){
-
             changeNFTPrice();
             return
         }
@@ -284,7 +281,7 @@ function OneNFTPage(){
                 { NFTPriceModel && <PopupFenster integration={<SetNFTPriceIntegration nftpriceChanged={nftpriceChanged} onCloseClick={closeSetPrice} tokenId={tokenId}/>} text={"Set NFT price"} onCloseClicked={closeSetPrice} />  }
 
                 {/* SendNFT Popup */}
-                {sendOneNFTModal && <PopupFenster integration={<SendNFTIntegration tokenId={tokenId}/>} onCloseClicked={closeSend} text={`Send NFT: ${metaData.name}`}/>}
+                {sendOneNFTModal && <PopupFenster integration={<SendNFTIntegration onCloseClick={closeSend} tokenId={tokenId}/>} onCloseClicked={closeSend} text={`Send NFT: ${metaData.name}`}/>}
 
                 {/* Likes Popup */}
                 {likesList && <PopupFenster onCloseClicked={closeLikesList} integration={<LikesIntegration likesList={NFTLikesArrayForList}/>}  text={"Favorited by"} />  }
@@ -407,8 +404,9 @@ function OneNFTPage(){
 
                 { shareLink && <Collapse in={alertOpen}> <Alert autoHideDuration={1000} onClose={() => {setAlertOpen(false)}} severity="success" color="info" sx={{position:'fixed', right:'0',bottom:'10px'}}>Link copied!</Alert> </Collapse> }
 
-
             </div>
+
+
 
         </div>
 

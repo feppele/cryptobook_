@@ -2,7 +2,7 @@
 import { create } from 'ipfs-http-client'
 import { useHistory } from "react-router-dom";
 import {NFTContract,NFTContractAddress} from '../../../web3/NFTContract';
-
+import {mintNFTInfura} from '../../../web3/SendEtherInfura'
 
 //ipfs upload
 async function ipfsUpload(metaData,file){ //  MetaData json: {itemName, collection, description, extLink}
@@ -41,14 +41,24 @@ async function ipfsUpload(metaData,file){ //  MetaData json: {itemName, collecti
 
 async function createNFT(metaDataURL,id){
 
-    const owner = await window.web3.currentProvider.selectedAddress;
-    const response = await NFTContract.methods.mintToken(owner,metaDataURL,id).send({
-        from: owner,
-        to: NFTContractAddress
-    })
+    const userdata = JSON.parse(sessionStorage.getItem("userdata"))
+    const owner = userdata.address
+    if(Object.keys(userdata).length === 1){// Metamask
 
-    const tokenId = response.events.Transfer.returnValues.tokenId;
-    const txHash = response.events.Transfer.transactionHash;
+        const response = await NFTContract.methods.mintToken(owner,metaDataURL,id).send({
+            from: owner,
+            to: NFTContractAddress
+        })
+        const tokenId = response.events.Transfer.returnValues.tokenId;
+        const txHash = response.events.Transfer.transactionHash;
+
+    }else{// MCB Wallet
+
+        const res = await mintNFTInfura(owner, userdata.privatekey, id, metaDataURL)
+
+    }
+        const tokenId = "braucht man nichtmehr weil tokenId schon davor bestimmt wird"
+        const txHash = "..."
 
     return [txHash,tokenId];
 }

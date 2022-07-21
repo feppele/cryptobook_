@@ -23,11 +23,7 @@ async function getAllFriendsPromise(){
 async function followFriends(){
 
         const address = JSON.parse(sessionStorage.getItem("userdata")).address
-        console.log(address)
-        console.log(address)
-        console.log(address)
-        console.log(address)
-        
+
 
         // load Follow Friends
         const answer = fetch(fetchi+"/databank",getOptions("WHOdoIFollow",{me:  address.toLowerCase()}))
