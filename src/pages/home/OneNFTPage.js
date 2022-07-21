@@ -37,6 +37,7 @@ import {fetchi} from '../../globalData'
 //ColorTheme - Night Mode
 import {themes} from '../../ColorTheme'
 import {NightContext} from '../../NightModeProvider'
+const userdata = JSON.parse(sessionStorage.getItem("userdata"))
 
 function OneNFTPage(){
 
@@ -167,7 +168,6 @@ function OneNFTPage(){
     }
 
     function getNFTLikes(){
-        if(!window.ethereum){return}
         fetch(fetchi+"/databank",getOptions("getNFTLikes",{tokenId: tokenId}))
         .then(res => {return res.json()}).then(res=>{
             if(res==="error"){
@@ -195,7 +195,6 @@ function OneNFTPage(){
     }
 
     function getLikesList(){
-        if(!window.ethereum){return}
         fetch(fetchi+"/databank",getOptions("getLikesList",{tokenId: tokenId}))
         .then(res => {return res.json()}).then(res=>{
 
@@ -235,6 +234,12 @@ function OneNFTPage(){
             changeNFTPrice();
             return
         }
+
+        // Check if Metamask or MCB Wallet. IF MCB Open Wallet and Approve transaction with PW to decrypt PrivKey
+        if(!userdata.metamask){ // MCB Wallet
+
+
+        } // else if metamask do nothing
 
         // check if on or offchain sell
         getOwnerOfTokenId(tokenId).then(response =>{

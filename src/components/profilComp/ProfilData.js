@@ -3,20 +3,15 @@ import settingsPic from '../../images/settings2.png';
 import savePic from '../../images/save.png';
 import StandartProfilPic from '../../images/background.jpeg';
 import etherSign from '../../images/Crypto-Icons/eth-logo.svg';
-import {web3} from '../../web3/Web3';
-import {getAddress} from '../../web3/LoadingFunctions'
 //import {onLoad} from '../../web3/LoadingFunctions'
 import {shortAddr} from '../../web3/LoadingFunctions'
 import coverImage from '../../images/image.png';
-import {getCurrentUser} from '../../web3/HelperFunctions'
-import ImageSetting from './ImageSetting';
 import React, {useState,useEffect,useHistory,useContext} from 'react';
 import {query,getOptions,queryFetch} from '../../node/databank';
 import {getProfilePicURL} from '../../node/images'
 import black_herz from '../../images/backherz.png'
-
 import {fetchi} from '../../globalData'
-
+//popup
 import PopupFenster from '../PopupFenster/PopupFenster'
 import LikesIntegration from '../PopupFenster/LikesIntegration'
 
@@ -134,11 +129,7 @@ function ProfilData(){
         // if username is change
         if(username !== ""){
 
-            //window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-                //const res = query("add",{ address: currentUsers[0], username: username});
-                const res = query("add",{ address: userData.address, username: username});
-                console.log(res)
-            //})
+            const res = query("add",{ address: userData.address, username: username});
             setUsernameDB(username)
         }
 
@@ -164,13 +155,7 @@ function ProfilData(){
 
     // on Load get name from databank
     function loadNameFromDB(){
-        if(!window.ethereum){return}
-
-        //window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-
-
             const options=getOptions("find",{address: userData.address });
-
             fetch(fetchi+ "/databank",options).then(res => { return res.json()}).then(res=>{
                 if(res[0].length===0){
                     setUsernameDB("unnamed");
@@ -179,8 +164,6 @@ function ProfilData(){
                 }
                 setUserNameIsLoad(true);
             });
-        //});
-
     }
     useEffect(() => {loadNameFromDB();},[])
 

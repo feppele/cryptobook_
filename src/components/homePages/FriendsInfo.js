@@ -23,12 +23,7 @@ function FriendsInfo(){
 
     const [loginModal,setLoginModal] = useState(false);
     async function goToFriends(){
-        if(!window.ethereum){
-            window.open("https://metamask.io");
-            return
-        }else{
-            setLoginModal(true)
-        }
+        setLoginModal(true)
     }
     function closeLogin(){
         setLoginModal(false)

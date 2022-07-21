@@ -1,6 +1,5 @@
 import classes from './ChatPage.module.css';
 import React, {useState,useEffect,useContext,useLayoutEffect,useRef} from 'react';
-import {useParams} from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import {getAllFriendsPromise} from '../../web3/GetAllFriends'
 import FriendListElement from '../../components/chatPage/FriendListElement'
@@ -12,7 +11,6 @@ import {shortAddr} from '../../web3/LoadingFunctions'
 import {loadMessagesFromDB,loadMessagesFromDBEncrypt} from '../../node/cryptoMessages'
 import {sendMessageToDB,sendMessageToDBEnrcypt} from '../../node/cryptoMessages'
 import {getLatestMessage} from '../../node/cryptoMessages'
-import {web3} from '../../web3/Web3'
 import { ethers } from "ethers";
 // import {crypto} from'crypto';
 import {getPublicKey} from '../../node/databank'

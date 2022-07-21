@@ -43,7 +43,7 @@ async function createNFT(metaDataURL,id){
 
     const userdata = JSON.parse(sessionStorage.getItem("userdata"))
     const owner = userdata.address
-    if(Object.keys(userdata).length === 1){// Metamask
+    if(userdata.metamask === true){// Metamask
 
         const response = await NFTContract.methods.mintToken(owner,metaDataURL,id).send({
             from: owner,

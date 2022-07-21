@@ -1,15 +1,6 @@
 import {useState} from 'react';
-import {Link} from 'react-router-dom';
-import { useHistory } from "react-router-dom";
-
 //css
 import classes from './StartNavBar.module.css';
-
-import {web3} from '../../web3/Web3.js';
-import {UserContract} from '../../web3/UserContract.js';
-
-import logomy from '../../images/logo_my.png';
-
 
 //popup
 import PopupFenster from '../PopupFenster/PopupFenster'
@@ -17,40 +8,20 @@ import LoginIntegration from '../PopupFenster/LoginIntegration'
 
 function NavBar(){
 
-    const [ menuIsOpen, setMenuIsOpen ] = useState(false);
     const [ loginPageIsOpen, setLoginIsOpen ] = useState(false);
 
     function reload(){
         window.location.reload(true);
     }
-
     function openLogin(){
-
         setLoginIsOpen(true);
-
     }
     function closeLogin(){
-
         setLoginIsOpen(false);
     }
-
-
     function loginButtonClicked(){
-        //if metamask not install open metamask.io otherwise open Modal
-        console.log("loginButtonClicked")
-        if(!isMetaMaskInstalled()){
-            window.open("https://metamask.io");
-            return;
-        }
         openLogin();
     }
-    const history = useHistory();
-
-
-    function isMetaMaskInstalled() {
-        return Boolean(window.ethereum && window.ethereum.isMetaMask);
-    }
-
 
     return (
 

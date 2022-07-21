@@ -114,28 +114,28 @@ const ResponsiveAppBar = () => {
 
   const history = useHistory();
   function openPage(page){
-    if(!window.ethereum){ history.push("/")}else{
-      closeWallet()
-      if(page==="Friends"){
-        history.push("/friends")
-      }else if(page==="wallet"){
-        openWallet()
-      }else if(page==="My-NFT"){
-        history.push("/mynft");
-      }else if(page==="NFT-Marketplace"){
-        history.push("/marketplace");
-      }else if(page==="Crypto-Chat"){
-        history.push("/chats");
-      }else if(page==="profile"){
-        history.push("/me");
-      }else if(page==="notification"){
-        openNotification()
-      }else if(page==="logout"){
-        history.push("/");
-      }else if(page==="Create-NFT"){
-        history.push("/createNFT");
-      }
+ 
+    closeWallet()
+    if(page==="Friends"){
+      history.push("/friends")
+    }else if(page==="wallet"){
+      openWallet()
+    }else if(page==="My-NFT"){
+      history.push("/mynft");
+    }else if(page==="NFT-Marketplace"){
+      history.push("/marketplace");
+    }else if(page==="Crypto-Chat"){
+      history.push("/chats");
+    }else if(page==="profile"){
+      history.push("/me");
+    }else if(page==="notification"){
+      openNotification()
+    }else if(page==="logout"){
+      history.push("/");
+    }else if(page==="Create-NFT"){
+      history.push("/createNFT");
     }
+    
   }
 
 

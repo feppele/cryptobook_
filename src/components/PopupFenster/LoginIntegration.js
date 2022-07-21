@@ -23,25 +23,35 @@ function LoginIntegration(props){
         // Ropsten =0x3
         if(chainId !== "0x3"){
             setNotPolygon(true)
+            return true
         }
+        return false
     }
 
-    useEffect(() => {
-        checkChain()
+    // useEffect(() => {
+    //     checkChain()
 
-    },[])
+    // },[])
 
+    function isMetaMaskInstalled() {
+        return Boolean(window.ethereum && window.ethereum.isMetaMask);
+    }
     async function loginMetamask(){
-        if(notPolygon){return}
+        if(!isMetaMaskInstalled()){
+            window.open("https://metamask.io");
+            return;
+        }
+        window.ethereum.on('chainChanged', ()=>{setNotPolygon(false)})
+        if(await checkChain()){return}
+
 
         const accounts =  await window.ethereum.request({method: 'eth_requestAccounts'});
-        console.table(accounts)
 
         // erstmal weglassen bis fertig implementriert
         // Add Public KEy to DB
         addPublicKeyToDB(accounts[0])
         //set userdata Context
-        setUserDataFunc({address:accounts[0]})
+        setUserDataFunc({address:accounts[0],metamask:true})
 
         history.push(props.nextPage);
     }
@@ -52,7 +62,8 @@ function LoginIntegration(props){
 
     }
 
-    window.ethereum.on('chainChanged', ()=>{setNotPolygon(false)})
+
+    //window.ethereum.on('chainChanged', ()=>{setNotPolygon(false)})
 
     function addPolygonChain(){
         window.ethereum.request({
@@ -98,15 +109,16 @@ function LoginIntegration(props){
                     </div>
                 </div>
 
-                <div onClick={loginCryptoBookWallet} className={classes.walletButton}>
-
-                        MyCryptoBook-Wallet
-                </div>
 
                 { notPolygon && <div onClick={addRopstenChain} className={classes.walletButton}>
                     <div className={classes.redText}>Wrong Network, click to change to Ropsten</div>
 
                 </div> }
+
+                <div onClick={loginCryptoBookWallet} className={classes.walletButton}>
+                    MyCryptoBook-Wallet
+                </div>
+
 
             </div>
 

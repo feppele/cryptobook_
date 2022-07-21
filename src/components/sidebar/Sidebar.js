@@ -3,9 +3,6 @@ import * as React from 'react';
 import {useEffect,useRef,useState,useContext} from 'react'
 import classes from './Sidebar.module.css'
 
-import {getProfilePicURL} from '../../node/images'
-import {shortAddr} from '../../web3/LoadingFunctions'
-import etherSign from '../../images/ethereum.png'
 
 //material UI
 import Avatar from '@mui/material/Avatar';
@@ -19,9 +16,6 @@ import {NightContext} from '../../NightModeProvider'
 
 import { useClickOutside } from '@mantine/hooks';
 
-
-const Web3 =require('web3');
-const web3 = new Web3(window.ethereum);
 
 const ethPrice = require('eth-price');
 

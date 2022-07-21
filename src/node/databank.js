@@ -91,7 +91,6 @@ async function loadNameFromDB2(address){
 
 export async function addPublicKeyToDB(address){
 
-  //const currentUser = await window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{return currentUsers[0]})
   // This should just happen at the first login, so check if already happend:
   if( await checkPublicKeyExists(address)){
     console.log("Public KEy exists")

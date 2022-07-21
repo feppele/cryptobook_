@@ -29,7 +29,6 @@ function ListElement(props){
 
     const history = useHistory();
     function goToProfile(){
-        //window.ethereum.request({method: 'eth_accounts'}).then(accounts=>{
             if(userData.address ===address){
 
                 history.push({
@@ -40,7 +39,6 @@ function ListElement(props){
                     pathname:"/profile/"+address
                 });
             }
-       // })
     }
 
 

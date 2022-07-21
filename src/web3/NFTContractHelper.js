@@ -84,7 +84,7 @@ async function sendNFT(to,tokenId){
 
     // if Metamask is conncted userdata = {address} if MCB Wallet userdata={address,privkey,pubkey,....}
     const userdata = JSON.parse(sessionStorage.getItem("userdata"))
-    if(Object.keys(userdata).length === 1){// Metamask
+    if(userdata.metamask === true){// Metamask
         const _from = await window.web3.currentProvider.selectedAddress;
         NFTContract.methods.transferFrom(_from,_to,_tokenId).send({from:_from}).then(console.log).catch(console.log);
 

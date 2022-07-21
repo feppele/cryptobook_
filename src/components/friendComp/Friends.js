@@ -18,7 +18,11 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Tooltip from '@mui/material/Tooltip';
+import Snackbar from '@mui/material/Snackbar';
 import CircularProgress from '@mui/material/CircularProgress';
+import Slide from '@mui/material/Slide';
+
+import { SnackbarComp } from './Snackbar';
 
 //ColorTheme - Night Mode
 import {themes} from '../../ColorTheme'
@@ -90,22 +94,18 @@ import {NightContext} from '../../NightModeProvider'
 
     console.log({backgroundColor:theme.color2})
 
+
+
+
     return (
 
         <div style={{backgroundColor:theme.color1}} className={classes.container1}>
 
-
             <div style={{borderBottom: theme.border}} className={classes.header}>
-            
                 <div style={{color:theme.font,fontSize:'40px',marginLeft:'40px'}}>friends</div>
             </div>
 
-
-
         <div className={classes.container}>
-
-
-
 
             {/* LEFT SIDE */}
             <div  className={classes.menu}>

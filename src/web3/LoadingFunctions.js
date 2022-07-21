@@ -55,12 +55,6 @@ function shortAddr(address){
 
 
 
-// async function getAddress(){
-
-//     window.localStorage.setItem("myAddress",window.web3.currentProvider.selectedAddress);
-// }
-
-
 
 
 async function isMetaMaskConnected() {

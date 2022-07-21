@@ -2,25 +2,14 @@ import classes from './NFTFormatEasyOnePage.module.css';
 import herz from '../../images/herz.png';
 import ethereum from '../../images/ethereum.png';
 import offchainPic from '../../images/fokus.png';
-import {NFTContract,NFTContractAddress} from '../../web3/NFTContract';
 import {useHistory} from 'react-router-dom';
-import {getOptions} from '../../node/databank';
 import {useState,useEffect} from 'react';
 import redHerz from '../../images/redherz.png';
 import blackHerz from '../../images/backherz.png';
-import MiniButton from '../standart/MiniButton';
-import MiniButtonNoOpacity from '../standart/MiniButtonNoOpacity';
 import {getNFTLikes,likeNFT,dislikeNFT,doILike} from '../../node/NFTLikes';
 import {getTokenUri,getAllMetadataFromURI} from '../../web3/NFTContractHelper'
-import {getNFTImageServerURL} from '../../node/images'
 import {getTokenURIDB,getPreisOfNFT} from '../../node/NFTData'
-
-import { useInViewport } from 'react-in-viewport';
-
-import LazyLoad from "react-lazyload";
 import React,{useContext} from "react";
-import styled, { keyframes } from "styled-components";
-import PropTypes from "prop-types";
 
 //material UI
 import IconButton from '@mui/material/IconButton';
@@ -31,8 +20,6 @@ import Tooltip from '@mui/material/Tooltip';
 import {themes} from '../../ColorTheme'
 import {NightContext} from '../../NightModeProvider'
 
-
-
 // input just token ID as props: props.tokenId
 // loads Metadata(name, description..) from ipfs. 
 // loads image from server if not available from ipfs
@@ -40,10 +27,10 @@ function NFTFormatEasyOnePage(props){
 
     console.log("NFTFormatEasyOnePage")
 
-        // Night Mode
-        const nightMode = useContext(NightContext)
-        const [theme,setTheme] =useState(themes.bright)
-        useEffect(()=>{ nightMode ? setTheme(themes.dark) : setTheme(themes.bright) },[nightMode])
+    // Night Mode
+    const nightMode = useContext(NightContext)
+    const [theme,setTheme] =useState(themes.bright)
+    useEffect(()=>{ nightMode ? setTheme(themes.dark) : setTheme(themes.bright) },[nightMode])
 
     const history =useHistory();
 
@@ -75,6 +62,8 @@ function NFTFormatEasyOnePage(props){
             tokenURI = await getTokenURIDB(tokenId);
 
         }
+        console.log("tokenURI");
+        console.log(tokenURI);
 
         setMetadata( await getAllMetadataFromURI(tokenURI,tokenId) );
         return await getAllMetadataFromURI(tokenURI,tokenId);
@@ -112,12 +101,18 @@ function NFTFormatEasyOnePage(props){
 
     // like, dislike
     function likeNFTFunc(){
+        // check if login
+        const userdata = JSON.parse(sessionStorage.getItem("userdata"))
+        if(userdata === null || userdata === undefined){return}
         likeNFT(props.tokenId);
         setILike(true);
         setNFTLikes(parseInt(NFTLikes)+1);
 
     }
     function dislikeNFTFunc(){
+        // check if login
+        const userdata = JSON.parse(sessionStorage.getItem("userdata"))
+        if(userdata === null || userdata === undefined){return}
         dislikeNFT(props.tokenId);
         setILike(false);
         setNFTLikes(parseInt(NFTLikes)-1);

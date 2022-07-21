@@ -1,18 +1,11 @@
 import {useState,useEffect} from 'react'
-import {Link} from 'react-router-dom';
 import { useHistory } from "react-router-dom";
-
 import MenuModal from './menuModal/MenuModal2.js';
 import MenuBackdrop from './menuModal/MenuBackdrop.js';
 import ProfilModal from './profilModal/ProfilModal.js';
 import Backdrop2 from './profilModal/Backdrop.js';
-
 import classes from './NavBarHome.module.css';
-
-import {web3} from '../../web3/Web3.js';
-
 import profilColor from '../../images/background.jpeg';
-import friend from '../../images/friend.png';
 
 
 //import {onLoad} from '../../web3/LoadingFunctions'
@@ -20,7 +13,6 @@ import friend from '../../images/friend.png';
 import {getProfilePicURL} from '../../node/images'
 import {getCurrentUser} from '../../web3/HelperFunctions'
 
-import logo from '../../images/logo.png'
 
 
 function NavBar(){
@@ -56,27 +48,17 @@ function NavBar(){
 
     // for change Path
     function openProfil(){
-
-        if(!window.ethereum){ history.push("/")}else{
-
-            history.push("/me");
-        }
-
+        history.push("/me");
     }
 
     function openFriends(){
-        if(!window.ethereum){ history.push("/")}else{
-
-            history.push("/friends");
-        }
-
-
+        history.push("/friends");
     }
-    function openMyNftPage(){
-        if(!window.ethereum){ history.push("/")}else{
 
-            history.push("/mynft");
-        }
+    function openMyNftPage(){
+
+        history.push("/mynft");
+
     }
 
     function openMarketplace(){

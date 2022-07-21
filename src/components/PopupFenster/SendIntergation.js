@@ -2,21 +2,23 @@ import classes from './SendIntergation.module.css';
 import sendImg from '../../images/send.png';
 import {useState} from 'react';
 import equalImg from'../../images/equal.png';
-
-import {web3} from '../../web3/Web3';
 import {sendEtherInfura} from '../../web3/SendEtherInfura'
 
- 
 //material UI 
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 
+import {_web3} from '../../web3/Web3'
+var web3 = _web3.mcbWallet
+const userdata = JSON.parse(sessionStorage.getItem("userdata"))
+if(userdata !== null){
+    userdata.metamask === true ? web3 = _web3.metamask : web3 = _web3.mcbWallet
+}
 
 const ethPrice = require('eth-price');
 
 
 function SendIntergation(props){
-
 
     const [etherPrice,setEtherPrice]= useState(false);
     const [oneEther,setOneEther] =useState(false);
@@ -25,10 +27,10 @@ function SendIntergation(props){
 
 
 
-    function send(){
+    async function send(){
         // if Metamask is conncted userdata = {address} if MCB Wallet userdata={address,privkey,pubkey,....}
         const userdata = JSON.parse(sessionStorage.getItem("userdata"))
-        if(Object.keys(userdata).length === 1){// Metamask
+        if(userdata.metamask === true){// Metamask
 
             web3.eth.sendTransaction({
                 from:window.web3.currentProvider.selectedAddress,
@@ -38,8 +40,8 @@ function SendIntergation(props){
 
         }else{// MCB Wallet
 
-            sendEtherInfura(  userdata.address, props.longAddr, userdata.privatekey, web3.utils.toWei(sendEther.toString())  ) //(from,to,privateKey,value)
-
+            const res = await sendEtherInfura(  userdata.address, props.longAddr, userdata.privatekey, web3.utils.toWei(sendEther.toString())  ) //(from,to,privateKey,value)
+            console.log(res)
         }
 
 
@@ -97,8 +99,6 @@ function SendIntergation(props){
 
     }oneEtherCalc();
 
-    
-
 
 
     return (
@@ -117,6 +117,10 @@ function SendIntergation(props){
                         <Button variant="outlined" sx={{width:'100%'}} onClick={send}>  < img src={sendImg} style={{height: '33px',width: 'auto'}}></img>   </Button>
                     </Tooltip>
                 </div>
+
+            </div>
+
+            <div style={{position:'fixed',top:'0px'}}>
 
             </div>
 

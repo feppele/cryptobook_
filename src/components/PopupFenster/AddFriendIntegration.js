@@ -1,7 +1,7 @@
 import classes from './AddFriendIntegration.module.css';
 
 import React,{useState} from 'react';
-import {web3} from '../../web3/Web3'
+
 import {UserContract,userContractAddress} from '../../web3/UserContract'
 import validImage from '../../images/valid.png';
 import inValidImage from '../../images/invalid.png';
@@ -14,6 +14,13 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+
+import {_web3} from '../../web3/Web3'
+var web3 = _web3.mcbWallet
+const userdata = JSON.parse(sessionStorage.getItem("userdata"))
+if(userdata !== null){
+    userdata.metamask === true ? web3 = _web3.metamask : web3 = _web3.mcbWallet
+}
 
 
 
@@ -48,7 +55,7 @@ function AddFriendIntegration(props){
             if(name!=="" && addr!==""){
 
                 const userdata = JSON.parse(sessionStorage.getItem("userdata"))
-                if(Object.keys(userdata).length === 1){// Metamask
+                if(userdata.metamask === true){// Metamask
                     UserContract.methods.updateFriends(name,addr).send({
                         from: userdata.address,
                         to: userContractAddress

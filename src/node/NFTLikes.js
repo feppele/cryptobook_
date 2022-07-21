@@ -21,8 +21,9 @@ async function getNFTLikes(tokenId){
 
 async function likeNFT(tokenId){
 
-    if(!window.ethereum){return}
-    const currentUser = JSON.parse(sessionStorage.getItem("userdata")).address
+    const userdata = JSON.parse(sessionStorage.getItem("userdata"))
+    if(userdata === null || userdata === undefined){return}
+    const currentUser = userdata.address
 
     fetch(fetchi+ "/databank",getOptions("likeNFT",{tokenId: tokenId, address: currentUser} )).catch(console.log);
 
@@ -35,8 +36,9 @@ async function likeNFT(tokenId){
 
 async function dislikeNFT(tokenId){
 
-    if(!window.ethereum){return}
-    const me = JSON.parse(sessionStorage.getItem("userdata")).address
+    const userdata = JSON.parse(sessionStorage.getItem("userdata"))
+    if(userdata === null || userdata === undefined){return}
+    const me = userdata.address
 
     fetch(fetchi+ "/databank",getOptions("dislikeNFT",{tokenId: tokenId,address: me})).catch(console.log);
 
@@ -45,8 +47,11 @@ async function dislikeNFT(tokenId){
 
 async function doILike(tokenId){
 
-    const me = JSON.parse(sessionStorage.getItem("userdata")).address
-    
+    const userdata = JSON.parse(sessionStorage.getItem("userdata"))
+    if(userdata === null || userdata === undefined){return}
+    const me = userdata.address
+
+
     const res2 =  fetch(fetchi+ "/databank",getOptions("doILike",{tokenId: tokenId, address: me }))
     .then(res => {return res.json()}).then(res=>{
         if(res==="error" || res[0][0].count==="0"){

@@ -67,9 +67,6 @@ function ProfilData(props){
 
     // DO I FOLLOW?
     function doIFollow(){
-        if(!window.ethereum){return}
-        //window.ethereum.request({method: 'eth_accounts'}).then(currentUsers =>{
-
             fetch(fetchi + "/databank",getOptions("doIFollow",{person: props.personData.friend_addr.toLowerCase(),follower: userData.address.toLowerCase()} ))
             .then(res => {return res.json()}).then(res=>{
 
@@ -78,7 +75,6 @@ function ProfilData(props){
                 }
             }).catch(console.log);
 
-        //})
     }
     useEffect(() => {doIFollow()},[]);
 

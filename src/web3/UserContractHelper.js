@@ -5,7 +5,6 @@ import {loadFriendsEasy} from '../web3/LoadingFunctions';
 
    // if no return false, if ture return his name
     async function checkIfBlockchainFriend(friendAddr){
-        if(!window.ethereum){return}
         // get all blockchain friends Addresse
         const friends = await loadFriendsEasy();
 

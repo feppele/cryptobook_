@@ -1,7 +1,6 @@
 import classes from './FriendElement.module.css';
 import etherSign from '../../images/Crypto-Icons/eth-logo.svg';
 import CryptoAddress from '../standart/CryptoAddress';
-import {web3} from '../../web3/Web3';
 import { useHistory } from "react-router-dom";
 import deleteImg from '../../images/delete.png';
 import sendImg from '../../images/send.png';
@@ -24,12 +23,21 @@ import Collapse from '@mui/material/Collapse';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import Snackbar from '@mui/material/Snackbar';
+import Slide from '@mui/material/Slide';
+
 
 //ColorTheme
 //ColorTheme - Night Mode
 import {themes} from '../../ColorTheme'
 import {NightContext} from '../../NightModeProvider'
 
+import {_web3} from '../../web3/Web3'
+var web3 = _web3.mcbWallet
+const userdata = JSON.parse(sessionStorage.getItem("userdata"))
+if(userdata !== null){
+    userdata.metamask === true ? web3 = _web3.metamask : web3 = _web3.mcbWallet
+}
 
 function FriendElement(props){
 
@@ -102,9 +110,32 @@ function FriendElement(props){
     },[])
 
 
+    function SlideTransition(props) { return <Slide {...props} direction="up" />;}
+    const [state, setState] = useState({
+        open: false,
+        Transition: Slide,
+      });
+      const handleClose = () => {
+        setState({ ...state, open: false });
+      };
+      const handleClick = (Transition) => () => {
+        setState({
+          open: true,
+          Transition,
+        });
+      };
+
     return (
 
             <div style={{backgroundColor:theme.color2,border:theme.border}} className={classes.element}>
+
+            <Snackbar
+                open={state.open}
+                onClose={handleClose}
+                TransitionComponent={state.Transition}
+                message="I love snacks"
+                key={state.Transition.name}
+            />
 
 
                 { sendButton  && <PopupFenster integration={<SendIntergation longAddr={props.longAddr} addr={props.addr} friendName={props.friendName}/>} text={`Send Ether to ${props.friendName}`} onCloseClicked={closeSend} />   }

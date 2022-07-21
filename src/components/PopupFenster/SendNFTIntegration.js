@@ -2,7 +2,6 @@ import classes from './SendNFTIntegration.module.css';
 import FriendListElement from './FriendListElement';
 import {useState} from 'react';
 import {getAllFriends,getAllFriendsPromise} from '../../web3/GetAllFriends';
-import {useEffect} from 'react'
 
 
 

@@ -25,7 +25,7 @@ function HomePage(){
     useEffect(()=>{ nightMode ? setTheme(themes.dark) : setTheme(themes.bright) },[nightMode])
 
 
-
+    console.log(JSON.parse(sessionStorage.getItem("userdata")))
     // for ease In animation
     const NFTtextRef = useRef(null)
 

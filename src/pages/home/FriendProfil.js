@@ -3,19 +3,19 @@ import {useParams} from 'react-router-dom';
 import {useState,useEffect} from 'react'
 import FriendProfilData from '../../components/friendProfil/FriendProfilData';
 import FriendsNFTs from '../../components/friendProfil/FriendsNFTs';
-import {web3} from '../../web3/Web3';
 import {loadNameFromDB2} from '../../node/databank'
 import {checkIfBlockchainFriend} from '../../web3/UserContractHelper'
 import { useHistory } from "react-router-dom";
 
+import {_web3} from '../../web3/Web3'
+var web3 = _web3.mcbWallet
+const userdata = JSON.parse(sessionStorage.getItem("userdata"))
+if(userdata !== null){
+    userdata.metamask === true ? web3 = _web3.metamask : web3 = _web3.mcbWallet
+}
 
 function Profil(){
     const history = new useHistory();
-    useEffect(() => {
-        if(!window.ethereum){
-            history.push("/");
-        }
-    },[])
 
 
     // get Address from visiting profile from URL

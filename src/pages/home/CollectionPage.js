@@ -18,18 +18,15 @@ import Link from '@mui/material/Link';
 
 function CollectionPage(){
 
-                // Night Mode
-                const nightMode = useContext(NightContext)
-                const [theme,setTheme] =useState(themes.bright)
-                useEffect(()=>{ nightMode ? setTheme(themes.dark) : setTheme(themes.bright) },[nightMode])
+    // Night Mode
+    const nightMode = useContext(NightContext)
+    const [theme,setTheme] =useState(themes.bright)
+    useEffect(()=>{ nightMode ? setTheme(themes.dark) : setTheme(themes.bright) },[nightMode])
 
     var key=1;
     const {collectionName} = useParams();
     const history =useHistory();
 
-    if(!window.ethereum){
-        //history.push("/noMetaMask")
-    }
 
     const[allTokenIds,setAllTokenIds] =useState([])
     const [backgroundURL,setBackgroundURL] = useState("")

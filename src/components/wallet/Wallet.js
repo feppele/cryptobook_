@@ -11,7 +11,7 @@ import etherSign from '../../images/ethereum.png'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
-import { height } from '@mui/material/node_modules/@mui/system';
+
 
 //ColorTheme - Night Mode
 import {themes} from '../../ColorTheme'
@@ -20,10 +20,12 @@ import {NightContext} from '../../NightModeProvider'
 //User Context
 import {UserContext} from '../../UserProvider'
 
-
-
-const Web3 =require('web3');
-const web3 = new Web3(window.ethereum);
+import {_web3} from '../../web3/Web3'
+var web3 = _web3.mcbWallet
+const userdata = JSON.parse(sessionStorage.getItem("userdata"))
+if(userdata !== null){
+    userdata.metamask === true ? web3 = _web3.metamask : web3 = _web3.mcbWallet
+}
 
 const ethPrice = require('eth-price');
 
@@ -85,9 +87,12 @@ export default function Wallet(props) {
             {/*header*/}
             <div className={classes.header}>
 
-                <div style={{display: 'flex'}}>
+                <div style={{display: 'flex',alignItems: 'center'}}>
                     <Avatar src={profilePicURL}  sx={{ width: 33, height: 33,marginLeft:'10px',marginRight:'10px' }}  />
-                    <div style={{fontSize:'22px',color:theme.font}} >My Wallet</div>
+                    <div style={{}}>
+                        <div style={{fontSize:'22px',color:theme.font}} >My Wallet</div>
+                        <div style={{fontSize:'12px',color:theme.font}}>{userdata.metamask === true ? "Metamask": "Integrated Wallet"}</div>
+                    </div>
                 </div>
                 <Tooltip title="Copy" placement="right" >
                     <Button sx={{marginRight:'10px'}} >{addr.short}</Button>
