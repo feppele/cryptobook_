@@ -12,7 +12,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Skeleton from '@mui/material/Skeleton';
 import Link from '@mui/material/Link';
 
-
+import lockImg from '../../images/lock-2.png'
 import { ethers } from 'ethers';
 import {registerDB,loginDB} from '../../node/username'
 
@@ -96,6 +96,8 @@ function LoginPage(){
     return (
         <div className={classes.container}>
 
+            <img style={{height: '60px', width:'auto'}} src={lockImg}></img>
+
             <div className={classes.headerText}>MyCryptoBook-Wallet Login</div>
 
             {loginpage &&
@@ -107,9 +109,9 @@ function LoginPage(){
 
                 <TextField  value={password} onChange={(e)=>{setPassword(e.target.value);setLoginError("")}} helperText={loginError} error={loginError!==""} label="Password" type="password"   />
 
-                <Button onClick={login} variant="contained" > Login</Button>
+                <Button sx={{height:'50px'}} onClick={login} variant="contained" > Login</Button>
 
-                <Link sx={{cursor: "pointer"}} onClick={openRegister} underline="hover"> {"Not registered?"} </Link>
+                <Link sx={{cursor: "pointer",alignSelf:"flex-end"}} onClick={openRegister} underline="hover"> {"Don't have an account? Sign Up"} </Link>
 
             </div>
             }
@@ -117,22 +119,26 @@ function LoginPage(){
             {!loginpage &&
             <div className={classes.box}>
 
-                <div style={{fontSize:'18px'}}>Register to MyCryptoBook-Wallet</div>
+                {randomMnemonic==="" &&<div style={{fontSize:'18px'}}>Register to MyCryptoBook-Wallet</div>  }
 
-                <TextField  helperText={helperTextUser} error={helperTextUser !==""} value={username} onChange={(e)=>{setUsername(e.target.value);setHelperTextUser("")}} label="Username"   />
+                {randomMnemonic==="" && <TextField  helperText={helperTextUser} error={helperTextUser !==""} value={username} onChange={(e)=>{setUsername(e.target.value);setHelperTextUser("")}} label="Username"   />    }
 
-                <TextField  value={password} onChange={(e)=>{setPassword(e.target.value);setHelperText("")}} label="Password" type="password"   />
-                <TextField  helperText={helperText} error={helperText !==""} value={passwordCheck} onChange={(e)=>{setPasswordCheck(e.target.value);setHelperText("")}} label="Password" type="password"   />
+                {randomMnemonic==="" && <TextField  value={password} onChange={(e)=>{setPassword(e.target.value);setHelperText("")}} label="Password" type="password"   />      }
+                {randomMnemonic==="" && <TextField  helperText={helperText} error={helperText !==""} value={passwordCheck} onChange={(e)=>{setPasswordCheck(e.target.value);setHelperText("")}} label="Password" type="password"   />   }
 
-                <Button onClick={register} variant="contained" > Register</Button>
+                {randomMnemonic==="" && <Button sx={{height:'50px'}} onClick={register} variant="contained" > Register</Button> }
 
-                {randomMnemonic!=="" && <div style={{color:'green'}}>{randomMnemonic.phrase}</div> }
-                {randomMnemonic!=="" && <div>This is the seed Phrase for your private Key. You can use it to transfer your private Key to another Wallet or if you loose your credentials you can restore your account with this phrase. Store it on a save place. </div>  }
+                {randomMnemonic!=="" && <div style={{color:'green',fontSize:'20px'}}>{randomMnemonic.phrase}</div> }
+                {randomMnemonic!=="" && <div style={{color:'red'}}>{"Read this carefully"}</div> }
+                {randomMnemonic!=="" && <div>These 12 words are the Seed Phrase for your account. You can use it to transfer your private Key to another Wallet or if you loose your credentials you can restore your account with this phrase. Store it at a save place. The person who has the seed phrase has accsess to all your funds. </div>  }
+                {randomMnemonic!=="" && <div>Also take care of your password. We do not store your password, so if you forget it, we cannot restore it. For the case you forget it you need your Seed Phrase to restore it.</div> }
 
-                <Link sx={{cursor: "pointer"}} onClick={openLogin} underline="hover"> {"Back to Login"} </Link>
+
+                <Link sx={{cursor: "pointer",alignSelf:"flex-end"}} onClick={openLogin} underline="hover"> {"Already have an account? Login"} </Link>
             </div>
             }
 
+        <div style={{fontSize:'12px'}}> Copyright © MyCryptoBook.io 2022</div>
 
         </div>
 

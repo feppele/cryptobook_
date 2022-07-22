@@ -92,7 +92,6 @@ function FriendElement(props){
 
     function closeTooltip(){
         setTimeout(() => {setCopyClicked(false)},200)
-        
     }
 
     // Value is HardCoded right now

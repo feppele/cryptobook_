@@ -52,7 +52,7 @@ setTimeout(()=>{
             loadLatestMessage()
         },[])
 
-        //console.log(latestMessage.message)
+        //console.log(latestMessage)
 
         
     return(

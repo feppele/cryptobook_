@@ -27,6 +27,10 @@ function NavBar(){
 
         <div className={classes.container}>
 
+           { false && <div style={{position: 'absolute',width: '100%',height: '20px',backgroundColor:"yellow",top:'0px',fontSize:'15px',textAlign:'center'}}>
+                This Website is still in Alpha Phase and uses the Ropsten Testnet.
+            </div>}
+
 
            { loginPageIsOpen && <PopupFenster integration={<LoginIntegration nextPage={"/home"}/>} onCloseClicked={closeLogin} text={"Connect Wallet"}/>   }
 

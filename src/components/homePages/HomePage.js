@@ -121,7 +121,7 @@ function HomePage(){
             <div className={classes.top}>
 
                 <div  className={classes.NFTwrapper}>
-                    <NFTFormatEasyOnePage  tokenId={"956886101373974921071286911279360404"}/>
+                    <NFTFormatEasyOnePage  tokenId={"1186057012317243477983756935648904218"}/>
                 </div>
 
 
@@ -129,7 +129,7 @@ function HomePage(){
 
                     <p style={{color: theme.font}} className={classes.nftText}> Discover, create and sell your Art as NFTs</p>
 
-                    <p style={{color: theme.font}} className={classes.text}> ... and thats not everything. show your collection in your profile or explore those of your friends. Sell, buy them or just send them as a present. <big>Create </big> your Art on or off chain, and just upgrade them to the Blockchain when someone is buying</p>
+                    <p style={{color: theme.font}} className={classes.text}> ... and thats not everything. Show your collection in your profile or explore those of your friends. Sell, buy them or just send them as a gift. Create your Art on or off chain, and just upgrade them to the Blockchain when someone is buying it</p>
 
 
                     <div className={classes.buttonWrapper}>

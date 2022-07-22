@@ -106,6 +106,7 @@ export default function Wallet(props) {
                     <Button  >{addr.short}</Button>
                 </Tooltip>
 
+
                 <Tooltip title="Copy" placement="right">
                     <IconButton sx={{marginRight:'10px'}} ><img src={keyImg} style={{height: '20px',width: 'auto'}}></img></IconButton>
                 </Tooltip>
@@ -117,9 +118,7 @@ export default function Wallet(props) {
 
                 {props.children}
 
-                <Tooltip title="Copy" placement="right" >
-                    <Button sx={{marginRight:'10px'}} >{addr.short}</Button>
-                </Tooltip>
+
 
 
         </div> {/*wallet*/}

@@ -88,11 +88,11 @@ export async function loadMessagesFromDBEncrypt(me,partner,limit,offset){
 
 
 // return {messsage,von,zu,date,id}
-async function getLatestMessage(me,partner){
+async function getLatestMessage(partner){
+
+    const me = JSON.parse(sessionStorage.getItem("userdata")).address
 
     var latesMessage = await fetch(fetchi+ "/databank",getOptions("getLatestMessage",{from: me, to: partner}  )).then(res => {return res.json()}).catch(console.log);
-
-    //console.log(latesMessage[0][0])
 
     return latesMessage[0][0] || {message:""};
 

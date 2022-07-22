@@ -171,7 +171,14 @@ const ResponsiveAppBar = () => {
 
   return (
 
-  <div style={{width: '100%', position:'sticky',top:'0px',zIndex:'3000'}}> 
+    
+
+  <div style={{width: '100%', position:'sticky',top:'0px',zIndex:'3000'}}>
+  
+  {/* if go to Marketplace without login*/ }
+  { JSON.parse(sessionStorage.getItem("userdata")) !== null &&
+  <div>
+
 
     {notificationOpen && <Sidebar integration={<NotificationIntegration notifications={[1,2,3]} close={closeNotification}/>} closeWalletFunc={closeNotification}/>}
 
@@ -317,7 +324,9 @@ const ResponsiveAppBar = () => {
         </Toolbar>
       </Container>
     </AppBar>
+  </div> }
   </div>
+
   );
 };
 export default ResponsiveAppBar;

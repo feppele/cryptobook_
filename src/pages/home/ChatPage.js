@@ -112,22 +112,48 @@ function ChatPage(){
 
 
     async function loadFriends(){
-        const res = await getAllFriendsPromise() // return [{friend_name:String, friend_addr:String, blockchain:Boolean} ]
+        const allFriendsArray = await getAllFriendsPromise() // return [{friend_name:String, friend_addr:String, blockchain:Boolean} ]
         // SORT 
-        var array =[]
-        for (const ele of res){
-            const res1 = await getLatestMessage(userData.address, ele.friend_addr).then(message=>{
-                var id 
-                if(message.message===""){
-                    id=0
-                }else{
-                    id=message.id
-                }
-                const push={friend_name:ele.friend_name, friend_addr:ele.friend_addr, blockchain:ele.blockchain,id: id }
-                return push
-            })
-            array.push(res1)
-        }
+
+        // console.log(allFriendsArray)
+
+        // // Never in a loop await !! Load all Asyncrone before and than wait vor allSetteld
+        const latesMessageArrayPromise = allFriendsArray.map(friend => getLatestMessage(friend.friend_addr) )
+        var latesMessageArray = await Promise.allSettled([...latesMessageArrayPromise])
+        latesMessageArray = latesMessageArray.map(ele =>ele.value) // because Promise saves result in .value
+        // message : {message,von,zu,date,id}
+
+        var array = allFriendsArray.map((ele,i)=>{
+            var message = latesMessageArray[i]
+            var id
+            if(message.message===""){
+                id=0
+            }else{
+                id=message.id
+                console.log(id)
+            }
+            return {friend_name:ele.friend_name, friend_addr:ele.friend_addr, blockchain:ele.blockchain,id: id }
+        })
+
+        // var array =[]
+        // for (const ele of res){
+        //     console.log(ele.friend_addr)
+        //     // improve: takes to long to load every latest message from every friend syncrone. Load before in Promise Array
+        //     const res1 = await getLatestMessage( ele.friend_addr).then(message=>{
+        //         // console.log(message)
+        //         // console.log(ele)
+        //         var id 
+        //         if(message.message===""){
+        //             id=0
+        //         }else{
+        //             id=message.id
+        //             console.log(id)
+        //         }
+        //         const push={friend_name:ele.friend_name, friend_addr:ele.friend_addr, blockchain:ele.blockchain,id: id }
+        //         return push
+        //     })
+        //     array.push(res1)
+        // }
         // sort nach ID
         array.sort(function(a,b){return b.id-a.id;})
         // filter double. bacuse blockchain and same followfriend could be in array
@@ -156,7 +182,7 @@ function ChatPage(){
         message.sender="me"
         setCurrentMessages(currentMessages=>[...currentMessages,message]   )
         var messageArea = document.getElementById('messageArea');
-        messageArea.scrollTop = messageArea.scrollHeight
+        setTimeout(()=>{messageArea.scrollTop = messageArea.scrollHeight},40)
     }
 
     function sendWithEnter(e){
@@ -185,7 +211,7 @@ function ChatPage(){
     var bottom =0
     async function loadMessages(){
         //if(!friendIsSelected){return}
-        console.log(selectedFriend.friend_addr)
+        //console.log(selectedFriend.friend_addr)
         const myAddress = userData.address
         const partnerAddress = selectedFriend.friend_addr;
         // bevore new message calculate Bottom

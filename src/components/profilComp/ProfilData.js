@@ -206,6 +206,14 @@ function ProfilData(){
     };
     // Image Settings__________________________________^^^^^
 
+    const [copyClicked,setCopyClicked] = useState(false);
+    function copyAddress(){
+        navigator.clipboard.writeText(address);
+        setCopyClicked(true)
+    }
+    function closeTooltip(){
+        setTimeout(() => {setCopyClicked(false)},200)
+    }
 
     return (
 
@@ -252,7 +260,9 @@ function ProfilData(){
 
 
                 {/*Crypto Address */}
-                <Button sx={{gap:'10px',border:'1px solid black'}}> <img id="cryptoSign" src={etherSign} className={classes.cryptoSign}></img> {shortAddr(address)}</Button>
+                <Tooltip onClose={closeTooltip} title={copyClicked ? "Copied!" : "Copy"} disableInteractive arrow placement="bottom">
+                    <Button onClick={copyAddress} sx={{gap:'10px',border:'1px solid black'}}> <img id="cryptoSign" src={etherSign} className={classes.cryptoSign}></img> {shortAddr(address)}</Button>
+                </Tooltip>
 
 
             <div className={classes.buttonPosition}>
