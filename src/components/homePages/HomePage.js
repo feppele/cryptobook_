@@ -16,6 +16,10 @@ import Stack from '@mui/material/Stack';
 import {themes} from '../../ColorTheme'
 import {NightContext} from '../../NightModeProvider'
 
+//popup
+import PopupFenster from '../PopupFenster/PopupFenster'
+import LoginIntegration from '../PopupFenster/LoginIntegration'
+
 
 function HomePage(){
 
@@ -24,8 +28,8 @@ function HomePage(){
     const [theme,setTheme] =useState(themes.bright)
     useEffect(()=>{ nightMode ? setTheme(themes.dark) : setTheme(themes.bright) },[nightMode])
 
+    const [loginPageIsOpen,setloginPageIsOpen] = useState(false)
 
-    console.log(JSON.parse(sessionStorage.getItem("userdata")))
     // for ease In animation
     const NFTtextRef = useRef(null)
 
@@ -48,29 +52,39 @@ function HomePage(){
 
     const history = useHistory();
 
-    const [loginModal,setLoginModal] = useState(false);
+
+    function checkIfLogin(){
+        const userdata = JSON.parse(sessionStorage.getItem("userdata"))
+        return userdata !== null
+    }
+
 
     async function openCreatePage(){
-
+        if(!checkIfLogin()){ // if not login
+            setloginPageIsOpen(true)
+            return
+        }
         history.push("/createnft");
-
     }
 
-    function closeLogin(){
-        setLoginModal(false)
+    async function openChat(){
+        if(!checkIfLogin()){ // if not login
+            setloginPageIsOpen(true)
+            return
+        }
+        history.push("/chats");
     }
-
 
     async function openExplore(){
         history.push("/marketplace");
     }
 
+
+
     function openMCBNFTDocs(){
         window.open("https://github.com/feppele/MyCryptoBookDocs/wiki/MyCryptoBook-NFTs-(MCBNFT)")
     }
-    async function openChat(){
-        history.push("/chats");
-    }
+
 
     function openChatDocs(){
         window.open("https://github.com/feppele/MyCryptoBookDocs/wiki/Crypto-Chat")
@@ -80,10 +94,10 @@ function HomePage(){
 
         <div style={{backgroundColor: theme.color1}} className={classes.container}>
 
+           { loginPageIsOpen && <PopupFenster integration={<LoginIntegration nextPage={"/home"}/>} onCloseClicked={()=>{setloginPageIsOpen(false)}} text={"Connect Wallet"}/>   }
+
 
             <div style={{backgroundColor: theme.color2}} className={classes.cryptochat}>
-
-
 
                 <div style={{color: theme.font}} className={classes.nftText}>
                     Encrypt messages with your private key

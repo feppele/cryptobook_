@@ -33,6 +33,8 @@ import walletPic from '../../images/wallet.png'
 //myCode
 import { useHistory } from "react-router-dom";
 import Wallet from '../wallet/Wallet'
+import AmountView from '../wallet/AmountView'
+
 import {useState,useEffect,useContext} from 'react'
 import logo from '../../images/logo.png'
 import profilColor from '../../images/background.jpeg';
@@ -131,6 +133,8 @@ const ResponsiveAppBar = () => {
     }else if(page==="notification"){
       openNotification()
     }else if(page==="logout"){
+      // When logout Clear session storage. Because there is priv Key and Address saves. If Metamask there is just address saved
+      sessionStorage.clear()
       history.push("/");
     }else if(page==="Create-NFT"){
       history.push("/createNFT");
@@ -171,7 +175,7 @@ const ResponsiveAppBar = () => {
 
     {notificationOpen && <Sidebar integration={<NotificationIntegration notifications={[1,2,3]} close={closeNotification}/>} closeWalletFunc={closeNotification}/>}
 
-    {walletOpen && <Wallet closeWalletFunc={closeWallet}/>}
+    {walletOpen && <Wallet closeWalletFunc={closeWallet}> <AmountView/> </Wallet>  }
 
     <AppBar  sx={{backgroundColor:theme.navbar,position:'relative',zIndex:'3002'}}>
 

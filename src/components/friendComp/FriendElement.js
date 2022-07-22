@@ -16,6 +16,13 @@ import {getProfilePicURL} from '../../node/images'
 import PopupFenster from '../PopupFenster/PopupFenster'
 import SendIntergation from '../PopupFenster/SendIntergation'
 
+//Wallet 
+import Wallet from '../wallet/Wallet'
+import SendView from '../wallet/SendView'
+import ApprovalView from '../wallet/ApprovalView'
+
+
+
 
 //material UI 
 import Alert from '@mui/material/Alert';
@@ -51,9 +58,6 @@ function FriendElement(props){
     const [sendButton,setSendButton] = useState(false);
     const [profilePicURL,setProfilePicURL] = useState(StandartProfilPic);
     const [copyClicked,setCopyClicked] = useState(false);
-
-    //for Alert
-    const [alertOpen, setAlertOpen] = useState(true);
 
 
     function openFriendProfile(){
@@ -110,36 +114,35 @@ function FriendElement(props){
     },[])
 
 
-    function SlideTransition(props) { return <Slide {...props} direction="up" />;}
-    const [state, setState] = useState({
-        open: false,
-        Transition: Slide,
-      });
-      const handleClose = () => {
-        setState({ ...state, open: false });
-      };
-      const handleClick = (Transition) => () => {
-        setState({
-          open: true,
-          Transition,
-        });
-      };
+    // Snackbar
+    const [state, setState] = useState({ open: false, Transition: Slide, });
+    const handleClose = () => { setState({ ...state, open: false }); };
+    const handleClick = (Transition) => () => { setState({ open: true, Transition, })}
+
+    function closeWalletFunc(){
+    setSendButton(false)
+    }
+
+    function sendWalletFunc(){
+        setSendButton(false)
+        setState({ ...state, open: true, message:"Ether sending... This may take up to 2 min.", })
+    }
+
+
 
     return (
 
             <div style={{backgroundColor:theme.color2,border:theme.border}} className={classes.element}>
 
-            <Snackbar
-                open={state.open}
-                onClose={handleClose}
-                TransitionComponent={state.Transition}
-                message="I love snacks"
-                key={state.Transition.name}
-            />
+            <Snackbar open={state.open} onClose={handleClose} TransitionComponent={state.Transition} message={state.message} key={state.Transition.name} />
 
 
-                { sendButton  && <PopupFenster integration={<SendIntergation longAddr={props.longAddr} addr={props.addr} friendName={props.friendName}/>} text={`Send Ether to ${props.friendName}`} onCloseClicked={closeSend} />   }
+                { false  && <PopupFenster integration={<SendIntergation longAddr={props.longAddr} addr={props.addr} friendName={props.friendName}/>} text={`Send Ether to ${props.friendName}`} onCloseClicked={closeSend} />   }
 
+                {sendButton &&  <Wallet closeWalletFunc={closeWalletFunc} >
+                                    <SendView longAddr={props.longAddr} addr={props.addr} friendName={props.friendName} closeWalletFunc={sendWalletFunc} text={`Send Ether to ${props.friendName}`}/>
+
+                                </Wallet> }
 
                 <div className={classes.nameWrapper}>
                     <img src={profilePicURL} className={classes.profilePicture}></img>

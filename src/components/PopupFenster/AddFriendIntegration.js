@@ -48,6 +48,8 @@ function AddFriendIntegration(props){
 
     function addFriend(){
 
+        props.openSnackbar()
+
         const addr= document.getElementById("addressInput").value;
         //BlockchainFriend
         if(alignment ==="left"){
@@ -96,7 +98,7 @@ function AddFriendIntegration(props){
                         <input onChange={check} id="addressInput" type="text" placeholder="friend address" className={classes.input}></input>
 
                         <Tooltip title={imgSource===validImage ? "valid address" : "unvalid address"} placement="top" disableInteractive arrow>
-                            <Button  onClick={addFriend} ><img src={imgSource} style={{height:'33px',width:'auto'}}></img></Button>
+                            <Button  ><img src={imgSource} style={{height:'33px',width:'auto'}}></img></Button>
                         </Tooltip>
                     </div>
 

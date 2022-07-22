@@ -205,6 +205,7 @@ function ChatPage(){
     },[selectedFriend,msgOffset])
 
 
+    var key=1
     return (
 
         <div style={{backgroundColor:theme.color1}} className={classes.container}>
@@ -227,7 +228,7 @@ function ChatPage(){
                     {false && <CircularProgress color="inherit" sx={{position: 'relative',left:'50%',transform:'translateX(-50%)' }}/>}
 
                     {loading && <LinearProgress color="inherit" sx={{backgroundColor:'white'}}/>}
-                    {friends.map(friend =><div style={friend.friend_addr===selectedFriend.friend_addr? {backgroundColor:theme.color2} : {backgroundColor:theme.color1}}><FriendListElement onClick={(pic)=>{selectFriend(pic,friend)}} friend={friend} seleced={selectedFriend}/></div>)}
+                    {friends.map(friend =><div key={++key} style={friend.friend_addr===selectedFriend.friend_addr? {backgroundColor:theme.color2} : {backgroundColor:theme.color1}}><FriendListElement onClick={(pic)=>{selectFriend(pic,friend)}} friend={friend} seleced={selectedFriend}/></div>)}
 
                 </div>
 
@@ -259,7 +260,7 @@ function ChatPage(){
 
                     {  currentMessages.map(item =>{
 
-                        return <Message person={item.sender} message={item.message} date={item.date}/>
+                        return <Message key={++key} person={item.sender} message={item.message} date={item.date}/>
 
                     })}
 

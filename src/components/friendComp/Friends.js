@@ -50,9 +50,9 @@ import {NightContext} from '../../NightModeProvider'
         setAddFriendIsOpen(false);
     }
 
+    
     // Load Friends Stuff
     useEffect(() => {
-        
         getAllFriendsPromise().then(res => { // return [{friend_name:String, friend_addr:String, blockchain:Boolean} ]
             setSearchResult(res);
             setAllFriends(res);
@@ -61,7 +61,6 @@ import {NightContext} from '../../NightModeProvider'
             }
         })
     },[])
-
 
     // Search stuff
     function filter(){
@@ -74,8 +73,6 @@ import {NightContext} from '../../NightModeProvider'
         }
         setSearchResult(results);
     }
-
-
 
     function search(e){
         if(e.key !== "Enter"){
@@ -94,12 +91,18 @@ import {NightContext} from '../../NightModeProvider'
 
     console.log({backgroundColor:theme.color2})
 
-
+    // Snackbar
+    const [state, setState] = useState({ open: false, Transition: Slide, });
+    const handleClose = () => { setState({ ...state, open: false }); };
+    const handleClick = (Transition) => () => { setState({ open: true, Transition, })}
 
 
     return (
 
         <div style={{backgroundColor:theme.color1}} className={classes.container1}>
+
+        <Snackbar open={state.open} onClose={handleClose} TransitionComponent={state.Transition} message={state.message} key={state.Transition.name} />
+
 
             <div style={{borderBottom: theme.border}} className={classes.header}>
                 <div style={{color:theme.font,fontSize:'40px',marginLeft:'40px'}}>friends</div>
@@ -112,7 +115,7 @@ import {NightContext} from '../../NightModeProvider'
 
                 <div style={{backgroundColor:theme.color2,border:theme.border}} className={classes.box}>
 
-                    {  addFriendIsOpen && <PopupFenster integration={<AddFriendIntegration/>} onCloseClicked={closeAddFriend} text={"Add Friend"}/>}
+                    {  addFriendIsOpen && <PopupFenster integration={<AddFriendIntegration openSnackbar={()=>{closeAddFriend(); setState({ ...state, open: true,message:"Friend added" })}}/>}  onCloseClicked={closeAddFriend} text={"Add Friend"}/>}
 
                     <ButtonGroup sx={{marginRight:'1px'}}variant="outlined" aria-label="outlined primary button group">
                         <Tooltip title="Add" placement="top" disableInteractive arrow>

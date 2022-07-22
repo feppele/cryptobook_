@@ -31,8 +31,16 @@ import Collapse from '@mui/material/Collapse';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import Snackbar from '@mui/material/Snackbar';
+import Slide from '@mui/material/Slide';
 
 import {fetchi} from '../../globalData'
+
+//wallet approve
+import Wallet from '../../components/wallet/Wallet'
+import ApprovalView from '../../components/wallet/ApprovalView';
+
+
 
 //ColorTheme - Night Mode
 import {themes} from '../../ColorTheme'
@@ -73,47 +81,29 @@ function OneNFTPage(){
     const [sendOneNFTModal,setSendOneNFTModal]=useState(false);
     const [amIOwner,setAmIOwner]=useState(false);
     const [NFTPriceModel,setNFTPriceModal] =useState(false);
+    const [openWallet,setOpenWallet] =useState(false);
 
-
-    console.log(NFTLikesArrayForList)
     // for Alert
     const [alertOpen, setAlertOpen] = useState(true);
 
-    // async function load(){
-    //     getTokenUri(tokenId).then((uri)=>{
-    //         setTokenURI(uri);
-    //         getMetadataFromURI(uri,tokenId).then((metadata)=>{
-    //             setMetadata(metadata,tokenId);
-    //         })
-    //     })
-    // }
-    // useEffect(() => {load()},[])
-
-
     async function loadMetadata(tokenId){
-
         // try get from blockchain, if error is offchain--> db
         var tokenURI;
         try{
             tokenURI = await getTokenUri(tokenId);
-
         }catch(err){
             setIsOffchain(true);
             tokenURI = await getTokenURIDB(tokenId);
         }
-
         setTokenURI(tokenURI);
         setMetadata( await getAllMetadataFromURI(tokenURI,tokenId) );
         return await getAllMetadataFromURI(tokenURI,tokenId);
-
     }
+
     useEffect(() => {loadMetadata(tokenId).then((res)=>{ // returns metaData
-
         getOwner(res)
-
         getPreisOfNFT(tokenId).then(p =>{setPreis(p)});
-
-        })},[])
+    })},[])
 
 
     function getOwner(meta){
@@ -229,7 +219,7 @@ function OneNFTPage(){
     }
 
 
-    function buyButtonClicked(){
+    async function buyButtonClicked(){
         if(amIOwner){
             changeNFTPrice();
             return
@@ -238,12 +228,25 @@ function OneNFTPage(){
         // Check if Metamask or MCB Wallet. IF MCB Open Wallet and Approve transaction with PW to decrypt PrivKey
         if(!userdata.metamask){ // MCB Wallet
 
+            setOpenWallet(true)
+            return // return and wait untill approveClicked() is called from Wallet
 
         } // else if metamask do nothing
 
         // check if on or offchain sell
         getOwnerOfTokenId(tokenId).then(response =>{
-
+            if(response === "error"){
+                // buy offchain
+                buyNFTOff(tokenURI,tokenId,owner);
+            }else{
+                //buy onchain
+                buyNFTOn(tokenId,owner,metaData.creator)
+            }
+        })
+    }
+    async function approveClicked(){
+        setOpenWallet(false)
+        getOwnerOfTokenId(tokenId).then(response =>{
             if(response === "error"){
                 // buy offchain
                 buyNFTOff(tokenURI,tokenId,owner);
@@ -265,9 +268,24 @@ function OneNFTPage(){
         setPreis(preis)
     }
 
+    // Snackbar
+    const [state, setState] = useState({ open: false, Transition: Slide, });
+    const handleClose = () => { setState({ ...state, open: false }); };
+    const handleClick = (Transition) => () => { setState({ open: true, Transition, })}
+
+
     return (
 
         <div style={{backgroundColor:theme.color1}} className={classes.container}>
+
+        <Snackbar open={state.open} onClose={handleClose} TransitionComponent={state.Transition} message={state.message} key={state.Transition.name} />
+
+            {openWallet &&
+            <Wallet closeWalletFunc={()=>{setOpenWallet(false)}}>
+                <ApprovalView approveClicked={() =>{approveClicked() ; setState({open:true, Transition: Slide, message:"Transaction approved. This process may take up to 2 min."}) } } 
+                            cancelClicked={()=>{ setOpenWallet(false); setState({open:true, Transition: Slide, message:"Transaction canceled"})}}/>
+            </Wallet>
+            }
 
             {/*left */}
             <div className={classes.left}>

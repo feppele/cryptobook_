@@ -20,6 +20,11 @@ import Tooltip from '@mui/material/Tooltip';
 import {themes} from '../../ColorTheme'
 import {NightContext} from '../../NightModeProvider'
 
+
+//popup
+import PopupFenster from '../PopupFenster/PopupFenster'
+import LoginIntegration from '../PopupFenster/LoginIntegration'
+
 // input just token ID as props: props.tokenId
 // loads Metadata(name, description..) from ipfs. 
 // loads image from server if not available from ipfs
@@ -41,7 +46,7 @@ function NFTFormatEasyOnePage(props){
     const [imageLoad,setImageLoad] = useState(false);
     const [offchain,setOffchain] = useState(false);
     const [preis,setPreis] = useState("");
-
+    const [loginPageIsOpen,setloginPageIsOpen] = useState(false)
 
     useEffect(()=>{
         getPreisOfNFT(props.tokenId).then(p =>{setPreis(p)});
@@ -98,12 +103,19 @@ function NFTFormatEasyOnePage(props){
             pathname:"/thisNFT/"+props.tokenId,
         });
     }
+    function checkIfLogin(){
+        const userdata = JSON.parse(sessionStorage.getItem("userdata"))
+        return userdata !== null
+    }
 
     // like, dislike
     function likeNFTFunc(){
-        // check if login
-        const userdata = JSON.parse(sessionStorage.getItem("userdata"))
-        if(userdata === null || userdata === undefined){return}
+
+        if(!checkIfLogin()){ // if not login
+            setloginPageIsOpen(true)
+            return
+        }
+
         likeNFT(props.tokenId);
         setILike(true);
         setNFTLikes(parseInt(NFTLikes)+1);
@@ -141,6 +153,9 @@ function NFTFormatEasyOnePage(props){
 
         <div className={classes.container} >
 
+           { loginPageIsOpen && <PopupFenster integration={<LoginIntegration nextPage={"/home"}/>} onCloseClicked={()=>{setloginPageIsOpen(false)}} text={"Connect Wallet"}/>   }
+
+
             {/*NFT IMAGE */}
             {!imageLoad && <div className={classes.placeholder}>  </div>}
            {imageLoad && <img src={imageURL} className={classes.NFTimage} onClick={openThisNFTPage}></img>   }
@@ -153,7 +168,7 @@ function NFTFormatEasyOnePage(props){
                 <div style={{color: theme.font}} className={classes.nameAndNumber}>{metaData.collection }</div>
 
 
-                <div className={classes.preis}> {preis}</div>
+                
 
             </div>
 

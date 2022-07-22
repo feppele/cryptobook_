@@ -40,6 +40,8 @@ function SendIntergation(props){
 
         }else{// MCB Wallet
 
+            //open Bestätigungs Wallet
+
             const res = await sendEtherInfura(  userdata.address, props.longAddr, userdata.privatekey, web3.utils.toWei(sendEther.toString())  ) //(from,to,privateKey,value)
             console.log(res)
         }

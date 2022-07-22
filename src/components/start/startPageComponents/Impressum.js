@@ -1,4 +1,5 @@
 import classes from './Impressum.module.css';
+import {useState} from 'react'
 
 import {useHistory} from 'react-router-dom';
 import logo from '../../../images/logo.png';
@@ -6,17 +7,40 @@ import gitImg from '../../../images/git2.png';
 import telegramImg from '../../../images/telegram.png';
 import mailImg from '../../../images/mail.png';
 
+//popup
+import PopupFenster from '../../PopupFenster/PopupFenster'
+import LoginIntegration from '../../PopupFenster/LoginIntegration'
+
 function Impressum(){
 
     const history = useHistory()
 
+    const [loginPageIsOpen,setloginPageIsOpen] = useState(false)
+
+    function checkIfLogin(){
+        const userdata = JSON.parse(sessionStorage.getItem("userdata"))
+        return userdata !== null
+    }
+
     function openProfile(){
+        if(!checkIfLogin()){ // if not login
+            setloginPageIsOpen(true)
+            return
+        }
         history.push("/me");
     }
     function openFriends(){
+        if(!checkIfLogin()){ // if not login
+            setloginPageIsOpen(true)
+            return
+        }
         history.push("/friends");
     }
     function openMyNFT(){
+        if(!checkIfLogin()){ // if not login
+            setloginPageIsOpen(true)
+            return
+        }
         history.push("/mynft");
     }
     function openMarketplace(){
@@ -30,12 +54,27 @@ function Impressum(){
         window.open("https://github.com/feppele/cryptobook_")
     }
     function openMail(){
-        
+
+    }
+
+    function openCryptoChat(){
+        if(!checkIfLogin()){ // if not login
+            setloginPageIsOpen(true)
+            return
+        }
+        history.push("/chats");
+
+    }
+    function openWallet(){
+ 
     }
 
     return (
 
         <div className={classes.container}>
+
+           { loginPageIsOpen && <PopupFenster integration={<LoginIntegration nextPage={"/home"}/>} onCloseClicked={()=>{setloginPageIsOpen(false)}} text={"Connect Wallet"}/>   }
+
 
             <div className={classes.container2}> 
 
@@ -55,8 +94,8 @@ function Impressum(){
                     <div className={classes.h3} onClick={openProfile} >Profile</div>
                     <div className={classes.h3} onClick={openFriends}>Friends</div>
                     <div className={classes.h3} onClick={openMyNFT}>NFTs</div>
-                    <div className={classes.h3} onClick={"openCryptoChat"}>Crypto-Chat</div>
-                    <div className={classes.h3} onClick={"openWallet"}>Wallet</div>
+                    <div className={classes.h3} onClick={openCryptoChat}>Crypto-Chat</div>
+                    <div className={classes.h3} onClick={openWallet}>Wallet</div>
                 </div>
 
                 <div className={classes.box2}>

@@ -12,22 +12,34 @@ import Stack from '@mui/material/Stack';
 import {themes} from '../../ColorTheme'
 import {NightContext} from '../../NightModeProvider'
 
+//popup
+import PopupFenster from '../PopupFenster/PopupFenster'
+import LoginIntegration from '../PopupFenster/LoginIntegration'
+
 function FriendsInfo(){
 
-        // Night Mode
-        const nightMode = useContext(NightContext)
-        const [theme,setTheme] =useState(themes.bright)
-        useEffect(()=>{ nightMode ? setTheme(themes.dark) : setTheme(themes.bright) },[nightMode])
+    // Night Mode
+    const nightMode = useContext(NightContext)
+    const [theme,setTheme] =useState(themes.bright)
+    useEffect(()=>{ nightMode ? setTheme(themes.dark) : setTheme(themes.bright) },[nightMode])
+
+    const [loginPageIsOpen,setloginPageIsOpen] = useState(false)
+
+    function checkIfLogin(){
+        const userdata = JSON.parse(sessionStorage.getItem("userdata"))
+        return userdata !== null
+    }
 
     const history = useHistory();
 
-    const [loginModal,setLoginModal] = useState(false);
     async function goToFriends(){
-        setLoginModal(true)
+        if(!checkIfLogin()){ // if not login
+            setloginPageIsOpen(true)
+            return
+        }
+        history.push("/friends")
     }
-    function closeLogin(){
-        setLoginModal(false)
-    }
+
 
     function openFriendsDocs(){
         window.open("https://github.com/feppele/MyCryptoBookDocs/wiki/Friends")
@@ -38,6 +50,9 @@ function FriendsInfo(){
     return (
 
         <div className={classes.container}>
+
+           { loginPageIsOpen && <PopupFenster integration={<LoginIntegration nextPage={"/home"}/>} onCloseClicked={()=>{setloginPageIsOpen(false)}} text={"Connect Wallet"}/>   }
+
 
 
             <div style={{color: theme.font}} className={classes.friends}> Never use public addresses again</div>

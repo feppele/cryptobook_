@@ -15,7 +15,7 @@
     width:400px;
     height:100vh;
     background-color: white;
-    position:absolute;
+    position:fixed;
     top: 55px;
     right:0px;
     z-index: 2001;

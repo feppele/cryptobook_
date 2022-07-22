@@ -51,12 +51,12 @@ function LoginPage(){
             return
         }
         // check PW length
-        if(password.length < 1){
+        if(password.length < 12){
             setHelperText("more than 12 symbols")
             return
         }
         // check usename length
-        if(username.length < 1){
+        if(username.length < 8){
             setHelperTextUser("more than 8 symbols")
             return
         }
@@ -101,19 +101,23 @@ function LoginPage(){
             {loginpage &&
             <div className={classes.box}>
 
+                <div style={{fontSize:'18px'}}>Login to MyCryptoBook-Wallet</div>
+
                 <TextField value={username} onChange={(e)=>{setUsername(e.target.value);setLoginError("")}}  error={loginError!==""}  label="Username"   />
 
                 <TextField  value={password} onChange={(e)=>{setPassword(e.target.value);setLoginError("")}} helperText={loginError} error={loginError!==""} label="Password" type="password"   />
 
                 <Button onClick={login} variant="contained" > Login</Button>
 
-                <Link sx={{cursor: "pointer"}} onClick={openRegister} underline="hover"> {"Not registred?"} </Link>
+                <Link sx={{cursor: "pointer"}} onClick={openRegister} underline="hover"> {"Not registered?"} </Link>
 
             </div>
             }
 
             {!loginpage &&
             <div className={classes.box}>
+
+                <div style={{fontSize:'18px'}}>Register to MyCryptoBook-Wallet</div>
 
                 <TextField  helperText={helperTextUser} error={helperTextUser !==""} value={username} onChange={(e)=>{setUsername(e.target.value);setHelperTextUser("")}} label="Username"   />
 
