@@ -40,7 +40,6 @@ function FriendsInfo(){
         history.push("/friends")
     }
 
-
     function openFriendsDocs(){
         window.open("https://github.com/feppele/MyCryptoBookDocs/wiki/Friends")
     }
@@ -52,8 +51,6 @@ function FriendsInfo(){
         <div className={classes.container}>
 
            { loginPageIsOpen && <PopupFenster integration={<LoginIntegration nextPage={"/home"}/>} onCloseClicked={()=>{setloginPageIsOpen(false)}} text={"Connect Wallet"}/>   }
-
-
 
             <div style={{color: theme.font}} className={classes.friends}> Never use public addresses again</div>
 

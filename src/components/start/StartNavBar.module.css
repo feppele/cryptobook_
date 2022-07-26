@@ -14,9 +14,17 @@
 }
 
 
+.logowrapper{
+  display: flex;
+  margin-left: 80px;
+  gap: 20px;
+}
+
+.logoimg{
+  height: 50px;
+}
 
 .logo{
-  margin-left: 100px;
   background-color: rgb(6, 29, 42);
   font-size: 33px;
   color: white;
@@ -27,7 +35,12 @@
   border-style: hidden;
 }
 .logo:hover{
-  color: rgb(0,124,255);
+  background: linear-gradient(70deg,#1976d2,#3e0270, #df710b);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 
@@ -53,6 +66,12 @@
 
 .loginButton:hover{
   color: rgb(0,124,255);
+  background: linear-gradient(70deg,#3e0270, #df710b);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 
@@ -69,27 +88,18 @@
 
 }
 
-.stripe{
 
-  width: 100%;
-  height: 5px;
-  border-radius: 10px;
-
-  background-color: rgb(255, 255, 255);
-}
-
-.stripe:hover{
-
-  background-color: rgb(0,124,255);
-}
 
 
 
 
 @media (max-width:800px){
 
+  .logowrapper{
+    margin-left: 30px;
+  }
+
   .logo{
-    margin-left: 50px;
     font-size: 28px;
 
   }
@@ -105,8 +115,11 @@
 }
 @media (max-width:500px){
 
+  .logowrapper{
+    margin-left: 10px;
+  }
   .logo{
-    margin-left: 20px;
+
     font-size: 21px;
 
   }

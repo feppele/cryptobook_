@@ -27,6 +27,12 @@
  }
  .type-writer:hover{
     color: rgb(0,124,255);
+    background: linear-gradient(70deg,#1976d2,#3e0270, #df710b);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;
  }
 
  @media(max-width:1000px){

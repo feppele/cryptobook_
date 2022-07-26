@@ -249,14 +249,7 @@ function ProfilData(){
             { !settingMode && userNameIsLoad && <p style={{color:theme.font}} id="name" className={classes.name}> {usernameDB}</p>    }
 
             {/* SETTINGS MODE    NAME*/}
-            { settingMode && <div className={classes.editNameWrapper}>
-                                <input id="userName"type="text" placeholder="your name" className={classes.textInput}></input>
-
-                                <Tooltip title="save" disableInteractive arrow placement="top">
-                                    <Button variant="outlined" onClick={onSaveClick}>    < img src={savePic} style={{height: '20px',width: 'auto'}}></img>   </Button>
-                                </Tooltip>
-
-                            </div>   }
+            { settingMode &&  <input id="userName"type="text" placeholder="your name" className={classes.textInput}></input> }
 
 
                 {/*Crypto Address */}
@@ -266,8 +259,8 @@ function ProfilData(){
 
 
             <div className={classes.buttonPosition}>
-                <Tooltip title="settings" disableInteractive arrow placement="top">
-                    <Button variant="outlined" onClick={activateSetting}>    < img src={settingsPic} style={{height: '20px',width: 'auto',filter:theme.png}}></img>   </Button>
+                <Tooltip title={settingMode ? "save":"settings"} disableInteractive arrow placement="top">
+                    <Button variant="outlined" onClick={settingMode? onSaveClick : activateSetting}>    < img src={settingMode? savePic : settingsPic} style={{height: '20px',width: 'auto',filter:theme.png}}></img>   </Button>
                 </Tooltip>
             </div>
 

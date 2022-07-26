@@ -29,9 +29,9 @@ const dark = [
   ]
 
 //const darkTheme= {color1:dark[9], color2:dark[8],color3:dark[8],font:darkFont,png:pngDark,border:borderDark}
-const darkTheme= {color1:dark1, color2:dark2,color3:dark2,navbar:barkBlue,font:darkFont,png:pngDark,border:borderDark}
+const darkTheme= {color1:dark1, color2:dark2,color3:dark2,navbar:barkBlue,font:darkFont,png:pngDark,border:borderDark,barkBlue:barkBlue}
 
-const brightTheme= {color1:white, color2:lightGrey,color3:white,navbar:white,font:brightFont,png:pngNormal,border:borderBright}
+const brightTheme= {color1:white, color2:lightGrey,color3:white,navbar:white,font:brightFont,png:pngNormal,border:borderBright,barkBlue:barkBlue}
 
 const theme = brightTheme
 

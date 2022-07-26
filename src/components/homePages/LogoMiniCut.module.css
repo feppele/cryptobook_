@@ -1,0 +1,73 @@
+.container1{
+
+  width: 85px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.container{
+
+  width: 80px;
+  height: 80px;
+  position: relative;
+
+
+}
+
+
+.line{
+  height: calc(100% / 8);
+  width: 1px;
+  position: absolute;
+ background-color: grey;
+}
+.line:hover{
+  background:none;
+  background-color: white;
+
+}
+
+
+.dot1{
+  height: 2px;
+  width: 2px;
+  border-radius: 20px;
+  position: absolute;
+  background-color: grey;
+
+}
+.dot1:hover{
+  background:none;
+  background-color: white;
+
+}
+
+.dot2{
+  height: 4px;
+  width: 4px;
+  border-radius: 20px;
+  position: absolute;
+  background-color: grey;
+
+}
+.dot2:hover{
+  background:none;
+  background-color: white;
+
+}
+
+.dot3{
+  height: 8px;
+  width: 8px;
+  border-radius: 20px;
+  position: absolute;
+  background-color: grey;
+
+}
+.dot3:hover{
+  background:none;
+  background-color: white;
+}

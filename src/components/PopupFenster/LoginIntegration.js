@@ -1,6 +1,8 @@
 import classes from './LoginIntegration.module.css';
 import metamaskPic from '../../images/metamask.png';
 import etherPic from '../../images/ether.png';
+import lockImg from '../../images/lock-2.png'
+
 import {useEffect,useState,useContext} from 'react';
 import { useHistory } from "react-router-dom";
 import {addPublicKeyToDB} from '../../node/databank'
@@ -9,7 +11,6 @@ import {ChangeUserContext} from '../../UserProvider'
 
 
 function LoginIntegration(props){
-    window.scrollTo(0, 0);
     const history = useHistory();
     const [notPolygon,setNotPolygon] = useState(false)
     // set userdata Kotect also here loginMetamask()
@@ -116,7 +117,9 @@ function LoginIntegration(props){
                 </div> }
 
                 <div onClick={loginCryptoBookWallet} className={classes.walletButton}>
+                    <img src={lockImg} style={{height: '28px',width: 'auto'}}></img>
                     MyCryptoBook-Wallet
+
                 </div>
 
 

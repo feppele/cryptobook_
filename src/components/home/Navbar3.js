@@ -28,7 +28,7 @@ import profilePic from '../../images/profil.png'
 import logoutPic from '../../images/log-out.png'
 import mondPic from '../../images/mond.png'
 import walletPic from '../../images/wallet.png'
-
+import LogoMiniCut from '../homePages/LogoMiniCut'
 
 //myCode
 import { useHistory } from "react-router-dom";
@@ -278,7 +278,7 @@ const ResponsiveAppBar = () => {
               textDecoration: 'none',
             }}
           >
-            <img src={logo} style={{height:'25px',width:'auto'}}></img>
+            <LogoMiniCut />
           </Typography>
 
           <Box sx={{ flexGrow: 0 }}>

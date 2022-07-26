@@ -1,0 +1,88 @@
+.container1{
+
+  width: 550px;
+  height: 550px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container{
+
+  width: 500px;
+  height: 500px;
+  position: relative;
+
+}
+
+
+.line{
+  height: calc(100% / 8);
+  width: 3px;
+  position: absolute;
+  background: linear-gradient(70deg,#1976d2,#3e0270, #df710b);
+  background-attachment: fixed;
+  background-size: 550px;
+  background-position: center;
+  animation-name: lineFlyIn;
+  animation-duration: 3s;
+
+}
+.line:hover{
+  background:none;
+  background-color: grey;
+}
+
+@keyframes lineFlyIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+
+.dot1{
+  height: 10px;
+  width: 10px;
+  border-radius: 20px;
+  position: absolute;
+  background: linear-gradient(70deg,#1976d2,red);
+  background: linear-gradient(70deg,#1976d2,#3e0270, #df710b);
+  background-attachment: fixed;
+  background-size: 550px;
+  background-position: center;
+}
+.dot1:hover{
+  background:none;
+  background-color: grey;
+}
+
+.dot2{
+  height: 20px;
+  width: 20px;
+  border-radius: 20px;
+  position: absolute;
+  background: linear-gradient(70deg,#1976d2,red);
+  background: linear-gradient(70deg,#1976d2,#3e0270, #df710b);
+  background-attachment: fixed;
+  background-size: 550px;
+  background-position: center;
+}
+.dot2:hover{
+  background:none;
+  background-color: grey;
+}
+
+.dot3{
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  position: absolute;
+  background: linear-gradient(70deg,#1976d2,red);
+  background: linear-gradient(70deg,#1976d2,#3e0270, #df710b);
+  background-attachment: fixed;
+  background-size: 550px;
+  background-position: center;
+}
+.dot3:hover{
+  background:none;
+  background-color: grey;
+}

@@ -6,6 +6,12 @@ import logo from '../../../images/logo.png';
 import gitImg from '../../../images/git2.png';
 import telegramImg from '../../../images/telegram.png';
 import mailImg from '../../../images/mail.png';
+import gitbook from '../../../images/gitbook.png';
+import LogoMini from '../../homePages/LogoMini'
+
+import TwitterIcon from '@mui/icons-material/Twitter';
+import TelegramIcon from '@mui/icons-material/Telegram';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
 
 //popup
 import PopupFenster from '../../PopupFenster/PopupFenster'
@@ -46,6 +52,10 @@ function Impressum(){
     function openMarketplace(){
         history.push("/marketplace");
     }
+    function openCreateNFT(){
+        history.push("/createNFT");
+    }
+    
 
     function openTelegram(){
         window.open("https://t.me/mycryptobookio")
@@ -53,9 +63,16 @@ function Impressum(){
     function openGit(){
         window.open("https://github.com/feppele/cryptobook_")
     }
-    function openMail(){
-
+    function openGitBook(){
+        window.open("https://mycryptobook.gitbook.io/untitled/")
     }
+    function openMail(){
+    }
+    function openTwitter(){
+    }
+    function openWhitepaper(){
+    }
+
 
     function openCryptoChat(){
         if(!checkIfLogin()){ // if not login
@@ -78,16 +95,14 @@ function Impressum(){
 
             <div className={classes.container2}> 
 
-
                 <div className={classes.box}>
                     <div className={classes.logoWrapper}>
-                        <img src={logo} className={classes.logo}></img>
+                         <LogoMini />
                         <div className={classes.header}> MyCryptoBook </div>
                     </div>
                     <div className={classes.text}>make the first step into the connected Blockchain World</div>
 
                 </div>
-
 
                 <div className={classes.box2}>
                     <div className={classes.h2}> My Account </div>
@@ -103,34 +118,40 @@ function Impressum(){
                     <div className={classes.h3} onClick={openMarketplace}>Marketplace</div>
                     <div className={classes.h3} onClick={openMarketplace}>Sinlge</div>
                     <div className={classes.h3} onClick={openMarketplace}>Collections</div>
-                </div>
-
-                <div className={classes.gitBox}>
-
-                        <div className={classes.gitWrapper}>
-                            <img onClick={openTelegram} src={telegramImg} className={classes.git}></img>
-                            <div className={classes.gitText}> Join our Telegram-Channel</div>
-                        </div>
-                        <div className={classes.gitWrapper}>
-                            <img onClick={openGit} src={gitImg} className={classes.git}></img>
-                            <div className={classes.gitText}> Git-Reposetory</div>
-                        </div>
-                        <div className={classes.gitWrapper}>
-                            <img onClick={openMail} src={mailImg} className={classes.git}></img>
-                            <div className={classes.gitText}> Get in touch with us</div>
-                        </div>
+                    <div className={classes.h3} onClick={openCreateNFT}>Create NFT</div>
 
                 </div>
+
+                <div className={classes.box2}>
+                    <div className={classes.h2}> Developers </div>
+                    <div className={classes.h3} onClick={openGit}>GitHub</div>
+                    <div className={classes.h3} onClick={openGitBook}>GitBook</div>
+                    <div className={classes.h3} onClick={openWhitepaper}>Whitepaper</div>
+                </div>
+
 
             </div>
+
 
             <div className={classes.bottom}>
 
-                <div className={classes.h4}> 2022 mycryptobook.io</div>
-                <div className={classes.h4}> info@mycryptobook.io</div>
+            <div className={classes.iconsWrapper}> 
+                    <div onClick={openTwitter} className={classes.icon}>
+                    <TwitterIcon sx={{color:'white'}}/>
+                    </div>
+                    <div onClick={openGitBook} className={classes.icon}>
+                    <img src={gitbook} style={{width:'22px'}}></img>
+                    </div>
+                    <div onClick={openTelegram} className={classes.icon}>
+                    <TelegramIcon sx={{color:'white'}}/>
+                    </div>
+                    <div onClick={openMail} className={classes.icon}>
+                    <MailOutlineIcon sx={{color:'white'}}/>
+                    </div>
+                </div>
 
+                <div className={classes.h4}> Copyright © 2022 MyCryptoBook. All rights reserved. </div>
             </div>
-
         </div>
 
 

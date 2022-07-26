@@ -15,6 +15,7 @@ import { ethers } from "ethers";
 // import {crypto} from'crypto';
 import {getPublicKey} from '../../node/databank'
 
+import { Loader } from '@mantine/core';
 
 import {encryptMessage} from '../../encryption'
 
@@ -40,13 +41,15 @@ import {NightContext} from '../../NightModeProvider'
 //User Context
 import {UserContext} from '../../UserProvider'
 
+var reload = true
+
 
 const crypto = require('crypto');
 
 
     // amount of Messages which load when load older messages Button pressed
-    const LIMIT = 15
-    const OFFSET = 15
+    const LIMIT = 10
+    const OFFSET = 10
 
 // Message : {message,from,to,date}
 function ChatPage(){
@@ -93,22 +96,9 @@ function ChatPage(){
         chatWindowRef.current.style.right= '-1000px'
         setTimeout(()=>{setChatOpen(false)},1000)
     }
-
-
-
-
-
-
-
-
     function openProfile(){
         history.push(`/profile/${selectedFriend.friend_addr}`)
     }
-
-
-
-
-    const messageInput = useRef()
 
 
     async function loadFriends(){
@@ -130,7 +120,6 @@ function ChatPage(){
                 id=0
             }else{
                 id=message.id
-                console.log(id)
             }
             return {friend_name:ele.friend_name, friend_addr:ele.friend_addr, blockchain:ele.blockchain,id: id }
         })
@@ -210,6 +199,7 @@ function ChatPage(){
     const [msgOffset,setMsgOffset] =useState(0)
     var bottom =0
     async function loadMessages(){
+        console.log("LOAD MESSAHES")
         //if(!friendIsSelected){return}
         //console.log(selectedFriend.friend_addr)
         const myAddress = userData.address
@@ -223,13 +213,32 @@ function ChatPage(){
         setCurrentMessages(currentMessages=>[...res.messages,...currentMessages])
         // after new messages Load set scrollTop
         messageArea.scrollTop = messageArea.scrollHeight - bottom - messageArea.clientHeight
+        //setScrollNewMessages(true)
+        reload = true
+        return res;
     }
+
+
+         const msgAreaRef = useRef()
+//    // const [scrollNewMessages,setScrollNewMessages] = useState(true)
+//     useEffect(() =>{
+//         msgAreaRef.current.addEventListener('scroll',(e)=>{
+//             if(reload && msgAreaRef.current.scrollTop < 20){
+//                 //setScrollNewMessages(false)
+//                 reload = false
+//                 console.log(msgAreaRef.current.scrollTop)
+//                 console.log("Kleiner 20 !!!")
+//                 setMsgOffset(msgOffset+OFFSET)
+
+
+//             }
+//         })
+//     },[])
 
     // Load Messages everyTime SelectedFriend and msgOffset changes
     useEffect(() =>{
         loadMessages()
     },[selectedFriend,msgOffset])
-
 
     var key=1
     return (
@@ -280,9 +289,12 @@ function ChatPage(){
                     </div>
 
                     {/*messageArea */}
-                    <div id="messageArea" className={classes.messageArea} style={{borderBottom:theme.border}}>
+                    <div ref={msgAreaRef} id="messageArea" className={classes.messageArea} style={{borderBottom:theme.border}}>
 
-                        <Button onClick={()=>{setMsgOffset(msgOffset+OFFSET)}} sx={{width:'200px',position:'relative',left:'50%',transform: 'translate(-50%, 0)'}}>load older messages</Button>
+                        { true &&<Button onClick={()=>{setMsgOffset(msgOffset+OFFSET)}} sx={{width:'200px',position:'relative',left:'50%',transform: 'translate(-50%, 0)'}}>load older messages</Button>
+                        }
+
+                        {false && <CircularProgress sx={{width:'20px',position:'relative',left:'50%',transform: 'translate(-50%, 0)'}}/>  }
 
                     {  currentMessages.map(item =>{
 
@@ -295,7 +307,7 @@ function ChatPage(){
                     {/*messageField */}
                     <div className={classes.messageField}>
 
-                        <TextField ref={messageInput} inputProps={{ style: { color: theme.font } }} id="outlined-multiline-flexible" label="Your Message" fullWidth maxRows={3} value={inputValue} onChange={inputChanged} onKeyDown={sendWithEnter}>
+                        <TextField inputProps={{ style: { color: theme.font } }} id="outlined-multiline-flexible" label="Your Message" fullWidth maxRows={3} value={inputValue} onChange={inputChanged} onKeyDown={sendWithEnter}>
                         </TextField>
 
                     </div>

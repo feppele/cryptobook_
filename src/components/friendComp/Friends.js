@@ -144,7 +144,7 @@ import {NightContext} from '../../NightModeProvider'
 
             </div>{/* RIGHT SIDE */}
         </div>
-        </div>
+    </div>
 
     );
 }

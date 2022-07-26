@@ -97,7 +97,7 @@ export default function Wallet(props) {
                     <Avatar src={profilePicURL}  sx={{ width: 33, height: 33,marginLeft:'10px',marginRight:'10px' }}  />
                     <div style={{}}>
                         <div style={{fontSize:'22px',color:theme.font}} >My Wallet</div>
-                        <div style={{fontSize:'12px',color:theme.font}}>{userdata.metamask === true ? "Metamask": "Integrated Wallet"}</div>
+                        { userdata && <div style={{fontSize:'12px',color:theme.font}}>{userdata.metamask === true ? "Metamask": "Integrated Wallet"}</div> }
                     </div>
                 </div>
 

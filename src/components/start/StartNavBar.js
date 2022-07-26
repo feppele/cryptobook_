@@ -1,6 +1,8 @@
 import {useState} from 'react';
 //css
 import classes from './StartNavBar.module.css';
+import M from '../../images/M.svg'
+import LogoMini from '../homePages/LogoMini'
 
 //popup
 import PopupFenster from '../PopupFenster/PopupFenster'
@@ -27,6 +29,7 @@ function NavBar(){
 
         <div className={classes.container}>
 
+
            { false && <div style={{position: 'absolute',width: '100%',height: '20px',backgroundColor:"yellow",top:'0px',fontSize:'15px',textAlign:'center'}}>
                 This Website is still in Alpha Phase and uses the Ropsten Testnet.
             </div>}
@@ -34,9 +37,10 @@ function NavBar(){
 
            { loginPageIsOpen && <PopupFenster integration={<LoginIntegration nextPage={"/home"}/>} onCloseClicked={closeLogin} text={"Connect Wallet"}/>   }
 
-            <button className={classes.logo} onClick={reload}>
-                MyCryptoBook
-            </button>
+            <div className={classes.logowrapper}>
+                <LogoMini />
+                <button className={classes.logo} onClick={reload}>  MyCryptoBook </button>
+            </div>
 
 
             <div className={classes.menuWrapper}>

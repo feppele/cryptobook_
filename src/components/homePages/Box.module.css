@@ -1,0 +1,163 @@
+.box{
+    width: 700px;
+    border-radius: 15px;
+    padding: 40px;
+    background-color: #2b2c3d;
+    display:flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+}
+
+.header{
+    display: flex;
+    font-size: 35px;
+}
+
+.body{
+    color: rgb(201, 201, 201);
+}
+
+.buttonWrapper{
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    height: 40px;
+}
+
+.NFTWrapper{
+    width: 150px;
+    position: absolute;
+    top: -50px;
+    right: -80px;
+}
+
+h1{
+    background: linear-gradient(45deg,#1131e9,#3e0270, #df710b);
+    background: linear-gradient(70deg,#1976d2,#3e0270, #df710b);
+
+    background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;
+
+
+
+}
+
+
+
+
+.line{
+    position: absolute;
+    width: 20px;
+    height: 130px;
+
+    left: 50%;
+    transform: translate(-50%, 0);
+    top: -95px;
+    z-index: 100;
+    background: linear-gradient(70deg,#1131e9,#3e0270, #df710b);
+    border-radius: 20px;
+}
+
+.line{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+
+    left: 50%;
+    transform: translate(-50%, 0);
+    top: -40px;
+    z-index: 100;
+    background: linear-gradient(70deg,#1131e9,#3e0270, #df710b);
+    border-radius: 20px;
+}
+
+.line2{
+    position: absolute;
+    width: 2px;
+    height: 170px;
+
+    left: 50%;
+    transform: translate(-50%, 0);
+    top: -170px;
+    z-index: 100;
+    background: linear-gradient(70deg,#1131e9,#3e0270, #df710b);
+
+}
+
+.dot{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+
+    left: 50%;
+    transform: translate(-50%, 0);
+    top: -130px;
+    z-index: 100;
+    background: linear-gradient(70deg,#1131e9,#3e0270, #df710b);
+    border-radius: 20px;
+    cursor: pointer;
+   /* animation: move 2s ease 0s infinite normal none; */
+}
+
+@keyframes move {
+    0%{top: -190px;}
+    50%{top: -196px;}
+    100%{top: -190px;}
+}
+
+.dot:hover{
+    width: 28px;
+    transition: width 0.3s
+
+}
+
+.bottomdot{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+
+    left: 50%;
+    transform: translate(-50%, 0);
+    bottom: -40px;
+    z-index: 100;
+    background: linear-gradient(70deg,#1131e9,#3e0270, #df710b);
+    border-radius: 20px;
+
+}
+
+
+
+@media(max-width: 900px){
+
+    .box{
+        width: 90%
+    }
+
+    .NFTWrapper{
+        width: 150px;
+        position: relative;
+        top: 0px;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+
+    .header{
+        display: flex;
+        font-size: 22px;
+    }
+    .body{
+        font-size: 15px;
+    }
+
+    .buttonWrapper{
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+        height: 40px;
+        justify-content: center;
+    }
+}

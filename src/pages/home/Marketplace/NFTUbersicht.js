@@ -144,6 +144,15 @@ function NFTUbersicht(props){
                     <ToggleButton value="single" aria-label="right aligned" default sx={{width:'50%'}}>
                     <div style={{color:theme.font}}>Single</div>
                     </ToggleButton>
+                    {props.user && <ToggleButton value="Liked" aria-label="right aligned"  sx={{width:'50%'}}>
+                    <div style={{color:theme.font}}>Liked</div>
+                    </ToggleButton>}
+                    {props.user && <ToggleButton value="Created" aria-label="right aligned"  sx={{width:'50%'}}>
+                    <div style={{color:theme.font}}>Created</div>
+                    </ToggleButton>}
+                    {props.user && <ToggleButton value="Favorited" aria-label="right aligned"  sx={{width:'50%'}}>
+                    <div style={{color:theme.font}}>Favorited</div>
+                    </ToggleButton>}
                 </ToggleButtonGroup>
                 </div>
 
