@@ -94,8 +94,8 @@ function HomePage(){
 
 
            <Box 
-            header ={"Encrypt messages with your private key"}
-            body ={"Since MyCryptoBook is open Source, you are able to verify, that messages are 100% encrypted and signed with private keys."}
+            header ={"Send encrypted Messages"}
+            body ={"Since MyCryptoBook is open Source, you are able to verify, that messages are 100% encrypted. Therefore we use the same key, which protects your cryptocurrencies."}
             buttons =   {[ <Button variant="contained" onClick={openChat} > Crypto-Chat </Button>,
                             <Button variant="outlined" onClick={openChatDocs} > learn more </Button>
                         ]}

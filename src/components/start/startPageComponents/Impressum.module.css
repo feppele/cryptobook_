@@ -80,7 +80,8 @@
     flex-direction: column;
     gap: 0px;
     margin-bottom: 10px;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: flex-start;
 }
 
 

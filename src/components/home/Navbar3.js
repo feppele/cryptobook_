@@ -25,6 +25,8 @@ import NotificationIntegration from '../sidebar/notifications/NotificationIntegr
 
 //Image
 import profilePic from '../../images/profil.png'
+import menuPic from '../../images/menu.png'
+
 import logoutPic from '../../images/log-out.png'
 import mondPic from '../../images/mond.png'
 import walletPic from '../../images/wallet.png'
@@ -231,7 +233,7 @@ const ResponsiveAppBar = () => {
               onClick={handleOpenNavMenu}
               color="inherit"
             >
-              <MenuIcon />
+              <img src={menuPic} style ={{height:'30px'}}></img>
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -284,7 +286,7 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
 
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="Remy Sharp" src={profilePic} sx={{border: '2px solid grey',height: '40px',width: '40px'}}/>
+              <Avatar alt="Remy Sharp" src={profilePic} sx={{border: '2px solid grey',height: '50px',width: '50px'}}/>
             </IconButton>
 
 

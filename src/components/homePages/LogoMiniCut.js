@@ -12,11 +12,9 @@ function LogoMini(){
 
 
 
-      <div style={{top:'calc(3 * 6.66% - 1px)',left:'calc(0 * 12.5% - 1px)'}} className={classes.dot1}></div>
       <div style={{top:'calc(3 * 6.66% - 2px)',left:'calc(2 * 12.5% - 2px)'}} className={classes.dot2}></div>
       <div style={{top:'calc(3 * 6.66% - 1px)',left:'calc(4 * 12.5% - 1px)'}} className={classes.dot1}></div>
       <div style={{top:'calc(3 * 6.66% - 2px)',left:'calc(6 * 12.5% - 2px)'}} className={classes.dot2}></div>
-      <div style={{top:'calc(3 * 6.66% - 1px)',left:'calc(8 * 12.5% - 1px)'}} className={classes.dot1}></div>
 
       <div style={{top:'calc(4 * 6.66% - 2px)',left:'calc(1 * 12.5% - 2px)'}} className={classes.dot2}></div>
       <div style={{top:'calc(4 * 6.66% - 2px)',left:'calc(3 * 12.5% - 2px)'}} className={classes.dot2}></div>
@@ -56,16 +54,10 @@ function LogoMini(){
       <div style={{top:'calc(10 * 6.66% - 2px)',left:'calc(5 * 12.5% - 2px)'}} className={classes.dot2}></div>
       <div style={{top:'calc(10 * 6.66% - 2px)',left:'calc(7 * 12.5% - 2px)'}} className={classes.dot2}></div>
 
-      <div style={{top:'calc(11 * 6.66% - 1px)',left:'calc(0 * 12.5% - 1px)'}} className={classes.dot1}></div>
       <div style={{top:'calc(11 * 6.66% - 2px)',left:'calc(2 * 12.5% - 2px)'}} className={classes.dot2}></div>
       <div style={{top:'calc(11 * 6.66% - 1px)',left:'calc(4 * 12.5% - 1px)'}} className={classes.dot1}></div>
       <div style={{top:'calc(11 * 6.66% - 2px)',left:'calc(6 * 12.5% - 2px)'}} className={classes.dot2}></div>
-      <div style={{top:'calc(11 * 6.66% - 1px)',left:'calc(8 * 12.5% - 1px)'}} className={classes.dot1}></div>
 
-      <div style={{top:'calc(12 * 6.66% - 1px)',left:'calc(1 * 12.5% - 1px)'}} className={classes.dot1}></div>
-      <div style={{top:'calc(12 * 6.66% - 1px)',left:'calc(3 * 12.5% - 1px)'}} className={classes.dot1}></div>
-      <div style={{top:'calc(12 * 6.66% - 1px)',left:'calc(5 * 12.5% - 1px)'}} className={classes.dot1}></div>
-      <div style={{top:'calc(12 * 6.66% - 1px)',left:'calc(7 * 12.5% - 1px)'}} className={classes.dot1}></div>
 
 
 

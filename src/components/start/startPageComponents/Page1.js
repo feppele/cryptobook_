@@ -1,8 +1,9 @@
 import classes from './Page1.module.css';
 import {useState} from 'react';
 import Writer from './writer/Writer';
-import M from '../../../images/M.svg'
 import Logo from '../../homePages/Logo'
+import LogoMedium from '../../homePages/LogoMedium'
+
 
 function Page1(){
 
@@ -46,12 +47,20 @@ const [ writer4IsOpen, setWriter4IsOpen ] = useState(false);
     return (
         <div id="container" className={classes.container}>
 
-            <Logo />
+           <div className={classes.logoMedium}><LogoMedium /></div> 
+           <div className={classes.logoBig}><Logo /></div> 
 
-             {  false && writerIsOpen && <Writer   id="writer"  text={text1}/>}
-             {  false &&writer2IsOpen && <Writer  id="writer"  text={text2}/>}
-             {  false &&writer3IsOpen && <Writer  id="writer"  text={text3}/>}
-             {  false && writer4IsOpen && <Writer  id="writer"  text={text4}/>}
+
+            <div className={classes.writerSite}>
+
+                <div className={classes.header}> MyCryptoBook</div>
+
+                {  true && writerIsOpen && <Writer   id="writer"  text={text1}/>}
+                {  true &&writer2IsOpen && <Writer  id="writer"  text={text2}/>}
+                {  true &&writer3IsOpen && <Writer  id="writer"  text={text3}/>}
+                {  true && writer4IsOpen && <Writer  id="writer"  text={text4}/>}
+             </div>
+
         </div>
     );
 }

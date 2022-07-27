@@ -1,8 +1,7 @@
 import {useState} from 'react';
 //css
 import classes from './StartNavBar.module.css';
-import M from '../../images/M.svg'
-import LogoMini from '../homePages/LogoMini'
+import LogoMiniCut from '../homePages/LogoMiniCut'
 
 //popup
 import PopupFenster from '../PopupFenster/PopupFenster'
@@ -38,7 +37,7 @@ function NavBar(){
            { loginPageIsOpen && <PopupFenster integration={<LoginIntegration nextPage={"/home"}/>} onCloseClicked={closeLogin} text={"Connect Wallet"}/>   }
 
             <div className={classes.logowrapper}>
-                <LogoMini />
+                { false &&<LogoMiniCut /> }
                 <button className={classes.logo} onClick={reload}>  MyCryptoBook </button>
             </div>
 

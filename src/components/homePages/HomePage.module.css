@@ -1,7 +1,7 @@
 .container{
 
 
-    width: 100vw;
+    width: calc(100vw - padding);
     background-color: white;
 
     display: flex;

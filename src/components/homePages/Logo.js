@@ -19,42 +19,42 @@ function Logo(){
     <div style={{top:'calc(7 * 6.66% - 1.5px)',left:'calc(6 * 12.5% - 1.5px)'}} className={classes.line}></div>
 
 
-    <div style={{top:'calc(4.5 * 6.66% - 1.5px)',left:'calc(5.60 * 12.5% - 1.5px)',transform: 'rotate(61deg)'}} className={classes.line}></div>
-    <div style={{top:'calc(5.7 * 6.66% - 1.5px)',left:'calc(4.4 * 12.5% - 1.5px)',transform: 'rotate(61deg)'}} className={classes.line}></div>
+    <div style={{top:'calc(4.5 * 6.66% - 1.5px)',left:'calc(5.60 * 12.5% - 1.5px)',transform: 'rotate(61deg)',background:'#3e0270'}} className={classes.line}></div>
+    <div style={{top:'calc(5.7 * 6.66% - 1.5px)',left:'calc(4.4 * 12.5% - 1.5px)',transform: 'rotate(61deg)',background:'#3e0270'}} className={classes.line}></div>
 
-    <div style={{top:'calc(4.5 * 6.66% - 1.5px)',left:'calc(30% - 1.5px)',transform: 'rotate(119deg)'}} className={classes.line}></div>
-    <div style={{top:'calc(5.7 * 6.66% - 1.5px)',left:'calc(45% - 1.5px)',transform: 'rotate(119deg)'}} className={classes.line}></div>
+    <div style={{top:'calc(4.5 * 6.66% - 1.5px)',left:'calc(30% - 1.5px)',transform: 'rotate(119deg)',background:'#3e0270'}} className={classes.line}></div>
+    <div style={{top:'calc(5.7 * 6.66% - 1.5px)',left:'calc(45% - 1.5px)',transform: 'rotate(119deg)',background:'#3e0270'}} className={classes.line}></div>
 
-    <div style={{top:'calc(9.5 * 6.66% - 1.5px)',left:'calc(32% - 1.5px)',transform: 'rotate(61deg)'}} className={classes.line}></div>
-    <div style={{top:'calc(7.5 * 6.66% - 1.5px)',left:'calc(57% - 1.5px)',transform: 'rotate(61deg)'}} className={classes.line}></div>
+    <div style={{top:'calc(9.5 * 6.66% - 1.5px)',left:'calc(32% - 1.5px)',transform: 'rotate(61deg)',background:'#3e0270'}} className={classes.line}></div>
+    <div style={{top:'calc(7.5 * 6.66% - 1.5px)',left:'calc(57% - 1.5px)',transform: 'rotate(61deg)',background:'#3e0270'}} className={classes.line}></div>
 
-    <div style={{top:'calc(7.6 * 6.66% - 1.5px)',left:'calc(44% - 1.5px)',transform: 'rotate(119deg)'}} className={classes.line}></div>
-    <div style={{top:'calc(9.5 * 6.66% - 1.5px)',left:'calc(68% - 1.5px)',transform: 'rotate(119deg)'}} className={classes.line}></div>
+    <div style={{top:'calc(7.6 * 6.66% - 1.5px)',left:'calc(44% - 1.5px)',transform: 'rotate(119deg)',background:'#3e0270'}} className={classes.line}></div>
+    <div style={{top:'calc(9.5 * 6.66% - 1.5px)',left:'calc(68% - 1.5px)',transform: 'rotate(119deg)',background:'#3e0270'}} className={classes.line}></div>
 
-    <div style={{top:'calc(7.6 * 6.66% - 1.5px)',left:'calc(44% - 1.5px)',transform: 'rotate(119deg)'}} className={classes.line}></div>
-    <div style={{top:'calc(9.5 * 6.66% - 1.5px)',left:'calc(68% - 1.5px)',transform: 'rotate(119deg)'}} className={classes.line}></div>
+    <div style={{top:'calc(7.6 * 6.66% - 1.5px)',left:'calc(44% - 1.5px)',transform: 'rotate(119deg)',background:'#3e0270'}} className={classes.line}></div>
+    <div style={{top:'calc(9.5 * 6.66% - 1.5px)',left:'calc(68% - 1.5px)',transform: 'rotate(119deg)',background:'#3e0270'}} className={classes.line}></div>
 
     <div style={{top:'calc(8 * 6.66% - 1.5px)',left:'calc(5 * 12.5% - 1.5px)'}} className={classes.line}></div>
     <div style={{top:'calc(8 * 6.66% - 1.5px)',left:'calc(3 * 12.5% - 1.5px)'}} className={classes.line}></div>
 
-    <div style={{top:'calc(9.5 * 6.66% - 1.5px)',left:'calc(82% - 1.5px)',transform: 'rotate(61deg)'}} className={classes.line}></div>
+    <div style={{top:'calc(9.5 * 6.66% - 1.5px)',left:'calc(82% - 1.5px)',transform: 'rotate(61deg)',background:'#3e0270'}} className={classes.line}></div>
 
 
     <div style={{top:'calc(4 * 6.66% - 1.5px)',left:'calc(7 * 12.5% - 1.5px)'}} className={classes.line}></div>
     <div style={{top:'calc(6 * 6.66% - 1.5px)',left:'calc(7 * 12.5% - 1.5px)'}} className={classes.line}></div>
     <div style={{top:'calc(8 * 6.66% - 1.5px)',left:'calc(7 * 12.5% - 1.5px)'}} className={classes.line}></div>
 
-    <div style={{top:'calc(2.6 * 6.66% - 1.5px)',left:'calc(6.5 * 12.5% - 1.5px)',transform: 'rotate(119deg)'}} className={classes.line}></div>
+    <div style={{top:'calc(2.6 * 6.66% - 1.5px)',left:'calc(6.5 * 12.5% - 1.5px)',transform: 'rotate(119deg)',background:'#3e0270'}} className={classes.line}></div>
 
 
-    <div style={{top:'calc(3.6 * 6.66% - 1.5px)',left:'calc(4.5 * 12.5% - 1.5px)',transform: 'rotate(61deg)'}} className={classes.line}></div>
-    <div style={{top:'calc(2.6 * 6.66% - 1.5px)',left:'calc(5.5 * 12.5% - 1.5px)',transform: 'rotate(61deg)'}} className={classes.line}></div>
+    <div style={{top:'calc(3.6 * 6.66% - 1.5px)',left:'calc(4.5 * 12.5% - 1.5px)',transform: 'rotate(61deg)',background:'#3e0270'}} className={classes.line}></div>
+    <div style={{top:'calc(2.6 * 6.66% - 1.5px)',left:'calc(5.5 * 12.5% - 1.5px)',transform: 'rotate(61deg)',background:'#3e0270'}} className={classes.line}></div>
     
-    <div style={{top:'calc(3.6 * 6.66% - 1.5px)',left:'calc(3.5 * 12.5% - 1.5px)',transform: 'rotate(119deg)'}} className={classes.line}></div>
-    <div style={{top:'calc(2.6 * 6.66% - 1.5px)',left:'calc(2.5 * 12.5% - 1.5px)',transform: 'rotate(119deg)'}} className={classes.line}></div>
+    <div style={{top:'calc(3.6 * 6.66% - 1.5px)',left:'calc(3.5 * 12.5% - 1.5px)',transform: 'rotate(119deg)',background:'#3e0270'}} className={classes.line}></div>
+    <div style={{top:'calc(2.6 * 6.66% - 1.5px)',left:'calc(2.5 * 12.5% - 1.5px)',transform: 'rotate(119deg)',background:'#3e0270'}} className={classes.line}></div>
     
 
-    <div style={{top:'calc(2.6 * 6.66% - 1.5px)',left:'calc(1.5 * 12.5% - 1.5px)',transform: 'rotate(61deg)'}} className={classes.line}></div>
+    <div style={{top:'calc(2.6 * 6.66% - 1.5px)',left:'calc(1.5 * 12.5% - 1.5px)',transform: 'rotate(61deg)',background:'#3e0270'}} className={classes.line}></div>
 
     <div style={{top:'calc(4 * 6.66% - 1.5px)',left:'calc(1 * 12.5% - 1.5px)'}} className={classes.line}></div>
     <div style={{top:'calc(6 * 6.66% - 1.5px)',left:'calc(1 * 12.5% - 1.5px)'}} className={classes.line}></div>

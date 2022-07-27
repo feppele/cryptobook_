@@ -10,7 +10,7 @@
 
 
 
-     content: "|";
+content: "|";
  animation: blink 1s infinite;
  }
  .type-writer > span{
@@ -19,10 +19,8 @@
 
 
  .type-writer{
-     position: absolute;
-     top:28vh;
     font-family: monospace;
-    font-size: 40px;
+    font-size: 30px;
     color: white;
  }
  .type-writer:hover{
@@ -37,22 +35,22 @@
 
  @media(max-width:1000px){
     .type-writer{
-        font-size: 35px;
+        font-size: 25px;
     }
 }
 @media(max-width:800px){
     .type-writer{
-        font-size: 30px;
+        font-size: 20px;
     }
 }
 @media(max-width:650px){
     .type-writer{
-        font-size: 25px;
+        font-size: 18px;
     }
 }
 @media(max-width:500px){
     .type-writer{
-        font-size: 18px;
+        font-size: 15px;
     }
 }
 

@@ -5,6 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
 }
 
 .container{
@@ -22,20 +23,24 @@
   position: absolute;
   background: linear-gradient(70deg,#1976d2,#3e0270, #df710b);
   background-attachment: fixed;
-  background-size: 550px;
-  background-position: center;
+  background-size: 600px 100vh;
+  background-position: inherit;
+  background-repeat: no-repeat;
+
   animation-name: lineFlyIn;
-  animation-duration: 3s;
+  animation-duration:3s;
+
 
 }
 .line:hover{
-  background:none;
-  background-color: grey;
+
 }
 
 @keyframes lineFlyIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
+  0% {opacity: 0;width: 3px;}
+  80%{opacity: 0;width: 3px;}
+  90% {opacity: 1;width: 7px;}
+  100%{opacity: 1; width: 3px;}
 }
 
 
@@ -44,11 +49,12 @@
   width: 10px;
   border-radius: 20px;
   position: absolute;
-  background: linear-gradient(70deg,#1976d2,red);
   background: linear-gradient(70deg,#1976d2,#3e0270, #df710b);
   background-attachment: fixed;
-  background-size: 550px;
-  background-position: center;
+  background-size: 600px 100vh;
+  background-position: inherit;
+  background-repeat: no-repeat;
+
 }
 .dot1:hover{
   background:none;
@@ -63,8 +69,10 @@
   background: linear-gradient(70deg,#1976d2,red);
   background: linear-gradient(70deg,#1976d2,#3e0270, #df710b);
   background-attachment: fixed;
-  background-size: 550px;
-  background-position: center;
+  background-size: 600px 100vh;
+  background-position: inherit;
+  background-repeat: no-repeat;
+
 }
 .dot2:hover{
   background:none;
@@ -79,10 +87,31 @@
   background: linear-gradient(70deg,#1976d2,red);
   background: linear-gradient(70deg,#1976d2,#3e0270, #df710b);
   background-attachment: fixed;
-  background-size: 550px;
-  background-position: center;
+  background-size: 600px 100vh;
+  background-position: inherit;
+  background-repeat: no-repeat;
+
 }
 .dot3:hover{
   background:none;
   background-color: grey;
+}
+
+
+
+@media (max-width: 1200px) {
+
+  .dot1{
+  background-position: center;
+  }
+  .dot2{
+  background-position: center;
+  }
+  .dot3{
+    background-position: center;
+  }
+  .line{
+    background-position: center;
+  }
+  
 }

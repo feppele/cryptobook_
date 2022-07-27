@@ -2,7 +2,7 @@
 
   z-index:200;
   width: 100%;
-  height: 100px;
+  height: 64px;
   position: sticky;
   top:0;
   display: flex;
@@ -16,7 +16,6 @@
 
 .logowrapper{
   display: flex;
-  margin-left: 80px;
   gap: 20px;
 }
 
@@ -25,6 +24,7 @@
 }
 
 .logo{
+  margin-left: 60px;
   background-color: rgb(6, 29, 42);
   font-size: 33px;
   color: white;
@@ -55,10 +55,8 @@
 }
 
 .loginButton{
-  background-color: rgb(6, 29, 42);
   cursor: pointer;
   margin-right: 30px;
-  height: 80px;
   font-size: 20px;
   color: white;
   border-style:hidden;
@@ -100,11 +98,12 @@
   }
 
   .logo{
-    font-size: 28px;
+    margin-left: 18px;
+    font-size: 20px;
 
   }
   .menuWrapper{
-    margin-right: 20px;
+    margin-right: 18px;
 
   }
   .loginButton{
@@ -120,7 +119,7 @@
   }
   .logo{
 
-    font-size: 21px;
+    font-size: 16px;
 
   }
   .menuWrapper{
