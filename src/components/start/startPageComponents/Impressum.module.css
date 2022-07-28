@@ -4,6 +4,8 @@
     width: 100%;
     border-bottom: 1px solid grey;
     background-color: rgb(6, 29, 42);
+    background-color: rgb(26, 26, 26);
+
     display:flex;
     flex-direction: column;
     align-items: center;

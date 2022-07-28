@@ -7,7 +7,7 @@ import {getProfilePicURL} from '../../node/images'
 import {shortAddr} from '../../web3/LoadingFunctions'
 import etherSign from '../../images/ethereum.png'
 import keyImg from '../../images/schlussel.png'
-
+import LittleMenu from '../littleMenu/LittleMenu'
 
 //material UI
 import Avatar from '@mui/material/Avatar';
@@ -15,8 +15,6 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 
 import Tooltip from '@mui/material/Tooltip';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 
 //ColorTheme - Night Mode
 import {themes} from '../../ColorTheme'
@@ -41,9 +39,12 @@ if(userdata !== null){
 
 const ethPrice = require('eth-price');
 
+
 //props.walletOpen:Boolean
 //props.closeWalletFunc:Function
 export default function Wallet(props) {
+
+
 
     const userData = useContext(UserContext)
         // Night Mode
@@ -77,7 +78,7 @@ export default function Wallet(props) {
     const handleClose = () => {
       setAnchorEl(null);
     };
-  
+    const [opened, setOpened] = useState(false);
 
   return (
 
@@ -92,6 +93,7 @@ export default function Wallet(props) {
 
             {/*header*/}
             <div className={classes.header}>
+ 
 
                 <div style={{display: 'flex',alignItems: 'center'}}>
                     <Avatar src={profilePicURL}  sx={{ width: 33, height: 33,marginLeft:'10px',marginRight:'10px' }}  />
@@ -111,6 +113,7 @@ export default function Wallet(props) {
                     <IconButton sx={{marginRight:'10px'}} ><img src={keyImg} style={{height: '20px',width: 'auto'}}></img></IconButton>
                 </Tooltip>
                 </div>
+
 
             </div>
 

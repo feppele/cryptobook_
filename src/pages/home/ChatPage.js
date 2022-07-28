@@ -32,6 +32,7 @@ import Avatar from '@mui/material/Avatar';
 import CircularProgress from '@mui/material/CircularProgress';
 import LinearProgress from '@mui/material/LinearProgress';
 import Skeleton from '@mui/material/Skeleton';
+import MenuItem from '@mui/material/MenuItem';
 
 
 //ColorTheme - Night Mode
@@ -51,8 +52,10 @@ const crypto = require('crypto');
     const LIMIT = 10
     const OFFSET = 10
 
+    
 // Message : {message,from,to,date}
 function ChatPage(){
+
     const userData = useContext(UserContext)
     const history =useHistory();
     // Night Mode
@@ -244,6 +247,9 @@ function ChatPage(){
     return (
 
         <div style={{backgroundColor:theme.color1}} className={classes.container}>
+
+
+
 
 
         { openAddModal && <PopupFenster integration={<AddFriendIntegration/>} onCloseClicked={closeAddFriend} text={"Add Friend"}/>}

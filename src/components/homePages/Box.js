@@ -30,7 +30,7 @@ function Box(props){
 
     return (
 
-        <div style={{backgroundColor:theme.barkBlue}} className={classes.box}>
+        <div style={{backgroundColor:theme.startPage}} className={classes.box}>
 
 
 
@@ -47,7 +47,7 @@ function Box(props){
                 <h1>{props.header}</h1>
             </div>
 
-            <div className={classes.body}>
+            <div style={{color:theme.font}} className={classes.body}>
             {props.body}
 
             </div>

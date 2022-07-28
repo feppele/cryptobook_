@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 
 
-const TypeWriter = ({ content = "", speed = 1000 }) => {
+const TypeWriter = ({ content = "", speed = 1000,theme}) => {
   const [displayedContent, setDisplayedContent] = useState("");
   const [index, setIndex] = useState(0);
 
@@ -28,7 +28,7 @@ const TypeWriter = ({ content = "", speed = 1000 }) => {
     setDisplayedContent((displayedContent)=>displayedContent + content[index])
   }, [index])
 
-  return <pre className="type-writer">{displayedContent}</pre>;
+  return <pre style={{color:theme.font}} className="type-writer">{displayedContent}</pre>;
 };
 
 const sample_content = `Join the first Blockchain
@@ -38,7 +38,7 @@ const Writer = (props) => {
 
 
 
-return <TypeWriter content={props.text} speed={20} />;
+return <TypeWriter theme={props.theme} content={props.text} speed={20} />;
 }
 
 

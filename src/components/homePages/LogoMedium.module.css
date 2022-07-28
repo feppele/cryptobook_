@@ -24,7 +24,7 @@
   position: absolute;
   background: linear-gradient(70deg,#1976d2,#3e0270, #df710b);
   background-attachment: fixed;
-  background-size: 80vw 120vh;
+  background-size: 100vw 120vh;
   background-position: inherit;
   background-repeat: no-repeat;
   animation-name: lineFlyIn;
@@ -51,7 +51,7 @@
   position: absolute;
   background: linear-gradient(70deg,#1976d2,#3e0270, #df710b);
   background-attachment: fixed;
-  background-size: 80vw 120vh;
+  background-size: 100vw 120vh;
   background-position: inherit;
   background-repeat: no-repeat;
 
@@ -70,7 +70,7 @@
   position: absolute;
   background: linear-gradient(70deg,#1976d2,#3e0270, #df710b);
   background-attachment: fixed;
-  background-size: 80vw 120vh;
+  background-size: 100vw 120vh;
   background-position: inherit;
   background-repeat: no-repeat;
 
@@ -87,7 +87,7 @@
   position: absolute;
   background: linear-gradient(70deg,#1976d2,#3e0270, #df710b);
   background-attachment: fixed;
-  background-size: 80vw 120vh;
+  background-size: 100vw 120vh;
   background-position: inherit;
   background-repeat: no-repeat;
 

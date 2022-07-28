@@ -62,7 +62,7 @@
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
     border-bottom: 2px solid rgb(224, 224, 224);
-    width:90%;
+    width:calc(90% - 60px);
     font-size:22px;
     text-align: center;
     text-justify: center;

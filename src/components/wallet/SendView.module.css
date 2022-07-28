@@ -22,7 +22,7 @@
 .textInput{
 
     padding-left: 10px;
-    width: 100%;
+    width: calc(100% - 10px);
     height: 40px;
     font-size: 20px;
     border-radius: 4px;

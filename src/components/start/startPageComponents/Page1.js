@@ -1,14 +1,21 @@
 import classes from './Page1.module.css';
-import {useState} from 'react';
+import {useState,useContext,useEffect} from 'react';
 import Writer from './writer/Writer';
 import Logo from '../../homePages/Logo'
 import LogoMedium from '../../homePages/LogoMedium'
 
+//ColorTheme - Night Mode
+import {themes} from '../../../ColorTheme'
+import {NightContext} from '../../../NightModeProvider'
 
 function Page1(){
 
+    // Night Mode
+    const nightMode = useContext(NightContext)
+    const [theme,setTheme] =useState(themes.bright)
+    useEffect(()=>{ nightMode ? setTheme(themes.dark) : setTheme(themes.bright) },[nightMode])
 
-//fetch("http://mycryptobook.io/test")
+
     
 
 const text1 = `Make the first step into the 
@@ -45,7 +52,7 @@ const [ writer4IsOpen, setWriter4IsOpen ] = useState(false);
     })
 
     return (
-        <div id="container" className={classes.container}>
+        <div style={{backgroundColor:theme.startPage}} id="container" className={classes.container}>
 
            <div className={classes.logoMedium}><LogoMedium /></div> 
            <div className={classes.logoBig}><Logo /></div> 
@@ -55,10 +62,10 @@ const [ writer4IsOpen, setWriter4IsOpen ] = useState(false);
 
                 <div className={classes.header}> MyCryptoBook</div>
 
-                {  true && writerIsOpen && <Writer   id="writer"  text={text1}/>}
-                {  true &&writer2IsOpen && <Writer  id="writer"  text={text2}/>}
-                {  true &&writer3IsOpen && <Writer  id="writer"  text={text3}/>}
-                {  true && writer4IsOpen && <Writer  id="writer"  text={text4}/>}
+                {  true && writerIsOpen && <Writer theme={theme}   id="writer"  text={text1}/>}
+                {  true &&writer2IsOpen && <Writer theme={theme} id="writer"  text={text2}/>}
+                {  true &&writer3IsOpen && <Writer  theme={theme} id="writer"  text={text3}/>}
+                {  true && writer4IsOpen && <Writer theme={theme}  id="writer"  text={text4}/>}
              </div>
 
         </div>

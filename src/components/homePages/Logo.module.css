@@ -99,6 +99,31 @@
 
 
 
+@media (max-width: 700px) {
+
+  .dot1{
+    background-size: 0px 100vh;
+
+  }
+  .dot2{
+    background-size: 0px 100vh;
+
+  }
+  .dot3{
+    background-size: 0px 100vh;
+    
+  }
+  .line{
+    background-size: 0px 100vh;
+  }
+  .container{
+    width:0px;
+  }
+  .container1{
+    width:0px;
+  }
+}
+
 @media (max-width: 1200px) {
 
   .dot1{
@@ -113,5 +138,6 @@
   .line{
     background-position: center;
   }
+
   
 }

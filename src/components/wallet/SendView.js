@@ -13,6 +13,8 @@ import TextField from '@mui/material/TextField';
 import {themes} from '../../ColorTheme'
 import {NightContext} from '../../NightModeProvider'
 
+import ApprovalView from './ApprovalView'
+
 
 import {_web3} from '../../web3/Web3'
 var web3 = _web3.mcbWallet
@@ -28,6 +30,9 @@ function SendView(props){
 
     const [etherPrice,setEtherPrice]= useState(false);
     const [oneEther,setOneEther] =useState(false);
+    const [approve,setApprove] =useState(false);
+
+
 
     const[sendEther,setSendEther] = useState(0);
 
@@ -38,7 +43,8 @@ function SendView(props){
 
 
     async function send(){
-        props.closeWalletFunc()
+        //props.closeWalletFunc()
+        
         // if Metamask is conncted userdata = {address} if MCB Wallet userdata={address,privkey,pubkey,....}
         const userdata = JSON.parse(sessionStorage.getItem("userdata"))
         if(userdata.metamask === true){// Metamask
@@ -48,14 +54,13 @@ function SendView(props){
                 to:props.longAddr,
                 value: web3.utils.toWei(sendEther.toString())
             });
-
         }else{// MCB Wallet
+            // Create Tx and then send to Approval View to sign
+            const tx = await sendEtherInfura(  userdata.address, props.longAddr, userdata.privatekey, web3.utils.toWei(sendEther.toString())  ) //(from,to,privateKey,value)
 
-            //open Bestätigungs Wallet
-
-            const res = await sendEtherInfura(  userdata.address, props.longAddr, userdata.privatekey, web3.utils.toWei(sendEther.toString())  ) //(from,to,privateKey,value)
-            console.log(res)
-
+            //open ApprovalView
+            setApprove(true)
+            console.log(tx)
         }
 
     }
@@ -116,6 +121,9 @@ function SendView(props){
 
     return (
 
+        <div style={{width:'100%'}}>
+            { approve && <ApprovalView type="sendEther" to={props.longAddr} value={web3.utils.toWei(sendEther.toString())}  />  
+}
         <div className={classes.integration}>
 
                 <div className={classes.box}>
@@ -142,6 +150,7 @@ function SendView(props){
 
 
 
+        </div>
         </div>
 
     );

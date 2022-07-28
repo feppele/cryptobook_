@@ -15,6 +15,7 @@ var Tx = require('ethereumjs-tx').Transaction
 
 
 
+
 export async function sendEtherInfura(from,to,privateKey,value){
 
     value = parseInt(value)
@@ -34,14 +35,16 @@ export async function sendEtherInfura(from,to,privateKey,value){
     gasLimit: web3.utils.toHex(21000),
     gasPrice:web3.utils.toHex(gasPrice)
     }
-    //SIGN TRANSACTION
+    //Create TRANSACTION and send to ApprovalView to sign
     const tx =  new Tx(txObject,{'chain': netzwerk}) 
-    tx.sign(privateKey)
-    const serializedTransaction = tx.serialize()
-    const raw = '0x' + serializedTransaction.toString('hex')
-    return await web3.eth.sendSignedTransaction(raw ).on('receipt', console.log)
 
-        
+    return tx
+
+    // tx.sign(privateKey)
+    // const serializedTransaction = tx.serialize()
+    // const raw = '0x' + serializedTransaction.toString('hex')
+    // return await web3.eth.sendSignedTransaction(raw ).on('receipt', console.log)
+
 }
 
 

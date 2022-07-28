@@ -87,7 +87,7 @@ function HomePage(){
 
     return (
 
-        <div style={{backgroundColor: theme.color1}} className={classes.container}>
+        <div style={{backgroundColor: theme.startPage}} className={classes.container}>
 
            { loginPageIsOpen && <PopupFenster integration={<LoginIntegration nextPage={"/home"}/>} onCloseClicked={()=>{setloginPageIsOpen(false)}} text={"Connect Wallet"}/>   }
 

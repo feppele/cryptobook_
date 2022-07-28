@@ -30,7 +30,7 @@ import menuPic from '../../images/menu.png'
 import logoutPic from '../../images/log-out.png'
 import mondPic from '../../images/mond.png'
 import walletPic from '../../images/wallet.png'
-import LogoMiniCut from '../homePages/LogoMiniCut'
+import LogoMiniCut from '../homePages/LogoMini2Cut'
 
 //myCode
 import { useHistory } from "react-router-dom";
@@ -77,14 +77,15 @@ const ResponsiveAppBar = () => {
   const [notificationOpen,setNotificationOpen] =React.useState(false)
   const [profilePic,setProfilePic] = useState(profilColor);
 
-  const [nightMode,setNightMode] = useState(false)
+  //const [nightMode,setNightMode] = useState(false)
   const setNightModeFunc = useContext(ChangeNightFunction)
   // Night Mode
+  const nightMode = useContext(NightContext)
   const [theme,setTheme] =useState(themes.bright)
   useEffect(()=>{ nightMode ? setTheme(themes.dark) : setTheme(themes.bright) },[nightMode])
 
   function handleNightChange(e){
-    setNightMode(e.target.checked)
+    nightMode ? setTheme(themes.dark) : setTheme(themes.bright)
     setNightModeFunc(e.target.checked)
   }
 
@@ -202,9 +203,12 @@ const ResponsiveAppBar = () => {
               fontWeight: 300,
               color: theme.font,
               textDecoration: 'none',
-              fontSize:'22px'
+              fontSize:'22px',
+              gap: '10px'
             }}
           >
+            <LogoMiniCut />
+
             MyCryptoBook
 
           </Typography>
@@ -233,7 +237,7 @@ const ResponsiveAppBar = () => {
               onClick={handleOpenNavMenu}
               color="inherit"
             >
-              <img src={menuPic} style ={{height:'30px'}}></img>
+              <img src={menuPic} style ={{filter:theme.png,height:'30px'}}></img>
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -286,7 +290,7 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
 
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="Remy Sharp" src={profilePic} sx={{border: '2px solid grey',height: '50px',width: '50px'}}/>
+              <Avatar alt="Remy Sharp" src={profilePic} sx={{border: '2px solid grey',height: '40px',width: '40px'}}/>
             </IconButton>
 
 

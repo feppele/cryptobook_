@@ -1,0 +1,13 @@
+.container{
+  width: 100%;
+  background-color:white;
+  z-index: 200;
+  position: fixed;
+  top:-200px;
+  transition: top 0.5s;
+
+  display: flex;
+  flex-direction: column;
+  
+
+}

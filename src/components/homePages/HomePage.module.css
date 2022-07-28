@@ -1,8 +1,9 @@
 .container{
 
 
-    width: calc(100vw - padding);
-    background-color: white;
+    width: calc(100vw);
+
+
 
     display: flex;
     flex-direction: column;

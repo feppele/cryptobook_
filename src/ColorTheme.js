@@ -6,6 +6,7 @@ const dark2 = 'rgb(48, 51, 57)'//{backgroundColor:'rgb(48, 51, 57)'}
 const darkFont = 'rgb(201, 201, 201)'//{color:'rgb(201, 201, 201)'}
 const pngDark = 'invert(0.75)'//{filter:'invert(0.75)'}
 const borderDark = '1px solid rgb(22, 22, 22)'//{border: '1px solid rgb(212, 212, 212)'}
+const dark11 = 'rgb(11, 11, 11)'
 
 const white = 'white'//{backgroundColor:'white'}
 const lightGrey = 'rgb(243, 243, 243)'//{backgroundColor:'rgb(243, 243, 243)'}
@@ -29,9 +30,9 @@ const dark = [
   ]
 
 //const darkTheme= {color1:dark[9], color2:dark[8],color3:dark[8],font:darkFont,png:pngDark,border:borderDark}
-const darkTheme= {color1:dark1, color2:dark2,color3:dark2,navbar:barkBlue,font:darkFont,png:pngDark,border:borderDark,barkBlue:barkBlue}
+const darkTheme= {color1:dark1, color2:dark2,color3:dark2,navbar:dark1,font:darkFont,png:pngDark,border:borderDark,barkBlue:barkBlue,startPage:dark11}
 
-const brightTheme= {color1:white, color2:lightGrey,color3:white,navbar:white,font:brightFont,png:pngNormal,border:borderBright,barkBlue:barkBlue}
+const brightTheme= {color1:white, color2:lightGrey,color3:white,navbar:white,font:brightFont,png:pngNormal,border:borderBright,barkBlue:barkBlue,startPage:white}
 
 const theme = brightTheme
 

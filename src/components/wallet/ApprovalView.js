@@ -31,9 +31,17 @@ if(userdata !== null){
     userdata.metamask === true ? web3 = _web3.metamask : web3 = _web3.mcbWallet
 }
 
+function toHexString(byteArray) {
+    return Array.from(byteArray, function(byte) {
+      return ('0' + (byte & 0xFF).toString(16)).slice(-2);
+    }).join('')
+}
+
+
+
 
 function ApprovalView(props) {
-    
+
     userdata = JSON.parse(sessionStorage.getItem("userdata"))
     // Night Mode
     const nightMode = useContext(NightContext)
@@ -48,6 +56,19 @@ function ApprovalView(props) {
     async function cancel(){
         props.cancelClicked()
     }
+
+    async function signTx(tx,privateKey){
+        tx.sign(privateKey)
+        const serializedTransaction = tx.serialize()
+        const raw = '0x' + serializedTransaction.toString('hex')
+        return await web3.eth.sendSignedTransaction(raw ).on('receipt', console.log)
+    }
+
+    const tx = props.tx
+    // tx._fields
+    // tx.raw
+    console.table(tx._fields)
+    console.table(tx.raw)
 
 
   return (

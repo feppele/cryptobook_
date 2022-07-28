@@ -15,6 +15,7 @@ import Link from '@mui/material/Link';
 import lockImg from '../../images/lock-2.png'
 import { ethers } from 'ethers';
 import {registerDB,loginDB} from '../../node/username'
+import LogiMini from '../../components/homePages/LogoMini'
 
 //userdata
 import {ChangeUserContext} from '../../UserProvider'
@@ -96,7 +97,11 @@ function LoginPage(){
     return (
         <div className={classes.container}>
 
-            <img style={{height: '60px', width:'auto'}} src={lockImg}></img>
+            <div style={{display: 'flex',gap:'40px'}}>
+                { false &&  <img style={{height: '60px', width:'auto'}} src={lockImg}></img>  }
+                <LogiMini />
+            </div>
+
 
             <div className={classes.headerText}>MyCryptoBook-Wallet Login</div>
 

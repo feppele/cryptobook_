@@ -21,6 +21,7 @@ import Collapse from '@mui/material/Collapse';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 
+
 //ColorTheme - Night Mode
 import {themes} from '../../ColorTheme'
 import {NightContext} from '../../NightModeProvider'
@@ -67,6 +68,7 @@ function uploadImage (userAddress) {
 }
 
 function ProfilData(){
+
         const userData = useContext(UserContext)
         // Night Mode
         const nightMode = useContext(NightContext)
@@ -218,6 +220,8 @@ function ProfilData(){
     return (
 
         <div style={{backgroundColor:theme.color1}} id="cont" className={classes.container}>
+
+
 
             {followList && <PopupFenster text={"My Followers"} onCloseClicked={closeFollowList} integration={<LikesIntegration likesList={followArrayList}/>} /> }
 
