@@ -26,11 +26,14 @@ if(userdata !== null){
 const ethPrice = require('eth-price');
 
 
+
+// to close: closeWalletFunc()
 function SendView(props){
 
     const [etherPrice,setEtherPrice]= useState(false);
     const [oneEther,setOneEther] =useState(false);
-    const [approve,setApprove] =useState(false);
+    const [txObj,setTxObj] =useState(false);
+    
 
 
 
@@ -57,10 +60,7 @@ function SendView(props){
         }else{// MCB Wallet
             // Create Tx and then send to Approval View to sign
             const tx = await sendEtherInfura(  userdata.address, props.longAddr, userdata.privatekey, web3.utils.toWei(sendEther.toString())  ) //(from,to,privateKey,value)
-
-            //open ApprovalView
-            setApprove(true)
-            console.log(tx)
+            setTxObj(tx) //open ApprovalView
         }
 
     }
@@ -115,42 +115,41 @@ function SendView(props){
             setOneEther(ethPrice);
         })
 
-    }oneEtherCalc();
+    }
+    useEffect(()=>{
+        oneEtherCalc();
+    },[])
 
 
 
     return (
 
         <div style={{width:'100%'}}>
-            { approve && <ApprovalView type="sendEther" to={props.longAddr} value={web3.utils.toWei(sendEther.toString())}  />  
-}
-        <div className={classes.integration}>
-
-                <div className={classes.box}>
-
-                    <div style={{color:theme.font,fontSize:'20px'}}> {props.text} </div>
-
-                    <input style={{color:theme.font,backgroundColor:theme.color1}} id="inputValue" onChange={calc} type="text" placeholder="1 ether" className={classes.textInput}></input>
-
-                    <img style={{filter:theme.png}} src={equalImg} className={classes.equalimg}></img>
-
-                    <input style={{color:theme.font,backgroundColor:theme.color1}} id="usdValue" onChange={calcFromUSD} type="text"  className={classes.textInput}></input>
 
 
+            { txObj && <ApprovalView closeWalletFunc={props.closeWalletFunc} type="send Ether" tx={txObj}  />  }
+            { !txObj &&
+            <div className={classes.integration}>
 
+                    <div className={classes.box}>
 
-                    <Tooltip title="send" disableInteractive arrow placement="top">
-                        <Button variant="contained" sx={{width:'100%',height:'40px',marginTop:'10px'}} onClick={send}>  < img src={sendImg} style={{height: '30px',width: 'auto'}}></img>   </Button>
-                    </Tooltip>
-                </div>
+                        <div style={{color:theme.font,fontSize:'20px'}}> {props.text} </div>
+
+                        <input style={{color:theme.font,backgroundColor:theme.color1}} id="inputValue" onChange={calc} type="text" placeholder="1 ether" className={classes.textInput}></input>
+
+                        <img style={{filter:theme.png}} src={equalImg} className={classes.equalimg}></img>
+
+                        <input style={{color:theme.font,backgroundColor:theme.color1}} id="usdValue" onChange={calcFromUSD} type="text"  className={classes.textInput}></input>
 
 
 
 
-
-
-
-        </div>
+                        <Tooltip title="send" disableInteractive arrow placement="top">
+                            <Button variant="contained" sx={{width:'100%',height:'40px',marginTop:'10px'}} onClick={send}>  < img src={sendImg} style={{height: '30px',width: 'auto'}}></img>   </Button>
+                        </Tooltip>
+                    </div>
+            </div>
+            }
         </div>
 
     );

@@ -24,9 +24,11 @@ async function buyNFTOff(metadataURI,tokenId,seller){
     if(userdata.metamask === true){// Metamask
         BuyNFTContract.methods.buyTokenOff(_metadataURI,_tokenId,_seller).send({from:_from, value: web3.utils.toWei(_preis,"ether")}).then(console.log).catch(console.log);
     }else{ // MCB Wallet
-        buyTokenOffInfura(userdata.privatekey, _from,_metadataURI,_tokenId,_seller,_preis) //from,_metadataURI,_tokenId,_seller,_preis
+        var tx = await buyTokenOffInfura(userdata.privatekey, _from,_metadataURI,_tokenId,_seller,_preis) //from,_metadataURI,_tokenId,_seller,_preis
+        console.log(tx)
+        // if mcb just return TX, it will be signed in Approval View in Wallet
+        return tx
     }
-    
 
 
 }
@@ -46,8 +48,11 @@ async function buyNFTOn(tokenId,seller,creator){
     if(userdata.metamask === true){// Metamask
         BuyNFTContract.methods.buyTokenOn(_seller,_tokenId,_creator).send({from:_from, value: web3.utils.toWei(_preis,"ether") }).then(console.log).catch(console.log);
     }else{ // MCB Wallet
-        buyTokenOnInfura(userdata.privatekey, _from,_tokenId,_seller,_creator,_preis) //from,_tokenId,_seller,_preis
-   }
+        var tx = await buyTokenOnInfura(userdata.privatekey, _from,_tokenId,_seller,_creator,_preis) //from,_tokenId,_seller,_preis
+        console.log(tx)
+        // if mcb just return TX, it will be signed in Approval View in Wallet
+        return tx
+    }
 
 
 }

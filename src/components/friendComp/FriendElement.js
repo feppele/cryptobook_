@@ -122,10 +122,16 @@ function FriendElement(props){
     setSendButton(false)
     }
 
-    function sendWalletFunc(){
-        setSendButton(false)
-        setState({ ...state, open: true, message:"Ether sending... This may take up to 2 min.", })
-    }
+    // function sendWalletFunc(approved){
+    //     setSendButton(false)
+    //     if(approved){
+    //         setState({ ...state, open: true, message:"Ether sending... This may take up to 2 min.", })
+    //     }else{
+    //         setState({ ...state, open: true, message:"Transaction canceled.", })
+
+    //     }
+
+    // }
 
 
 
@@ -139,7 +145,7 @@ function FriendElement(props){
                 { false  && <PopupFenster integration={<SendIntergation longAddr={props.longAddr} addr={props.addr} friendName={props.friendName}/>} text={`Send Ether to ${props.friendName}`} onCloseClicked={closeSend} />   }
 
                 {sendButton &&  <Wallet closeWalletFunc={closeWalletFunc} >
-                                    <SendView longAddr={props.longAddr} addr={props.addr} friendName={props.friendName} closeWalletFunc={sendWalletFunc} text={`Send Ether to ${props.friendName}`}/>
+                                    <SendView longAddr={props.longAddr} addr={props.addr} friendName={props.friendName} closeWalletFunc={closeWalletFunc} text={`Send Ether to ${props.friendName}`}/>
 
                                 </Wallet> }
 

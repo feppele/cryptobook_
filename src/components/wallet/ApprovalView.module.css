@@ -21,17 +21,13 @@
 
 
 .action{
-    width:100%;
+    width:calc(100% - 24px);
     text-align: center;
     padding:12px;
 }
 
 
-.details{
-    width:100%;
-    height: 200px;
 
-}
 
 
 .approve{
@@ -42,4 +38,18 @@
     justify-content: center;
     gap:20px;
 
+}
+
+.details{
+    width:100%;
+    height: 200px;
+
+}
+
+.data{
+    padding:5px;
+    font-size: 16px;
+    display: flex;
+    width: calc(100% - 10px);
+    justify-content: space-between;
 }

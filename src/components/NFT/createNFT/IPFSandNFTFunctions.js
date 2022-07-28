@@ -54,7 +54,8 @@ async function createNFT(metaDataURL,id){
 
     }else{// MCB Wallet
 
-        const res = await mintNFTInfura(owner, userdata.privatekey, id, metaDataURL)
+        const tx = await mintNFTInfura(owner, userdata.privatekey, id, metaDataURL)
+        return tx;
 
     }
         const tokenId = "braucht man nichtmehr weil tokenId schon davor bestimmt wird"

@@ -28,8 +28,13 @@ import { SnackbarComp } from './Snackbar';
 import {themes} from '../../ColorTheme'
 import {NightContext} from '../../NightModeProvider'
 
+//wallet approve
+import Wallet from '../../components/wallet/Wallet'
+import ApprovalView from '../../components/wallet/ApprovalView';
+
 
  function Friends(){
+    const [txObj,setTxObj] =useState(false);
 
         // Night Mode
         const nightMode = useContext(NightContext)
@@ -96,10 +101,23 @@ import {NightContext} from '../../NightModeProvider'
     const handleClose = () => { setState({ ...state, open: false }); };
     const handleClick = (Transition) => () => { setState({ open: true, Transition, })}
 
+    // triggert from AddFriend Ingegration
+    function openApproveWallet(tx){
+        setTxObj(tx)
+        setAddFriendIsOpen(false)
+    }
+
 
     return (
 
         <div style={{backgroundColor:theme.color1}} className={classes.container1}>
+
+                        {/* Buy NFT with Approve Wallet*/}
+                        {txObj &&
+            <Wallet closeWalletFunc={()=>{setTxObj(false)}}>
+                <ApprovalView type="buy NFT" tx={txObj}/>
+            </Wallet>
+            }
 
         <Snackbar open={state.open} onClose={handleClose} TransitionComponent={state.Transition} message={state.message} key={state.Transition.name} />
 
@@ -115,7 +133,7 @@ import {NightContext} from '../../NightModeProvider'
 
                 <div style={{backgroundColor:theme.color2,border:theme.border}} className={classes.box}>
 
-                    {  addFriendIsOpen && <PopupFenster integration={<AddFriendIntegration openSnackbar={()=>{closeAddFriend(); setState({ ...state, open: true,message:"Friend added" })}}/>}  onCloseClicked={closeAddFriend} text={"Add Friend"}/>}
+                    {  addFriendIsOpen && <PopupFenster integration={<AddFriendIntegration openApproveWallet={openApproveWallet} openSnackbar={()=>{closeAddFriend(); setState({ ...state, open: true,message:"Friend added" })}}/>}  onCloseClicked={closeAddFriend} text={"Add Friend"}/>}
 
                     <ButtonGroup sx={{marginRight:'1px'}}variant="outlined" aria-label="outlined primary button group">
                         <Tooltip title="Add" placement="top" disableInteractive arrow>

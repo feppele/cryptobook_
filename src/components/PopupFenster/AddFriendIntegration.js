@@ -26,6 +26,8 @@ if(userdata !== null){
 
 function AddFriendIntegration(props){
 
+
+
     const [imgSource,setImgSource] = useState(inValidImage);
     const [alignment,setAlignment] = React.useState('left');
 
@@ -46,9 +48,7 @@ function AddFriendIntegration(props){
         }
     }
 
-    function addFriend(){
-
-        props.openSnackbar()
+    async function addFriend(){
 
         const addr= document.getElementById("addressInput").value;
         //BlockchainFriend
@@ -63,12 +63,14 @@ function AddFriendIntegration(props){
                         to: userContractAddress
                     });
                 }else{ //MCB Wallet
-                    updateFriendsfura(userdata.privatekey,userdata.address,name,addr)
+                    const tx = await updateFriendsfura(userdata.privatekey,userdata.address,name,addr)
+                    props.openApproveWallet(tx)
                 }
 
             }
         }else{ // FollowFried
             follow(addr.toLowerCase())
+            props.openSnackbar()
         }
     }
 
@@ -78,7 +80,6 @@ function AddFriendIntegration(props){
 
 
             <div className={classes.integration}>
-
 
                 <ToggleButtonGroup value={alignment} exclusive onChange={handleAlignment} aria-label="text alignment" sx={{width:'100%'}}>
                     <ToggleButton value="left" aria-label="left aligned" sx={{width:'100%'}}>

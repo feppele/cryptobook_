@@ -36,6 +36,10 @@ import { Check } from 'tabler-icons-react';
 import {themes} from '../../../ColorTheme'
 import {NightContext} from '../../../NightModeProvider'
 
+//wallet approve
+import Wallet from '../../../components/wallet/Wallet'
+import ApprovalView from '../../../components/wallet/ApprovalView';
+
 
 function CreateNFT(props){
 
@@ -57,6 +61,9 @@ function CreateNFT(props){
     const [InfoBoxOpen,setInfoBoxOpen] = useState(true);
     // for Alert
     const [alertOpen, setAlertOpen] = useState(false);
+    // for MCB Wallet Approve Walle
+    const [txObj,setTxObj] =useState(false);
+
 
     // HIDDEN BUTTON STUFF
 	const changeHandler = (event) => {
@@ -115,11 +122,19 @@ function CreateNFT(props){
         document.getElementById("externalLink").value ="";
         document.getElementById("preis").value ="";
 
+        var response = await createNFTOnAndOff(metaData,imageFile,itemName,searchTearms,collection,e.target.id,preis) //e.target.id = button offchain or onchain
+
+        if(response.raw){
+            console.log(response)
+            // retrun transaction = MCB wallet --> approve
+            const tx = response
+            setTxObj(tx)
+            return
+        }
+
         if(e.target.id !=="offchainCreate"){
             setAlertOpen(true)
         }
-
-        var response = await createNFTOnAndOff(metaData,imageFile,itemName,searchTearms,collection,e.target.id,preis) //e.target.id = button offchain or onchain
 
         //await setTxHash(response.txhash);
         await setTokenId(response);
@@ -169,6 +184,13 @@ function CreateNFT(props){
     return (
 
         <div style={{backgroundColor:theme.color1}} className={classes.container}>
+
+            {/* Buy NFT with Approve Wallet*/}
+            {txObj &&
+            <Wallet closeWalletFunc={()=>{setTxObj(false)}}>
+                <ApprovalView type="buy NFT" tx={txObj}/>
+            </Wallet>
+            }
 
             <div className={classes.container2}>
 

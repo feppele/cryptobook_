@@ -21,7 +21,7 @@ import etherSign from '../../images/ethereum.png'
 
 //popup
 import PopupFenster from '../../components/PopupFenster/PopupFenster'
-import SendNFTIntegration from '../../components/PopupFenster/SendNFTIntegration'
+import SendNFTIntegration from '../../components/wallet/SendNFTIntegration' // now integration from wallet
 import LikesIntegration from '../../components/PopupFenster/LikesIntegration'
 import SetNFTPriceIntegration from '../../components/PopupFenster/SetNFTPriceIntegration'
 
@@ -39,6 +39,8 @@ import {fetchi} from '../../globalData'
 //wallet approve
 import Wallet from '../../components/wallet/Wallet'
 import ApprovalView from '../../components/wallet/ApprovalView';
+
+import {buyTokenOffInfura,buyTokenOnInfura} from '../../web3/SendEtherInfura'
 
 
 
@@ -81,7 +83,8 @@ function OneNFTPage(){
     const [sendOneNFTModal,setSendOneNFTModal]=useState(false);
     const [amIOwner,setAmIOwner]=useState(false);
     const [NFTPriceModel,setNFTPriceModal] =useState(false);
-    const [openWallet,setOpenWallet] =useState(false);
+    const [txObj,setTxObj] =useState(false);
+
 
     // for Alert
     const [alertOpen, setAlertOpen] = useState(true);
@@ -176,7 +179,6 @@ function OneNFTPage(){
     }
 
 
-
     function openLikesList(){
         setLikesList(true);
     }
@@ -224,14 +226,33 @@ function OneNFTPage(){
             changeNFTPrice();
             return
         }
+        console.log("BUUUY")
 
         // Check if Metamask or MCB Wallet. IF MCB Open Wallet and Approve transaction with PW to decrypt PrivKey
         if(!userdata.metamask){ // MCB Wallet
+            // check if on or offchain sell
+            getOwnerOfTokenId(tokenId).then(response =>{
+                if(response === "error"){
+                    // buy offchain
+                   buyNFTOff(tokenURI,tokenId,owner).then(tx=>{
+                    console.log(tx)
+                    setTxObj(tx) // set TX OBJ and Open Approve Wallet
+                   })
 
-            setOpenWallet(true)
-            return // return and wait untill approveClicked() is called from Wallet
+                }else{
+                    //buy onchain
+                    buyNFTOn(tokenId,owner,metaData.creator).then(tx=>{
+                        console.log(tx)
+                        setTxObj(tx) // set TX OBJ and Open Approve Wallet
+                    })
+                }
+            })
+
+            return 
 
         } // else if metamask do nothing
+
+        //METAMASK ___
 
         // check if on or offchain sell
         getOwnerOfTokenId(tokenId).then(response =>{
@@ -244,18 +265,7 @@ function OneNFTPage(){
             }
         })
     }
-    async function approveClicked(){
-        setOpenWallet(false)
-        getOwnerOfTokenId(tokenId).then(response =>{
-            if(response === "error"){
-                // buy offchain
-                buyNFTOff(tokenURI,tokenId,owner);
-            }else{
-                //buy onchain
-                buyNFTOn(tokenId,owner,metaData.creator)
-            }
-        })
-    }
+
 
     function changeNFTPrice(){
         setNFTPriceModal(true);
@@ -280,10 +290,17 @@ function OneNFTPage(){
 
         <Snackbar open={state.open} onClose={handleClose} TransitionComponent={state.Transition} message={state.message} key={state.Transition.name} />
 
-            {openWallet &&
-            <Wallet closeWalletFunc={()=>{setOpenWallet(false)}}>
-                <ApprovalView approveClicked={() =>{approveClicked() ; setState({open:true, Transition: Slide, message:"Transaction approved. This process may take up to 2 min."}) } } 
-                            cancelClicked={()=>{ setOpenWallet(false); setState({open:true, Transition: Slide, message:"Transaction canceled"})}}/>
+            {/* Send NFT with Approve Wallet*/}
+            {sendOneNFTModal &&
+            <Wallet closeWalletFunc={()=>{setTxObj(false)}}>
+                <SendNFTIntegration onCloseClick={closeSend} tokenId={tokenId} text={`Send NFT: ${metaData.name}`} />
+            </Wallet>
+            }
+
+            {/* Buy NFT with Approve Wallet*/}
+            {txObj &&
+            <Wallet closeWalletFunc={()=>{setTxObj(false)}}>
+                <ApprovalView type="buy NFT" tx={txObj}/>
             </Wallet>
             }
 
@@ -304,7 +321,7 @@ function OneNFTPage(){
                 { NFTPriceModel && <PopupFenster integration={<SetNFTPriceIntegration nftpriceChanged={nftpriceChanged} onCloseClick={closeSetPrice} tokenId={tokenId}/>} text={"Set NFT price"} onCloseClicked={closeSetPrice} />  }
 
                 {/* SendNFT Popup */}
-                {sendOneNFTModal && <PopupFenster integration={<SendNFTIntegration onCloseClick={closeSend} tokenId={tokenId}/>} onCloseClicked={closeSend} text={`Send NFT: ${metaData.name}`}/>}
+                {false && <PopupFenster integration={<SendNFTIntegration onCloseClick={closeSend} tokenId={tokenId}/>} onCloseClicked={closeSend} text={`Send NFT: ${metaData.name}`}/>}
 
                 {/* Likes Popup */}
                 {likesList && <PopupFenster onCloseClicked={closeLikesList} integration={<LikesIntegration likesList={NFTLikesArrayForList}/>}  text={"Favorited by"} />  }

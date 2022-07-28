@@ -47,7 +47,7 @@ async function createNFTOnAndOff(metaData,imageFile,itemName,searchTearms,collec
     }else{
         console.log("onchain")
         //create NFT with metadata return from IPFS upload
-        await createNFT(metaDataURL,tokenIdMeta); 
+        return await createNFT(metaDataURL,tokenIdMeta); 
     }
 
     return tokenIdMeta;

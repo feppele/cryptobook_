@@ -2,7 +2,6 @@ import classes from './FriendListElement.module.css';
 
 import {shortAddr} from '../../web3/LoadingFunctions';
 import {useHistory} from 'react-router-dom';
-import {sendNFT} from '../../web3/NFTContractHelper';
 import {useEffect,useState} from 'react'
 
 
@@ -16,11 +15,9 @@ function FriendListElement(props){
     const [profilePic,setProfilePic] =useState(StandartProfilPic);
 
     function send(){
-
-        sendNFT(props.friendItem.friend_addr,props.tokenId)
-
-        props.closeSendModal();
+        props.send(props.friendItem.friend_addr,props.tokenId);
     }
+
 
 
 

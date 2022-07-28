@@ -87,10 +87,11 @@ async function sendNFT(to,tokenId){
     if(userdata.metamask === true){// Metamask
         const _from = await window.web3.currentProvider.selectedAddress;
         NFTContract.methods.transferFrom(_from,_to,_tokenId).send({from:_from}).then(console.log).catch(console.log);
+        return false // if metamask
 
     }else{// MCB Wallet
 
-        sendNFTInfura(  userdata.address, _to, userdata.privatekey, _tokenId,"data","contractAddr"  ) //(from,to,privateKey,value)
+        return await sendNFTInfura(  userdata.address, _to, userdata.privatekey, _tokenId,"data","contractAddr"  ) //(from,to,privateKey,value)
 
     }
 }

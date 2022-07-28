@@ -55,24 +55,25 @@ export async function sendNFTInfura(from,to,privateKey,tokenid){
 
     const gasPrice = await web3.eth.getGasPrice()
 
-    web3.eth.getTransactionCount(from, (err,txCount) =>  {
+    const txCount =  await web3.eth.getTransactionCount(from)
 
-        const nonce = web3.utils.toHex(txCount);
-        const txObject = {
-        nonce: nonce,
-        to: NFTContractAddress,
-        from:from,
-        gas: web3.utils.toHex('135778'),
-        gasPrice:web3.utils.toHex(gasPrice),
-        data: NFTContract.methods.transferFrom(from,to,tokenid).encodeABI()
-        }
-        //SIGN TRANSACTION
-        const tx =  new Tx(txObject,{'chain': netzwerk}) 
-        tx.sign(privateKey)
-        const serializedTransaction = tx.serialize()
-        const raw = '0x' + serializedTransaction.toString('hex')
-        web3.eth.sendSignedTransaction(raw ).on('receipt', console.log)
-    })
+    const nonce = web3.utils.toHex(txCount);
+    const txObject = {
+    nonce: nonce,
+    to: NFTContractAddress,
+    from:from,
+    gas: web3.utils.toHex('135778'),
+    gasPrice:web3.utils.toHex(gasPrice),
+    data: NFTContract.methods.transferFrom(from,to,tokenid).encodeABI()
+    }
+    //SIGN TRANSACTION
+    const tx =  new Tx(txObject,{'chain': netzwerk}) 
+    return tx
+    // tx.sign(privateKey)
+    // const serializedTransaction = tx.serialize()
+    // const raw = '0x' + serializedTransaction.toString('hex')
+    // web3.eth.sendSignedTransaction(raw ).on('receipt', console.log)
+
 }
 
 
@@ -96,11 +97,12 @@ export async function mintNFTInfura(from,privateKey,id,metaDataURL){
     }
     //SIGN TRANSACTION
     const tx =  new Tx(txObject,{'chain': netzwerk}) 
-    console.log(tx)
-    tx.sign(privateKey)
-    const serializedTransaction = tx.serialize()
-    const raw = '0x' + serializedTransaction.toString('hex')
-    return web3.eth.sendSignedTransaction(raw ).on('receipt', console.log)
+    return tx;
+    // console.log(tx)
+    // tx.sign(privateKey)
+    // const serializedTransaction = tx.serialize()
+    // const raw = '0x' + serializedTransaction.toString('hex')
+    // return web3.eth.sendSignedTransaction(raw ).on('receipt', console.log)
 
 }
 
@@ -126,11 +128,12 @@ export async function buyTokenOffInfura(privateKey, from,_metadataURI,_tokenId,_
     }
     //SIGN TRANSACTION
     const tx =  new Tx(txObject,{'chain': netzwerk}) 
-    console.log(tx)
-    tx.sign(privateKey)
-    const serializedTransaction = tx.serialize()
-    const raw = '0x' + serializedTransaction.toString('hex')
-    return web3.eth.sendSignedTransaction(raw ).on('receipt', console.log)
+    return tx
+
+    // tx.sign(privateKey)
+    // const serializedTransaction = tx.serialize()
+    // const raw = '0x' + serializedTransaction.toString('hex')
+    // return web3.eth.sendSignedTransaction(raw ).on('receipt', console.log)
 
 }
 
@@ -155,11 +158,12 @@ export async function buyTokenOnInfura(privateKey, from, _tokenId, _seller, _cre
     }
     //SIGN TRANSACTION
     const tx =  new Tx(txObject,{'chain': netzwerk}) 
-    console.log(tx)
-    tx.sign(privateKey)
-    const serializedTransaction = tx.serialize()
-    const raw = '0x' + serializedTransaction.toString('hex')
-    return web3.eth.sendSignedTransaction(raw ).on('receipt', console.log)
+    return tx
+    // console.log(tx)
+    // tx.sign(privateKey)
+    // const serializedTransaction = tx.serialize()
+    // const raw = '0x' + serializedTransaction.toString('hex')
+    // return web3.eth.sendSignedTransaction(raw ).on('receipt', console.log)
 
 }
 
@@ -184,11 +188,12 @@ export async function updateFriendsfura(privateKey, from, name, friendaddress){
     }
     //SIGN TRANSACTION
     const tx =  new Tx(txObject,{'chain': netzwerk}) 
-    console.log(tx)
-    tx.sign(privateKey)
-    const serializedTransaction = tx.serialize()
-    const raw = '0x' + serializedTransaction.toString('hex')
-    return web3.eth.sendSignedTransaction(raw ).on('receipt', console.log)
+    return tx;
+    // console.log(tx)
+    // tx.sign(privateKey)
+    // const serializedTransaction = tx.serialize()
+    // const raw = '0x' + serializedTransaction.toString('hex')
+    // return web3.eth.sendSignedTransaction(raw ).on('receipt', console.log)
 
 }
 
