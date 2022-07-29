@@ -115,7 +115,7 @@ import ApprovalView from '../../components/wallet/ApprovalView';
                         {/* Buy NFT with Approve Wallet*/}
                         {txObj &&
             <Wallet closeWalletFunc={()=>{setTxObj(false)}}>
-                <ApprovalView type="buy NFT" tx={txObj}/>
+                <ApprovalView type="add Friend" tx={txObj}/>
             </Wallet>
             }
 

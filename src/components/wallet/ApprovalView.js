@@ -96,8 +96,8 @@ function ApprovalView(props) {
         console.table(tx._fields)
         console.table(tx.raw)
 
-        // IF Send Ether
-        if(props.type ==="send Ether" || props.type ==="buy NFT"  || props.type === "send NFT"){
+        
+        if(true){
             const to = shortAddr(  "0x" + toHexString(tx.raw[3])  )
             const value = web3.utils.fromWei(readInt(tx.raw[4]).toString(),"ether")
             const gasLimit =  parseInt(  toHexString(tx.raw[2])  ,16).toString()  
@@ -137,18 +137,18 @@ function ApprovalView(props) {
             {/*totalAmount*/}
             <div style={{backgroundColor:theme.color2,border:theme.border}} className={classes.box}>
 
-                <div style={{borderBottom: theme.border,fontSize:'20px'}} className={classes.action}>
+                <div style={{color:theme.font,borderBottom: theme.border,fontSize:'20px'}} className={classes.action}>
                     {props.type}
                 </div>
 
                 <div style={{borderBottom: theme.border}} className={classes.details}>
 
-                    <div className={classes.data} >  {"To: " }      <div> {txData.to} </div>                      </div>  
-                    <div className={classes.data} >  {"Value: " }   <div> {txData.value + " Ether"} </div>        </div>
-                    <div className={classes.data} >  {"Max fee: "}  <div> {txData.fee + " Ether"} </div>         </div>
-                    <div className={classes.data} >  {"Max fee: "}  <div> {txData.feeUSD + " USD"} </div>        </div>
-                    <div className={classes.data} >  {"gasLimit: "} <div> {txData.gasLimit } </div>   </div>
-                    <div className={classes.data} >  {"gasPrice: "} <div> {txData.gasPrice + " Gwei"} </div>   </div>
+                    <div style={{color:theme.font}} className={classes.data} >  {"To: " }      <div> {txData.to} </div>                      </div>  
+                    <div style={{color:theme.font}} className={classes.data} >  {"Value: " }   <div> {txData.value + " Ether"} </div>        </div>
+                    <div style={{color:theme.font}} className={classes.data} >  {"Max fee: "}  <div> {txData.fee + " Ether"} </div>         </div>
+                    <div style={{color:theme.font}} className={classes.data} >  {" - in USD: "}  <div> {txData.feeUSD + " USD"} </div>        </div>
+                    <div style={{color:theme.font}} className={classes.data} >  {"gasLimit: "} <div> {txData.gasLimit } </div>   </div>
+                    <div style={{color:theme.font}} className={classes.data} >  {"gasPrice: "} <div> {txData.gasPrice + " Gwei"} </div>   </div>
 
 
                 </div>

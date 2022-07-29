@@ -25,6 +25,8 @@ import {UserContext} from '../../UserProvider'
 
 // import Waller Views
 import AmountView from './AmountView'
+import HistoryView from './HistoryView'
+
 import ApprovalView from './ApprovalView'
 import SendView from './SendView'
 
@@ -92,7 +94,7 @@ export default function Wallet(props) {
         <div style={{backgroundColor:theme.color1}} ref={wallet} className={classes.wallet}>
 
             {/*header*/}
-            <div className={classes.header}>
+            <div style={{borderBottom: theme.border}} className={classes.header}>
  
 
                 <div style={{display: 'flex',alignItems: 'center'}}>
@@ -120,7 +122,6 @@ export default function Wallet(props) {
             {/*Integration*/}
 
                 {props.children}
-
 
 
 

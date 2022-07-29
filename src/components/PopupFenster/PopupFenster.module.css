@@ -55,7 +55,10 @@
 @keyframes driveIn {
     from {top: 100px; opacity: 0}
     tp {top: 150px; opacity: 1;}
-    
+}
+@keyframes driveOut {
+    from {top: 150px; opacity: 1}
+    tp {top: 100px; opacity: 0;}
 }
 
 .top{

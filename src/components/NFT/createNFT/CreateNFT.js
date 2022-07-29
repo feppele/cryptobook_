@@ -188,7 +188,7 @@ function CreateNFT(props){
             {/* Buy NFT with Approve Wallet*/}
             {txObj &&
             <Wallet closeWalletFunc={()=>{setTxObj(false)}}>
-                <ApprovalView type="buy NFT" tx={txObj}/>
+                <ApprovalView type="create NFT" tx={txObj}/>
             </Wallet>
             }
 
@@ -196,7 +196,7 @@ function CreateNFT(props){
 
             {InfoBoxOpen && <InfoBox onCloseClick={closeInfoBox}/> }
 
-            {creationFinish && <FinishedNFT tokenId={tokenId} txHash={txHash} />}
+           {creationFinish && <FinishedNFT tokenId={tokenId} txHash={txHash} />}
             {creationFinish && <FinishedNFTBackdrop onBackDropClicked={onBackDropClicked}/>}
 
                 <div style={{color: theme.font}} className={classes.h1}>Create new Item</div>

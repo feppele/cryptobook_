@@ -6,6 +6,7 @@ import classes from './AmountView.module.css'
 import {getProfilePicURL} from '../../node/images'
 import {shortAddr} from '../../web3/LoadingFunctions'
 import etherSign from '../../images/ethereum.png'
+import HistoryView from './HistoryView'
 
 //material UI
 import Avatar from '@mui/material/Avatar';
@@ -19,6 +20,9 @@ import {NightContext} from '../../NightModeProvider'
 
 //User Context
 import {UserContext} from '../../UserProvider'
+
+import { ethers } from "ethers";
+
 
 import {_web3} from '../../web3/Web3'
 var web3 = _web3.mcbWallet
@@ -52,6 +56,9 @@ function AmountView(props) {
     })
 
 
+
+
+
   return (
         <div className={classes.integration}>
             {/*totalAmount*/}
@@ -75,6 +82,9 @@ function AmountView(props) {
 
                 <div style={{margin:'10px',fontSize:'18px',color:theme.font}}>{ethBalance}</div>
             </div>
+
+
+            <HistoryView />
 
 
         </div>
