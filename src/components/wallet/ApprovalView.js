@@ -13,6 +13,10 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import Snackbar from '@mui/material/Snackbar';
 import Slide from '@mui/material/Slide';
+import TextField from '@mui/material/TextField';
+
+import {loginDB,PWdecrypt} from '../../node/username'
+
 
 
 //ColorTheme - Night Mode
@@ -61,12 +65,34 @@ function ApprovalView(props) {
     useEffect(()=>{ nightMode ? setTheme(themes.dark) : setTheme(themes.bright) },[nightMode])
 
     const [openAmountView,setopenAmountView] =useState(false)
+    const [password,setPassword] = useState("")
+    const [loginError,setLoginError] = useState("")    
+
+    // check PW and decrypt Private Key
+    async function decryptPrivateKey(){
+        const res = await loginDB(userdata.name,password) // not exist: return "error" else: {name:'',pw:'',publickey,privatekey,address}
+
+        console.log(res)
+        if( res === "error"){
+            setLoginError("unvalid password")
+            return false
+        }
+        return true
+    }
 
 
     async function approve(){
-        signTx(props.tx,userdata.privatekey)
-        //props.closeWalletFunc()
-        setopenAmountView(true)
+
+        // checks if PW correct
+        if(! await decryptPrivateKey()){ 
+            return
+        }
+        // decrypto Private Key and sign Tx with it
+        const decryptedPrivateKey = PWdecrypt(userdata.privatekey,password)
+        signTx(props.tx,decryptedPrivateKey)
+
+
+        setopenAmountView(true) // open Amount View and Closes Approve View
         // for Snackbar
         setState({ ...state, open: true, message:"Transaction approved... This may take up to 2 min.", })
 
@@ -96,7 +122,6 @@ function ApprovalView(props) {
         console.table(tx._fields)
         console.table(tx.raw)
 
-        
         if(true){
             const to = shortAddr(  "0x" + toHexString(tx.raw[3])  )
             const value = web3.utils.fromWei(readInt(tx.raw[4]).toString(),"ether")
@@ -141,7 +166,7 @@ function ApprovalView(props) {
                     {props.type}
                 </div>
 
-                <div style={{borderBottom: theme.border}} className={classes.details}>
+                <div  className={classes.details}>
 
                     <div style={{color:theme.font}} className={classes.data} >  {"To: " }      <div> {txData.to} </div>                      </div>  
                     <div style={{color:theme.font}} className={classes.data} >  {"Value: " }   <div> {txData.value + " Ether"} </div>        </div>
@@ -153,7 +178,16 @@ function ApprovalView(props) {
 
                 </div>
 
-                <div className={classes.approve}>
+                <div style={{borderTop: theme.border}} className={classes.approve}>
+
+                    <div className={classes.pwWrapper}>
+                        <div>Confirm with your Password</div>
+                        <TextField  value={password} onChange={(e)=>{setPassword(e.target.value);setLoginError("")}} helperText={loginError} error={loginError!==""} label="Password" type="password"  sx={{width:'100%'}}  />
+                    </div>
+
+                </div>
+
+                <div style={{borderTop: theme.border}} className={classes.approve}>
 
                     <Button onClick={cancel} sx={{width:'90px'}} variant="outlined"> Cancel</Button>
                     <Button onClick={approve} sx={{width:'90px'}} variant="contained">  Approve</Button>

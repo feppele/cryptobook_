@@ -52,7 +52,7 @@ function NavBar(){
 
     return (
 
-        <div>
+        <div className={classes.container1}>
             <AufklappMenu open={aufklappMenu} onClose={()=>{setAufklappMenu(false)}}/>
 
             <div style={{backgroundColor:theme.startPage}} className={classes.container}>

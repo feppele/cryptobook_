@@ -49,11 +49,13 @@ import ApprovalView from '../../components/wallet/ApprovalView';
     const [allFriends,setAllFriends] = useState([]);
 
     function openAddFriend(){
+        console.log("OPEN")
         setAddFriendIsOpen(true);
     }
     function closeAddFriend(){
         setAddFriendIsOpen(false);
     }
+    console.log(addFriendIsOpen)
 
     
     // Load Friends Stuff

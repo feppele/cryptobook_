@@ -1,0 +1,44 @@
+
+
+.integration{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:20px;
+}
+.box{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid rgb(212, 212, 212);
+    width: 90%;
+    border-radius: 5px;
+}
+
+.pwWrapper{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.approve{
+    width: calc(100% - 20px);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:20px;
+
+}
+
+
+.key{
+    width: calc(100% - 10px);
+    height: 100px;
+    padding: 5px;
+    white-space: initial;
+    word-wrap: break-word
+}

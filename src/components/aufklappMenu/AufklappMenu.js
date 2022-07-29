@@ -35,6 +35,8 @@ function AufklappMenu(props){
 
         <div ref={ref} style={open? {top:'64px',backgroundColor:theme.startPage} : {top:'-200px',backgroundColor:theme.startPage} } className={classes.container}>
 
+            <div style= {{color: theme.font}} className={classes.header}>Connect Wallet</div>
+
             <LoginIntegration nextPage={"/home"}/>
 
             <div className={classes.blurr}>

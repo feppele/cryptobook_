@@ -16,12 +16,14 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 //popup
 import PopupFenster from '../../PopupFenster/PopupFenster'
 import LoginIntegration from '../../PopupFenster/LoginIntegration'
+import AufklappMenu from '../../aufklappMenu/AufklappMenu'
 
 function Impressum(){
 
     const history = useHistory()
 
-    const [loginPageIsOpen,setloginPageIsOpen] = useState(false)
+    const [ aufklappMenu, setAufklappMenu ] = useState(false);
+
 
     function checkIfLogin(){
         const userdata = JSON.parse(sessionStorage.getItem("userdata"))
@@ -30,21 +32,21 @@ function Impressum(){
 
     function openProfile(){
         if(!checkIfLogin()){ // if not login
-            setloginPageIsOpen(true)
+            setAufklappMenu(true)
             return
         }
         history.push("/me");
     }
     function openFriends(){
         if(!checkIfLogin()){ // if not login
-            setloginPageIsOpen(true)
+            setAufklappMenu(true)
             return
         }
         history.push("/friends");
     }
     function openMyNFT(){
         if(!checkIfLogin()){ // if not login
-            setloginPageIsOpen(true)
+            setAufklappMenu(true)
             return
         }
         history.push("/mynft");
@@ -76,7 +78,7 @@ function Impressum(){
 
     function openCryptoChat(){
         if(!checkIfLogin()){ // if not login
-            setloginPageIsOpen(true)
+            setAufklappMenu(true)
             return
         }
         history.push("/chats");
@@ -90,7 +92,7 @@ function Impressum(){
 
         <div className={classes.container}>
 
-           { loginPageIsOpen && <PopupFenster integration={<LoginIntegration nextPage={"/home"}/>} onCloseClicked={()=>{setloginPageIsOpen(false)}} text={"Connect Wallet"}/>   }
+        <AufklappMenu open={aufklappMenu} onClose={()=>{setAufklappMenu(false)}}/> 
 
 
             <div className={classes.container2}> 

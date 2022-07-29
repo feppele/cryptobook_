@@ -20,6 +20,7 @@ import {NightContext} from '../../NightModeProvider'
 //popup
 import PopupFenster from '../PopupFenster/PopupFenster'
 import LoginIntegration from '../PopupFenster/LoginIntegration'
+import AufklappMenu from '../aufklappMenu/AufklappMenu'
 
 
 function HomePage(){
@@ -29,7 +30,8 @@ function HomePage(){
     const [theme,setTheme] =useState(themes.bright)
     useEffect(()=>{ nightMode ? setTheme(themes.dark) : setTheme(themes.bright) },[nightMode])
 
-    const [loginPageIsOpen,setloginPageIsOpen] = useState(false)
+    const [ aufklappMenu, setAufklappMenu ] = useState(false);
+
 
 
     const history = useHistory();
@@ -43,7 +45,7 @@ function HomePage(){
 
     async function openCreatePage(){
         if(!checkIfLogin()){ // if not login
-            setloginPageIsOpen(true)
+            setAufklappMenu(true)
             return
         }
         history.push("/createnft");
@@ -51,7 +53,8 @@ function HomePage(){
 
     async function openChat(){
         if(!checkIfLogin()){ // if not login
-            setloginPageIsOpen(true)
+            console.log("openchat")
+            setAufklappMenu(true)
             return
         }
         history.push("/chats");
@@ -62,7 +65,7 @@ function HomePage(){
     }
     async function goToFriends(){
         if(!checkIfLogin()){ // if not login
-            setloginPageIsOpen(true)
+            setAufklappMenu(true)
             return
         }
         history.push("/friends")
@@ -89,8 +92,8 @@ function HomePage(){
 
         <div style={{backgroundColor: theme.startPage}} className={classes.container}>
 
-           { loginPageIsOpen && <PopupFenster integration={<LoginIntegration nextPage={"/home"}/>} onCloseClicked={()=>{setloginPageIsOpen(false)}} text={"Connect Wallet"}/>   }
 
+        <AufklappMenu open={aufklappMenu} onClose={()=>{setAufklappMenu(false)}}/> 
 
 
            <Box 

@@ -34,7 +34,8 @@ export async function loginDB(name,pw){
         return "error"
     }else{
         res = res[0][0]
-        res.privatekey = PWdecrypt(res.privatekey,unhasedPW)
+        // dont encrypt Private Key here anymore. it will just be encrypted when used
+        //res.privatekey = PWdecrypt(res.privatekey,unhasedPW)
         res.address = res.address.toLowerCase()
         return res
     }
@@ -51,9 +52,10 @@ function PWencrypt(clear,pw){
 
 }
 
-function PWdecrypt(cipher,pw){
+export function PWdecrypt(cipher,pw){
     var decipher = crypto.AES.decrypt(cipher, pw);
     decipher = decipher.toString(crypto.enc.Utf8);
     return decipher;
 
 }
+

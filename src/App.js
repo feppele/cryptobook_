@@ -30,6 +30,8 @@ import {UserProvider} from './UserProvider'
 
 function App() {
 
+  const userdata = JSON.parse(sessionStorage.getItem("userdata"))
+
   return(
     <div>
       <UserProvider>
@@ -37,73 +39,69 @@ function App() {
 
       <Switch>
         <Route path='/' exact>
-          <NavBar />
+        <NavBar/>
           <StartPage />
         </Route>
 
         <Route path='/home'>
-          <NavBarHome />
+        <NavBarHome/>
           <Home />
         </Route>
 
         <Route path='/me'>
-          <NavBarHome />
+        <NavBarHome/>
           <Profil />
         </Route>
 
         <Route path='/friends/'>
-          <NavBarHome />
+        <NavBarHome/>
           <FriendsPage />
         </Route>
 
         <Route path='/profile/:address'>
-          <NavBarHome />
+        {JSON.parse(sessionStorage.getItem("userdata"))===null ? <NavBar/> : <NavBarHome/>}
           <FriendProfil/>
         </Route>
 
         <Route path='/MyNft'>
-          <NavBarHome />
+        <NavBarHome/>
           <MyNftPage/>
         </Route>
 
         <Route path='/createNFT'>
-          <NavBarHome />
+        <NavBarHome/>
           <CreateNFT />
         </Route>
 
         <Route path='/finishedNFT'>
-          <NavBarHome />
+        <NavBarHome/>
           <FinishedNFT />
         </Route>
 
         <Route path='/thisNFT/:tokenId'>
-          <NavBarHome />
+        {JSON.parse(sessionStorage.getItem("userdata"))===null ? <NavBar/> : <NavBarHome/>}
           <OneNFTPage />
         </Route>
 
 
         <Route path='/collection/:collectionName'>
-          <NavBarHome />
+        {JSON.parse(sessionStorage.getItem("userdata"))===null ? <NavBar/> : <NavBarHome/>}
           <CollectionPage />
         </Route>
 
         <Route path='/marketplace/'>
-          <NavBarHome />
+        {JSON.parse(sessionStorage.getItem("userdata"))===null ? <NavBar/> : <NavBarHome/>}
           <Marketplace />
         </Route>
 
-        <Route path='/noMetaMask'>
-          <NavBarHome />
-          <NoMetaMaskPage />
-        </Route>
 
         <Route path='/chats'>
-          <NavBarHome />
+        <NavBarHome/>
           <ChatPage />
         </Route>
 
         <Route path='/login'>
-          <LoginPage />
+        <LoginPage />
         </Route>
 
 

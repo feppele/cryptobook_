@@ -26,6 +26,8 @@ import {UserContext} from '../../UserProvider'
 // import Waller Views
 import AmountView from './AmountView'
 import HistoryView from './HistoryView'
+import ExtractKey from './ExtractKey'
+
 
 import ApprovalView from './ApprovalView'
 import SendView from './SendView'
@@ -46,7 +48,7 @@ const ethPrice = require('eth-price');
 //props.closeWalletFunc:Function
 export default function Wallet(props) {
 
-
+    const [child,setChild] = useState(props.children)
 
     const userData = useContext(UserContext)
         // Night Mode
@@ -72,15 +74,9 @@ export default function Wallet(props) {
     }
 
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-    const [opened, setOpened] = useState(false);
+    function openExtractKey(){
+        setChild(<ExtractKey/>)
+    }
 
   return (
 
@@ -112,7 +108,7 @@ export default function Wallet(props) {
 
 
                 <Tooltip title="Copy" placement="right">
-                    <IconButton sx={{marginRight:'10px'}} ><img src={keyImg} style={{height: '20px',width: 'auto'}}></img></IconButton>
+                    <IconButton  onClick={openExtractKey} sx={{marginRight:'10px'}} ><img src={keyImg} style={{height: '20px',width: 'auto'}}></img></IconButton>
                 </Tooltip>
                 </div>
 
@@ -121,7 +117,7 @@ export default function Wallet(props) {
 
             {/*Integration*/}
 
-                {props.children}
+                {child}
 
 
 

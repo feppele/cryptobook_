@@ -2,6 +2,8 @@
     width: 700px;
     border-radius: 15px;
     padding: 40px;
+    padding-left: 60px;
+    padding-right: 60px;
     background-color: #2b2c3d;
     background-color: rgb(11, 11, 11);
     display:flex;

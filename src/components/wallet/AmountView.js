@@ -83,8 +83,10 @@ function AmountView(props) {
                 <div style={{margin:'10px',fontSize:'18px',color:theme.font}}>{ethBalance}</div>
             </div>
 
-
-            <HistoryView />
+            {userdata.metamask !== true &&
+                <HistoryView />
+            }
+            
 
 
         </div>

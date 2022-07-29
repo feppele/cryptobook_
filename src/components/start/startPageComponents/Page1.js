@@ -18,8 +18,12 @@ function Page1(){
 
     
 
-const text1 = `Make the first step into the 
+    const text1 = `Make the first step into the 
 connected Blockchain World`;
+
+// const text1 = `The first Blockchain Social Media
+// for save messaging, NFTs, `;
+
 const text2 = `Store your friends Identity
 on Blockchain`;
 const text3 = `Send cryptos to friends
