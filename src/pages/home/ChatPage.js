@@ -250,8 +250,6 @@ function ChatPage(){
 
 
 
-
-
         { openAddModal && <PopupFenster integration={<AddFriendIntegration/>} onCloseClicked={closeAddFriend} text={"Add Friend"}/>}
 
 

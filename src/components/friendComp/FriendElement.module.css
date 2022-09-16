@@ -25,7 +25,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    position: absolute;
+    position: relative;
     right: 10px;
 }
 
@@ -36,7 +36,7 @@
     justify-content: center;
     align-items:center;
     gap:15px;
-    position: absolute;
+    position: relative;
 }
 
 

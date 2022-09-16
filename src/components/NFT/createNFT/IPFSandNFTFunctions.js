@@ -6,13 +6,28 @@ import {mintNFTInfura} from '../../../web3/SendEtherInfura'
 
 //ipfs upload
 async function ipfsUpload(metaData,file){ //  MetaData json: {itemName, collection, description, extLink}
-    const client = create('https://ipfs.infura.io:5001/api/v0')
+    
+    // This is old. Infura changed: now you have to auth so you need projectId and secret
+    //const client = create('https://ipfs.infura.io:5001/api/v0')
+
+    const projectId = '2El3apLGqvfQW4KIlNWEpc6pUrj';   // <---------- your Infura Project ID
+    const projectSecret = '0b4d9df7b83996fdcc1789724cb57e2d';  // <---------- your Infura Secret
+    const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+    const client = create({
+        host: 'ipfs.infura.io',
+        port: 5001,
+        protocol: 'https',
+        headers: {
+            authorization: auth,
+        },
+    });
 
     //first upload image
     try {
         const added = await client.add(file)
-        const url = `https://ipfs.infura.io/ipfs/${added.path}`
-        console.log(url);
+        // url changed, before was: https://ipfs.infura.io
+        const url = `https://ipfs.io/ipfs/${added.path}`
+        console.log("image URL: " + url);
 
         //{itemName, collection, description, extLink} + image: url
         metaData.image = url;
@@ -22,7 +37,8 @@ async function ipfsUpload(metaData,file){ //  MetaData json: {itemName, collecti
         // and then JSON STRING with Image and Metadata
         try {
           const added = await client.add(JSONMetadata)
-          var metaDataURL = `https://ipfs.infura.io/ipfs/${added.path}`
+          // url changed, before was: https://ipfs.infura.io
+          var metaDataURL = `https://ipfs.io/ipfs/${added.path}`
           console.log("metadata:    " + metaDataURL);
 
           return metaDataURL;

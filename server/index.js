@@ -163,10 +163,21 @@ async function getAnfrage(methode,ele){
   if(methode === "getLikesList"){
     anfrage= `
 
+    select tokenid from likes where address='${ele.address}';
+
+    `;
+  }
+
+  if(methode === "getAlltokenidILike"){
+    anfrage= `
+
     select Likes.address,name from Likes left outer join Person on Likes.address = Person.address where tokenid='${ele.tokenId}';
 
     `;
   }
+
+
+  
 
 
   // Follower

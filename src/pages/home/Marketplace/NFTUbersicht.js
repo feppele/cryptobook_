@@ -23,7 +23,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 const LIMIT_LOAD = 15
 
 // NFTUbersicht is used for MarketPlace and for MYNFTPAGE
-//if not MarketPlace then props.user is injected
+//if not MarketPlace then props.user is true
 function NFTUbersicht(props){
 
     const [loading,setLoading] = useState(true)
@@ -45,6 +45,11 @@ function NFTUbersicht(props){
         }else if (newAlignment === 'collection'){
             setCollectionMode(true)
             setSingleMode(false)
+        }
+        else if (newAlignment === 'liked' || newAlignment === 'created'){
+            // if liked or created stay in single Mode
+            setCollectionMode(false)
+            setSingleMode(true)
         }
     };
 
@@ -144,14 +149,11 @@ function NFTUbersicht(props){
                     <ToggleButton value="single" aria-label="right aligned" default sx={{width:'50%'}}>
                     <div style={{color:theme.font}}>Single</div>
                     </ToggleButton>
-                    {props.user && <ToggleButton value="Liked" aria-label="right aligned"  sx={{width:'50%'}}>
+                    {props.user && <ToggleButton value="liked" aria-label="right aligned"  sx={{width:'50%'}}>
                     <div style={{color:theme.font}}>Liked</div>
                     </ToggleButton>}
-                    {props.user && <ToggleButton value="Created" aria-label="right aligned"  sx={{width:'50%'}}>
+                    {props.user && <ToggleButton value="created" aria-label="right aligned"  sx={{width:'50%'}}>
                     <div style={{color:theme.font}}>Created</div>
-                    </ToggleButton>}
-                    {props.user && <ToggleButton value="Favorited" aria-label="right aligned"  sx={{width:'50%'}}>
-                    <div style={{color:theme.font}}>Favorited</div>
                     </ToggleButton>}
                 </ToggleButtonGroup>
                 </div>

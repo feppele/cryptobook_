@@ -10,6 +10,7 @@ import {getNFTLikes,likeNFT,dislikeNFT,doILike} from '../../node/NFTLikes';
 import {getTokenUri,getAllMetadataFromURI} from '../../web3/NFTContractHelper'
 import {getTokenURIDB,getPreisOfNFT} from '../../node/NFTData'
 import React,{useContext} from "react";
+import {getNFTImageServerURL} from '../../node/images.js'
 
 //material UI
 import IconButton from '@mui/material/IconButton';
@@ -72,26 +73,39 @@ function NFTFormatEasyOnePage(props){
 
         setMetadata( await getAllMetadataFromURI(tokenURI,tokenId) );
         return await getAllMetadataFromURI(tokenURI,tokenId);
-
-
     }
+
     useEffect(() => {
-        loadMetadata(props.tokenId).then((ipfsRes)=>{
+        loadMetadata(props.tokenId)
+        // loadMetadata(props.tokenId).then((ipfsRes)=>{
 
-            setImageURL(ipfsRes.image)
+        //     console.log(ipfsRes)
+        //     setImageURL(ipfsRes.image)
+        //     setImageLoad(true)
+
+        //     // New Feature: load Image from server. if no image on server load from ipfs 
+        //     // getNFTImageServerURL(props.tokenId).then(res=>{
+
+        //     //     if(res.length >0 ){
+        //     //         setImageURL(res[0]);
+        //     //     }else{
+        //     //         setImageURL(ipfsRes.image)
+        //     //     }
+        //     //     setImageLoad(true)
+        //     // })
+
+        // })
+
+        // Load Images just from server not from IPFS anymore
+        getNFTImageServerURL(props.tokenId).then(res=>{
+            
+            if(res.length >0 ){
+                setImageURL(res[0]);
+            }else{
+                //setImageURL(ipfsRes.image)
+                console.error("Nich von server laden können!!!")
+            }
             setImageLoad(true)
-
-            // New Feature: load Image from server. if no image on server load from ipfs 
-            // getNFTImageServerURL(props.tokenId).then(res=>{
-
-            //     if(res.length >0 ){
-            //         setImageURL(res[0]);
-            //     }else{
-            //         setImageURL(ipfsRes.image)
-            //     }
-            //     setImageLoad(true)
-            // })
-
         })
 
 
@@ -164,8 +178,8 @@ function NFTFormatEasyOnePage(props){
 
             <div style={{backgroundColor: theme.color2}} className={classes.bottom}>
 
-                <div style={{color: theme.font}} className={classes.nameAndFrom}> {metaData.name}</div>
-                <div style={{color: theme.font}} className={classes.nameAndNumber}>{metaData.collection }</div>
+                <div style={{color: theme.font}} className={classes.nameAndFrom}> {metaData?.name}</div>
+                <div style={{color: theme.font}} className={classes.nameAndNumber}>{metaData?.collection }</div>
 
 
                 

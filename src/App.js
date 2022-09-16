@@ -59,7 +59,7 @@ function App() {
         </Route>
 
         <Route path='/profile/:address'>
-        {JSON.parse(sessionStorage.getItem("userdata"))===null ? <NavBar/> : <NavBarHome/>}
+        <NavBarHome/>
           <FriendProfil/>
         </Route>
 
@@ -79,18 +79,19 @@ function App() {
         </Route>
 
         <Route path='/thisNFT/:tokenId'>
-        {JSON.parse(sessionStorage.getItem("userdata"))===null ? <NavBar/> : <NavBarHome/>}
+        { /* JSON.parse(sessionStorage.getItem("userdata"))===null ? <NavBar/> : <NavBarHome/> */}
+        <NavBarHome/>
           <OneNFTPage />
         </Route>
 
 
         <Route path='/collection/:collectionName'>
-        {JSON.parse(sessionStorage.getItem("userdata"))===null ? <NavBar/> : <NavBarHome/>}
+        <NavBarHome/>
           <CollectionPage />
         </Route>
 
         <Route path='/marketplace/'>
-        {JSON.parse(sessionStorage.getItem("userdata"))===null ? <NavBar/> : <NavBarHome/>}
+        <NavBarHome/>
           <Marketplace />
         </Route>
 

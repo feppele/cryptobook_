@@ -55,7 +55,7 @@ function readInt(array) {
 
 // Just needs props.type and props.tx to sign tx and geht txInfos
 // close: props.closeWalletFunc()
-// props.type: "send Ether" oder "buy Offchain NFT"
+
 function ApprovalView(props) {
 
     userdata = JSON.parse(sessionStorage.getItem("userdata"))
@@ -70,6 +70,7 @@ function ApprovalView(props) {
 
     // check PW and decrypt Private Key
     async function decryptPrivateKey(){
+        // faster version to check PW: hash(PW) is in userdata.pw
         const res = await loginDB(userdata.name,password) // not exist: return "error" else: {name:'',pw:'',publickey,privatekey,address}
 
         console.log(res)
@@ -181,7 +182,7 @@ function ApprovalView(props) {
                 <div style={{borderTop: theme.border}} className={classes.approve}>
 
                     <div className={classes.pwWrapper}>
-                        <div>Confirm with your Password</div>
+                        <div style={{fontSize:'18px'}}>Confirm with your Password</div>
                         <TextField  value={password} onChange={(e)=>{setPassword(e.target.value);setLoginError("")}} helperText={loginError} error={loginError!==""} label="Password" type="password"  sx={{width:'100%'}}  />
                     </div>
 

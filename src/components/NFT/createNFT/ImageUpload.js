@@ -24,10 +24,22 @@ function ImageUpload(props){
     //ipfs upload
     async function ipfsUpload(file){
         const client = create('https://ipfs.infura.io:5001/api/v0')
+        // const projectId = '2El3apLGqvfQW4KIlNWEpc6pUrj';   // <---------- your Infura Project ID
+        // const projectSecret = '0b4d9df7b83996fdcc1789724cb57e2d';  // <---------- your Infura Secret
+        // const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+        // const client = create({
+        //     host: 'ipfs.infura.io',
+        //     port: 5001,
+        //     protocol: 'https',
+        //     headers: {
+        //         authorization: auth,
+        //     },
+        // });
 
         try {
             const added = await client.add(file)
-            const url = `https://ipfs.infura.io/ipfs/${added.path}`
+            // url changed, before was: https://ipfs.infura.io
+            const url = `https://ipfs.io/ipfs/${added.path}`
             console.log(url);
 
             const JSONMetadata=JSON.stringify({ name: props.name, image: url });
@@ -35,7 +47,7 @@ function ImageUpload(props){
             // add JSON STRING with Image and Metadata
             try {
               const added = await client.add(JSONMetadata)
-              metaDataURL = `https://ipfs.infura.io/ipfs/${added.path}`
+              metaDataURL = `https://ipfs.io/ipfs/${added.path}`
               console.log("metadata:    " + metaDataURL);
 
             } catch (error) {

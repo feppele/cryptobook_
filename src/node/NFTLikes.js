@@ -6,6 +6,8 @@ import {fetchi} from '../globalData'
 import {setNotificationsToDB} from './NotificationManagement'
 import {getOwnerFromTokenId} from './NFTData'
 
+
+// @return count of likes of given tokenId
 async function getNFTLikes(tokenId){
 
     const res = await fetch(fetchi+ "/databank",getOptions("getNFTLikes",{tokenId: tokenId}))
@@ -61,6 +63,20 @@ async function doILike(tokenId){
         }
     })
     return res2;
+
+}
+
+async function getAlltokenidILike(tokenId){
+
+    const userdata = JSON.parse(sessionStorage.getItem("userdata"))
+    if(userdata === null || userdata === undefined){return}
+    const me = userdata.address
+
+    const res =  fetch(fetchi+ "/databank",getOptions("getAlltokenidILike",{ address: me })).then(res=>{return res.json() })
+
+    console.table(res)
+
+    // function not finish
 
 }
 

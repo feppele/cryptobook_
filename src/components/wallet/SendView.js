@@ -33,10 +33,6 @@ function SendView(props){
     const [etherPrice,setEtherPrice]= useState(false);
     const [oneEther,setOneEther] =useState(false);
     const [txObj,setTxObj] =useState(false);
-    
-
-
-
     const[sendEther,setSendEther] = useState(0);
 
     const nightMode = useContext(NightContext)
@@ -45,9 +41,10 @@ function SendView(props){
 
 
 
+
     async function send(){
         //props.closeWalletFunc()
-        
+
         // if Metamask is conncted userdata = {address} if MCB Wallet userdata={address,privkey,pubkey,....}
         const userdata = JSON.parse(sessionStorage.getItem("userdata"))
         if(userdata.metamask === true){// Metamask
@@ -120,6 +117,8 @@ function SendView(props){
         oneEtherCalc();
     },[])
 
+
+    
 
 
     return (

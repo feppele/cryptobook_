@@ -1,9 +1,5 @@
 
 
-
-
-
-
 async function isMetaMaskConnected() {
     const {ethereum} = window;
     const accounts = await ethereum.request({method: 'eth_accounts'});

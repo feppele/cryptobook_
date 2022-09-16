@@ -85,6 +85,7 @@ function OneNFTPage(){
     const [NFTPriceModel,setNFTPriceModal] =useState(false);
     const [txObj,setTxObj] =useState(false);
 
+    console.dir(metaData)
 
     // for Alert
     const [alertOpen, setAlertOpen] = useState(true);
@@ -142,8 +143,6 @@ function OneNFTPage(){
     function openURI(){
         window.open(metaData.tokenUri);
     }
-
-
 
     function goToProfile(e){
         const person = e.target.id;

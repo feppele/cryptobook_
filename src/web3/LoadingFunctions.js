@@ -47,6 +47,7 @@ async function loadFriendsEasy(){
 
 // short Address
 function shortAddr(address){
+    if(address === undefined || address === null){return}
     var addrShort;
     addrShort =  address.toString().slice(0,6) + "..."+address.toString().slice(38,44);
     return addrShort;

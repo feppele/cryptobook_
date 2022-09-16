@@ -30,6 +30,7 @@ async function getMetadataFromURI(uri,tokenId) {
     try{
         const response = await fetch(uri);
         const json = await response.json();
+        console.dir(json)
         return [json.image, json.name,tokenId];
 
     }catch(error){

@@ -138,7 +138,10 @@ h1{
 @media(max-width: 900px){
 
     .box{
-        width: calc(90% - 80px);
+        width: calc(95% - 60px);
+        padding: 30px;
+        padding-left: 30px;
+        padding-right: 30px;
     }
 
     .NFTWrapper{

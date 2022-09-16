@@ -16,7 +16,7 @@ function Single(props){
     const [searchResult,setSearchResult] = useState([])
     const [prevSearch,setPrevSearch] = useState("")
     const [NFTs,setNFTs] = useState([])
-    
+
 
     // schnellere Variante für Load more --> uncomment
     //just if MYNFTPage
@@ -25,12 +25,13 @@ function Single(props){
         const res = await getAllMyTokenIDs_On_Off_chain(props.user) 
         return res.map(ele=>{return{tokenid:ele}}) 
     }
-    
+
     useEffect(() => {
         setAllMyTokenIds(getAllMyTokenIds())
     },[])
     //// ^^^^ schnellere Variante für Load more --> uncomment ^^^^
 
+    // for Marketplace
     // Show All NFTs __ and mix the array random
     async function showAllNFTs(){
         var result
