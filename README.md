@@ -2,8 +2,6 @@ This is MyCryptoBook.
 
 mycryptobook.io
 
-To use this app you need a MetaMask Wallet in the Browser. MetaMask works as an extension in Chrome and Firefox. Right now its not possible to login without MetaMask.
-
 This project contains a React-App, a server folder and a appServer folder.
 The appServer folder is just a simple Node.js application, which hosts the build version of the React-App.
 The server folder contains the backend for the React-App. It is a Node.js/ Express.js server, which saves images and is connected to a PSQL-Database to store all necessary information.
